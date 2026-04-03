@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Doctor Profile - Vita Santé Club</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary-fixed-variant": "#00458f",
+                    "error-container": "#ffdad6",
+                    "surface-tint": "#255dad",
+                    "surface-container-highest": "#e0e3e5",
+                    "surface": "#f7f9fb",
+                    "secondary": "#046b5e",
+                    "inverse-on-surface": "#eff1f3",
+                    "on-primary": "#ffffff",
+                    "inverse-surface": "#2d3133",
+                    "on-tertiary-container": "#7ecf79",
+                    "surface-container-low": "#f2f4f6",
+                    "outline": "#737783",
+                    "on-secondary": "#ffffff",
+                    "tertiary-fixed": "#a3f69c",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-bright": "#f7f9fb",
+                    "secondary-container": "#9defde",
+                    "background": "#f7f9fb",
+                    "on-primary-container": "#9bbdff",
+                    "secondary-fixed": "#a0f2e1",
+                    "on-primary-fixed": "#001b3f",
+                    "error": "#ba1a1a",
+                    "on-surface-variant": "#424751",
+                    "on-surface": "#191c1e",
+                    "surface-container-high": "#e6e8ea",
+                    "on-tertiary-fixed": "#002204",
+                    "primary-container": "#004a99",
+                    "on-secondary-fixed": "#00201b",
+                    "surface-container": "#eceef0",
+                    "tertiary": "#003f0b",
+                    "surface-variant": "#e0e3e5",
+                    "outline-variant": "#c2c6d3",
+                    "surface-dim": "#d8dadc",
+                    "on-tertiary": "#ffffff",
+                    "on-background": "#191c1e",
+                    "inverse-primary": "#abc7ff",
+                    "primary-fixed-dim": "#abc7ff",
+                    "secondary-fixed-dim": "#84d5c5",
+                    "on-error-container": "#93000a",
+                    "tertiary-fixed-dim": "#88d982",
+                    "on-secondary-fixed-variant": "#005046",
+                    "primary": "#00346f",
+                    "on-tertiary-fixed-variant": "#005312",
+                    "on-secondary-container": "#0f6f62",
+                    "tertiary-container": "#005914",
+                    "primary-fixed": "#d7e2ff",
+                    "on-error": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "fontFamily": {
+                    "headline": ["Manrope"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .tonal-depth-shifts {
+            background: linear-gradient(180deg, #f7f9fb 0%, #f2f4f6 100%);
+        }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface antialiased">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-slate-50/80 dark:bg-slate-900/80 backdrop-blur-md shadow-sm">
+<div class="flex justify-between items-center px-6 py-3 w-full">
+<div class="flex items-center gap-8">
+<span class="text-xl font-extrabold text-blue-900 dark:text-blue-100 tracking-tighter font-headline">Vita Santé Club</span>
+<nav class="hidden md:flex space-x-6">
+<a class="text-slate-500 dark:text-slate-400 font-manrope font-bold text-lg tracking-tight hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer active:scale-95 duration-200" href="#">Patient Care</a>
+<a class="text-slate-500 dark:text-slate-400 font-manrope font-bold text-lg tracking-tight hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer active:scale-95 duration-200" href="#">Visit History</a>
+<a class="text-blue-700 dark:text-blue-300 font-bold font-manrope text-lg tracking-tight hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer active:scale-95 duration-200" href="#">Profile</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="hidden md:flex items-center bg-surface-container-low px-4 py-2 rounded-full border-none">
+<span class="material-symbols-outlined text-outline mr-2">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-sm w-48" placeholder="Search records..." type="text"/>
+</div>
+<button class="material-symbols-outlined p-2 text-blue-900 dark:text-blue-200 cursor-pointer active:scale-95 duration-200">notifications</button>
+<button class="material-symbols-outlined p-2 text-blue-900 dark:text-blue-200 cursor-pointer active:scale-95 duration-200">settings</button>
+<img alt="Doctor profile avatar" class="w-10 h-10 rounded-full object-cover ring-2 ring-primary-fixed" data-alt="Professional portrait of a confident Haitian male doctor with a warm smile, wearing a white lab coat and stethoscope in a high-end medical office" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBWJH7FtaTTB9_qlKOCUGECgA8xKlkP2PaRw-anQ3Be9FPnjNxC7AwI1IsvKrJuodJcDlbAPQ2pmQH-tK_TvZT2RbIkGQGAIMjO-bX_D221i-ZZDhS9LPklsVKUH8vFkVgxDswzPPFiowG_rRxApIWdTsXnNK5sDdg4qCvbSZv5Y5Xq-eAl5qrhiSBB6RPmHJKyEI9Vn8tq5mksm7r4ga4TJ1f2az15ryNXLCpF3MJ-_fcV9UVw5Z3tMsaPi97FQXldVILA2mCSjTf7"/>
+</div>
+</div>
+<div class="bg-slate-200/50 dark:bg-slate-800/50 h-[1px]"></div>
+</header>
+<div class="flex pt-16 min-h-screen">
+<!-- SideNavBar -->
+<aside class="hidden lg:flex flex-col h-screen w-64 border-r border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 fixed left-0 top-16 py-8 space-y-4">
+<div class="px-6 mb-8">
+<h2 class="text-2xl font-black text-blue-900 dark:text-blue-50 font-headline uppercase tracking-tighter">Clinical Atelier</h2>
+<p class="text-slate-500 dark:text-slate-400 font-manrope text-xs font-semibold uppercase tracking-wider mt-1">Medical Excellence</p>
+</div>
+<nav class="flex flex-col space-y-1">
+<a class="flex items-center px-6 py-4 text-slate-500 dark:text-slate-400 opacity-70 font-manrope text-sm font-semibold uppercase tracking-wider hover:text-blue-800 dark:hover:text-blue-200 hover:bg-slate-100 dark:hover:bg-slate-900 transition-all duration-300 ease-in-out" href="#">
+<span class="material-symbols-outlined mr-4">medical_services</span>
+                    Patient Care
+                </a>
+<a class="flex items-center px-6 py-4 text-slate-500 dark:text-slate-400 opacity-70 font-manrope text-sm font-semibold uppercase tracking-wider hover:text-blue-800 dark:hover:text-blue-200 hover:bg-slate-100 dark:hover:bg-slate-900 transition-all duration-300 ease-in-out" href="#">
+<span class="material-symbols-outlined mr-4">history</span>
+                    Visit History
+                </a>
+<a class="flex items-center px-6 py-4 text-blue-900 dark:text-blue-200 border-l-4 border-blue-900 dark:border-blue-400 bg-slate-100 dark:bg-slate-900 font-manrope text-sm font-semibold uppercase tracking-wider transition-all duration-300 ease-in-out" href="#">
+<span class="material-symbols-outlined mr-4">person</span>
+                    Profile
+                </a>
+</nav>
+<div class="mt-auto px-6 pb-20">
+<button class="w-full bg-primary text-on-primary py-3 px-4 rounded-xl font-bold flex items-center justify-center gap-2 hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined">add</span>
+                    New Appointment
+                </button>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 lg:ml-64 p-6 md:p-12 lg:p-16">
+<!-- Hero Profile Section -->
+<section class="max-w-6xl mx-auto mb-16">
+<div class="flex flex-col md:flex-row gap-8 items-end">
+<div class="relative group">
+<img alt="Main profile image" class="w-48 h-48 md:w-64 md:h-64 rounded-full object-cover shadow-2xl ring-4 ring-surface-container-lowest" data-alt="Close-up high resolution portrait of a distinguished Black Haitian doctor with grey-flecked hair, wearing professional medical attire in a bright studio" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDPp_5_3W_Kn13Mdia0GPONaPPUvb9pEQJXsUKqT_jiAAcYWsR97vYUXMrhb-Z-GyH2VR7hzqxQqk5016mbJjFtLwMXiEsa_1URPAxZYs9ONzy3MCbU_I_rJmNw1ZiqMKP13Y1rd-ygur9GnMI46UegO2zwwtzGtLalCBMwAViYv-NftrZbPSwJxQeZa-xoGbkE2mb9aT7usGOrd1PXKjroodX6yq6LEuf_roNIEXtYjTkeJ3uKt9oKevPCHvz0g29FvaPkX-70LXDT"/>
+<button class="absolute bottom-4 right-4 bg-primary text-on-primary p-3 rounded-full shadow-lg hover:scale-105 transition-transform">
+<span class="material-symbols-outlined">photo_camera</span>
+</button>
+</div>
+<div class="flex-1 text-left">
+<div class="flex items-center gap-3 mb-2">
+<span class="px-3 py-1 rounded-full bg-secondary-container text-on-secondary-container text-xs font-bold uppercase tracking-widest">Medical Board Verified</span>
+</div>
+<h1 class="text-4xl md:text-5xl font-extrabold text-primary font-headline tracking-tight mb-2">Dr. Jean-Baptiste Valcourt</h1>
+<p class="text-xl text-outline font-medium">Senior Cardiologist &amp; Medical Director</p>
+</div>
+</div>
+</section>
+<!-- Bento Grid Content -->
+<div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Personal Information -->
+<div class="md:col-span-2 bg-surface-container-lowest rounded-xl p-8 shadow-sm">
+<div class="flex items-center justify-between mb-8">
+<h3 class="text-2xl font-bold font-headline text-primary">Personal Information</h3>
+<button class="text-secondary font-bold flex items-center gap-1 hover:underline">
+<span class="material-symbols-outlined text-sm">edit</span> Edit
+                        </button>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-y-8 gap-x-12">
+<div>
+<p class="text-xs font-bold text-outline-variant uppercase tracking-widest mb-1">Full Name</p>
+<p class="text-lg font-semibold text-on-surface">Jean-Baptiste Valcourt, MD</p>
+</div>
+<div>
+<p class="text-xs font-bold text-outline-variant uppercase tracking-widest mb-1">Specialty</p>
+<p class="text-lg font-semibold text-on-surface">Interventional Cardiology</p>
+</div>
+<div>
+<p class="text-xs font-bold text-outline-variant uppercase tracking-widest mb-1">License ID</p>
+<p class="text-lg font-semibold text-on-surface">HT-8829-MED-2024</p>
+</div>
+<div>
+<p class="text-xs font-bold text-outline-variant uppercase tracking-widest mb-1">Clinic Location</p>
+<p class="text-lg font-semibold text-on-surface">Centre de Santé, Pétion-Ville, Haiti</p>
+</div>
+</div>
+<div class="mt-12 p-6 rounded-xl bg-surface-container-low border-none">
+<h4 class="text-sm font-bold text-primary uppercase tracking-wider mb-4">Clinic Location Map</h4>
+<div class="aspect-video w-full rounded-lg overflow-hidden relative">
+<img alt="Location map" class="w-full h-full object-cover grayscale opacity-50" data-alt="Stylized map showing a medical clinic location in the Pétion-Ville district of Haiti with minimal urban design elements" data-location="Pétion-Ville, Haiti" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBCB3ciZ8pRwc9pkSg1PmiBHPb0H75cy9NHZD-XRjm_tvUNp0p_j3d_p3Sv_1BKrcVZvOM54dqcwu1ttHt-YVCO85EWeqj2NuQVGy1P0FOwjwwAMFTTNIyFOXCGEG5uQj9X76wcvPm91exZa5zrXVmcD_Ca85l_hQn0kO-URARQSK4KZlyl9LZiNkEUuTmDw6-weVjNh71l9I6KhA3xBvumhuEQUoJsKUKB6dZzsWvHlXdLK3CdnDPrsiESLz0Odysp0eE60tHl-_I5"/>
+<div class="absolute inset-0 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-4xl" style="font-variation-settings: 'FILL' 1;">location_on</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Account Settings Column -->
+<div class="flex flex-col gap-8">
+<!-- Account Settings -->
+<div class="bg-surface-container-lowest rounded-xl p-8 shadow-sm">
+<h3 class="text-xl font-bold font-headline text-primary mb-6">Account Security</h3>
+<div class="space-y-6">
+<div class="group cursor-pointer">
+<p class="text-xs font-bold text-outline-variant uppercase tracking-widest mb-1">Email Address</p>
+<div class="flex items-center justify-between">
+<p class="text-sm font-medium">jb.valcourt@vitasante.ht</p>
+<span class="material-symbols-outlined text-outline group-hover:text-primary">chevron_right</span>
+</div>
+</div>
+<div class="bg-surface-container-low h-[1px] w-full"></div>
+<div class="group cursor-pointer">
+<p class="text-xs font-bold text-outline-variant uppercase tracking-widest mb-1">Password</p>
+<div class="flex items-center justify-between">
+<p class="text-sm font-medium">••••••••••••</p>
+<span class="material-symbols-outlined text-outline group-hover:text-primary">chevron_right</span>
+</div>
+<p class="text-[10px] text-secondary mt-1">Last changed 45 days ago</p>
+</div>
+<div class="bg-surface-container-low h-[1px] w-full"></div>
+<button class="w-full text-left py-2 text-sm font-bold text-error hover:opacity-80 flex items-center gap-2">
+<span class="material-symbols-outlined text-base">logout</span> Sign Out
+                            </button>
+</div>
+</div>
+<!-- Notification Preferences -->
+<div class="bg-surface-container-lowest rounded-xl p-8 shadow-sm">
+<h3 class="text-xl font-bold font-headline text-primary mb-6">Notifications</h3>
+<div class="space-y-6">
+<div class="flex items-center justify-between">
+<div>
+<p class="text-sm font-semibold">Patient Alerts</p>
+<p class="text-xs text-outline">Real-time emergency signals</p>
+</div>
+<div class="w-12 h-6 bg-secondary-container rounded-full relative p-1 cursor-pointer">
+<div class="w-4 h-4 bg-on-secondary-container rounded-full absolute right-1"></div>
+</div>
+</div>
+<div class="flex items-center justify-between">
+<div>
+<p class="text-sm font-semibold">Clinic Updates</p>
+<p class="text-xs text-outline">Weekly newsletter &amp; reports</p>
+</div>
+<div class="w-12 h-6 bg-surface-container-highest rounded-full relative p-1 cursor-pointer">
+<div class="w-4 h-4 bg-outline-variant rounded-full absolute left-1"></div>
+</div>
+</div>
+<div class="flex items-center justify-between">
+<div>
+<p class="text-sm font-semibold">System Security</p>
+<p class="text-xs text-outline">Critical login warnings</p>
+</div>
+<div class="w-12 h-6 bg-secondary-container rounded-full relative p-1 cursor-pointer">
+<div class="w-4 h-4 bg-on-secondary-container rounded-full absolute right-1"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Language & Preferences Bar -->
+<div class="max-w-6xl mx-auto mt-16 p-4 bg-surface-container-low rounded-full flex items-center justify-between px-8">
+<div class="flex items-center gap-4">
+<span class="text-xs font-bold text-outline-variant uppercase tracking-widest">Interface Language</span>
+<div class="flex p-1 bg-surface-container-high rounded-full">
+<button class="px-4 py-1 text-xs font-bold bg-white rounded-full shadow-sm">EN</button>
+<button class="px-4 py-1 text-xs font-bold text-outline">FR</button>
+</div>
+</div>
+<p class="text-[10px] text-outline italic">Vita Santé Club © 2024. All health data is encrypted according to international standards.</p>
+</div>
+</main>
+</div>
+<!-- Mobile Navigation -->
+<nav class="md:hidden fixed bottom-0 w-full bg-surface-container-lowest/90 backdrop-blur-lg flex justify-around items-center py-4 z-50 border-none shadow-[0_-4px_24px_rgba(0,27,63,0.06)]">
+<button class="flex flex-col items-center gap-1 text-slate-500">
+<span class="material-symbols-outlined">medical_services</span>
+<span class="text-[10px] font-bold uppercase tracking-tighter">Care</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-slate-500">
+<span class="material-symbols-outlined">history</span>
+<span class="text-[10px] font-bold uppercase tracking-tighter">History</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-blue-700">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">person</span>
+<span class="text-[10px] font-bold uppercase tracking-tighter">Profile</span>
+</button>
+</nav>
+</body></html>

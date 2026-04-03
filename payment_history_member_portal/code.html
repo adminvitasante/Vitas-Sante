@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Payment History - Vita Santé Club</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-container": "#0f6f62",
+                        "on-primary-container": "#9bbdff",
+                        "on-error": "#ffffff",
+                        "surface-container-low": "#f2f4f6",
+                        "primary-fixed": "#d7e2ff",
+                        "on-primary-fixed": "#001b3f",
+                        "on-background": "#191c1e",
+                        "on-primary-fixed-variant": "#00458f",
+                        "tertiary": "#003f0b",
+                        "surface-variant": "#e0e3e5",
+                        "surface-bright": "#f7f9fb",
+                        "secondary-fixed-dim": "#84d5c5",
+                        "on-surface": "#191c1e",
+                        "error-container": "#ffdad6",
+                        "on-secondary-fixed-variant": "#005046",
+                        "surface": "#f7f9fb",
+                        "on-secondary": "#ffffff",
+                        "on-surface-variant": "#424751",
+                        "inverse-on-surface": "#eff1f3",
+                        "tertiary-container": "#005914",
+                        "secondary-fixed": "#a0f2e1",
+                        "secondary": "#046b5e",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-container": "#7ecf79",
+                        "on-secondary-fixed": "#00201b",
+                        "background": "#f7f9fb",
+                        "surface-tint": "#255dad",
+                        "on-tertiary-fixed-variant": "#005312",
+                        "on-primary": "#ffffff",
+                        "secondary-container": "#9defde",
+                        "outline": "#737783",
+                        "outline-variant": "#c2c6d3",
+                        "error": "#ba1a1a",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-fixed": "#a3f69c",
+                        "primary": "#00346f",
+                        "inverse-surface": "#2d3133",
+                        "surface-dim": "#d8dadc",
+                        "on-tertiary-fixed": "#002204",
+                        "surface-container-highest": "#e0e3e5",
+                        "inverse-primary": "#abc7ff",
+                        "tertiary-fixed-dim": "#88d982",
+                        "surface-container-high": "#e6e8ea",
+                        "primary-fixed-dim": "#abc7ff",
+                        "on-error-container": "#93000a",
+                        "surface-container": "#eceef0",
+                        "primary-container": "#004a99"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3 { font-family: 'Manrope', sans-serif; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen">
+<!-- SideNavBar (Authority Source: JSON) -->
+<aside class="h-screen w-64 fixed left-0 top-0 border-r border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 flex flex-col p-4 gap-2 z-40 hidden md:flex">
+<div class="mb-8 px-2">
+<h1 class="text-xl font-bold tracking-tighter text-blue-950 dark:text-white">Member Portal</h1>
+<p class="text-xs font-medium text-slate-500 uppercase tracking-widest">Vita Santé Club</p>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 rounded-lg hover:translate-x-1 transition-all duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-medium text-sm">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 rounded-lg hover:translate-x-1 transition-all duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="contact_emergency">contact_emergency</span>
+<span class="font-medium text-sm">Medical Card</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 rounded-lg hover:translate-x-1 transition-all duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="family_restroom">family_restroom</span>
+<span class="font-medium text-sm">Dependents</span>
+</a>
+<!-- Active State: Payments -->
+<a class="flex items-center gap-3 px-3 py-2 bg-white dark:bg-slate-900 text-blue-700 dark:text-blue-400 font-bold shadow-sm rounded-lg hover:translate-x-1 transition-all duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+<span class="font-medium text-sm">Payments</span>
+</a>
+</nav>
+<div class="mt-auto pt-4 border-t border-slate-200 dark:border-slate-800 space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-medium text-sm">Settings</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+<span class="font-medium text-sm">Support</span>
+</a>
+<div class="mt-4 flex items-center gap-3 px-2">
+<img class="w-8 h-8 rounded-full object-cover" data-alt="Professional headshot of a mature woman smiling warmly with professional attire in a soft medical office setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBx8MMV28qJM8TZHmVkNDhDaMUeyuLRpnbFaAlt8xFN8Qy5Up0CIY1WECnayDw3KZ7DxU7H3rNoeiLGqLoKh6kBEVHyWs0Ju4FU5GGMllEk7bpmLAklcNb1JOUv_imLGVYqEzKVJjK4b2AMbUlVeh2rQpkyjGXONUcvSTZsr3luIN7u_LeSs04zgZcWVIQe7STtTmlXcco1NFf4yQ3DPgNhwoklDMVO1KnYdELsZC78pecLm2BoTKqOEBQHmBn_qaskbnkbezprgDC4"/>
+<div class="flex flex-col">
+<span class="text-xs font-bold text-on-surface leading-none">Member Avatar</span>
+<span class="text-[10px] text-outline">Active Plan</span>
+</div>
+</div>
+</div>
+</aside>
+<!-- TopNavBar (Authority Source: JSON) -->
+<header class="fixed top-0 w-full z-50 bg-slate-50/80 dark:bg-slate-900/80 backdrop-blur-md shadow-sm dark:shadow-none flex justify-between items-center px-6 py-3 md:pl-72">
+<div class="flex items-center gap-4">
+<span class="text-xl font-bold tracking-tighter text-blue-950 dark:text-white md:hidden">Vita Santé Club</span>
+<h2 class="text-blue-900 dark:text-blue-200 font-manrope text-sm font-semibold tracking-tight">Payment Ledger</h2>
+</div>
+<div class="flex items-center gap-4">
+<div class="hidden md:flex items-center bg-surface-container-low rounded-full px-4 py-1.5 border border-outline-variant/30">
+<span class="material-symbols-outlined text-outline text-sm" data-icon="search">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-sm w-48 placeholder-outline/50" placeholder="Search transactions..." type="text"/>
+</div>
+<div class="flex items-center gap-2">
+<button class="p-2 text-slate-500 hover:bg-slate-100 rounded-full transition-colors">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="p-2 text-slate-500 hover:bg-slate-100 rounded-full transition-colors">
+<span class="material-symbols-outlined" data-icon="language">language</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="pt-24 pb-12 px-6 md:pl-72 max-w-7xl mx-auto">
+<!-- Header & Summary Section (Editorial Style) -->
+<section class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12 items-end">
+<div class="lg:col-span-2">
+<h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-on-surface mb-4">Financial Overview</h1>
+<p class="text-on-surface-variant max-w-2xl leading-relaxed text-lg">
+                    Manage your health investment. View detailed logs of all contributions, plan renewals, and dependent additions with clinical precision.
+                </p>
+</div>
+<!-- Next Payment Due Card - Tonal Layering -->
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm border-l-4 border-primary ring-1 ring-slate-200/50">
+<div class="flex justify-between items-start mb-4">
+<span class="text-xs font-bold uppercase tracking-widest text-outline">Next Payment Due</span>
+<span class="material-symbols-outlined text-primary" data-icon="event_repeat">event_repeat</span>
+</div>
+<div class="mb-4">
+<span class="text-3xl font-bold text-on-surface">$295.00</span>
+<p class="text-sm text-on-surface-variant mt-1">Due on October 12, 2023</p>
+</div>
+<button class="w-full py-2.5 bg-gradient-to-r from-primary to-primary-container text-white font-semibold rounded-xl active:scale-95 transition-transform">
+                    Pay Now
+                </button>
+</div>
+</section>
+<!-- Bento Layout for Stats -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+<div class="bg-surface-container-low p-6 rounded-xl flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" data-icon="account_balance_wallet">account_balance_wallet</span>
+</div>
+<div>
+<p class="text-xs font-semibold text-outline uppercase tracking-wider">Plan Type</p>
+<p class="text-lg font-bold text-on-surface">Premium Individual</p>
+</div>
+</div>
+<div class="bg-surface-container-low p-6 rounded-xl flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-secondary/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary" data-icon="group_add">group_add</span>
+</div>
+<div>
+<p class="text-xs font-semibold text-outline uppercase tracking-wider">Dependents</p>
+<p class="text-lg font-bold text-on-surface">01 Registered</p>
+</div>
+</div>
+<div class="bg-surface-container-low p-6 rounded-xl flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-tertiary/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-tertiary" data-icon="verified">verified</span>
+</div>
+<div>
+<p class="text-xs font-semibold text-outline uppercase tracking-wider">Status</p>
+<p class="text-lg font-bold text-on-surface">Verified Member</p>
+</div>
+</div>
+</div>
+<!-- Ledger Table (Clinical Style) -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden border border-slate-100">
+<div class="p-6 border-b border-slate-100 flex justify-between items-center">
+<h3 class="text-xl font-bold text-on-surface">Transaction History</h3>
+<div class="flex gap-2">
+<button class="flex items-center gap-2 px-4 py-2 text-sm font-medium border border-outline-variant/30 rounded-lg hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-sm" data-icon="filter_list">filter_list</span>
+                        Filter
+                    </button>
+<button class="flex items-center gap-2 px-4 py-2 text-sm font-medium border border-outline-variant/30 rounded-lg hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-sm" data-icon="ios_share">ios_share</span>
+                        Export
+                    </button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low">
+<th class="px-6 py-4 text-xs font-bold text-outline uppercase tracking-widest">Date</th>
+<th class="px-6 py-4 text-xs font-bold text-outline uppercase tracking-widest">Description</th>
+<th class="px-6 py-4 text-xs font-bold text-outline uppercase tracking-widest text-right">Amount</th>
+<th class="px-6 py-4 text-xs font-bold text-outline uppercase tracking-widest">Status</th>
+<th class="px-6 py-4 text-xs font-bold text-outline uppercase tracking-widest text-center">Receipt</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-50">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-6 py-5">
+<p class="text-sm font-semibold text-on-surface">Sep 12, 2023</p>
+<p class="text-xs text-outline">10:45 AM</p>
+</td>
+<td class="px-6 py-5">
+<p class="text-sm font-medium text-on-surface">Monthly Renewal - Main Plan</p>
+<p class="text-xs text-outline italic">Transaction ID: #VST-98231</p>
+</td>
+<td class="px-6 py-5 text-right font-bold text-on-surface">$200.00</td>
+<td class="px-6 py-5">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-secondary-container text-on-secondary-container text-xs font-bold">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                                    Paid
+                                </span>
+</td>
+<td class="px-6 py-5 text-center">
+<button class="text-primary hover:text-primary-container transition-colors p-2">
+<span class="material-symbols-outlined" data-icon="download">download</span>
+</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-6 py-5">
+<p class="text-sm font-semibold text-on-surface">Aug 28, 2023</p>
+<p class="text-xs text-outline">02:15 PM</p>
+</td>
+<td class="px-6 py-5">
+<p class="text-sm font-medium text-on-surface">Dependent Addition - Jean Dupont</p>
+<p class="text-xs text-outline italic">Transaction ID: #VST-97554</p>
+</td>
+<td class="px-6 py-5 text-right font-bold text-on-surface">$95.00</td>
+<td class="px-6 py-5">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-secondary-container text-on-secondary-container text-xs font-bold">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                                    Paid
+                                </span>
+</td>
+<td class="px-6 py-5 text-center">
+<button class="text-primary hover:text-primary-container transition-colors p-2">
+<span class="material-symbols-outlined" data-icon="download">download</span>
+</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-6 py-5">
+<p class="text-sm font-semibold text-on-surface">Aug 12, 2023</p>
+<p class="text-xs text-outline">09:00 AM</p>
+</td>
+<td class="px-6 py-5">
+<p class="text-sm font-medium text-on-surface">Monthly Renewal - Main Plan</p>
+<p class="text-xs text-outline italic">Transaction ID: #VST-97102</p>
+</td>
+<td class="px-6 py-5 text-right font-bold text-on-surface">$200.00</td>
+<td class="px-6 py-5">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-200 text-slate-700 text-xs font-bold">
+<span class="w-1.5 h-1.5 rounded-full bg-slate-500"></span>
+                                    Processing
+                                </span>
+</td>
+<td class="px-6 py-5 text-center">
+<button class="text-outline cursor-not-allowed p-2" disabled="">
+<span class="material-symbols-outlined" data-icon="download_done">download_done</span>
+</button>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-6 py-5">
+<p class="text-sm font-semibold text-on-surface">Jul 12, 2023</p>
+<p class="text-xs text-outline">11:30 AM</p>
+</td>
+<td class="px-6 py-5">
+<p class="text-sm font-medium text-on-surface">Monthly Renewal - Main Plan</p>
+<p class="text-xs text-outline italic">Transaction ID: #VST-96441</p>
+</td>
+<td class="px-6 py-5 text-right font-bold text-on-surface">$200.00</td>
+<td class="px-6 py-5">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-secondary-container text-on-secondary-container text-xs font-bold">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                                    Paid
+                                </span>
+</td>
+<td class="px-6 py-5 text-center">
+<button class="text-primary hover:text-primary-container transition-colors p-2">
+<span class="material-symbols-outlined" data-icon="download">download</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination (Financial Ledger Footer) -->
+<div class="px-6 py-4 bg-surface-container-low/50 border-t border-slate-100 flex items-center justify-between">
+<p class="text-xs font-medium text-on-surface-variant">Showing 1-4 of 24 transactions</p>
+<div class="flex gap-1">
+<button class="w-8 h-8 flex items-center justify-center rounded-lg border border-outline-variant/30 bg-white text-outline hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-sm" data-icon="chevron_left">chevron_left</span>
+</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-lg border border-primary bg-primary text-white text-xs font-bold shadow-sm">1</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-lg border border-outline-variant/30 bg-white text-outline text-xs font-bold hover:bg-surface-container-low transition-colors">2</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-lg border border-outline-variant/30 bg-white text-outline text-xs font-bold hover:bg-surface-container-low transition-colors">3</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-lg border border-outline-variant/30 bg-white text-outline hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-sm" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Support Section (Glassmorphism Banner) -->
+<div class="mt-12 p-8 rounded-2xl bg-gradient-to-br from-primary to-primary-container relative overflow-hidden group">
+<div class="absolute inset-0 bg-white/5 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+<div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
+<div class="text-center md:text-left">
+<h3 class="text-2xl font-bold text-white mb-2">Need assistance with your billing?</h3>
+<p class="text-on-primary-container/80 text-sm max-w-lg">Our financial advisors are available 24/7 to help you manage your plan subscriptions and dependent coverage.</p>
+</div>
+<button class="px-6 py-3 bg-white text-primary font-bold rounded-xl shadow-lg hover:shadow-xl transition-all active:scale-95">
+                    Contact Billing Support
+                </button>
+</div>
+<!-- Decorative Medical Graph Overlay -->
+<div class="absolute -right-20 -bottom-20 opacity-10 pointer-events-none">
+<span class="material-symbols-outlined text-[300px] text-white" data-icon="monitoring">monitoring</span>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Mobile Only - Authority Source: JSON) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full bg-slate-50/95 backdrop-blur-md flex justify-around items-center py-4 px-2 z-50 border-t border-slate-200">
+<div class="flex flex-col items-center gap-1 text-slate-500">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="text-[10px] font-medium">Dashboard</span>
+</div>
+<div class="flex flex-col items-center gap-1 text-slate-500">
+<span class="material-symbols-outlined" data-icon="contact_emergency">contact_emergency</span>
+<span class="text-[10px] font-medium">Card</span>
+</div>
+<div class="flex flex-col items-center gap-1 text-blue-700 font-bold">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+<span class="text-[10px]">Payments</span>
+</div>
+<div class="flex flex-col items-center gap-1 text-slate-500">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="text-[10px] font-medium">Settings</span>
+</div>
+</nav>
+</body></html>

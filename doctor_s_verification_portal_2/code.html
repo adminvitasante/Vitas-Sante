@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary": "#00346f",
+                    "inverse-surface": "#2d3133",
+                    "tertiary-fixed": "#a3f69c",
+                    "on-tertiary": "#ffffff",
+                    "outline-variant": "#c2c6d3",
+                    "error": "#ba1a1a",
+                    "outline": "#737783",
+                    "surface-container": "#eceef0",
+                    "primary-container": "#004a99",
+                    "surface-container-high": "#e6e8ea",
+                    "primary-fixed-dim": "#abc7ff",
+                    "on-error-container": "#93000a",
+                    "tertiary-fixed-dim": "#88d982",
+                    "surface-container-highest": "#e0e3e5",
+                    "inverse-primary": "#abc7ff",
+                    "surface-dim": "#d8dadc",
+                    "on-tertiary-fixed": "#002204",
+                    "surface-container-lowest": "#ffffff",
+                    "on-tertiary-container": "#7ecf79",
+                    "on-secondary-fixed": "#00201b",
+                    "background": "#f7f9fb",
+                    "secondary-fixed": "#a0f2e1",
+                    "secondary": "#046b5e",
+                    "tertiary-container": "#005914",
+                    "inverse-on-surface": "#eff1f3",
+                    "on-surface-variant": "#424751",
+                    "secondary-container": "#9defde",
+                    "on-primary": "#ffffff",
+                    "on-tertiary-fixed-variant": "#005312",
+                    "surface-tint": "#255dad",
+                    "error-container": "#ffdad6",
+                    "on-surface": "#191c1e",
+                    "surface": "#f7f9fb",
+                    "on-secondary": "#ffffff",
+                    "on-secondary-fixed-variant": "#005046",
+                    "surface-container-low": "#f2f4f6",
+                    "primary-fixed": "#d7e2ff",
+                    "on-error": "#ffffff",
+                    "on-primary-container": "#9bbdff",
+                    "on-secondary-container": "#0f6f62",
+                    "secondary-fixed-dim": "#84d5c5",
+                    "surface-variant": "#e0e3e5",
+                    "surface-bright": "#f7f9fb",
+                    "tertiary": "#003f0b",
+                    "on-primary-fixed-variant": "#00458f",
+                    "on-primary-fixed": "#001b3f",
+                    "on-background": "#191c1e"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "fontFamily": {
+                    "headline": ["Manrope"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .glass-header {
+            background: rgba(247, 249, 251, 0.8);
+            backdrop-filter: blur(20px);
+        }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface antialiased">
+<!-- Sidebar Navigation -->
+<aside class="fixed left-0 top-0 h-full w-72 flex flex-col bg-slate-50 border-r border-slate-200 py-6 z-50">
+<div class="px-6 mb-10">
+<h1 class="text-xl font-extrabold text-blue-900 tracking-tight">Vita Santé Club</h1>
+<p class="text-xs text-slate-500 font-medium uppercase tracking-widest mt-1">Management Portal</p>
+</div>
+<nav class="flex-1 space-y-1">
+<!-- Search Patient (Active) -->
+<a class="flex items-center px-4 py-3 bg-white text-blue-700 shadow-sm rounded-lg mx-2 transition-all duration-200" href="#">
+<span class="material-symbols-outlined mr-3">search</span>
+<span class="font-medium text-sm">Search Patient</span>
+</a>
+<!-- Visit History (Inactive) -->
+<a class="flex items-center px-4 py-3 text-slate-500 hover:bg-slate-100 hover:translate-x-1 transition-all duration-200 mx-2 rounded-lg" href="#">
+<span class="material-symbols-outlined mr-3">history</span>
+<span class="font-medium text-sm">Visit History</span>
+</a>
+<!-- Profile (Inactive) -->
+<a class="flex items-center px-4 py-3 text-slate-500 hover:bg-slate-100 hover:translate-x-1 transition-all duration-200 mx-2 rounded-lg" href="#">
+<span class="material-symbols-outlined mr-3">account_circle</span>
+<span class="font-medium text-sm">Profile</span>
+</a>
+<div class="pt-8 px-6">
+<div class="h-[1px] bg-slate-200 w-full mb-8"></div>
+<button class="w-full py-3 bg-gradient-to-br from-primary to-primary-container text-white font-semibold rounded-xl active:scale-95 transition-transform shadow-md">
+                    New Entry
+                </button>
+</div>
+</nav>
+<div class="px-6 mt-auto">
+<div class="flex items-center p-3 bg-surface-container-low rounded-xl">
+<div class="h-10 w-10 rounded-full overflow-hidden border border-slate-200">
+<img alt="Dr. Smith" class="h-full w-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCE1OiEnsf-LwHBBcq-igkaU12at_5_z6XZtmOT3k0rpAtFvG2uCrWa1RN1J2lq7qOupWo_g5tIJ5hnuQlmlRu-j_x_a3bEENqh6XcbuDNjS3oPW4w35nGuHBEYcnl24LOs-aQ9JIPrwPZY3OuV7wsMPKYCyD9ZH9oZ4RuF9wdYqYq99P8lRu31iPKwgDR3Ki21qkUWR3DvKaqIJm-brbszrTAO94e6GI65HKnjKAMw6nhcAiT7bF5n5ZUAHj4bNc3CsfXY0xStEaiC"/>
+</div>
+<div class="ml-3">
+<p class="text-sm font-bold text-on-surface">Dr. Smith</p>
+<p class="text-xs text-on-surface-variant">General Medicine</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-72 min-h-screen p-12">
+<header class="mb-12">
+<h2 class="text-4xl font-headline font-extrabold text-primary tracking-tight mb-2">Doctor's Verification Portal</h2>
+<p class="text-on-surface-variant text-lg">Verify member status and log medical encounters instantly.</p>
+</header>
+<div class="max-w-5xl space-y-10">
+<!-- Search Section -->
+<section class="bg-surface-container-low p-1 rounded-full flex items-center shadow-sm">
+<div class="flex-1 flex items-center px-6">
+<span class="material-symbols-outlined text-outline mr-3">fingerprint</span>
+<input class="bg-transparent border-none focus:ring-0 w-full font-headline text-xl text-primary placeholder:text-outline-variant" placeholder="Enter Member ID (VSC-XXXXX)" type="text"/>
+</div>
+<button class="bg-primary text-white px-8 py-4 rounded-full font-bold text-sm tracking-wide active:scale-95 transition-transform">
+                    VERIFY IDENTITY
+                </button>
+</section>
+<!-- Result Grid (Asymmetric Bento Style) -->
+<div class="grid grid-cols-12 gap-6">
+<!-- Member Card -->
+<div class="col-span-12 lg:col-span-8 bg-surface-container-lowest rounded-xl p-8 border-l-4 border-secondary flex flex-col justify-between shadow-[0_20px_40px_rgba(0,27,63,0.04)]">
+<div class="flex justify-between items-start mb-12">
+<div>
+<span class="inline-flex items-center px-3 py-1 rounded-full bg-secondary-container text-on-secondary-container text-xs font-bold mb-4">
+<span class="material-symbols-outlined text-xs mr-1" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                                ACTIVE MEMBER
+                            </span>
+<h3 class="text-5xl font-headline font-extrabold text-on-surface tracking-tighter">Jean-Pierre</h3>
+<p class="text-outline font-medium tracking-widest mt-1">MEMBER SINCE JAN 2024</p>
+</div>
+<div class="h-24 w-24 rounded-2xl overflow-hidden bg-slate-100">
+<img alt="Jean-Pierre" class="h-full w-full object-cover" data-alt="professional portrait of a middle-aged man with a friendly expression in a clinical setting studio lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAydKzrw4-j3WwjWQXP4-v_JSgqaBPaDtolq5OShBXKsZEgf2D-pIhYZ6tx4Ve8_zfUjc4N3dJfs6Qen4-dfyU3ds2wnWeod06yyFcjtcUq4H-tIvUvgT8FD7VBuz_JBM-TYEHzKBK8scmeKCaNI_ommAhjRj8wTdWBQ83x2kyrlXkFJQ5oE6roGvfT6NvUl1LVZgB4zwyxnflX2xgnwlm-xMyilMVcpWTEr6k3tEh0Qp2FB9yoP7XSqubdjfRQy7poFPQ9g6_hByf2"/>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-8 border-t border-slate-100 pt-8">
+<div>
+<p class="text-xs font-bold text-outline uppercase tracking-widest mb-3">Specialist Visits</p>
+<div class="flex items-end gap-2">
+<span class="text-4xl font-headline font-extrabold text-primary">2</span>
+<span class="text-xl font-medium text-outline-variant pb-1">/ 3</span>
+</div>
+<div class="w-full bg-surface-container-high h-2 rounded-full mt-4 overflow-hidden">
+<div class="bg-primary h-full w-[66%]"></div>
+</div>
+</div>
+<div>
+<p class="text-xs font-bold text-outline uppercase tracking-widest mb-3">Generalist Credits</p>
+<div class="flex items-center gap-2">
+<span class="text-4xl font-headline font-extrabold text-secondary">Unlimited</span>
+<span class="material-symbols-outlined text-secondary text-2xl" style="font-variation-settings: 'FILL' 1;">all_inclusive</span>
+</div>
+<p class="text-xs text-secondary font-medium mt-4">Full coverage active</p>
+</div>
+</div>
+</div>
+<!-- Secondary Data Block -->
+<div class="col-span-12 lg:col-span-4 flex flex-col gap-6">
+<div class="bg-surface-container-low rounded-xl p-6 flex-1 border border-white">
+<p class="text-xs font-bold text-outline uppercase tracking-widest mb-4">Latest Lab Status</p>
+<div class="flex items-center mb-4">
+<div class="h-10 w-10 rounded-full bg-tertiary-fixed flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined">science</span>
+</div>
+<div class="ml-4">
+<p class="text-sm font-bold">Standard Profile</p>
+<p class="text-xs text-on-tertiary-fixed-variant">Updated 2 days ago</p>
+</div>
+</div>
+<p class="text-xs leading-relaxed text-on-surface-variant">All biomarkers within optimal range. Preventive screening scheduled for Oct 2024.</p>
+</div>
+<div class="bg-primary-container text-white rounded-xl p-6 flex flex-col justify-center">
+<p class="text-xs font-bold opacity-70 uppercase tracking-widest mb-2">Policy ID</p>
+<p class="text-2xl font-headline font-bold">VSC-8829-JP</p>
+<div class="mt-4 flex justify-end">
+<span class="material-symbols-outlined text-4xl opacity-20">verified_user</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Register Visit Form -->
+<section class="bg-surface-container-lowest rounded-xl p-10 shadow-[0_10px_30px_rgba(0,27,63,0.02)]">
+<div class="flex items-center gap-4 mb-8">
+<div class="h-12 w-12 bg-secondary/10 rounded-full flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined">edit_note</span>
+</div>
+<h4 class="text-2xl font-headline font-extrabold text-on-surface">Register a Visit</h4>
+</div>
+<form class="grid grid-cols-12 gap-8">
+<!-- Service Type Dropdown -->
+<div class="col-span-12 md:col-span-5 space-y-2">
+<label class="text-xs font-bold text-outline uppercase tracking-widest px-1">Service Type</label>
+<div class="relative group">
+<select class="w-full bg-surface-container-low border-none rounded-xl py-4 px-6 text-on-surface font-medium focus:ring-2 focus:ring-primary appearance-none cursor-pointer">
+<option>Generalist</option>
+<option>Lab Work</option>
+<option>Specialist Consultation</option>
+</select>
+<span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-outline pointer-events-none">expand_more</span>
+</div>
+</div>
+<!-- Visit Date (Automatic/Read-only style) -->
+<div class="col-span-12 md:col-span-7 space-y-2">
+<label class="text-xs font-bold text-outline uppercase tracking-widest px-1">Timestamp</label>
+<div class="w-full bg-surface-container-low py-4 px-6 rounded-xl text-on-surface-variant font-medium flex items-center">
+<span class="material-symbols-outlined mr-3 text-sm">calendar_today</span>
+                            Current Session: May 24, 2024 • 14:30
+                        </div>
+</div>
+<!-- Visit Note -->
+<div class="col-span-12 space-y-2">
+<label class="text-xs font-bold text-outline uppercase tracking-widest px-1">Visit Note</label>
+<textarea class="w-full bg-surface-container-low border-none rounded-xl py-4 px-6 text-on-surface placeholder:text-outline-variant focus:ring-2 focus:ring-primary resize-none" placeholder="Enter clinical observations or encounter details..." rows="4"></textarea>
+</div>
+<div class="col-span-12 flex justify-end pt-4">
+<button class="bg-gradient-to-r from-primary to-primary-container text-white px-12 py-5 rounded-xl font-bold text-lg shadow-lg active:scale-95 transition-all" type="submit">
+                            Submit Encounter
+                        </button>
+</div>
+</form>
+</section>
+</div>
+</main>
+<!-- Footer Component -->
+<footer class="ml-72 mt-auto py-12 border-t border-slate-100 bg-white">
+<div class="flex flex-col md:flex-row justify-between items-center px-12 max-w-7xl mx-auto">
+<div class="mb-4 md:mb-0">
+<span class="font-bold text-blue-900 font-headline">Vita Santé Club</span>
+<p class="text-[10px] text-slate-500 font-manrope tracking-widest mt-1">MANAGEMENT ECOSYSTEM</p>
+</div>
+<div class="flex gap-8 text-xs font-manrope tracking-wide text-slate-500">
+<a class="hover:text-blue-600 underline underline-offset-4 transition-opacity duration-300" href="#">Privacy Policy</a>
+<a class="hover:text-blue-600 underline underline-offset-4 transition-opacity duration-300" href="#">Terms of Service</a>
+<a class="hover:text-blue-600 underline underline-offset-4 transition-opacity duration-300" href="#">Contact Support</a>
+</div>
+<p class="text-xs font-manrope text-slate-400 mt-4 md:mt-0">© 2024 Vita Santé Club. All rights reserved.</p>
+</div>
+</footer>
+</body></html>

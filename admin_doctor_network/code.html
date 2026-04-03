@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Clinical Atelier | Doctor Network Management</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "on-tertiary-fixed": "#002204",
+                "primary-fixed-dim": "#abc7ff",
+                "secondary-fixed-dim": "#84d5c5",
+                "on-background": "#191c1e",
+                "on-secondary": "#ffffff",
+                "tertiary-container": "#005914",
+                "surface-container-low": "#f2f4f6",
+                "on-primary-fixed-variant": "#00458f",
+                "inverse-surface": "#2d3133",
+                "on-secondary-fixed": "#00201b",
+                "on-surface": "#191c1e",
+                "tertiary-fixed-dim": "#88d982",
+                "error": "#ba1a1a",
+                "on-tertiary": "#ffffff",
+                "on-primary-container": "#9bbdff",
+                "error-container": "#ffdad6",
+                "surface-container": "#eceef0",
+                "primary": "#00346f",
+                "outline-variant": "#c2c6d3",
+                "surface-container-lowest": "#ffffff",
+                "background": "#f7f9fb",
+                "primary-container": "#004a99",
+                "tertiary": "#003f0b",
+                "surface-tint": "#255dad",
+                "surface-dim": "#d8dadc",
+                "tertiary-fixed": "#a3f69c",
+                "surface-variant": "#e0e3e5",
+                "surface-container-highest": "#e0e3e5",
+                "on-secondary-container": "#0f6f62",
+                "on-tertiary-container": "#7ecf79",
+                "on-error": "#ffffff",
+                "inverse-on-surface": "#eff1f3",
+                "on-primary": "#ffffff",
+                "on-error-container": "#93000a",
+                "surface-container-high": "#e6e8ea",
+                "secondary-fixed": "#a0f2e1",
+                "surface-bright": "#f7f9fb",
+                "secondary-container": "#9defde",
+                "primary-fixed": "#d7e2ff",
+                "on-tertiary-fixed-variant": "#005312",
+                "outline": "#737783",
+                "secondary": "#046b5e",
+                "inverse-primary": "#abc7ff",
+                "on-surface-variant": "#424751",
+                "surface": "#f7f9fb",
+                "on-primary-fixed": "#001b3f",
+                "on-secondary-fixed-variant": "#005046"
+            },
+            "borderRadius": {
+                "DEFAULT": "0.125rem",
+                "lg": "0.25rem",
+                "xl": "0.5rem",
+                "full": "0.75rem"
+            },
+            "fontFamily": {
+                "headline": ["Manrope"],
+                "body": ["Inter"],
+                "label": ["Inter"]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        .glass-header {
+            background: rgba(247, 249, 251, 0.8);
+            backdrop-filter: blur(20px);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .tonal-layer {
+            background-color: #f2f4f6;
+        }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface antialiased">
+<!-- SideNavBar (Shared Component) -->
+<aside class="fixed left-0 top-0 h-full flex flex-col py-8 bg-slate-50 dark:bg-slate-950 h-screen w-64 border-r-0 z-50">
+<div class="px-6 mb-10">
+<h1 class="text-2xl font-bold tracking-tighter text-blue-950 dark:text-blue-100">Clinical Atelier</h1>
+<p class="font-manrope text-xs font-medium tracking-tight text-slate-500 uppercase mt-1">Administrative Suite</p>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 py-3 font-manrope text-sm font-medium tracking-tight text-slate-500 dark:text-slate-400 pl-4 hover:text-blue-600 dark:hover:text-blue-300 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+                Overview
+            </a>
+<a class="flex items-center gap-3 py-3 font-manrope text-sm text-blue-700 dark:text-blue-400 font-bold border-l-4 border-blue-700 dark:border-blue-400 pl-4 bg-slate-200/30" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+                Users
+            </a>
+<a class="flex items-center gap-3 py-3 font-manrope text-sm font-medium tracking-tight text-slate-500 dark:text-slate-400 pl-4 hover:text-blue-600 dark:hover:text-blue-300 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="medical_services">medical_services</span>
+                Medical Plans
+            </a>
+<a class="flex items-center gap-3 py-3 font-manrope text-sm font-medium tracking-tight text-slate-500 dark:text-slate-400 pl-4 hover:text-blue-600 dark:hover:text-blue-300 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="handshake">handshake</span>
+                Affiliates
+            </a>
+<a class="flex items-center gap-3 py-3 font-manrope text-sm font-medium tracking-tight text-slate-500 dark:text-slate-400 pl-4 hover:text-blue-600 dark:hover:text-blue-300 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="terminal">terminal</span>
+                System Logs
+            </a>
+</nav>
+<div class="px-6 mb-6">
+<button class="w-full bg-primary text-white py-3 rounded-xl font-semibold shadow-lg shadow-primary/20 flex items-center justify-center gap-2 active:scale-95 transition-transform duration-150">
+<span class="material-symbols-outlined text-sm" data-icon="add">add</span>
+                Generate Report
+            </button>
+</div>
+<div class="border-t border-slate-200/50 pt-6 space-y-1">
+<a class="flex items-center gap-3 py-2 font-manrope text-sm font-medium tracking-tight text-slate-500 pl-4 hover:text-blue-600" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+                Settings
+            </a>
+<a class="flex items-center gap-3 py-2 font-manrope text-sm font-medium tracking-tight text-slate-500 pl-4 hover:text-blue-600" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+                Support
+            </a>
+</div>
+</aside>
+<!-- Main Canvas -->
+<main class="ml-64 min-h-screen">
+<!-- TopNavBar (Shared Component) -->
+<header class="flex justify-between items-center h-16 px-8 sticky top-0 z-40 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md shadow-sm dark:shadow-none">
+<div class="flex items-center gap-8">
+<span class="font-inter text-sm font-semibold text-blue-900">Admin Console</span>
+<nav class="hidden md:flex items-center gap-6">
+<a class="text-blue-700 dark:text-blue-400 font-semibold font-inter text-sm transition-opacity" href="#">Directives</a>
+<a class="text-slate-600 dark:text-slate-400 font-inter text-sm hover:text-blue-600 transition-opacity" href="#">Live Monitor</a>
+</nav>
+</div>
+<div class="flex items-center gap-6">
+<div class="relative">
+<span class="absolute inset-y-0 left-3 flex items-center text-slate-400">
+<span class="material-symbols-outlined text-sm" data-icon="search">search</span>
+</span>
+<input class="bg-surface-container-low border-none rounded-full py-2 pl-10 pr-4 text-sm w-64 focus:ring-2 focus:ring-primary/20" placeholder="Search professionals..." type="text"/>
+</div>
+<div class="flex items-center gap-4 text-slate-600">
+<button class="hover:opacity-80 transition-opacity"><span class="material-symbols-outlined" data-icon="notifications">notifications</span></button>
+<div class="h-8 w-8 rounded-full overflow-hidden bg-slate-200">
+<img alt="Administrator Avatar" class="w-full h-full object-cover" data-alt="professional portrait of a confident healthcare administrator in a clean modern office setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBoQ1RsukKkcg6lVWr3XoG3HrKrwLNRBdZVOQw62fId0VQkjOT41lRvXz-YnsVixEyZ9xwJoMoe-W4FxetqApb1Lhoruvz396a9MO1V8aKeUlxTw0OSirXDnXPv8LO1ZtJjn_FGQRSgHE13p_-57bCurY0DXbGOMc_qgmaYNHzKsGM8xAjOjFX0EklvXby6mOHvGxTe7rMdNe2qYWjTrI2lXLw5d_0aG0Cxg6LDbMj_LRnED9mH-79ZJq6chY9hPCL92xaDeqiaDEnn"/>
+</div>
+</div>
+</div>
+</header>
+<div class="p-10 max-w-7xl mx-auto">
+<!-- Hero / Header Section -->
+<section class="mb-12 flex justify-between items-end">
+<div class="max-w-2xl">
+<h2 class="font-headline text-5xl font-extrabold tracking-tight text-primary mb-4 leading-tight">Managing the <br/>Doctor Network</h2>
+<p class="text-lg text-on-surface-variant font-light leading-relaxed">Curating Haiti's most prestigious medical collective. Validate credentials, monitor performance, and expand the reach of professional healthcare.</p>
+</div>
+<div>
+<button class="px-8 py-4 bg-gradient-to-br from-primary to-primary-container text-white rounded-xl font-bold flex items-center gap-3 shadow-2xl shadow-primary/30 active:scale-95 transition-all">
+<span class="material-symbols-outlined" data-icon="person_add">person_add</span>
+                        Add New Doctor
+                    </button>
+</div>
+</section>
+<!-- Stats Tonal Row -->
+<div class="grid grid-cols-4 gap-6 mb-16">
+<div class="bg-surface-container-low p-6 rounded-xl">
+<span class="text-primary font-headline text-3xl font-bold block mb-1">142</span>
+<span class="text-on-surface-variant text-sm font-medium uppercase tracking-wider">Active Partners</span>
+</div>
+<div class="bg-surface-container-low p-6 rounded-xl border-l-4 border-secondary">
+<span class="text-secondary font-headline text-3xl font-bold block mb-1">98%</span>
+<span class="text-on-surface-variant text-sm font-medium uppercase tracking-wider">Verification Rate</span>
+</div>
+<div class="bg-surface-container-low p-6 rounded-xl">
+<span class="text-primary font-headline text-3xl font-bold block mb-1">12k+</span>
+<span class="text-on-surface-variant text-sm font-medium uppercase tracking-wider">Consultations</span>
+</div>
+<div class="bg-surface-container-low p-6 rounded-xl">
+<span class="text-tertiary font-headline text-3xl font-bold block mb-1">8</span>
+<span class="text-on-surface-variant text-sm font-medium uppercase tracking-wider">Pending Review</span>
+</div>
+</div>
+<!-- Bento Grid List -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+<!-- Main Content Area: Doctor Network -->
+<div class="lg:col-span-12 space-y-6">
+<div class="flex items-center justify-between px-2">
+<h3 class="font-headline text-xl font-bold text-on-surface">Partner Registry</h3>
+<div class="flex gap-4">
+<select class="bg-surface-container-low border-none rounded-lg text-sm px-4 py-2 focus:ring-primary">
+<option>Specialty: All</option>
+<option>Cardiology</option>
+<option>Pediatrics</option>
+<option>Neurology</option>
+</select>
+<button class="bg-surface-container-low p-2 rounded-lg text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="filter_list">filter_list</span>
+</button>
+</div>
+</div>
+<!-- Doctors Asymmetric Cards -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- Card 1 -->
+<div class="bg-surface-container-lowest p-8 rounded-xl flex items-start gap-6 group hover:bg-white transition-all shadow-sm border border-transparent hover:border-outline-variant/20">
+<div class="relative h-24 w-24 flex-shrink-0">
+<img alt="Dr. Jean-Pierre portrait" class="h-full w-full object-cover rounded-xl grayscale group-hover:grayscale-0 transition-all duration-500" data-alt="professional male doctor of Haitian descent smiling in white clinical coat with stethoscope" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAkemSlpyCNRNeKss2qEDFPwgxdqgYQhmU--pFmJJix7zK7JGeQszIhvvLN87zkOi_XPsVjeqlDVNbygY45kuykQpTrzNMBtS0Ebah0WD7SBHNJz02jnX8HI3FEIFtnQCWBFqJDxDt9NLUzjnyHAfoC--CQXgIHVBieQxyZkyzkYyL5Wp4Hjypo8DmpKk-9r3ZOcgKKU_D3wy-V1E8PEj3CqR3VAuhMxYA-lv5yJTCoyxyA6LF-58eOzDrnq9SSThycvzGB4e9kaOHK"/>
+<div class="absolute -bottom-2 -right-2 bg-secondary text-white p-1 rounded-full border-4 border-white">
+<span class="material-symbols-outlined text-xs" data-icon="verified" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start">
+<div>
+<h4 class="font-headline text-lg font-bold text-on-surface">Dr. Jean-Baptiste Pierre</h4>
+<p class="text-secondary font-semibold text-sm uppercase tracking-wide mb-3">Cardiology specialist</p>
+</div>
+<span class="bg-tertiary-fixed text-on-tertiary-fixed text-[10px] px-2 py-1 rounded font-bold">VERIFIED</span>
+</div>
+<div class="space-y-2 mb-4">
+<div class="flex items-center gap-2 text-on-surface-variant text-sm">
+<span class="material-symbols-outlined text-sm" data-icon="location_on">location_on</span>
+                                        Pétion-Ville, Port-au-Prince
+                                    </div>
+<div class="flex items-center gap-2 text-on-surface-variant text-sm">
+<span class="material-symbols-outlined text-sm" data-icon="event_note">event_note</span>
+                                        1,240 Consultations
+                                    </div>
+</div>
+<div class="flex gap-2">
+<button class="text-xs font-bold text-primary hover:underline">View Portfolio</button>
+<span class="text-outline-variant">•</span>
+<button class="text-xs font-bold text-on-surface-variant hover:text-error">Flag Record</button>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface-container-lowest p-8 rounded-xl flex items-start gap-6 group hover:bg-white transition-all shadow-sm border border-transparent hover:border-outline-variant/20">
+<div class="relative h-24 w-24 flex-shrink-0">
+<img alt="Dr. Marie Lucienne portrait" class="h-full w-full object-cover rounded-xl grayscale group-hover:grayscale-0 transition-all duration-500" data-alt="professional female doctor of Haitian descent in a modern clinic with medical charts" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCBBF6BnWf5nKSitKmGzYcbfGTPfVdACiB-dFSCS8Fo5C5rH4Rp9-pYOCDRz7K9XXOGRHJteanLsbCJQHUL8pyWQ3o0PiqyEpVhN4pCMppuFpqtx4uSiwbR_qUd8ssT4aHnd1LZp7NF0RHFSseHXdIlhxhBvZ__Y6TIYta36FyXptAeBfmfy4JJ217VSo2Q3JWrUELYhDcrnZi-de5YZNLXtsO-3yUSozBpfYO2Dgfwq9ojojY4sUAGdg-kZvX7jgN68F1fbR3pZNRe"/>
+<div class="absolute -bottom-2 -right-2 bg-secondary text-white p-1 rounded-full border-4 border-white">
+<span class="material-symbols-outlined text-xs" data-icon="verified" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start">
+<div>
+<h4 class="font-headline text-lg font-bold text-on-surface">Dr. Marie Lucienne Duval</h4>
+<p class="text-secondary font-semibold text-sm uppercase tracking-wide mb-3">Neurology specialist</p>
+</div>
+<span class="bg-tertiary-fixed text-on-tertiary-fixed text-[10px] px-2 py-1 rounded font-bold">VERIFIED</span>
+</div>
+<div class="space-y-2 mb-4">
+<div class="flex items-center gap-2 text-on-surface-variant text-sm">
+<span class="material-symbols-outlined text-sm" data-icon="location_on">location_on</span>
+                                        Cap-Haïtien Medical Center
+                                    </div>
+<div class="flex items-center gap-2 text-on-surface-variant text-sm">
+<span class="material-symbols-outlined text-sm" data-icon="event_note">event_note</span>
+                                        892 Consultations
+                                    </div>
+</div>
+<div class="flex gap-2">
+<button class="text-xs font-bold text-primary hover:underline">View Portfolio</button>
+<span class="text-outline-variant">•</span>
+<button class="text-xs font-bold text-on-surface-variant hover:text-error">Flag Record</button>
+</div>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface-container-lowest p-8 rounded-xl flex items-start gap-6 group hover:bg-white transition-all shadow-sm border border-transparent hover:border-outline-variant/20">
+<div class="relative h-24 w-24 flex-shrink-0">
+<img alt="Dr. Emmanuel portrait" class="h-full w-full object-cover rounded-xl grayscale group-hover:grayscale-0 transition-all duration-500" data-alt="focused male medical professional looking at a tablet in a high-end medical atelier" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAXnVmAYzYernRe4PmFw-3bAgureNdiaU3oEM3jj2yG2yEvdfROn2UG_EfzeEVTvjWd2WMjhbihGSRXVD9jdTHmkURiipqYzd_6NEvElYxvQGhDl16Z3zna2Wn_qWoWkHKUNr9Ji2PDOv9wNSAR6EJNHiCFcmHUwIB5yr1mLFymJ-PNgBEFhtiGpiiwqk4acyqOzx1Rjz7CYlZsFsKcmW05b0Dwfl8WW3TK6RCquIPPKTPbXGSVi3KMtJTQHF4go8U1jIP4TEyV1DKv"/>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start">
+<div>
+<h4 class="font-headline text-lg font-bold text-on-surface">Dr. Emmanuel Saint-Just</h4>
+<p class="text-secondary font-semibold text-sm uppercase tracking-wide mb-3">Internal Medicine</p>
+</div>
+<span class="bg-error-container text-on-error-container text-[10px] px-2 py-1 rounded font-bold">PENDING</span>
+</div>
+<div class="space-y-2 mb-4">
+<div class="flex items-center gap-2 text-on-surface-variant text-sm">
+<span class="material-symbols-outlined text-sm" data-icon="location_on">location_on</span>
+                                        Jacmel Clinic South
+                                    </div>
+<div class="flex items-center gap-2 text-on-surface-variant text-sm">
+<span class="material-symbols-outlined text-sm" data-icon="event_note">event_note</span>
+                                        0 Consultations (New)
+                                    </div>
+</div>
+<div class="flex gap-2">
+<button class="text-xs font-bold text-primary hover:underline">Verify Credentials</button>
+<span class="text-outline-variant">•</span>
+<button class="text-xs font-bold text-on-surface-variant hover:text-error">Reject</button>
+</div>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="bg-surface-container-lowest p-8 rounded-xl flex items-start gap-6 group hover:bg-white transition-all shadow-sm border border-transparent hover:border-outline-variant/20">
+<div class="relative h-24 w-24 flex-shrink-0">
+<img alt="Dr. Fabienne portrait" class="h-full w-full object-cover rounded-xl grayscale group-hover:grayscale-0 transition-all duration-500" data-alt="professional female doctor with warm expression in clinical setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBONXysd4k9FRkvEwe06UaH-o-H3DE2u8T1JuyDsKhzaO0H9FORt2cbAUakA0XduneP5-HE1GnTmLZM8T_2Ez3L7tHW5HLDTgbZQ05wIMvAP69zPWjVfNzsjNuuK0WyLkY5s8s72LnstTayi8j-YJeNX1QNdchI3Xfsib8ORgkXh606AEYUuQ84CLKviZYGmK1zKiig0GulgNO-veKlMm_qVdYo3vtc4G7kVEEq5uoj-uktlUc9jRyh-EbjcdF25VP0IEdStBZQozHF"/>
+<div class="absolute -bottom-2 -right-2 bg-secondary text-white p-1 rounded-full border-4 border-white">
+<span class="material-symbols-outlined text-xs" data-icon="verified" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start">
+<div>
+<h4 class="font-headline text-lg font-bold text-on-surface">Dr. Fabienne Cadet</h4>
+<p class="text-secondary font-semibold text-sm uppercase tracking-wide mb-3">Pediatrics</p>
+</div>
+<span class="bg-tertiary-fixed text-on-tertiary-fixed text-[10px] px-2 py-1 rounded font-bold">VERIFIED</span>
+</div>
+<div class="space-y-2 mb-4">
+<div class="flex items-center gap-2 text-on-surface-variant text-sm">
+<span class="material-symbols-outlined text-sm" data-icon="location_on">location_on</span>
+                                        Delmas 40 Pediatric Hub
+                                    </div>
+<div class="flex items-center gap-2 text-on-surface-variant text-sm">
+<span class="material-symbols-outlined text-sm" data-icon="event_note">event_note</span>
+                                        2,105 Consultations
+                                    </div>
+</div>
+<div class="flex gap-2">
+<button class="text-xs font-bold text-primary hover:underline">View Portfolio</button>
+<span class="text-outline-variant">•</span>
+<button class="text-xs font-bold text-on-surface-variant hover:text-error">Flag Record</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- "Add New Doctor" Flow Overlay (Visual Representation) -->
+<section class="mt-20 border-t border-outline-variant/30 pt-16">
+<div class="bg-primary p-12 rounded-2xl relative overflow-hidden">
+<!-- Aesthetic Background Texture -->
+<div class="absolute top-0 right-0 w-1/2 h-full opacity-10 pointer-events-none">
+<svg class="h-full w-full" viewbox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+<path d="M45.7,-78.3C58.3,-71.4,67.1,-57.1,74.2,-42.6C81.3,-28.1,86.7,-13.4,85.2,1.1C83.7,15.6,75.4,29.9,65.8,42.5C56.2,55.1,45.4,65.9,32.4,72.4C19.5,78.9,4.4,81.1,-11.2,79.5C-26.8,77.9,-42.8,72.5,-55.8,63.1C-68.8,53.7,-78.8,40.3,-82.9,25.6C-87,10.9,-85.2,-5.1,-79.8,-19.7C-74.4,-34.3,-65.4,-47.5,-53.2,-54.6C-41,-61.7,-25.5,-62.7,-11.1,-63.4C3.3,-64.1,45.7,-78.3,45.7,-78.3Z" fill="#FFFFFF" transform="translate(100 100)"></path>
+</svg>
+</div>
+<div class="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+<div>
+<h3 class="font-headline text-3xl font-extrabold text-white mb-4">Expanding Haiti's Medical Excellence</h3>
+<p class="text-primary-fixed-dim text-lg mb-8 leading-relaxed">Our multi-stage verification process ensures that only the most qualified Haitian professionals are integrated into our high-precision healthcare network.</p>
+<ul class="space-y-4 mb-8">
+<li class="flex items-center gap-3 text-white">
+<span class="material-symbols-outlined text-secondary-fixed" data-icon="check_circle">check_circle</span>
+                                    Credential &amp; Diploma Authentication
+                                </li>
+<li class="flex items-center gap-3 text-white">
+<span class="material-symbols-outlined text-secondary-fixed" data-icon="check_circle">check_circle</span>
+                                    Sanitary Inspection of Physical Clinic
+                                </li>
+<li class="flex items-center gap-3 text-white">
+<span class="material-symbols-outlined text-secondary-fixed" data-icon="check_circle">check_circle</span>
+                                    Bilingual Proficiency Assessment
+                                </li>
+</ul>
+</div>
+<div class="bg-white p-8 rounded-xl shadow-2xl">
+<h4 class="font-headline text-xl font-bold text-primary mb-6">Quick Registration</h4>
+<form class="space-y-4">
+<div>
+<label class="block text-xs font-bold text-on-surface-variant uppercase mb-1">Full Name</label>
+<input class="w-full bg-surface-container-low border-none rounded-lg p-3 text-sm focus:ring-2 focus:ring-primary" placeholder="Enter professional name" type="text"/>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div>
+<label class="block text-xs font-bold text-on-surface-variant uppercase mb-1">Specialty</label>
+<input class="w-full bg-surface-container-low border-none rounded-lg p-3 text-sm focus:ring-2 focus:ring-primary" placeholder="e.g. Oncology" type="text"/>
+</div>
+<div>
+<label class="block text-xs font-bold text-on-surface-variant uppercase mb-1">Haitian ID / License</label>
+<input class="w-full bg-surface-container-low border-none rounded-lg p-3 text-sm focus:ring-2 focus:ring-primary" placeholder="License No." type="text"/>
+</div>
+</div>
+<div>
+<label class="block text-xs font-bold text-on-surface-variant uppercase mb-1">Clinic Photo</label>
+<div class="border-2 border-dashed border-outline-variant rounded-lg p-8 flex flex-col items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined text-3xl mb-2" data-icon="upload_file">upload_file</span>
+<span class="text-xs">Drag and drop clinic verification photos</span>
+</div>
+</div>
+<button class="w-full bg-primary text-white py-4 rounded-xl font-bold hover:bg-primary-container transition-colors shadow-lg" type="button">Initiate Verification</button>
+</form>
+</div>
+</div>
+</div>
+</section>
+</div>
+<footer class="mt-20 py-12 border-t border-outline-variant/20 px-8 text-on-surface-variant flex justify-between items-center bg-white">
+<p class="text-sm">© 2024 Clinical Atelier Administration. Confidential Data Access Only.</p>
+<div class="flex gap-6 text-xs font-bold uppercase tracking-widest">
+<a class="hover:text-primary" href="#">Compliance</a>
+<a class="hover:text-primary" href="#">Data Privacy</a>
+<a class="hover:text-primary" href="#">Network Status</a>
+</div>
+</footer>
+</main>
+</body></html>

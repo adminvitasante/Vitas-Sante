@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Vita Santé Club - Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-secondary-container": "#0f6f62",
+                      "on-primary-container": "#9bbdff",
+                      "on-error": "#ffffff",
+                      "surface-container-low": "#f2f4f6",
+                      "primary-fixed": "#d7e2ff",
+                      "on-primary-fixed": "#001b3f",
+                      "on-background": "#191c1e",
+                      "on-primary-fixed-variant": "#00458f",
+                      "tertiary": "#003f0b",
+                      "surface-variant": "#e0e3e5",
+                      "surface-bright": "#f7f9fb",
+                      "secondary-fixed-dim": "#84d5c5",
+                      "on-surface": "#191c1e",
+                      "error-container": "#ffdad6",
+                      "on-secondary-fixed-variant": "#005046",
+                      "surface": "#f7f9fb",
+                      "on-secondary": "#ffffff",
+                      "on-surface-variant": "#424751",
+                      "inverse-on-surface": "#eff1f3",
+                      "tertiary-container": "#005914",
+                      "secondary-fixed": "#a0f2e1",
+                      "secondary": "#046b5e",
+                      "surface-container-lowest": "#ffffff",
+                      "on-tertiary-container": "#7ecf79",
+                      "on-secondary-fixed": "#00201b",
+                      "background": "#f7f9fb",
+                      "surface-tint": "#255dad",
+                      "on-tertiary-fixed-variant": "#005312",
+                      "on-primary": "#ffffff",
+                      "secondary-container": "#9defde",
+                      "outline": "#737783",
+                      "outline-variant": "#c2c6d3",
+                      "error": "#ba1a1a",
+                      "on-tertiary": "#ffffff",
+                      "tertiary-fixed": "#a3f69c",
+                      "primary": "#00346f",
+                      "inverse-surface": "#2d3133",
+                      "surface-dim": "#d8dadc",
+                      "on-tertiary-fixed": "#002204",
+                      "surface-container-highest": "#e0e3e5",
+                      "inverse-primary": "#abc7ff",
+                      "tertiary-fixed-dim": "#88d982",
+                      "surface-container-high": "#e6e8ea",
+                      "primary-fixed-dim": "#abc7ff",
+                      "on-error-container": "#93000a",
+                      "surface-container": "#eceef0",
+                      "primary-container": "#004a99"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "fontFamily": {
+                      "headline": ["Manrope"],
+                      "body": ["Inter"],
+                      "label": ["Inter"]
+              }
+            },
+          }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .font-headline { font-family: 'Manrope', sans-serif; }
+        .glass-header {
+            background: rgba(247, 249, 251, 0.8);
+            backdrop-filter: blur(20px);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface antialiased">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-slate-50/80 dark:bg-slate-900/80 backdrop-blur-md shadow-sm dark:shadow-none">
+<div class="flex justify-between items-center px-6 py-3 w-full">
+<div class="text-xl font-bold tracking-tighter text-blue-950 dark:text-white font-headline">Vita Santé Club</div>
+<div class="hidden md:flex items-center gap-8">
+<a class="text-blue-700 dark:text-blue-400 font-bold border-b-2 border-blue-700 font-manrope text-sm tracking-tight py-1" href="#">Dashboard</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-blue-800 font-manrope text-sm font-semibold tracking-tight transition-colors duration-200" href="#">Medical Card</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-blue-800 font-manrope text-sm font-semibold tracking-tight transition-colors duration-200" href="#">Dependents</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-blue-800 font-manrope text-sm font-semibold tracking-tight transition-colors duration-200" href="#">Payments</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors duration-200 rounded-full cursor-pointer active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-slate-600">notifications</span>
+</button>
+<button class="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors duration-200 rounded-full cursor-pointer active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-slate-600">language</span>
+</button>
+<div class="h-8 w-8 rounded-full overflow-hidden border border-outline-variant">
+<img alt="Patient Profile" class="w-full h-full object-cover" data-alt="Close-up portrait of a professional woman with a warm smile, soft natural lighting, high-end editorial photography style" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB0rnC5E0XytW0hcTIqdnp2ZXLzGTTywokBFdN_p_1tJzzkJabkQPRS5MT_YJbCCGr6387nWIWtfctJWfOmh2_QlB20uxK9wvxSb0fkbwYOkEyADg6t2fX1QvyQHHvvMJID0280DGZYklkzxb2-YaQfQGg6BlJVAQPXf2rnZDUt1eOEKUeDKLxE9vIzimy5-LQ1Fi5pclEscjkD9orENhg7G_aa-jErFtZen9aCvht71VATjc5KxzceopebZd8CPdMazTho7BJ07hfA"/>
+</div>
+</div>
+</div>
+<div class="bg-slate-200/50 dark:bg-slate-800/50 h-[1px]"></div>
+</nav>
+<!-- SideNavBar (Desktop) -->
+<aside class="hidden md:flex h-screen w-64 fixed left-0 top-0 border-r border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 flex flex-col p-4 gap-2 pt-20">
+<div class="mb-6 px-2">
+<div class="text-xs font-bold text-outline uppercase tracking-widest mb-1">Member Portal</div>
+<div class="text-sm font-medium text-blue-900 dark:text-blue-200">Vita Santé Club</div>
+</div>
+<nav class="flex-1 flex flex-col gap-1">
+<a class="flex items-center gap-3 px-3 py-2.5 bg-white dark:bg-slate-900 text-blue-700 dark:text-blue-400 font-bold shadow-sm rounded-lg transition-all duration-300" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-sm">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 rounded-lg hover:translate-x-1 transition-all duration-300" href="#">
+<span class="material-symbols-outlined">contact_emergency</span>
+<span class="text-sm">Medical Card</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 rounded-lg hover:translate-x-1 transition-all duration-300" href="#">
+<span class="material-symbols-outlined">family_restroom</span>
+<span class="text-sm">Dependents</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 rounded-lg hover:translate-x-1 transition-all duration-300" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="text-sm">Payments</span>
+</a>
+</nav>
+<div class="mt-auto pt-4 flex flex-col gap-1 border-t border-slate-200 dark:border-slate-800">
+<button class="w-full py-3 bg-gradient-to-br from-primary to-primary-container text-white rounded-xl font-semibold text-sm mb-4 active:scale-95 transition-transform">
+                Book Appointment
+            </button>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-200/50 rounded-lg" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-sm">Settings</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-200/50 rounded-lg" href="#">
+<span class="material-symbols-outlined">help</span>
+<span class="text-sm">Support</span>
+</a>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="md:ml-64 pt-20 pb-12 px-6 lg:px-12">
+<!-- Welcome Hero -->
+<section class="mt-8 mb-12">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+<div class="max-w-2xl">
+<h1 class="text-4xl lg:text-5xl font-extrabold font-headline text-on-surface tracking-tight mb-2">Bonjou, Fabienne!</h1>
+<p class="text-on-surface-variant text-lg font-body">Votre santé est notre priorité absolue. Voici un aperçu de votre couverture actuelle.</p>
+</div>
+<div class="flex items-center gap-3 bg-surface-container-lowest px-6 py-4 rounded-xl shadow-sm border border-outline-variant/10">
+<div class="p-2 bg-secondary-container rounded-lg">
+<span class="material-symbols-outlined text-on-secondary-container">verified_user</span>
+</div>
+<div>
+<div class="text-xs font-bold text-outline uppercase tracking-wider">Plan Status</div>
+<div class="text-base font-bold text-primary">Active - Elite Premium</div>
+<div class="text-xs text-on-surface-variant">Expires: Dec 31, 2024</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Bento Grid Dashboard -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+<!-- Visit Credits Bento Column -->
+<div class="lg:col-span-8 flex flex-col gap-8">
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+<!-- Generalist Card -->
+<div class="bg-surface-container-lowest p-8 rounded-xl shadow-sm hover:shadow-md transition-shadow group">
+<div class="flex justify-between items-start mb-6">
+<div class="h-12 w-12 rounded-xl bg-primary-fixed flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-3xl">stethoscope</span>
+</div>
+<span class="text-sm font-bold text-on-surface-variant">Generalist</span>
+</div>
+<div class="flex items-baseline gap-2 mb-4">
+<span class="text-5xl font-extrabold font-headline text-primary">8</span>
+<span class="text-xl font-medium text-outline">/ 12</span>
+</div>
+<p class="text-sm text-on-surface-variant mb-6 leading-relaxed">Visits remaining for this billing cycle.</p>
+<div class="w-full bg-surface-container-low h-2 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full transition-all duration-1000" style="width: 66.6%"></div>
+</div>
+</div>
+<!-- Specialist Card -->
+<div class="bg-surface-container-lowest p-8 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+<div class="flex justify-between items-start mb-6">
+<div class="h-12 w-12 rounded-xl bg-secondary-fixed flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary text-3xl">psychiatry</span>
+</div>
+<span class="text-sm font-bold text-on-surface-variant">Specialist</span>
+</div>
+<div class="flex items-baseline gap-2 mb-4">
+<span class="text-5xl font-extrabold font-headline text-secondary">4</span>
+<span class="text-xl font-medium text-outline">/ 4</span>
+</div>
+<p class="text-sm text-on-surface-variant mb-6 leading-relaxed">Full availability for specialized care.</p>
+<div class="w-full bg-surface-container-low h-2 rounded-full overflow-hidden">
+<div class="bg-secondary h-full rounded-full" style="width: 100%"></div>
+</div>
+</div>
+</div>
+<!-- Upcoming Appointments Section -->
+<div class="bg-surface-container-low rounded-xl p-8">
+<div class="flex items-center justify-between mb-8">
+<h2 class="text-2xl font-bold font-headline text-primary">Upcoming Appointments</h2>
+<button class="text-sm font-bold text-primary hover:underline transition-all">View History</button>
+</div>
+<div class="space-y-4">
+<!-- Appointment 1 -->
+<div class="bg-surface-container-lowest flex items-center p-5 rounded-xl gap-6 hover:bg-white transition-colors">
+<div class="h-16 w-16 rounded-full overflow-hidden bg-slate-200 shrink-0">
+<img alt="Dr. Jean-Pierre" class="w-full h-full object-cover" data-alt="Headshot of a friendly middle-aged male doctor with glasses and white coat in a bright clinical office" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDEVMnlESUz3stW2KSp7SP8AdbikVWGcg9GW5TjstKnf9sLn729YoxBCjxNzlJTvYDKA0OYoMzrB8QFuC6hKa5U6D4A7X5dAZJHBGxwRq3TZ9lzBl69VOG-O6JeSKmMX1H4gBa6pK2cdTCLnbELdwaI7KLmNxYmWHrNdBpwqNXF_swgL_UHkYmuzN828JCuVO3igsdwqB3esEN9LfW2UKkOMKy2A1eRjGkE4y3T158abMZX_fHQ0QMm6QLPC0JQJrgoDvkI3VbrqW2p"/>
+</div>
+<div class="flex-1">
+<div class="text-lg font-bold text-on-surface">Dr. Jean-Pierre Marcellus</div>
+<div class="text-sm text-secondary font-medium">Cardiology • Haitian Medical Board Certified</div>
+</div>
+<div class="hidden md:block text-right">
+<div class="text-base font-bold text-on-surface">Tomorrow, 10:30 AM</div>
+<div class="text-xs text-outline uppercase tracking-wider">Video Consultation</div>
+</div>
+<div class="flex gap-2">
+<button class="p-2 text-primary hover:bg-primary-fixed rounded-lg transition-colors">
+<span class="material-symbols-outlined">videocam</span>
+</button>
+<button class="p-2 text-outline hover:bg-surface-container rounded-lg transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+</div>
+<!-- Appointment 2 -->
+<div class="bg-surface-container-lowest flex items-center p-5 rounded-xl gap-6 hover:bg-white transition-colors">
+<div class="h-16 w-16 rounded-full overflow-hidden bg-slate-200 shrink-0">
+<img alt="Dr. Eloise" class="w-full h-full object-cover" data-alt="Professional portrait of a female doctor of Haitian descent, wearing a stethoscope, gentle expression" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDmEEIJSo2IVqVyQzfdArmCaeYEfB7RIHHnw1tAkQyOdeGACyzD6E8RgQArxa7H8BAS4Nf7-KCAqgiNnWPCiCRxr6urXnX7xzFU-LBRqlNLdhtskKzpukiF8ECJ2CUpZY7RmlEQLSTRczMoofZKUJi_VmGxTJFACkaHqh9DDguh7-OidO2yaWg4Uh0TQvicTBQgyhvMqZznuQBlofm3sV_K1xjr7K19dKrcecQTLCM7XAtTFoeO76D4HkDbOiyUU2VnuHJm-nzFF_GR"/>
+</div>
+<div class="flex-1">
+<div class="text-lg font-bold text-on-surface">Dr. Marie-Eloise Duvalier</div>
+<div class="text-sm text-secondary font-medium">Internal Medicine • Clinical Director</div>
+</div>
+<div class="hidden md:block text-right">
+<div class="text-base font-bold text-on-surface">Oct 24, 2:00 PM</div>
+<div class="text-xs text-outline uppercase tracking-wider">In-Person Visit</div>
+</div>
+<div class="flex gap-2">
+<button class="p-2 text-primary hover:bg-primary-fixed rounded-lg transition-colors">
+<span class="material-symbols-outlined">location_on</span>
+</button>
+<button class="p-2 text-outline hover:bg-surface-container rounded-lg transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Sidebar Bento Column -->
+<div class="lg:col-span-4 space-y-8">
+<!-- Digital Medical Card Download -->
+<div class="relative overflow-hidden bg-gradient-to-br from-primary to-primary-container p-8 rounded-2xl text-white shadow-xl group">
+<div class="absolute top-0 right-0 p-8 opacity-10 scale-150 transform transition-transform group-hover:scale-125 duration-500">
+<span class="material-symbols-outlined text-9xl">contact_emergency</span>
+</div>
+<h3 class="text-2xl font-bold font-headline mb-4">Your Medical Card</h3>
+<p class="text-on-primary-container text-sm leading-relaxed mb-8">Access your digital member ID instantly. Valid for all network hospitals and pharmacy discounts.</p>
+<button class="w-full py-4 bg-white text-primary rounded-xl font-bold flex items-center justify-center gap-3 hover:bg-primary-fixed transition-colors">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">download</span>
+                        Download PDF
+                    </button>
+<div class="mt-4 flex justify-center">
+<button class="text-xs text-white/70 hover:text-white underline font-medium">Add to Apple Wallet</button>
+</div>
+</div>
+<!-- Health Tips / Vitals Display -->
+<div class="bg-tertiary-container p-8 rounded-2xl shadow-sm border border-tertiary/10">
+<div class="flex items-center gap-3 mb-6">
+<div class="h-10 w-10 rounded-full bg-white/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-white">favorite</span>
+</div>
+<h3 class="text-xl font-bold font-headline text-white">Wellness Insight</h3>
+</div>
+<div class="space-y-6">
+<div class="p-4 bg-white/10 backdrop-blur-md rounded-xl">
+<div class="text-xs font-bold text-tertiary-fixed uppercase tracking-wider mb-1">Blood Pressure</div>
+<div class="flex items-baseline gap-2">
+<span class="text-2xl font-bold text-white">118/75</span>
+<span class="text-xs text-on-tertiary-container">mmHg</span>
+</div>
+<div class="mt-2 text-xs text-on-tertiary-container">Recorded 3 days ago • Normal</div>
+</div>
+<p class="text-on-tertiary-container text-sm italic leading-relaxed">
+                            "Remember to schedule your annual skin screening. As part of your Elite Premium plan, this is fully covered."
+                        </p>
+</div>
+</div>
+<!-- Quick Actions -->
+<div class="bg-surface-container-lowest p-8 rounded-2xl shadow-sm">
+<h3 class="text-lg font-bold font-headline text-primary mb-6">Quick Links</h3>
+<div class="grid grid-cols-2 gap-4">
+<button class="flex flex-col items-center gap-3 p-4 rounded-xl hover:bg-surface-container-low transition-colors text-center group">
+<span class="material-symbols-outlined text-secondary group-hover:scale-110 transition-transform">medical_services</span>
+<span class="text-xs font-bold text-on-surface-variant">Pharmacy</span>
+</button>
+<button class="flex flex-col items-center gap-3 p-4 rounded-xl hover:bg-surface-container-low transition-colors text-center group">
+<span class="material-symbols-outlined text-secondary group-hover:scale-110 transition-transform">lab_panel</span>
+<span class="text-xs font-bold text-on-surface-variant">Lab Results</span>
+</button>
+<button class="flex flex-col items-center gap-3 p-4 rounded-xl hover:bg-surface-container-low transition-colors text-center group">
+<span class="material-symbols-outlined text-secondary group-hover:scale-110 transition-transform">receipt_long</span>
+<span class="text-xs font-bold text-on-surface-variant">Invoices</span>
+</button>
+<button class="flex flex-col items-center gap-3 p-4 rounded-xl hover:bg-surface-container-low transition-colors text-center group">
+<span class="material-symbols-outlined text-secondary group-hover:scale-110 transition-transform">diversity_3</span>
+<span class="text-xs font-bold text-on-surface-variant">Family</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full bg-slate-50/80 backdrop-blur-md z-50 flex justify-around items-center px-4 py-3 shadow-[0_-2px_10px_rgba(0,0,0,0.05)]">
+<a class="flex flex-col items-center gap-1 text-blue-700 font-bold" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-[10px]">Dashboard</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-slate-500" href="#">
+<span class="material-symbols-outlined">contact_emergency</span>
+<span class="text-[10px]">Card</span>
+</a>
+<div class="relative -top-6">
+<button class="h-14 w-14 bg-primary text-white rounded-full shadow-lg flex items-center justify-center active:scale-90 transition-transform">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+<a class="flex flex-col items-center gap-1 text-slate-500" href="#">
+<span class="material-symbols-outlined">family_restroom</span>
+<span class="text-[10px]">Family</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-slate-500" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-[10px]">More</span>
+</a>
+</nav>
+</body></html>

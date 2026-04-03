@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Managing Members | Clinical Atelier</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary-fixed": "#002204",
+                    "primary-fixed-dim": "#abc7ff",
+                    "secondary-fixed-dim": "#84d5c5",
+                    "on-background": "#191c1e",
+                    "on-secondary": "#ffffff",
+                    "tertiary-container": "#005914",
+                    "surface-container-low": "#f2f4f6",
+                    "on-primary-fixed-variant": "#00458f",
+                    "inverse-surface": "#2d3133",
+                    "on-secondary-fixed": "#00201b",
+                    "on-surface": "#191c1e",
+                    "tertiary-fixed-dim": "#88d982",
+                    "error": "#ba1a1a",
+                    "on-tertiary": "#ffffff",
+                    "on-primary-container": "#9bbdff",
+                    "error-container": "#ffdad6",
+                    "surface-container": "#eceef0",
+                    "primary": "#00346f",
+                    "outline-variant": "#c2c6d3",
+                    "surface-container-lowest": "#ffffff",
+                    "background": "#f7f9fb",
+                    "primary-container": "#004a99",
+                    "tertiary": "#003f0b",
+                    "surface-tint": "#255dad",
+                    "surface-dim": "#d8dadc",
+                    "tertiary-fixed": "#a3f69c",
+                    "surface-variant": "#e0e3e5",
+                    "surface-container-highest": "#e0e3e5",
+                    "on-secondary-container": "#0f6f62",
+                    "on-tertiary-container": "#7ecf79",
+                    "on-error": "#ffffff",
+                    "inverse-on-surface": "#eff1f3",
+                    "on-primary": "#ffffff",
+                    "on-error-container": "#93000a",
+                    "surface-container-high": "#e6e8ea",
+                    "secondary-fixed": "#a0f2e1",
+                    "surface-bright": "#f7f9fb",
+                    "secondary-container": "#9defde",
+                    "primary-fixed": "#d7e2ff",
+                    "on-tertiary-fixed-variant": "#005312",
+                    "outline": "#737783",
+                    "secondary": "#046b5e",
+                    "inverse-primary": "#abc7ff",
+                    "on-surface-variant": "#424751",
+                    "surface": "#f7f9fb",
+                    "on-primary-fixed": "#001b3f",
+                    "on-secondary-fixed-variant": "#005046"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "fontFamily": {
+                    "headline": ["Manrope"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-header {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+        }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface antialiased">
+<!-- SideNavBar Integration -->
+<aside class="fixed left-0 top-0 h-full flex flex-col py-8 bg-slate-50 dark:bg-slate-950 font-manrope text-sm font-medium tracking-tight h-screen w-64 border-r-0 z-50">
+<div class="px-6 mb-10">
+<h1 class="text-2xl font-bold tracking-tighter text-blue-950 dark:text-blue-100">Clinical Atelier</h1>
+<p class="text-[10px] uppercase tracking-widest text-slate-400 mt-1">Administrative Suite</p>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center px-6 py-3 text-slate-500 dark:text-slate-400 pl-4 hover:text-blue-600 dark:hover:text-blue-300 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined mr-3">dashboard</span>
+                Overview
+            </a>
+<!-- Active State: Users (Managing Members) -->
+<a class="flex items-center px-6 py-3 text-blue-700 dark:text-blue-400 font-bold border-l-4 border-blue-700 dark:border-blue-400 pl-4 bg-slate-200/30" href="#">
+<span class="material-symbols-outlined mr-3">group</span>
+                Users
+            </a>
+<a class="flex items-center px-6 py-3 text-slate-500 dark:text-slate-400 pl-4 hover:text-blue-600 dark:hover:text-blue-300 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined mr-3">medical_services</span>
+                Medical Plans
+            </a>
+<a class="flex items-center px-6 py-3 text-slate-500 dark:text-slate-400 pl-4 hover:text-blue-600 dark:hover:text-blue-300 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined mr-3">handshake</span>
+                Affiliates
+            </a>
+<a class="flex items-center px-6 py-3 text-slate-500 dark:text-slate-400 pl-4 hover:text-blue-600 dark:hover:text-blue-300 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined mr-3">terminal</span>
+                System Logs
+            </a>
+</nav>
+<div class="px-6 mt-auto pt-10 space-y-1">
+<button class="w-full bg-primary text-white py-3 rounded-xl font-bold mb-6 hover:opacity-90 transition-opacity flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm">add_circle</span>
+                Generate Report
+            </button>
+<a class="flex items-center py-2 text-slate-500 hover:text-blue-600 transition-colors" href="#">
+<span class="material-symbols-outlined mr-3">settings</span>
+                Settings
+            </a>
+<a class="flex items-center py-2 text-slate-500 hover:text-blue-600 transition-colors" href="#">
+<span class="material-symbols-outlined mr-3">help</span>
+                Support
+            </a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-64 min-h-screen">
+<!-- TopNavBar Integration -->
+<header class="flex justify-between items-center h-16 px-8 sticky top-0 z-40 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md font-inter text-sm shadow-sm">
+<div class="flex items-center gap-8">
+<span class="text-primary font-bold text-lg">Admin Console</span>
+<nav class="hidden md:flex gap-6">
+<a class="text-blue-700 dark:text-blue-400 font-semibold transition-opacity hover:opacity-80" href="#">Directives</a>
+<a class="text-slate-600 dark:text-slate-400 transition-opacity hover:opacity-80" href="#">Live Monitor</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative flex items-center bg-surface-container-low rounded-full px-4 py-1.5 focus-within:bg-white focus-within:ring-2 ring-primary/20 transition-all">
+<span class="material-symbols-outlined text-slate-400 text-lg">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-xs w-48 placeholder:text-slate-400" placeholder="Search members..." type="text"/>
+</div>
+<button class="p-2 text-slate-600 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="flex items-center gap-3 pl-4 border-l border-slate-200">
+<img alt="Administrator Avatar" class="w-8 h-8 rounded-full object-cover" data-alt="portrait of a professional black woman with a confident smile in a modern office environment, soft natural lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC5Rpsy6XcU-j6cetcPg6YrhHQKWan-Vl2j_lQKJ3W4pfQat8C9qr91i0lqr84MrlfFREwAoyF6odwVxL4D5VRWhaDbHf6Z2WGzale-Av22JQ7JYJj9FctnGvYC24pfdggWPEHkM9_QjlJocSqHybczBcJf8rrOER0V8JgmFpmxkH_548NVlVFS6b6UKOsDoKwzSJsRhXcvZfT3UmCuDMvBo2yIh5HbPhTfsa0ABmBnBvpix7LSEbdAJMXp9qZROvV5nVKYzdbemb-q"/>
+<span class="material-symbols-outlined text-slate-600">account_circle</span>
+</div>
+</div>
+</header>
+<!-- Page Header Section -->
+<section class="px-10 pt-10 pb-6">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+<div>
+<nav class="flex items-center gap-2 text-[10px] uppercase tracking-widest text-slate-400 font-bold mb-3">
+<span>Directives</span>
+<span class="material-symbols-outlined text-[10px]">chevron_right</span>
+<span class="text-primary">Member Management</span>
+</nav>
+<h2 class="font-headline text-4xl font-extrabold text-on-background tracking-tight">Active Registrations</h2>
+<p class="text-on-surface-variant mt-2 max-w-xl">Oversee and manage the complete lifecycle of clinical members within the Vita Azure ecosystem.</p>
+</div>
+<div class="flex items-center gap-3">
+<button class="bg-surface-container-low text-on-surface font-semibold px-6 py-3 rounded-xl hover:bg-surface-container-high transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined">filter_list</span>
+                        Filters
+                    </button>
+<button class="bg-gradient-to-br from-primary to-primary-container text-white font-bold px-6 py-3 rounded-xl hover:opacity-95 transition-all shadow-lg shadow-primary/10 flex items-center gap-2">
+<span class="material-symbols-outlined">person_add</span>
+                        New Member
+                    </button>
+</div>
+</div>
+</section>
+<!-- Stats Overview (Asymmetric) -->
+<section class="px-10 mb-8 grid grid-cols-1 md:grid-cols-4 gap-4">
+<div class="md:col-span-1 bg-surface-container-lowest p-6 rounded-xl border-l-4 border-primary">
+<p class="text-xs font-bold text-slate-400 uppercase tracking-tighter mb-1">Total Members</p>
+<h3 class="text-3xl font-headline font-extrabold text-primary">2,842</h3>
+<div class="flex items-center gap-1 mt-2 text-tertiary text-xs font-bold">
+<span class="material-symbols-outlined text-sm">trending_up</span>
+<span>12% from last month</span>
+</div>
+</div>
+<div class="md:col-span-1 bg-surface-container-lowest p-6 rounded-xl border-l-4 border-secondary">
+<p class="text-xs font-bold text-slate-400 uppercase tracking-tighter mb-1">Premium Tier</p>
+<h3 class="text-3xl font-headline font-extrabold text-secondary">1,105</h3>
+<p class="text-xs text-on-surface-variant mt-2">Active Vita Directives</p>
+</div>
+<div class="md:col-span-2 bg-gradient-to-r from-primary to-primary-container p-6 rounded-xl text-white flex items-center justify-between">
+<div>
+<h4 class="text-lg font-bold">System Integrity Check</h4>
+<p class="text-primary-fixed-dim text-sm mt-1">98.4% of member documentation is verified for Q3.</p>
+</div>
+<button class="bg-white/10 hover:bg-white/20 px-4 py-2 rounded-lg backdrop-blur-sm transition-all text-xs font-bold uppercase tracking-widest">
+                    Run Audit
+                </button>
+</div>
+</section>
+<!-- Filterable Member Table Area -->
+<section class="px-10 pb-12">
+<div class="bg-surface-container-lowest rounded-2xl overflow-hidden shadow-sm">
+<!-- Bulk Actions Toolbar -->
+<div class="px-6 py-4 flex items-center justify-between bg-slate-50 border-b border-slate-100">
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-2">
+<input class="rounded text-primary focus:ring-primary" type="checkbox"/>
+<span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Select All</span>
+</div>
+<div class="h-4 w-[1px] bg-slate-200"></div>
+<div class="flex items-center gap-4">
+<button class="text-slate-400 hover:text-primary flex items-center gap-1.5 transition-colors">
+<span class="material-symbols-outlined text-lg">mail</span>
+<span class="text-xs font-semibold">Message</span>
+</button>
+<button class="text-slate-400 hover:text-error flex items-center gap-1.5 transition-colors">
+<span class="material-symbols-outlined text-lg">archive</span>
+<span class="text-xs font-semibold">Archive</span>
+</button>
+</div>
+</div>
+<div class="text-xs text-slate-400 font-medium">
+                        Showing 1-8 of 2,842 members
+                    </div>
+</div>
+<!-- Main Table -->
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead class="bg-surface-container-low">
+<tr>
+<th class="px-6 py-4 text-[11px] font-extrabold text-slate-500 uppercase tracking-widest">Member Identity</th>
+<th class="px-6 py-4 text-[11px] font-extrabold text-slate-500 uppercase tracking-widest">NIF / Identifier</th>
+<th class="px-6 py-4 text-[11px] font-extrabold text-slate-500 uppercase tracking-widest">Medical Plan</th>
+<th class="px-6 py-4 text-[11px] font-extrabold text-slate-500 uppercase tracking-widest">City</th>
+<th class="px-6 py-4 text-[11px] font-extrabold text-slate-500 uppercase tracking-widest">Status</th>
+<th class="px-6 py-4 text-[11px] font-extrabold text-slate-500 uppercase tracking-widest text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-50">
+<!-- Row 1 -->
+<tr class="hover:bg-slate-50/80 transition-colors group">
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<img alt="Member Avatar" class="w-10 h-10 rounded-full object-cover grayscale group-hover:grayscale-0 transition-all duration-300" data-alt="portrait of a young Haitian man with a short haircut, warm skin tone, smiling gently against a minimalist studio background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDvzO1ywh2OgV4Ys5yN0fR4-q8uNF1akSqSxyxklEvbzDujBVKtcwN13mtIgO9Paxck000vtY8ftgR5h5RUL9Sabygr439cqLaFcVKSKZz2gp8zn4GtCKjrEQz35FK3Rk5qKvqa2tNLPquM7Sm2CI8mlbVxKLBtXayu6dMxhmRbAX4cUQ5uohU8ZzaMvxtH922R74LQGr7mdaAqfuzEb3gakBX25JdbTDsA191O3NGBm-gT1CRrR2nM6V1rkNU4QT1zV4gZnOBdt86M"/>
+<div>
+<p class="text-sm font-bold text-on-surface">Jean-Claude Baptiste</p>
+<p class="text-[11px] text-slate-400">j.baptiste@atelier.com</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-5">
+<span class="font-mono text-xs text-slate-500 tracking-wider">003-452-981-1</span>
+</td>
+<td class="px-6 py-5">
+<span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-primary/5 text-primary">Vita Azure Plus</span>
+</td>
+<td class="px-6 py-5">
+<span class="text-xs text-slate-600">Port-au-Prince</span>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+<span class="text-xs font-bold text-secondary">Verified</span>
+</div>
+</td>
+<td class="px-6 py-5 text-right">
+<button class="p-2 hover:bg-primary/5 rounded-lg text-slate-400 hover:text-primary transition-all">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-slate-50/80 transition-colors group">
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<img alt="Member Avatar" class="w-10 h-10 rounded-full object-cover grayscale group-hover:grayscale-0 transition-all duration-300" data-alt="Close up of a Haitian woman with braided hair, expressive eyes, and professional attire in a bright room" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCFXKeobcHVIVpVPLNJWpqgadxuMtDyfg18DxR6szVaLl2-zBTcEl1-_d5aRtMGI5qQkmCAbuyeO3JBBU9hYUuHIhkTTKBhyGEGgPZo0qsmn713usXj8cqT6UqbSb5vk33YTgyy_Gg8zVbol8xnuIVWdFMtbsy0BsykOpREkKeeLifeECMw1BSptj12MAEaYSXG_2LKANVvyXOf5MXkWEFvXsoRMvD0AHBfVfk596BAzkDF-y6tOw_jmJhdbJrc65SdiInVe9BKo0ST"/>
+<div>
+<p class="text-sm font-bold text-on-surface">Marie-Claire Estimé</p>
+<p class="text-[11px] text-slate-400">mc.estime@atelier.com</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-5">
+<span class="font-mono text-xs text-slate-500 tracking-wider">005-221-344-2</span>
+</td>
+<td class="px-6 py-5">
+<span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-primary/5 text-primary">Essential Care</span>
+</td>
+<td class="px-6 py-5">
+<span class="text-xs text-slate-600">Cap-Haïtien</span>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+<span class="text-xs font-bold text-secondary">Verified</span>
+</div>
+</td>
+<td class="px-6 py-5 text-right">
+<button class="p-2 hover:bg-primary/5 rounded-lg text-slate-400 hover:text-primary transition-all">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-slate-50/80 transition-colors group">
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<img alt="Member Avatar" class="w-10 h-10 rounded-full object-cover grayscale group-hover:grayscale-0 transition-all duration-300" data-alt="middle aged man with glasses, looking thoughtful, dark studio background with soft rim light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBRb8J5jFkkVqugJAQdYPLCZm8FEpfP9Wd_GldehI0Cv1lE_fgUtCg-WYORF1g8XDeFe31rPc5gbGT3eSZDA-K1Um6htwW_dXtlDqael9N44Eq1aSAVcJkeGtNOvo5Rj77jTh8OzSQe1EbMrxtFd1saAhoTtHMzSqBHfSaXW3rDPFvgLwHTj7sb91GrIsEAWq9L0Zpup21TZIBwsjgmGVTWAIYhPC2Vwt-_yEBw2g27XEbtB6l_2xaQUAKOnBupjC-2y4bDdLbLKuUI"/>
+<div>
+<p class="text-sm font-bold text-on-surface">Pierre-Louis Desrosiers</p>
+<p class="text-[11px] text-slate-400">p.desrosiers@atelier.com</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-5">
+<span class="font-mono text-xs text-slate-500 tracking-wider">009-883-112-9</span>
+</td>
+<td class="px-6 py-5">
+<span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-primary/5 text-primary">Vita Azure Plus</span>
+</td>
+<td class="px-6 py-5">
+<span class="text-xs text-slate-600">Jacmel</span>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-error animate-pulse"></span>
+<span class="text-xs font-bold text-error">Pending</span>
+</div>
+</td>
+<td class="px-6 py-5 text-right">
+<button class="p-2 hover:bg-primary/5 rounded-lg text-slate-400 hover:text-primary transition-all">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-slate-50/80 transition-colors group">
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<img alt="Member Avatar" class="w-10 h-10 rounded-full object-cover grayscale group-hover:grayscale-0 transition-all duration-300" data-alt="Portrait of a professional man with beard, neutral expression, clean grey background, soft lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAorCabOzCuxb71mLUyAUxMCGNdV9s3wptFCxDJyqz5kGTnzKBcCdydjGjIwuZ3i0rYXTQ2vCo5aWWvv7IQwZZhXLmOOlCm-FIzISTSGOobuAwBdyV-Bh4p5DkBbJgURmOickEctq8KxPxsR2Kq1sCqG0u8OJ0WhWtvnlfJ2QT7u2OpxF_C5PeSwLmhtGVxFk37Ud83ebrlXC3_xUvQPYg0YVomUaXbDbgxBFv6Bh7giGJ8ZKvXG-_zuE2CgzS0-GlCn-P6D64uk5JH"/>
+<div>
+<p class="text-sm font-bold text-on-surface">Frantz Junior Narcisse</p>
+<p class="text-[11px] text-slate-400">f.narcisse@atelier.com</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-5">
+<span class="font-mono text-xs text-slate-500 tracking-wider">001-499-562-4</span>
+</td>
+<td class="px-6 py-5">
+<span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-primary/5 text-primary">Premium Atelier</span>
+</td>
+<td class="px-6 py-5">
+<span class="text-xs text-slate-600">Pétion-Ville</span>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+<span class="text-xs font-bold text-secondary">Verified</span>
+</div>
+</td>
+<td class="px-6 py-5 text-right">
+<button class="p-2 hover:bg-primary/5 rounded-lg text-slate-400 hover:text-primary transition-all">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Table Footer / Pagination -->
+<div class="px-6 py-6 flex items-center justify-between border-t border-slate-50">
+<div class="flex items-center gap-2">
+<span class="text-xs text-slate-500 font-medium">Rows per page:</span>
+<select class="text-xs border-none bg-transparent font-bold text-primary focus:ring-0 cursor-pointer">
+<option>10</option>
+<option>25</option>
+<option>50</option>
+</select>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-slate-400 hover:text-primary transition-colors disabled:opacity-30" disabled="">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<div class="flex items-center gap-1">
+<span class="w-8 h-8 flex items-center justify-center rounded-lg bg-primary text-white text-xs font-bold">1</span>
+<span class="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-slate-100 text-slate-600 text-xs font-bold cursor-pointer">2</span>
+<span class="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-slate-100 text-slate-600 text-xs font-bold cursor-pointer">3</span>
+<span class="px-2 text-slate-400">...</span>
+<span class="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-slate-100 text-slate-600 text-xs font-bold cursor-pointer">14</span>
+</div>
+<button class="p-2 text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Contextual Activity Layer (Bottom Section) -->
+<section class="px-10 pb-12 grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="md:col-span-2 bg-surface-container-low p-8 rounded-2xl">
+<h4 class="font-headline text-xl font-bold mb-6">Recent Verifications</h4>
+<div class="space-y-6">
+<div class="flex items-start gap-4">
+<div class="w-2 h-2 rounded-full bg-secondary mt-2"></div>
+<div>
+<p class="text-sm font-bold">Marie-Claire Estimé verified by Dr. J. Rigaud</p>
+<p class="text-xs text-slate-500 mt-1">NIF documents checked and signed off manually for Vita Azure Plus enrollment.</p>
+<span class="text-[10px] font-bold text-slate-400 uppercase mt-2 inline-block">2 hours ago</span>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<div class="w-2 h-2 rounded-full bg-primary mt-2"></div>
+<div>
+<p class="text-sm font-bold">System Audit: Batch #410 Completed</p>
+<p class="text-xs text-slate-500 mt-1">Automated scan of 400 members in the West Department showed 0 discrepancies.</p>
+<span class="text-[10px] font-bold text-slate-400 uppercase mt-2 inline-block">5 hours ago</span>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-gradient-to-br from-secondary/10 to-primary/10 p-8 rounded-2xl border border-white/40">
+<h4 class="font-headline text-xl font-bold mb-4">Plan Distribution</h4>
+<div class="space-y-4">
+<div>
+<div class="flex justify-between text-xs font-bold mb-2">
+<span>Vita Azure Plus</span>
+<span>45%</span>
+</div>
+<div class="h-2 w-full bg-white/50 rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[45%]"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-xs font-bold mb-2">
+<span>Essential Care</span>
+<span>30%</span>
+</div>
+<div class="h-2 w-full bg-white/50 rounded-full overflow-hidden">
+<div class="h-full bg-secondary w-[30%]"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-xs font-bold mb-2">
+<span>Premium Atelier</span>
+<span>25%</span>
+</div>
+<div class="h-2 w-full bg-white/50 rounded-full overflow-hidden">
+<div class="h-full bg-on-tertiary-container w-[25%]"></div>
+</div>
+</div>
+</div>
+<button class="mt-8 w-full py-3 rounded-xl bg-white text-primary font-bold text-sm shadow-sm hover:shadow-md transition-all">
+                    View Full Analytics
+                </button>
+</div>
+</section>
+</main>
+<!-- Modal Mockup Overlay (Visible State Logic Placeholder) -->
+<!-- (Hidden by default, used for 'New Member' action) -->
+<div class="fixed inset-0 bg-on-background/20 backdrop-blur-sm z-[100] flex items-center justify-center hidden">
+<div class="bg-white w-full max-w-2xl rounded-3xl overflow-hidden shadow-2xl">
+<div class="px-10 py-8 border-b border-slate-50 flex justify-between items-center">
+<h3 class="font-headline text-2xl font-extrabold text-primary">New Member Registration</h3>
+<button class="p-2 hover:bg-slate-50 rounded-full transition-colors">
+<span class="material-symbols-outlined text-slate-400">close</span>
+</button>
+</div>
+<div class="p-10">
+<!-- Registration Form Fields -->
+<div class="grid grid-cols-2 gap-6">
+<div class="space-y-2">
+<label class="text-[11px] font-extrabold text-slate-500 uppercase tracking-widest">Full Name</label>
+<input class="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary/20 focus:bg-white transition-all" type="text"/>
+</div>
+<div class="space-y-2">
+<label class="text-[11px] font-extrabold text-slate-500 uppercase tracking-widest">NIF Number</label>
+<input class="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary/20 focus:bg-white transition-all" placeholder="XXX-XXX-XXX-X" type="text"/>
+</div>
+<div class="space-y-2">
+<label class="text-[11px] font-extrabold text-slate-500 uppercase tracking-widest">Select Plan</label>
+<select class="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary/20 focus:bg-white transition-all">
+<option>Vita Azure Plus</option>
+<option>Essential Care</option>
+<option>Premium Atelier</option>
+</select>
+</div>
+<div class="space-y-2">
+<label class="text-[11px] font-extrabold text-slate-500 uppercase tracking-widest">Location</label>
+<input class="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary/20 focus:bg-white transition-all" type="text"/>
+</div>
+</div>
+<div class="mt-10 flex gap-4 justify-end">
+<button class="px-8 py-3 rounded-xl font-bold text-slate-500 hover:bg-slate-50 transition-colors">Cancel</button>
+<button class="px-10 py-3 rounded-xl bg-primary text-white font-bold hover:opacity-90 transition-opacity">Finalize Registration</button>
+</div>
+</div>
+</div>
+</div>
+</body></html>

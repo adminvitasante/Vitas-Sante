@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Vita Santé Club | Member Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-surface": "#191c1e",
+                    "error": "#ba1a1a",
+                    "on-error": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "surface-dim": "#d8dadc",
+                    "tertiary": "#003f0b",
+                    "error-container": "#ffdad6",
+                    "on-secondary-fixed-variant": "#005046",
+                    "secondary-fixed-dim": "#84d5c5",
+                    "inverse-surface": "#2d3133",
+                    "primary": "#00346f",
+                    "tertiary-fixed-dim": "#88d982",
+                    "surface-tint": "#255dad",
+                    "surface-container-lowest": "#ffffff",
+                    "primary-container": "#004a99",
+                    "outline-variant": "#c2c6d3",
+                    "on-tertiary-container": "#7ecf79",
+                    "on-secondary-fixed": "#00201b",
+                    "on-primary-container": "#9bbdff",
+                    "surface-container": "#eceef0",
+                    "inverse-primary": "#abc7ff",
+                    "on-secondary": "#ffffff",
+                    "on-tertiary": "#ffffff",
+                    "tertiary-fixed": "#a3f69c",
+                    "on-background": "#191c1e",
+                    "surface": "#f7f9fb",
+                    "surface-container-highest": "#e0e3e5",
+                    "surface-bright": "#f7f9fb",
+                    "outline": "#737783",
+                    "on-tertiary-fixed-variant": "#005312",
+                    "primary-fixed-dim": "#abc7ff",
+                    "on-tertiary-fixed": "#002204",
+                    "tertiary-container": "#005914",
+                    "inverse-on-surface": "#eff1f3",
+                    "secondary-container": "#9defde",
+                    "on-surface-variant": "#424751",
+                    "surface-variant": "#e0e3e5",
+                    "secondary": "#046b5e",
+                    "on-primary-fixed": "#001b3f",
+                    "secondary-fixed": "#a0f2e1",
+                    "primary-fixed": "#d7e2ff",
+                    "on-error-container": "#93000a",
+                    "surface-container-low": "#f2f4f6",
+                    "on-secondary-container": "#0f6f62",
+                    "surface-container-high": "#e6e8ea",
+                    "background": "#f7f9fb",
+                    "on-primary-fixed-variant": "#00458f"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "fontFamily": {
+                    "headline": ["Manrope"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, .font-headline { font-family: 'Manrope', sans-serif; }
+        .glass-header {
+            background: rgba(247, 249, 251, 0.8);
+            backdrop-filter: blur(20px);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen">
+<!-- SideNavBar Integration -->
+<aside class="h-screen w-64 fixed left-0 top-0 bg-surface-container-low flex flex-col py-6 px-4 space-y-2 z-40 hidden md:flex">
+<div class="mb-8 px-2">
+<h1 class="text-lg font-black text-blue-900 uppercase tracking-widest">Vita Santé Portal</h1>
+<p class="font-manrope text-xs font-medium text-slate-500">Clinical Professional</p>
+</div>
+<nav class="flex-1 space-y-1">
+<!-- Active Tab: Dashboard -->
+<a class="flex items-center space-x-3 px-4 py-3 bg-surface-container-lowest text-blue-900 rounded-lg shadow-sm font-manrope text-sm font-semibold transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="flex items-center space-x-3 px-4 py-3 text-slate-500 hover:bg-surface-container-high transition-all font-manrope text-sm font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="medical_services">medical_services</span>
+<span>Medical Card</span>
+</a>
+<a class="flex items-center space-x-3 px-4 py-3 text-slate-500 hover:bg-surface-container-high transition-all font-manrope text-sm font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="handshake">groups</span>
+<span>Dependents</span>
+</a>
+<a class="flex items-center space-x-3 px-4 py-3 text-slate-500 hover:bg-surface-container-high transition-all font-manrope text-sm font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="account_balance">payments</span>
+<span>Payments</span>
+</a>
+<a class="flex items-center space-x-3 px-4 py-3 text-slate-500 hover:bg-surface-container-high transition-all font-manrope text-sm font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="admin_panel_settings">person</span>
+<span>Profil</span>
+</a>
+<a class="flex items-center space-x-3 px-4 py-3 text-slate-500 hover:bg-surface-container-high transition-all font-manrope text-sm font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="monitoring">monitoring</span>
+<span>Health Analytics</span>
+</a>
+</nav>
+<div class="pt-6 mt-6 border-t border-outline-variant/20 space-y-1">
+<button class="w-full mb-4 py-3 bg-error text-white rounded-xl font-headline text-sm font-bold flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="emergency">emergency</span>
+                Urgent Consult
+            </button>
+<a class="flex items-center space-x-3 px-4 py-2 text-slate-500 hover:bg-surface-container-high transition-all font-manrope text-sm font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span>Settings</span>
+</a>
+<a class="flex items-center space-x-3 px-4 py-2 text-slate-500 hover:bg-surface-container-high transition-all font-manrope text-sm font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+<span>Support</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="md:ml-64 min-h-screen p-6 lg:p-10">
+<!-- Header / Top Bar Area -->
+<header class="flex justify-between items-center mb-10">
+<div>
+<h2 class="text-3xl font-bold text-primary tracking-tight">Bonjour, Jean-Pierre</h2>
+<p class="text-on-surface-variant font-medium">Welcome back to your personalized health sanctuary.</p>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 bg-surface-container-low rounded-full text-primary relative">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<div class="h-10 w-10 rounded-full bg-primary-fixed flex items-center justify-center text-primary font-bold">JP</div>
+</div>
+</header>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+<!-- Hero Member Card (Span 8) -->
+<section class="lg:col-span-8">
+<div class="relative overflow-hidden rounded-full bg-gradient-to-br from-primary to-primary-container p-8 text-white flex flex-col md:flex-row justify-between items-center group">
+<div class="z-10 text-center md:text-left mb-6 md:mb-0">
+<span class="inline-block px-3 py-1 bg-white/10 rounded-full text-xs font-bold tracking-widest uppercase mb-4">Premium Member</span>
+<h3 class="text-4xl font-extrabold mb-1">Jean-Pierre Valcourt</h3>
+<p class="text-primary-fixed opacity-90 font-mono tracking-widest text-lg">VSC-88291-HT</p>
+<div class="mt-8 flex gap-4">
+<button class="bg-white text-primary px-6 py-2 rounded-xl font-bold text-sm hover:bg-primary-fixed transition-colors">
+                                View Full Profile
+                            </button>
+<button class="bg-primary/20 border border-white/20 backdrop-blur-sm text-white px-6 py-2 rounded-xl font-bold text-sm hover:bg-white/10 transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="download">download</span>
+                                Download Card
+                            </button>
+</div>
+</div>
+<!-- Digital Card Visualization -->
+<div class="relative z-10 w-full max-w-[320px] aspect-[1.586/1] bg-white/10 backdrop-blur-xl border border-white/30 rounded-2xl p-6 shadow-2xl transform rotate-2 group-hover:rotate-0 transition-transform duration-500 flex flex-col justify-between">
+<div class="flex justify-between items-start">
+<div class="uppercase font-black text-[10px] tracking-tighter leading-none">Vita Santé<br/>Club</div>
+<span class="material-symbols-outlined opacity-50" data-icon="contactless">contactless</span>
+</div>
+<div>
+<div class="text-[10px] uppercase opacity-60 mb-1">Member Number</div>
+<div class="font-mono text-sm tracking-widest">8829 1000 4521 9901</div>
+</div>
+<div class="flex justify-between items-end">
+<div class="text-xs font-medium">EXP 12/26</div>
+<div class="h-6 w-10 bg-white/20 rounded flex items-center justify-center">
+<div class="w-4 h-4 bg-white/40 rounded-full"></div>
+</div>
+</div>
+</div>
+<!-- Decorative Element -->
+<div class="absolute -bottom-10 -right-10 w-64 h-64 bg-secondary/20 rounded-full blur-3xl"></div>
+</div>
+</section>
+<!-- Visit Credits (Span 4) -->
+<section class="lg:col-span-4 flex flex-col gap-8">
+<div class="bg-surface-container-lowest rounded-full p-8 shadow-sm flex flex-col items-center text-center">
+<h4 class="font-headline font-bold text-on-surface mb-6">Visit Credits Remaining</h4>
+<div class="relative w-40 h-40 flex items-center justify-center">
+<svg class="w-full h-full transform -rotate-90">
+<circle class="text-surface-container-low" cx="80" cy="80" fill="transparent" r="70" stroke="currentColor" stroke-width="12"></circle>
+<circle class="text-secondary" cx="80" cy="80" fill="transparent" r="70" stroke="currentColor" stroke-dasharray="440" stroke-dashoffset="110" stroke-width="12"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="text-4xl font-black text-primary">09</span>
+<span class="text-[10px] font-bold text-slate-400 uppercase">Available</span>
+</div>
+</div>
+<div class="mt-6 grid grid-cols-2 gap-4 w-full">
+<div class="bg-surface-container-low p-3 rounded-xl">
+<p class="text-[10px] font-bold text-slate-500 uppercase">Televisits</p>
+<p class="text-xl font-bold text-primary">06/10</p>
+</div>
+<div class="bg-surface-container-low p-3 rounded-xl">
+<p class="text-[10px] font-bold text-slate-500 uppercase">In-Clinic</p>
+<p class="text-xl font-bold text-secondary">03/05</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Dependents List (Span 7) -->
+<section class="lg:col-span-7 bg-surface-container-low rounded-full p-8">
+<div class="flex justify-between items-center mb-8">
+<h4 class="font-headline font-bold text-xl text-primary">Covered Dependents</h4>
+<button class="text-primary text-sm font-bold flex items-center gap-1 hover:underline">
+<span class="material-symbols-outlined text-sm" data-icon="add">add</span> Add New
+                    </button>
+</div>
+<div class="space-y-4">
+<div class="bg-surface-container-lowest p-4 rounded-xl flex items-center justify-between group hover:bg-primary/5 transition-colors">
+<div class="flex items-center gap-4">
+<div class="h-12 w-12 rounded-full overflow-hidden bg-slate-200">
+<img class="w-full h-full object-cover" data-alt="close-up portrait of a smiling young haitian girl with braided hair and bright eyes" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC6HXpgFMSusYpajpttr6Y__gziyXFmO7Y8g5yFIhrweSE_QRvH0SY5G4iixYJo2VO9zjHb8LzhP41p52qurXNsLfP23G0SyXlA6DV-IUJU5KGLhtfn36_3bqOaFavQqHXlz4qvtADKnAK50pxiQkNoaSeD0K-6qjT4-dVZohW-iYk1w8d0Pe_VznSWJOCalp0aHjekOvJN-jXvD-2Gb1msriTXj0ht9VG92dpqLKMIqVSPYZevNClJoGc99XyRzh9Xe7sm3DIyegWH"/>
+</div>
+<div>
+<h5 class="font-bold text-on-surface">Marie-Claire Valcourt</h5>
+<p class="text-xs text-slate-500">Daughter • 12 Years Old</p>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-1 text-tertiary">
+<span class="w-2 h-2 bg-tertiary rounded-full"></span>
+<span class="text-xs font-bold uppercase">Active</span>
+</div>
+<span class="material-symbols-outlined text-slate-300 group-hover:text-primary transition-colors" data-icon="chevron_right">chevron_right</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-4 rounded-xl flex items-center justify-between group hover:bg-primary/5 transition-colors">
+<div class="flex items-center gap-4">
+<div class="h-12 w-12 rounded-full overflow-hidden bg-slate-200">
+<img class="w-full h-full object-cover" data-alt="portrait of an elderly haitian man with graying hair and kind eyes wearing a clean white shirt" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDNsjGgcibbOX_ANxTu4LUbQrnLp4qsB_wQ0xv8b_AOtEutxh5EmSYZEPsXu30pqN5J7sEwR35pJG3SWyCuiWVWIxRcocYV6hwlXkLrMTPz1-TrskzOLYDtkgRfw2gyjYXI3LktbHLVdyHFbykSKEaNAovfzQx3htZaUVlKAnRZaM4YXTZfVkFfqZrdqIXhD8fjbTeJehDchBQH3woKCqLnR0e2vSLDwqUJ3NLNwiOESBWDhrEgJ1WnA-n4r2caTorpqscF7C5BS1Js"/>
+</div>
+<div>
+<h5 class="font-bold text-on-surface">Lucien Valcourt</h5>
+<p class="text-xs text-slate-500">Father • 74 Years Old</p>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-1 text-tertiary">
+<span class="w-2 h-2 bg-tertiary rounded-full"></span>
+<span class="text-xs font-bold uppercase">Active</span>
+</div>
+<span class="material-symbols-outlined text-slate-300 group-hover:text-primary transition-colors" data-icon="chevron_right">chevron_right</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Payment History (Span 5) -->
+<section class="lg:col-span-5 bg-surface-container-lowest rounded-full p-8 shadow-sm">
+<h4 class="font-headline font-bold text-xl text-primary mb-8">Recent Payments</h4>
+<div class="space-y-6">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-4">
+<div class="h-10 w-10 rounded-xl bg-secondary-fixed flex items-center justify-center text-on-secondary-container">
+<span class="material-symbols-outlined" data-icon="credit_card">credit_card</span>
+</div>
+<div>
+<p class="font-bold text-sm">Monthly Premium</p>
+<p class="text-xs text-slate-400">Mar 01, 2024</p>
+</div>
+</div>
+<div class="text-right">
+<p class="font-bold text-primary">$145.00</p>
+<p class="text-[10px] text-tertiary font-bold uppercase">Processed</p>
+</div>
+</div>
+<div class="flex items-center justify-between opacity-70">
+<div class="flex items-center gap-4">
+<div class="h-10 w-10 rounded-xl bg-surface-container-low flex items-center justify-center text-slate-400">
+<span class="material-symbols-outlined" data-icon="receipt">receipt</span>
+</div>
+<div>
+<p class="font-bold text-sm">Pharmacy Co-pay</p>
+<p class="text-xs text-slate-400">Feb 14, 2024</p>
+</div>
+</div>
+<div class="text-right">
+<p class="font-bold text-on-surface">$22.50</p>
+<p class="text-[10px] text-slate-400 font-bold uppercase">Archive</p>
+</div>
+</div>
+</div>
+<button class="w-full mt-10 py-3 border border-outline-variant/30 rounded-xl text-slate-600 font-bold text-sm hover:bg-surface-container-low transition-colors">
+                    View Billing History
+                </button>
+</section>
+<!-- Quick Contact Doctor Section (Full Width Asymmetric) -->
+<section class="lg:col-span-12 mt-4">
+<div class="bg-surface-container-low rounded-full overflow-hidden flex flex-col md:flex-row items-center">
+<div class="md:w-1/3 h-64 md:h-80 relative">
+<img class="w-full h-full object-cover" data-alt="professional male haitian doctor in a white clinical coat smiling warmly in a high-end modern medical office" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDBXVC5h3DhjfSWPtDs5iaaekSPzK-nKm2OLBuW7XTIW5haFzcqAhNF0ME0R7Q8_qqj3Rw0pZ7GlNFYVVjkRBnsrFXpdRJ4C9eXZD82nPw6qOmjZTJaxPgor0zL3KP2uAgcRc7MzkQJU6Pt9o-6lCytn4do3hbRb_m9A5TqNHiyjsh5cmV0SHFLQ_PwocHHqum2IBzTS37gUugUVtyEqNawxSu96UbYfNw1l7ypJ6u0AmERrTvwWXLQHyExGn16xGOqxNVnAiAWmw77"/>
+<div class="absolute inset-0 bg-gradient-to-r from-transparent to-surface-container-low"></div>
+</div>
+<div class="md:w-2/3 p-8 md:p-12">
+<h4 class="text-3xl font-headline font-extrabold text-primary mb-4">Dedicated Support for the Diaspora</h4>
+<p class="text-on-surface-variant max-w-2xl mb-8 leading-relaxed">
+                            Need help navigating care for your family in Haiti? Our medical coordinators are available 24/7 to assist with appointment scheduling, pharmacy verification, and specialist referrals.
+                        </p>
+<div class="flex flex-wrap gap-4">
+<button class="px-8 py-4 bg-primary text-white rounded-xl font-bold hover:shadow-lg transition-shadow flex items-center gap-2">
+<span class="material-symbols-outlined" data-icon="chat_bubble">chat_bubble</span>
+                                Chat with a Care Coordinator
+                            </button>
+<button class="px-8 py-4 border-2 border-primary text-primary rounded-xl font-bold hover:bg-primary/5 transition-colors">
+                                Find a Local Doctor
+                            </button>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Footer Integration -->
+<footer class="mt-20 py-12 border-t border-slate-100 flex flex-col md:flex-row justify-between items-center w-full">
+<p class="font-inter text-xs text-slate-500 mb-4 md:mb-0">© 2024 Vita Santé Club. All Rights Reserved.</p>
+<div class="flex gap-8">
+<a class="text-slate-400 hover:text-blue-600 transition-colors text-xs font-medium" href="#">Privacy Policy</a>
+<a class="text-slate-400 hover:text-blue-600 transition-colors text-xs font-medium" href="#">Terms of Service</a>
+<a class="text-slate-400 hover:text-blue-600 transition-colors text-xs font-medium" href="#">Compliance</a>
+<a class="text-slate-400 hover:text-blue-600 transition-colors text-xs font-medium" href="#">Global Standards</a>
+</div>
+</footer>
+</main>
+<!-- Mobile Bottom NavBar -->
+<nav class="md:hidden fixed bottom-0 left-0 right-0 bg-surface/80 backdrop-blur-md px-6 py-4 flex justify-between items-center shadow-2xl z-50">
+<a class="text-primary flex flex-col items-center gap-1" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="text-[10px] font-bold">Dash</span>
+</a>
+<a class="text-slate-400 flex flex-col items-center gap-1" href="#">
+<span class="material-symbols-outlined" data-icon="medical_services">medical_services</span>
+<span class="text-[10px] font-bold">Card</span>
+</a>
+<div class="bg-primary text-white p-3 rounded-full -mt-10 shadow-lg border-4 border-surface">
+<span class="material-symbols-outlined" data-icon="emergency">emergency</span>
+</div>
+<a class="text-slate-400 flex flex-col items-center gap-1" href="#">
+<span class="material-symbols-outlined" data-icon="groups">groups</span>
+<span class="text-[10px] font-bold">Family</span>
+</a>
+<a class="text-slate-400 flex flex-col items-center gap-1" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="text-[10px] font-bold">Profile</span>
+</a>
+</nav>
+</body></html>

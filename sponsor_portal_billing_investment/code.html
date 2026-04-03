@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-surface": "#191c1e",
+                        "on-primary-container": "#9bbdff",
+                        "secondary-fixed-dim": "#84d5c5",
+                        "surface-bright": "#f7f9fb",
+                        "primary-container": "#004a99",
+                        "error": "#ba1a1a",
+                        "on-tertiary-fixed-variant": "#005312",
+                        "surface-container-high": "#e6e8ea",
+                        "tertiary-fixed-dim": "#88d982",
+                        "primary": "#00346f",
+                        "tertiary": "#003f0b",
+                        "primary-fixed": "#d7e2ff",
+                        "on-tertiary-fixed": "#002204",
+                        "secondary-fixed": "#a0f2e1",
+                        "primary-fixed-dim": "#abc7ff",
+                        "error-container": "#ffdad6",
+                        "surface-tint": "#255dad",
+                        "on-primary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "inverse-surface": "#2d3133",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-fixed-variant": "#005046",
+                        "outline-variant": "#c2c6d3",
+                        "surface-container": "#eceef0",
+                        "tertiary-fixed": "#a3f69c",
+                        "on-tertiary": "#ffffff",
+                        "inverse-on-surface": "#eff1f3",
+                        "on-primary-fixed": "#001b3f",
+                        "surface-container-highest": "#e0e3e5",
+                        "surface-variant": "#e0e3e5",
+                        "on-secondary-fixed": "#00201b",
+                        "surface": "#f7f9fb",
+                        "secondary-container": "#9defde",
+                        "on-tertiary-container": "#7ecf79",
+                        "on-surface-variant": "#424751",
+                        "tertiary-container": "#005914",
+                        "secondary": "#046b5e",
+                        "on-secondary-container": "#0f6f62",
+                        "on-primary-fixed-variant": "#00458f",
+                        "on-error-container": "#93000a",
+                        "surface-container-low": "#f2f4f6",
+                        "outline": "#737783",
+                        "surface-dim": "#d8dadc",
+                        "inverse-primary": "#abc7ff",
+                        "on-background": "#191c1e",
+                        "background": "#f7f9fb"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3 { font-family: 'Manrope', sans-serif; }
+        .glass-header {
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface">
+<!-- TopNavBar -->
+<header class="fixed top-0 w-full z-50 bg-slate-50/80 dark:bg-slate-900/80 backdrop-blur-xl shadow-sm">
+<div class="flex justify-between items-center px-8 py-4 w-full">
+<div class="text-xl font-bold text-blue-900 dark:text-blue-100 uppercase tracking-wider">
+                Vita Santé Club
+            </div>
+<div class="flex items-center space-x-6">
+<div class="relative hidden md:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">search</span>
+<input class="pl-10 pr-4 py-2 bg-slate-200/50 border-none rounded-xl focus:ring-2 focus:ring-primary w-64 text-sm" placeholder="Search invoices..." type="text"/>
+</div>
+<div class="flex items-center space-x-4">
+<span class="material-symbols-outlined text-slate-500 cursor-pointer hover:text-blue-600 transition-colors" data-icon="notifications">notifications</span>
+<span class="material-symbols-outlined text-slate-500 cursor-pointer hover:text-blue-600 transition-colors" data-icon="settings">settings</span>
+<img alt="Sponsor Institution Profile" class="w-10 h-10 rounded-full border-2 border-white object-cover shadow-sm" data-alt="professional portrait of a healthcare administrator in a bright modern office setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuANngGoqZq8_2QCvb3SWCn_15SXjrpxsz34kyotxDcwgKW6ckeRm3eS5n2FmL7YET9Qq8_27C4EtdoNQ79ZeX_0F1D23fcSVZpl2196vrZ17k3ci9FyuE2kC-oiG6Fa5q3y1Y6BEHU2TuQvOlCUymIcVUlO-otepfm8K241klQc0NXxn0mudOW0GLJqbss36kN5UP2cwhW5-DXH4XKf-N6ptEi-y4DM0EP9wbOQj6UBV_woCDMXQlCa0zt5i7DNaSW8sbD-lUlygwHn"/>
+</div>
+</div>
+</div>
+<div class="bg-slate-200/50 dark:bg-slate-800/50 h-[1px]"></div>
+</header>
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-0 h-full w-64 bg-slate-100 dark:bg-slate-950 flex flex-col p-6 space-y-8 z-40">
+<div class="flex flex-col space-y-2 pt-20">
+<div class="flex items-center space-x-3">
+<div class="w-10 h-10 bg-primary rounded-xl flex items-center justify-center text-white font-bold">VS</div>
+<div>
+<h2 class="font-manrope font-bold text-blue-900 dark:text-blue-50 text-sm leading-tight">Sponsor Portal</h2>
+<p class="text-xs text-slate-500">Vita Santé Club</p>
+</div>
+</div>
+</div>
+<nav class="flex-grow space-y-1">
+<a class="flex items-center space-x-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-all ease-in-out hover:translate-x-1 duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-inter text-sm font-medium">Overview</span>
+</a>
+<a class="flex items-center space-x-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-all ease-in-out hover:translate-x-1 duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span class="font-inter text-sm font-medium">Funded Members</span>
+</a>
+<a class="flex items-center space-x-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-all ease-in-out hover:translate-x-1 duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="font-inter text-sm font-medium">Impact Reports</span>
+</a>
+<a class="flex items-center space-x-3 px-4 py-3 text-blue-900 dark:text-white font-bold bg-white/50 dark:bg-white/10 rounded-lg transition-all ease-in-out hover:translate-x-1 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="receipt_long">receipt_long</span>
+<span class="font-inter text-sm font-medium">Billing</span>
+</a>
+</nav>
+<div class="mt-auto">
+<button class="w-full bg-gradient-to-br from-primary to-primary-container text-white py-3 rounded-xl font-bold text-sm shadow-md hover:opacity-90 transition-opacity">
+                Support More Members
+            </button>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-64 pt-24 px-10 pb-12 min-h-screen">
+<!-- Editorial Header Section -->
+<section class="mb-12">
+<h1 class="text-display-lg font-headline font-extrabold text-primary text-5xl tracking-tight mb-2">Billing &amp; Financial Treasury</h1>
+<p class="text-on-surface-variant font-body max-w-2xl leading-relaxed">
+                Review your institutional investments, manage recurring health grants, and oversee the fiscal health of your member pool. Our high-precision ledger ensures complete transparency for every funded life.
+            </p>
+</section>
+<!-- KPI Bento Grid -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+<!-- Lifetime Investment -->
+<div class="bg-surface-container-lowest p-8 rounded-xl flex flex-col justify-between h-48 border-l-4 border-primary">
+<div>
+<span class="text-label-md font-bold text-slate-500 uppercase tracking-widest text-[10px]">Total Lifetime Investment</span>
+<h3 class="text-4xl font-headline font-bold text-primary mt-2">€842,500.00</h3>
+</div>
+<div class="flex items-center text-secondary text-sm font-medium">
+<span class="material-symbols-outlined mr-1 text-sm" style="font-variation-settings: 'FILL' 1;">trending_up</span>
+                    +12.4% from last quarter
+                </div>
+</div>
+<!-- Next Payment -->
+<div class="bg-surface-container-lowest p-8 rounded-xl flex flex-col justify-between h-48 border-l-4 border-secondary">
+<div>
+<span class="text-label-md font-bold text-slate-500 uppercase tracking-widest text-[10px]">Next Payment Due</span>
+<h3 class="text-4xl font-headline font-bold text-on-surface mt-2">€12,240.00</h3>
+</div>
+<p class="text-slate-500 text-sm font-medium">Auto-debit scheduled for Oct 15, 2023</p>
+</div>
+<!-- Members Funded -->
+<div class="bg-primary text-white p-8 rounded-xl flex flex-col justify-between h-48 relative overflow-hidden">
+<div class="relative z-10">
+<span class="text-label-md font-bold text-blue-200 uppercase tracking-widest text-[10px]">Active Members Funded</span>
+<h3 class="text-4xl font-headline font-bold mt-2">1,248</h3>
+</div>
+<div class="relative z-10 flex items-center text-blue-100 text-sm">
+<span class="material-symbols-outlined mr-1 text-sm" data-icon="verified_user">verified_user</span>
+                    Full coverage enabled
+                </div>
+<!-- Abstract Gradient Swirl -->
+<div class="absolute -right-10 -bottom-10 w-40 h-40 bg-blue-500/20 blur-3xl rounded-full"></div>
+</div>
+</section>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Payment History Table (Column Span 2) -->
+<div class="lg:col-span-2 space-y-6">
+<div class="flex items-center justify-between">
+<h2 class="text-2xl font-headline font-bold text-primary">Transaction History</h2>
+<button class="text-primary font-bold text-sm flex items-center hover:underline">
+                        Download All (PDF)
+                        <span class="material-symbols-outlined ml-1 text-sm" data-icon="download">download</span>
+</button>
+</div>
+<div class="bg-surface-container-lowest rounded-xl overflow-hidden">
+<table class="w-full text-left border-collapse">
+<thead class="bg-surface-container-low border-b border-outline-variant/10">
+<tr>
+<th class="px-6 py-4 text-[10px] font-bold text-slate-500 uppercase tracking-widest">Invoice ID</th>
+<th class="px-6 py-4 text-[10px] font-bold text-slate-500 uppercase tracking-widest">Date</th>
+<th class="px-6 py-4 text-[10px] font-bold text-slate-500 uppercase tracking-widest">Amount</th>
+<th class="px-6 py-4 text-[10px] font-bold text-slate-500 uppercase tracking-widest">Status</th>
+<th class="px-6 py-4 text-[10px] font-bold text-slate-500 uppercase tracking-widest text-right">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container">
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-6 py-4 font-mono text-sm font-medium text-primary">#INV-99234</td>
+<td class="px-6 py-4 text-sm text-slate-600">Sep 15, 2023</td>
+<td class="px-6 py-4 text-sm font-bold text-on-surface">€12,240.00</td>
+<td class="px-6 py-4">
+<span class="px-3 py-1 bg-secondary-container text-on-secondary-container text-[10px] font-bold rounded-full uppercase">Paid</span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors" data-icon="visibility">visibility</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-6 py-4 font-mono text-sm font-medium text-primary">#INV-99112</td>
+<td class="px-6 py-4 text-sm text-slate-600">Aug 15, 2023</td>
+<td class="px-6 py-4 text-sm font-bold text-on-surface">€11,980.00</td>
+<td class="px-6 py-4">
+<span class="px-3 py-1 bg-secondary-container text-on-secondary-container text-[10px] font-bold rounded-full uppercase">Paid</span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors" data-icon="visibility">visibility</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-6 py-4 font-mono text-sm font-medium text-primary">#INV-98871</td>
+<td class="px-6 py-4 text-sm text-slate-600">Jul 15, 2023</td>
+<td class="px-6 py-4 text-sm font-bold text-on-surface">€12,240.00</td>
+<td class="px-6 py-4">
+<span class="px-3 py-1 bg-error-container text-on-error-container text-[10px] font-bold rounded-full uppercase">Pending</span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors" data-icon="visibility">visibility</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-6 py-4 font-mono text-sm font-medium text-primary">#INV-98700</td>
+<td class="px-6 py-4 text-sm text-slate-600">Jun 15, 2023</td>
+<td class="px-6 py-4 text-sm font-bold text-on-surface">€11,400.00</td>
+<td class="px-6 py-4">
+<span class="px-3 py-1 bg-secondary-container text-on-secondary-container text-[10px] font-bold rounded-full uppercase">Paid</span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors" data-icon="visibility">visibility</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Payment Methods & Card Management -->
+<div class="space-y-6">
+<h2 class="text-2xl font-headline font-bold text-primary">Payment Methods</h2>
+<div class="space-y-4">
+<!-- Primary Method -->
+<div class="bg-gradient-to-br from-slate-800 to-slate-900 p-6 rounded-xl shadow-lg relative overflow-hidden">
+<div class="relative z-10">
+<div class="flex justify-between items-start mb-10">
+<span class="material-symbols-outlined text-white text-3xl" data-icon="contactless">contactless</span>
+<div class="text-white text-xs font-bold uppercase tracking-widest opacity-60">Primary Method</div>
+</div>
+<div class="text-white text-xl font-mono mb-6">•••• •••• •••• 4492</div>
+<div class="flex justify-between items-end">
+<div class="text-white">
+<div class="text-[8px] uppercase opacity-50 font-bold">Holder</div>
+<div class="text-sm font-bold">GEN-HEALTH CORP</div>
+</div>
+<div class="text-white text-right">
+<div class="text-[8px] uppercase opacity-50 font-bold">Expires</div>
+<div class="text-sm font-bold">12/26</div>
+</div>
+</div>
+</div>
+<!-- Glass shine effect -->
+<div class="absolute -top-10 -left-10 w-40 h-40 bg-white/5 rotate-45 blur-2xl"></div>
+</div>
+<!-- Alternate Method -->
+<div class="bg-surface-container-lowest p-6 rounded-xl flex items-center justify-between border border-outline-variant/10">
+<div class="flex items-center space-x-4">
+<div class="w-12 h-8 bg-surface-container rounded flex items-center justify-center">
+<span class="material-symbols-outlined text-slate-400" data-icon="account_balance">account_balance</span>
+</div>
+<div>
+<p class="text-sm font-bold text-on-surface">SEPA Direct Debit</p>
+<p class="text-xs text-slate-500">Ending in ****8821</p>
+</div>
+</div>
+<button class="material-symbols-outlined text-slate-400 hover:text-error" data-icon="delete">delete</button>
+</div>
+<!-- Add New Button -->
+<button class="w-full border-2 border-dashed border-outline-variant rounded-xl py-4 flex flex-col items-center justify-center text-slate-500 hover:border-primary hover:text-primary transition-all group">
+<span class="material-symbols-outlined mb-1 group-hover:scale-110 transition-transform" data-icon="add_circle">add_circle</span>
+<span class="text-xs font-bold uppercase tracking-wider">Add New Source</span>
+</button>
+</div>
+<!-- Auto-Refill Settings -->
+<div class="bg-secondary-container/30 p-6 rounded-xl">
+<h4 class="font-headline font-bold text-on-secondary-container mb-2">Automated Replenishment</h4>
+<p class="text-xs text-on-secondary-container/80 mb-4 leading-relaxed">
+                        Funds will be automatically drawn when the member pool credit drops below €5,000.
+                    </p>
+<div class="flex items-center justify-between">
+<span class="text-sm font-bold text-on-secondary-container">Status: Active</span>
+<div class="w-10 h-6 bg-secondary rounded-full relative p-1 cursor-pointer">
+<div class="w-4 h-4 bg-white rounded-full ml-auto"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Documentation & Support Section -->
+<section class="mt-20 pt-10 border-t border-slate-200">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+<div>
+<h5 class="font-headline font-bold text-primary mb-3">Fiscal Compliance</h5>
+<p class="text-sm text-slate-500 leading-relaxed">All invoices are compliant with EU healthcare funding regulations and include VAT breakdowns for your region.</p>
+</div>
+<div>
+<h5 class="font-headline font-bold text-primary mb-3">Auditing Tools</h5>
+<p class="text-sm text-slate-500 leading-relaxed">Access per-member spending reports in the Impact Reports section for quarterly audits.</p>
+</div>
+<div>
+<h5 class="font-headline font-bold text-primary mb-3">Institutional Support</h5>
+<p class="text-sm text-slate-500 leading-relaxed">Need a customized billing structure? Contact your dedicated Vita Santé account manager.</p>
+<a class="text-secondary text-sm font-bold mt-2 block hover:underline" href="#">Request Consultation</a>
+</div>
+</div>
+</section>
+</main>
+</body></html>

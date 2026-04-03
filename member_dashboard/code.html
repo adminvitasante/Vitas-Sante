@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Member Dashboard - Vita Santé Club</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-error": "#ffffff",
+                        "surface-container-low": "#f2f4f6",
+                        "primary-fixed": "#d7e2ff",
+                        "on-secondary-container": "#0f6f62",
+                        "on-primary-container": "#9bbdff",
+                        "tertiary": "#003f0b",
+                        "secondary-fixed-dim": "#84d5c5",
+                        "surface-bright": "#f7f9fb",
+                        "surface-variant": "#e0e3e5",
+                        "on-primary-fixed": "#001b3f",
+                        "on-background": "#191c1e",
+                        "on-primary-fixed-variant": "#00458f",
+                        "error-container": "#ffdad6",
+                        "on-surface": "#191c1e",
+                        "surface": "#f7f9fb",
+                        "on-secondary": "#ffffff",
+                        "on-secondary-fixed-variant": "#005046",
+                        "tertiary-container": "#005914",
+                        "background": "#f7f9fb",
+                        "on-secondary-fixed": "#00201b",
+                        "on-tertiary-container": "#7ecf79",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-fixed": "#a0f2e1",
+                        "secondary": "#046b5e",
+                        "on-surface-variant": "#424751",
+                        "inverse-on-surface": "#eff1f3",
+                        "on-primary": "#ffffff",
+                        "secondary-container": "#9defde",
+                        "surface-tint": "#255dad",
+                        "on-tertiary-fixed-variant": "#005312",
+                        "tertiary-fixed": "#a3f69c",
+                        "on-tertiary": "#ffffff",
+                        "primary": "#00346f",
+                        "inverse-surface": "#2d3133",
+                        "outline": "#737783",
+                        "outline-variant": "#c2c6d3",
+                        "error": "#ba1a1a",
+                        "tertiary-fixed-dim": "#88d982",
+                        "primary-container": "#004a99",
+                        "surface-container": "#eceef0",
+                        "surface-container-high": "#e6e8ea",
+                        "on-error-container": "#93000a",
+                        "primary-fixed-dim": "#abc7ff",
+                        "surface-dim": "#d8dadc",
+                        "on-tertiary-fixed": "#002204",
+                        "inverse-primary": "#abc7ff",
+                        "surface-container-highest": "#e0e3e5"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .glass-header {
+            background: rgba(247, 249, 251, 0.8);
+            backdrop-filter: blur(20px);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface flex min-h-screen">
+<!-- SideNavBar (Authority Source: JSON) -->
+<aside class="hidden md:flex flex-col h-screen w-64 bg-surface-container-low dark:bg-slate-900 py-8 font-manrope text-sm font-medium sticky top-0">
+<div class="px-8 mb-10">
+<h1 class="text-lg font-bold text-blue-900 dark:text-white">Member Portal</h1>
+<p class="text-xs text-slate-500 uppercase tracking-widest mt-1">Vita Santé Club</p>
+</div>
+<nav class="flex-1 space-y-1">
+<!-- Active State: Dashboard -->
+<a class="flex items-center text-blue-900 dark:text-blue-100 font-bold bg-white dark:bg-slate-800 rounded-l-full ml-4 pl-4 py-3 scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="dashboard">dashboard</span>
+                Dashboard
+            </a>
+<a class="flex items-center text-slate-500 dark:text-slate-400 px-8 py-3 hover:bg-slate-200 dark:hover:bg-slate-800 transition-all" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="badge">badge</span>
+                Medical Card
+            </a>
+<a class="flex items-center text-slate-500 dark:text-slate-400 px-8 py-3 hover:bg-slate-200 dark:hover:bg-slate-800 transition-all" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="group">group</span>
+                Dependents
+            </a>
+<a class="flex items-center text-slate-500 dark:text-slate-400 px-8 py-3 hover:bg-slate-200 dark:hover:bg-slate-800 transition-all" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="payments">payments</span>
+                Payments
+            </a>
+</nav>
+<div class="px-8 mt-auto pt-8 border-t border-outline-variant/20">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary-fixed overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="professional portrait of a middle-aged man with a friendly expression in a clinical setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBx6B5v4M-KsAXiSaF_Q0F0HRzSa3g9q_4XctGNUO_nzp1rJv2UsBVigdqRINEkbFN11BKDNP6DoNlYOxPudbNAqbU_5812AtRZJyLGds3o1ydyanZSYFYBLtSU3DUO3pW-UwO5Dkk68ew3Sb72ppPiKKyedFovLrxSo5xGWVlXt0ACtmuH3cfBUVTEFuvs-IHhH4KMokPc1RUF0_FE1SI9v63vOQrJHuDAq0gGWtXn2XXr0K0_qCr6AVeA83yjObh4A38CiM3_L96_"/>
+</div>
+<div>
+<p class="font-bold text-on-surface">Jean-Pierre</p>
+<p class="text-[10px] text-outline uppercase tracking-wider">VSC-XXXXX</p>
+</div>
+</div>
+</div>
+</aside>
+<main class="flex-1 flex flex-col min-w-0 bg-surface">
+<!-- TopAppBar (Authority Source: JSON) -->
+<header class="fixed top-0 w-full z-50 bg-surface/80 dark:bg-slate-900/80 backdrop-blur-md shadow-sm md:static md:bg-transparent md:shadow-none md:backdrop-blur-none">
+<div class="flex justify-between items-center px-6 py-4 w-full max-w-screen-2xl mx-auto">
+<div class="md:hidden">
+<span class="text-xl font-bold tracking-tighter text-blue-900 dark:text-white">Vita Santé Club</span>
+</div>
+<div class="hidden md:block">
+<!-- Editorial Header -->
+<h2 class="font-headline text-2xl font-extrabold tracking-tight text-primary">Tableau de Bord</h2>
+</div>
+<div class="flex items-center gap-6 font-manrope text-sm font-semibold tracking-tight text-slate-600 dark:text-slate-400">
+<button class="hover:text-blue-800 transition-colors">FR | EN</button>
+<button class="bg-primary px-6 py-2 rounded-xl text-white font-bold shadow-md hover:opacity-90 transition-all">Member Login</button>
+</div>
+</div>
+</header>
+<div class="pt-24 md:pt-8 px-6 pb-12 w-full max-w-screen-2xl mx-auto space-y-12">
+<!-- Welcome Section (Asymmetric Editorial Layout) -->
+<section class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
+<div class="lg:col-span-8">
+<p class="text-secondary font-semibold tracking-widest uppercase text-xs mb-2">Bienvenue</p>
+<h1 class="font-headline text-5xl md:text-6xl font-extrabold text-on-surface tracking-tighter leading-none mb-4">
+                        Bonjour, Jean-Pierre
+                    </h1>
+<p class="text-outline text-lg max-w-xl font-light">
+                        Votre santé est notre priorité. Voici un aperçu de vos prestations et de votre couverture médicale pour ce mois.
+                    </p>
+</div>
+<div class="lg:col-span-4 flex justify-end">
+<!-- Status Card -->
+<div class="bg-surface-container-lowest p-6 rounded-full shadow-sm flex items-center gap-4 w-full lg:w-auto border border-outline-variant/10">
+<div class="w-12 h-12 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+<div>
+<p class="text-xs text-outline font-medium">Status du forfait</p>
+<p class="font-bold text-primary">Active - Standard Plan</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Main Bento Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Digital Member Card -->
+<div class="md:col-span-2 bg-gradient-to-br from-primary to-primary-container rounded-full p-8 text-white flex flex-col md:flex-row gap-8 relative overflow-hidden shadow-2xl">
+<div class="relative z-10 flex-1 space-y-6">
+<div class="flex justify-between items-start">
+<div class="space-y-1">
+<h3 class="font-headline text-2xl font-bold">Vita Santé Club</h3>
+<p class="text-primary-fixed opacity-80 text-sm tracking-widest">CARTE DE MEMBRE DIGITALE</p>
+</div>
+<span class="material-symbols-outlined text-4xl opacity-50">contactless</span>
+</div>
+<div class="pt-4">
+<p class="text-[10px] text-primary-fixed uppercase tracking-[0.2em] mb-1">Titulaire du compte</p>
+<p class="text-xl font-bold tracking-tight">JEAN-PIERRE PHILIPPE</p>
+</div>
+<div class="flex gap-12 pt-4">
+<div>
+<p class="text-[10px] text-primary-fixed uppercase tracking-[0.2em] mb-1">ID Membre</p>
+<p class="font-mono font-bold tracking-widest">VSC-XXXXX</p>
+</div>
+<div>
+<p class="text-[10px] text-primary-fixed uppercase tracking-[0.2em] mb-1">Expire le</p>
+<p class="font-bold">12 / 2025</p>
+</div>
+</div>
+<div class="pt-6">
+<button class="bg-white/10 backdrop-blur-md border border-white/20 px-6 py-3 rounded-xl text-sm font-bold flex items-center gap-2 hover:bg-white/20 transition-all">
+<span class="material-symbols-outlined text-sm">download</span>
+                                Download PDF
+                            </button>
+</div>
+</div>
+<!-- QR Code & Visual Polish -->
+<div class="relative z-10 flex flex-col items-center justify-center bg-white p-6 rounded-full">
+<div class="w-32 h-32 bg-slate-100 flex items-center justify-center rounded-lg border-4 border-white">
+<span class="material-symbols-outlined text-6xl text-primary opacity-20">qr_code_2</span>
+</div>
+<p class="mt-4 text-primary font-bold text-xs tracking-widest">SCANNER POUR ACCÈS</p>
+</div>
+<!-- Decorative medical cross grain texture -->
+<div class="absolute -right-16 -top-16 w-64 h-64 opacity-10">
+<span class="material-symbols-outlined text-[15rem]">medical_services</span>
+</div>
+</div>
+<!-- Vitals / Credit Counter -->
+<div class="bg-surface-container-low rounded-full p-8 flex flex-col justify-between space-y-8">
+<h3 class="font-headline text-lg font-extrabold text-primary flex items-center gap-2">
+<span class="material-symbols-outlined">analytics</span>
+                        Crédits de Soins
+                    </h3>
+<div class="space-y-6">
+<!-- Specialist Counter -->
+<div class="space-y-3">
+<div class="flex justify-between items-end">
+<p class="text-sm font-semibold text-on-surface">Specialist Visits</p>
+<p class="text-sm font-bold text-primary">2 / 3 <span class="text-outline font-normal">restants</span></p>
+</div>
+<div class="h-3 bg-surface-variant rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 66%"></div>
+</div>
+</div>
+<!-- Generalist Counter -->
+<div class="space-y-3">
+<div class="flex justify-between items-end">
+<p class="text-sm font-semibold text-on-surface">Generalist</p>
+<span class="bg-tertiary-fixed text-on-tertiary-fixed px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">Illimité</span>
+</div>
+<div class="h-3 bg-tertiary-fixed-dim rounded-full overflow-hidden">
+<div class="h-full bg-tertiary rounded-full w-full"></div>
+</div>
+</div>
+</div>
+<a class="text-secondary font-bold text-sm flex items-center gap-2 group" href="#">
+                        Consulter tous les avantages
+                        <span class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</a>
+</div>
+</div>
+<!-- Contextual Information / Network Search -->
+<section class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+<div class="bg-surface-container-lowest rounded-full p-8 border border-outline-variant/10 shadow-sm flex items-center gap-8">
+<div class="flex-1">
+<h4 class="font-headline text-xl font-bold text-primary mb-2">Réseau Médical</h4>
+<p class="text-outline text-sm leading-relaxed mb-6">Trouvez des cliniques et pharmacies partenaires à proximité de votre position actuelle en Haïti.</p>
+<button class="bg-secondary text-white px-6 py-3 rounded-xl font-bold text-sm shadow-lg shadow-secondary/20 flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">map</span>
+                            Explorer le Réseau
+                        </button>
+</div>
+<div class="hidden sm:block w-40 h-40 rounded-full overflow-hidden grayscale">
+<img class="w-full h-full object-cover" data-alt="close-up of a high-tech modern medical laboratory with blue ambient lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB2YuUlsRtVWBmpWj5sTS9hZyvRJp_m8puvFZn4xexfSxNebNP74YrIcU679CVhmn5SWMJ4pb7kPXRNnB0GWmm85QQIbzpfLMEUnv4eVoBfeRRB2ius8uH4VXTbbz2VHiqkYZbrYPKdKBxLdsD4-fQ670-yAWfDPZ9KFlfvyrVEL_HyzNgOoACbR3jisKy5AUjGDAUs0LpsJ5PRRmAz1YZ6zP4dHCjyXHvMOEKUbT5tPRsgdSvlXIsHlYmeVi4TyOepjF3UdIQVgnV7"/>
+</div>
+</div>
+<div class="bg-secondary-container/30 rounded-full p-8 flex items-center gap-6">
+<div class="w-16 h-16 rounded-full bg-secondary-fixed flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-on-secondary-fixed text-3xl" data-weight="fill">add_moderator</span>
+</div>
+<div>
+<h4 class="font-headline text-lg font-bold text-on-secondary-container">Ajouter un Dépendant</h4>
+<p class="text-on-secondary-container/70 text-sm">Étendez votre couverture 'Standard Plan' aux membres de votre famille en quelques clics.</p>
+</div>
+</div>
+</section>
+</div>
+<!-- Footer (Authority Source: JSON) -->
+<footer class="w-full py-12 px-8 bg-surface-container-low dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800 font-inter text-xs leading-relaxed mt-auto">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-screen-2xl mx-auto">
+<div>
+<h3 class="text-lg font-black text-blue-900 dark:text-white mb-4">Vita Santé Club</h3>
+<p class="text-slate-500 dark:text-slate-400">© 2024 Vita Santé Club. All rights reserved. Haiti Medical Network.</p>
+</div>
+<div class="flex flex-col gap-2">
+<a class="text-slate-500 dark:text-slate-400 hover:text-blue-900 dark:hover:text-white transition-colors" href="#">About</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-blue-900 dark:hover:text-white transition-colors" href="#">Contact</a>
+</div>
+<div class="flex flex-col gap-2">
+<a class="text-slate-500 dark:text-slate-400 hover:text-blue-900 dark:hover:text-white transition-colors" href="#">Medical Network</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-blue-900 dark:hover:text-white transition-colors" href="#">Privacy Policy</a>
+</div>
+</div>
+</footer>
+</main>
+<!-- BottomNavBar (Mobile Only - Source: JSON Logic) -->
+<nav class="md:hidden fixed bottom-0 left-0 right-0 bg-surface/80 backdrop-blur-md px-6 py-4 flex justify-around items-center z-50 border-t-0 shadow-[0_-4px_20px_rgba(0,0,0,0.05)] rounded-t-full">
+<a class="flex flex-col items-center gap-1 text-blue-700 font-bold" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span class="text-[10px]">Dashboard</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-slate-500" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="text-[10px]">Dependents</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-slate-500" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="text-[10px]">Payments</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-slate-500" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="text-[10px]">Profile</span>
+</a>
+</nav>
+</body></html>

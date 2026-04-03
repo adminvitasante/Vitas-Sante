@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Commissions &amp; Payments | The Clinical Atelier</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary": "#003f0b",
+                    "on-error": "#ffffff",
+                    "primary-container": "#004a99",
+                    "primary": "#00346f",
+                    "surface-container-highest": "#e0e3e5",
+                    "on-surface": "#191c1e",
+                    "primary-fixed-dim": "#abc7ff",
+                    "on-tertiary-container": "#7ecf79",
+                    "on-error-container": "#93000a",
+                    "on-secondary-container": "#0f6f62",
+                    "surface-tint": "#255dad",
+                    "on-secondary": "#ffffff",
+                    "secondary-fixed": "#a0f2e1",
+                    "on-primary": "#ffffff",
+                    "on-background": "#191c1e",
+                    "surface-bright": "#f7f9fb",
+                    "surface-container-high": "#e6e8ea",
+                    "tertiary-container": "#005914",
+                    "outline-variant": "#c2c6d3",
+                    "on-primary-fixed": "#001b3f",
+                    "on-surface-variant": "#424751",
+                    "surface-variant": "#e0e3e5",
+                    "outline": "#737783",
+                    "error": "#ba1a1a",
+                    "secondary-fixed-dim": "#84d5c5",
+                    "secondary-container": "#9defde",
+                    "surface-container-lowest": "#ffffff",
+                    "background": "#f7f9fb",
+                    "surface-container-low": "#f2f4f6",
+                    "on-tertiary": "#ffffff",
+                    "inverse-on-surface": "#eff1f3",
+                    "error-container": "#ffdad6",
+                    "tertiary-fixed": "#a3f69c",
+                    "on-primary-fixed-variant": "#00458f",
+                    "inverse-primary": "#abc7ff",
+                    "on-tertiary-fixed-variant": "#005312",
+                    "surface-container": "#eceef0",
+                    "on-secondary-fixed-variant": "#005046",
+                    "on-secondary-fixed": "#00201b",
+                    "surface-dim": "#d8dadc",
+                    "on-primary-container": "#9bbdff",
+                    "primary-fixed": "#d7e2ff",
+                    "tertiary-fixed-dim": "#88d982",
+                    "surface": "#f7f9fb",
+                    "secondary": "#046b5e",
+                    "on-tertiary-fixed": "#002204",
+                    "inverse-surface": "#2d3133"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "fontFamily": {
+                    "headline": ["Manrope"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+        }
+        .tonal-depth-shift {
+            background: linear-gradient(180deg, rgba(247, 249, 251, 1) 0%, rgba(242, 244, 246, 1) 100%);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body antialiased">
+<!-- TopNavBar -->
+<header class="bg-white/80 dark:bg-slate-900/80 backdrop-blur-md fixed top-0 w-full z-50 shadow-sm dark:shadow-none h-16 px-8 flex justify-between items-center">
+<div class="text-xl font-bold tracking-tighter text-blue-900 dark:text-blue-100 font-headline">The Clinical Atelier</div>
+<div class="flex items-center gap-6">
+<nav class="hidden md:flex gap-8 items-center">
+<a class="text-slate-500 dark:text-slate-400 font-medium font-manrope text-sm tracking-tight hover:text-blue-600 dark:hover:text-blue-400 transition-colors" href="#">Dashboard</a>
+<a class="text-slate-500 dark:text-slate-400 font-medium font-manrope text-sm tracking-tight hover:text-blue-600 dark:hover:text-blue-400 transition-colors" href="#">Referrals</a>
+<a class="text-blue-700 dark:text-blue-300 font-bold border-b-2 border-blue-700 font-manrope text-sm tracking-tight transition-all" href="#">Commissions</a>
+</nav>
+<div class="flex items-center gap-4 ml-4">
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer">notifications</span>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer">help_outline</span>
+<img alt="Affiliate partner profile avatar" class="w-8 h-8 rounded-full border border-outline-variant" data-alt="professional headshot of a mature business partner in a light blue suit against a clean architectural background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAb68bubkcVZf8odfiaP-cdGnB-GHakzB1EMBZLV_Zsgd7mWPUvvVI6M9DElbf1a4wYdmG9yim7OlMwuMRzD-MDYgADCnvnIywkE59DWTMPgHUEiBk5QY8vE7QPvwnwUMqd1uUoAwJ49ndTAYp2qkEHjEVKepSIXulB3_5DrBeVVbINXZ7hbaLSGYd67sNeidC9vfIh0cVfLI4BED6UXYrmhvamHuLeMSU1pv_5ASFhuSN3_-cVh0898pn6AtZJnKUJwZip5_0wB10U"/>
+</div>
+</div>
+</header>
+<div class="flex pt-16 min-h-screen">
+<!-- SideNavBar -->
+<aside class="h-screen w-64 border-r border-slate-200/50 dark:border-slate-800/50 bg-slate-50 dark:bg-slate-950 flex flex-col py-6 px-4 gap-2 sticky top-16 hidden lg:flex">
+<div class="mb-8 px-2">
+<div class="font-manrope font-extrabold text-blue-950 dark:text-white text-lg">Partner Portal</div>
+<div class="text-[11px] text-slate-500 uppercase tracking-widest font-semibold">Premium Health Ecosystem</div>
+</div>
+<nav class="flex flex-col gap-1">
+<a class="flex items-center gap-3 py-2 px-3 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900/50 hover:pl-2 transition-all duration-300 ease-in-out rounded-lg group" href="#">
+<span class="material-symbols-outlined text-[20px]">dashboard</span>
+<span class="font-inter text-[13px] leading-relaxed">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 py-2 px-3 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900/50 hover:pl-2 transition-all duration-300 ease-in-out rounded-lg group" href="#">
+<span class="material-symbols-outlined text-[20px]">group_add</span>
+<span class="font-inter text-[13px] leading-relaxed">Referrals</span>
+</a>
+<a class="flex items-center gap-3 py-2 px-3 bg-white dark:bg-slate-900 text-blue-700 dark:text-blue-300 font-semibold rounded-lg shadow-sm hover:pl-2 transition-all duration-300 ease-in-out group" href="#">
+<span class="material-symbols-outlined text-[20px]">payments</span>
+<span class="font-inter text-[13px] leading-relaxed">Commissions</span>
+</a>
+<a class="flex items-center gap-3 py-2 px-3 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900/50 hover:pl-2 transition-all duration-300 ease-in-out rounded-lg group" href="#">
+<span class="material-symbols-outlined text-[20px]">auto_awesome_motion</span>
+<span class="font-inter text-[13px] leading-relaxed">Marketing Materials</span>
+</a>
+<a class="flex items-center gap-3 py-2 px-3 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900/50 hover:pl-2 transition-all duration-300 ease-in-out rounded-lg group" href="#">
+<span class="material-symbols-outlined text-[20px]">analytics</span>
+<span class="font-inter text-[13px] leading-relaxed">Impact Reports</span>
+</a>
+</nav>
+<div class="mt-auto flex flex-col gap-1 border-t border-slate-200/50 pt-4">
+<button class="bg-gradient-to-br from-primary to-primary-container text-white py-2.5 px-4 rounded-xl text-[13px] font-semibold mb-4 shadow-sm hover:opacity-90 transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">link</span>
+                    Generate Referral Link
+                </button>
+<a class="flex items-center gap-3 py-2 px-3 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900/50 hover:pl-2 transition-all duration-300 ease-in-out rounded-lg group" href="#">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+<span class="font-inter text-[13px] leading-relaxed">Settings</span>
+</a>
+<a class="flex items-center gap-3 py-2 px-3 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900/50 hover:pl-2 transition-all duration-300 ease-in-out rounded-lg group" href="#">
+<span class="material-symbols-outlined text-[20px]">contact_support</span>
+<span class="font-inter text-[13px] leading-relaxed">Support</span>
+</a>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 px-8 py-10 bg-surface">
+<!-- Editorial Header -->
+<div class="mb-12 max-w-4xl">
+<span class="text-secondary font-bold tracking-widest text-[10px] uppercase mb-2 block">Partner Earnings</span>
+<h1 class="text-4xl lg:text-5xl font-headline font-extrabold text-on-surface leading-tight tracking-tighter">Commissions &amp; Payments</h1>
+<p class="text-on-surface-variant mt-4 text-lg max-w-2xl leading-relaxed">A detailed overview of your editorial contributions and financial growth within the Atelier ecosystem. Track every patient journey you facilitate.</p>
+</div>
+<!-- Bento Summary Cards -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+<!-- Total Earned -->
+<div class="bg-surface-container-lowest rounded-xl p-8 flex flex-col justify-between min-h-[180px] shadow-[0_20px_40px_rgba(0,27,63,0.04)] relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-6xl">account_balance_wallet</span>
+</div>
+<div>
+<div class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Total Earned</div>
+<div class="text-3xl font-headline font-extrabold text-primary">$42,850.00</div>
+</div>
+<div class="text-[11px] font-medium text-tertiary flex items-center gap-1 mt-4">
+<span class="material-symbols-outlined text-[14px]">trending_up</span>
+                        +12.4% from last month
+                    </div>
+</div>
+<!-- Pending Validation -->
+<div class="bg-surface-container-low rounded-xl p-8 flex flex-col justify-between min-h-[180px] relative overflow-hidden">
+<div class="absolute -bottom-4 -right-4 w-24 h-24 bg-primary/5 rounded-full blur-2xl"></div>
+<div>
+<div class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Pending Validation</div>
+<div class="text-3xl font-headline font-extrabold text-on-surface">$3,120.45</div>
+</div>
+<div class="text-[11px] font-medium text-on-surface-variant mt-4">
+                        Awaiting 30-day clinical verification
+                    </div>
+</div>
+<!-- Next Payout -->
+<div class="bg-primary text-white rounded-xl p-8 flex flex-col justify-between min-h-[180px] shadow-lg shadow-primary/20 relative overflow-hidden">
+<div class="absolute top-0 right-0 p-4 opacity-20">
+<span class="material-symbols-outlined text-4xl">event_upcoming</span>
+</div>
+<div>
+<div class="text-xs font-bold text-primary-fixed-dim uppercase tracking-widest mb-1">Next Payout Date</div>
+<div class="text-3xl font-headline font-extrabold text-white">Oct 15, 2024</div>
+</div>
+<div class="flex items-center gap-2 mt-4">
+<span class="w-2 h-2 bg-secondary-fixed rounded-full animate-pulse"></span>
+<span class="text-[11px] font-medium text-primary-fixed">Scheduled: Auto-deposit</span>
+</div>
+</div>
+</div>
+<!-- Main Layout: Payouts & Commission Breakdown -->
+<div class="flex flex-col xl:flex-row gap-12">
+<!-- Payout History Table -->
+<div class="flex-1">
+<div class="flex items-center justify-between mb-6">
+<h2 class="text-xl font-headline font-bold text-on-surface">Payout History</h2>
+<button class="text-primary text-sm font-semibold flex items-center gap-1 hover:underline">
+<span class="material-symbols-outlined text-[18px]">download</span>
+                            Export CSV
+                        </button>
+</div>
+<div class="bg-surface-container-lowest rounded-xl overflow-hidden shadow-sm">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low/50">
+<th class="px-6 py-4 text-[11px] font-bold text-slate-500 uppercase tracking-wider">Payout ID</th>
+<th class="px-6 py-4 text-[11px] font-bold text-slate-500 uppercase tracking-wider">Date</th>
+<th class="px-6 py-4 text-[11px] font-bold text-slate-500 uppercase tracking-wider text-right">Amount</th>
+<th class="px-6 py-4 text-[11px] font-bold text-slate-500 uppercase tracking-wider text-center">Status</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container">
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-6 py-5 font-manrope font-bold text-primary text-sm">#PA-99201</td>
+<td class="px-6 py-5 text-sm text-on-surface-variant font-medium">Sep 15, 2024</td>
+<td class="px-6 py-5 text-sm text-on-surface font-extrabold text-right">$8,450.00</td>
+<td class="px-6 py-5 text-center">
+<span class="px-3 py-1 rounded-full text-[10px] font-bold uppercase bg-tertiary-fixed text-on-tertiary-fixed-variant">Paid</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-6 py-5 font-manrope font-bold text-primary text-sm">#PA-98842</td>
+<td class="px-6 py-5 text-sm text-on-surface-variant font-medium">Aug 15, 2024</td>
+<td class="px-6 py-5 text-sm text-on-surface font-extrabold text-right">$7,120.00</td>
+<td class="px-6 py-5 text-center">
+<span class="px-3 py-1 rounded-full text-[10px] font-bold uppercase bg-tertiary-fixed text-on-tertiary-fixed-variant">Paid</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-6 py-5 font-manrope font-bold text-primary text-sm">#PA-98511</td>
+<td class="px-6 py-5 text-sm text-on-surface-variant font-medium">Jul 15, 2024</td>
+<td class="px-6 py-5 text-sm text-on-surface font-extrabold text-right">$9,880.00</td>
+<td class="px-6 py-5 text-center">
+<span class="px-3 py-1 rounded-full text-[10px] font-bold uppercase bg-secondary-container text-on-secondary-container">Processing</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-6 py-5 font-manrope font-bold text-primary text-sm">#PA-98105</td>
+<td class="px-6 py-5 text-sm text-on-surface-variant font-medium">Jun 15, 2024</td>
+<td class="px-6 py-5 text-sm text-on-surface font-extrabold text-right">$6,230.50</td>
+<td class="px-6 py-5 text-center">
+<span class="px-3 py-1 rounded-full text-[10px] font-bold uppercase bg-error-container text-on-error-container">Failed</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Commission Breakdown Sidebar -->
+<div class="w-full xl:w-96">
+<h2 class="text-xl font-headline font-bold text-on-surface mb-6">Commission Breakdown</h2>
+<div class="space-y-4">
+<!-- Breakdown Item 1 -->
+<div class="bg-surface-container-low rounded-xl p-6 border border-transparent hover:border-outline-variant/20 transition-all">
+<div class="flex justify-between items-start mb-4">
+<div>
+<div class="text-sm font-bold text-on-surface">Executive Health Check</div>
+<div class="text-[11px] text-slate-500 font-medium">Patient: Luc Dupont</div>
+</div>
+<div class="text-right">
+<div class="text-sm font-extrabold text-primary">$450.00</div>
+<div class="text-[10px] font-bold text-secondary uppercase">20% Tier</div>
+</div>
+</div>
+<div class="w-full bg-surface-container-highest h-1.5 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-full"></div>
+</div>
+<div class="mt-2 text-[10px] text-slate-500">Credited: Sep 28, 2024</div>
+</div>
+<!-- Breakdown Item 2 -->
+<div class="bg-surface-container-low rounded-xl p-6 border border-transparent hover:border-outline-variant/20 transition-all">
+<div class="flex justify-between items-start mb-4">
+<div>
+<div class="text-sm font-bold text-on-surface">Longevity Program Plus</div>
+<div class="text-[11px] text-slate-500 font-medium">Patient: Elena Rossi</div>
+</div>
+<div class="text-right">
+<div class="text-sm font-extrabold text-primary">$1,200.00</div>
+<div class="text-[10px] font-bold text-secondary uppercase">Elite Partner</div>
+</div>
+</div>
+<div class="w-full bg-surface-container-highest h-1.5 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[85%]"></div>
+</div>
+<div class="mt-2 text-[10px] text-slate-500">Credited: Sep 24, 2024</div>
+</div>
+<!-- Breakdown Item 3 -->
+<div class="bg-surface-container-low rounded-xl p-6 border border-transparent hover:border-outline-variant/20 transition-all">
+<div class="flex justify-between items-start mb-4">
+<div>
+<div class="text-sm font-bold text-on-surface">Genetic Consultation</div>
+<div class="text-[11px] text-slate-500 font-medium">Patient: Marcus Weber</div>
+</div>
+<div class="text-right">
+<div class="text-sm font-extrabold text-primary">$180.00</div>
+<div class="text-[10px] font-bold text-slate-400 uppercase">Standard</div>
+</div>
+</div>
+<div class="w-full bg-surface-container-highest h-1.5 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[40%]"></div>
+</div>
+<div class="mt-2 text-[10px] text-slate-500">Credited: Sep 22, 2024</div>
+</div>
+</div>
+<div class="mt-8 p-6 bg-tertiary text-white rounded-xl relative overflow-hidden">
+<div class="relative z-10">
+<div class="text-xs font-bold text-tertiary-fixed mb-1 uppercase tracking-widest">Growth Opportunity</div>
+<div class="text-lg font-headline font-bold mb-4">You're $2,400 away from the Diamond Tier</div>
+<button class="bg-white text-tertiary px-4 py-2 rounded-lg text-xs font-bold hover:bg-tertiary-fixed transition-colors">View Tier Benefits</button>
+</div>
+<div class="absolute -right-10 -bottom-10 opacity-10">
+<span class="material-symbols-outlined text-[160px]">award_star</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Educational Footer / Disclaimer Section -->
+<div class="mt-24 border-t border-surface-container-highest pt-8 pb-16 flex flex-col md:flex-row justify-between gap-8 items-start">
+<div class="max-w-md">
+<div class="text-xl font-headline font-extrabold text-primary mb-2">The Clinical Atelier</div>
+<p class="text-sm text-on-surface-variant leading-relaxed">Payments are processed securely via our medical billing infrastructure. All referrals undergo clinical validation to ensure the highest standards of patient care and ethical alignment.</p>
+</div>
+<div class="flex gap-16">
+<div>
+<div class="text-[11px] font-bold text-slate-400 uppercase tracking-widest mb-4">Legal</div>
+<ul class="space-y-2 text-sm font-medium text-on-surface-variant">
+<li><a class="hover:text-primary" href="#">Payment Terms</a></li>
+<li><a class="hover:text-primary" href="#">Compliance Policy</a></li>
+<li><a class="hover:text-primary" href="#">Tax Documents</a></li>
+</ul>
+</div>
+<div>
+<div class="text-[11px] font-bold text-slate-400 uppercase tracking-widest mb-4">Account</div>
+<ul class="space-y-2 text-sm font-medium text-on-surface-variant">
+<li><a class="hover:text-primary" href="#">Bank Details</a></li>
+<li><a class="hover:text-primary" href="#">Notification Settings</a></li>
+</ul>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- Mobile Navigation (BottomNavBar suppression check: rendered for top-level destination) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full bg-white dark:bg-slate-900 shadow-[0_-4px_20px_rgba(0,0,0,0.05)] h-16 flex items-center justify-around z-50">
+<a class="flex flex-col items-center gap-1 text-slate-400" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-[10px] font-medium">Dashboard</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-slate-400" href="#">
+<span class="material-symbols-outlined">group_add</span>
+<span class="text-[10px] font-medium">Referrals</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-blue-700" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">payments</span>
+<span class="text-[10px] font-bold">Payouts</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-slate-400" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-[10px] font-medium">Settings</span>
+</a>
+</nav>
+</body></html>

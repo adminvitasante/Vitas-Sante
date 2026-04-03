@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Vita Santé Portal - Admin Console</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-surface": "#191c1e",
+                    "error": "#ba1a1a",
+                    "on-error": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "surface-dim": "#d8dadc",
+                    "tertiary": "#003f0b",
+                    "error-container": "#ffdad6",
+                    "on-secondary-fixed-variant": "#005046",
+                    "secondary-fixed-dim": "#84d5c5",
+                    "inverse-surface": "#2d3133",
+                    "primary": "#00346f",
+                    "tertiary-fixed-dim": "#88d982",
+                    "surface-tint": "#255dad",
+                    "surface-container-lowest": "#ffffff",
+                    "primary-container": "#004a99",
+                    "outline-variant": "#c2c6d3",
+                    "on-tertiary-container": "#7ecf79",
+                    "on-secondary-fixed": "#00201b",
+                    "on-primary-container": "#9bbdff",
+                    "surface-container": "#eceef0",
+                    "inverse-primary": "#abc7ff",
+                    "on-secondary": "#ffffff",
+                    "on-tertiary": "#ffffff",
+                    "tertiary-fixed": "#a3f69c",
+                    "on-background": "#191c1e",
+                    "surface": "#f7f9fb",
+                    "surface-container-highest": "#e0e3e5",
+                    "surface-bright": "#f7f9fb",
+                    "outline": "#737783",
+                    "on-tertiary-fixed-variant": "#005312",
+                    "primary-fixed-dim": "#abc7ff",
+                    "on-tertiary-fixed": "#002204",
+                    "tertiary-container": "#005914",
+                    "inverse-on-surface": "#eff1f3",
+                    "secondary-container": "#9defde",
+                    "on-surface-variant": "#424751",
+                    "surface-variant": "#e0e3e5",
+                    "secondary": "#046b5e",
+                    "on-primary-fixed": "#001b3f",
+                    "secondary-fixed": "#a0f2e1",
+                    "primary-fixed": "#d7e2ff",
+                    "on-error-container": "#93000a",
+                    "surface-container-low": "#f2f4f6",
+                    "on-secondary-container": "#0f6f62",
+                    "surface-container-high": "#e6e8ea",
+                    "background": "#f7f9fb",
+                    "on-primary-fixed-variant": "#00458f"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "fontFamily": {
+                    "headline": ["Manrope"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, .font-headline { font-family: 'Manrope', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-header {
+            background: rgba(247, 249, 251, 0.8);
+            backdrop-filter: blur(20px);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface">
+<!-- SideNavBar -->
+<aside class="h-screen w-64 fixed left-0 top-0 bg-surface-container-low flex flex-col py-6 px-4 space-y-2 z-50">
+<div class="px-2 mb-8">
+<h1 class="text-lg font-black text-blue-900 uppercase tracking-tight">Vita Santé Portal</h1>
+<p class="font-manrope text-xs font-medium text-slate-500">Clinical Professional</p>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center px-4 py-3 space-x-3 text-slate-500 hover:bg-surface-container-high transition-all font-manrope text-sm font-medium rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="flex items-center px-4 py-3 space-x-3 text-slate-500 hover:bg-surface-container-high transition-all font-manrope text-sm font-medium rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="medical_services">medical_services</span>
+<span>Patient Care</span>
+</a>
+<a class="flex items-center px-4 py-3 space-x-3 text-slate-500 hover:bg-surface-container-high transition-all font-manrope text-sm font-medium rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="handshake">handshake</span>
+<span>Affiliates</span>
+</a>
+<a class="flex items-center px-4 py-3 space-x-3 text-slate-500 hover:bg-surface-container-high transition-all font-manrope text-sm font-medium rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="account_balance">account_balance</span>
+<span>Sponsors</span>
+</a>
+<!-- Active State: Admin Console -->
+<a class="flex items-center px-4 py-3 space-x-3 bg-surface-container-lowest text-blue-900 rounded-lg shadow-sm font-manrope text-sm font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="admin_panel_settings">admin_panel_settings</span>
+<span>Admin Console</span>
+</a>
+<a class="flex items-center px-4 py-3 space-x-3 text-slate-500 hover:bg-surface-container-high transition-all font-manrope text-sm font-medium rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="monitoring">monitoring</span>
+<span>Health Analytics</span>
+</a>
+</nav>
+<div class="pt-6 mt-6 space-y-1">
+<button class="w-full bg-primary text-white py-3 rounded-xl font-headline font-bold text-sm mb-4 shadow-lg shadow-primary/20 hover:opacity-90 transition-opacity">
+                Urgent Consult
+            </button>
+<a class="flex items-center px-4 py-2 space-x-3 text-slate-500 hover:text-blue-600 transition-colors font-manrope text-sm" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span>Settings</span>
+</a>
+<a class="flex items-center px-4 py-2 space-x-3 text-slate-500 hover:text-blue-600 transition-colors font-manrope text-sm" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+<span>Support</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-64 min-h-screen">
+<!-- Top Header -->
+<header class="glass-header sticky top-0 z-40 px-8 py-6 flex justify-between items-center">
+<div>
+<h2 class="text-2xl font-extrabold text-primary tracking-tight">Mission Control</h2>
+<p class="text-sm text-on-surface-variant font-body">Executive Overview &amp; Network Systems</p>
+</div>
+<div class="flex items-center space-x-6">
+<div class="relative">
+<span class="material-symbols-outlined text-outline cursor-pointer" data-icon="notifications">notifications</span>
+<span class="absolute top-0 right-0 w-2 h-2 bg-error rounded-full"></span>
+</div>
+<div class="flex items-center space-x-3 bg-surface-container-low px-3 py-1.5 rounded-full">
+<img alt="User Profile" class="w-8 h-8 rounded-full object-cover" data-alt="Professional portrait of a middle-aged Haitian male doctor in a white lab coat with a friendly and confident expression" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBO1oIN0lCTXGfIibDIe4SDPY9bnROGe8A87Z8eJAsLTnLb3SxCz-Gjk7X17WrAqFvMIazDv_3DJktFc-YO_BY-m28Y6hYOg_bVcTgS3woxJ-DWOTuQTq8faSw8pxWuAAS9AaHMceQEh3neIKaiqtHBGKyX2EvcQHAsvg8_15YMJOMaC5K7bQUKbEmdzdxLJpb4Nho2RX8aSAieaD_iYuF8OtjEoOIqe_nXOkH6a22fD53Z1IkA8onZtXr4tj49WojLUEsNZ4mPn3vX"/>
+<div class="hidden lg:block text-left">
+<p class="text-xs font-bold text-primary leading-none">Dr. Jean-Pierre</p>
+<p class="text-[10px] text-on-surface-variant">Chief Administrator</p>
+</div>
+</div>
+</div>
+</header>
+<div class="px-8 pb-12 space-y-8">
+<!-- KPI Grid -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-[0_20px_40px_rgba(0,27,63,0.04)]">
+<div class="flex justify-between items-start mb-4">
+<span class="p-2 bg-primary-fixed rounded-lg">
+<span class="material-symbols-outlined text-primary" data-icon="group">group</span>
+</span>
+<span class="text-secondary text-xs font-bold font-headline">+12% vs LW</span>
+</div>
+<p class="text-sm text-on-surface-variant font-medium">Total Active Members</p>
+<h3 class="text-3xl font-black text-primary mt-1">14,282</h3>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-[0_20px_40px_rgba(0,27,63,0.04)]">
+<div class="flex justify-between items-start mb-4">
+<span class="p-2 bg-secondary-fixed rounded-lg">
+<span class="material-symbols-outlined text-secondary" data-icon="payments">payments</span>
+</span>
+<span class="text-secondary text-xs font-bold font-headline">+5.4%</span>
+</div>
+<p class="text-sm text-on-surface-variant font-medium">Monthly Revenue</p>
+<h3 class="text-3xl font-black text-primary mt-1">$284,500 <span class="text-sm font-normal text-slate-400">USD</span></h3>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-[0_20px_40px_rgba(0,27,63,0.04)] border-l-4 border-error">
+<div class="flex justify-between items-start mb-4">
+<span class="p-2 bg-error-container rounded-lg">
+<span class="material-symbols-outlined text-error" data-icon="pending_actions">pending_actions</span>
+</span>
+<span class="text-error text-xs font-bold font-headline">Action Required</span>
+</div>
+<p class="text-sm text-on-surface-variant font-medium">Pending Verifications</p>
+<h3 class="text-3xl font-black text-primary mt-1">47</h3>
+</div>
+</section>
+<!-- Asymmetric Grid Section -->
+<section class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+<!-- Registration Growth Chart Placeholder -->
+<div class="lg:col-span-8 bg-surface-container-lowest p-8 rounded-xl shadow-[0_20px_40px_rgba(0,27,63,0.04)]">
+<div class="flex justify-between items-center mb-10">
+<div>
+<h4 class="text-lg font-bold text-primary font-headline">Registration Growth</h4>
+<p class="text-xs text-on-surface-variant">Network expansion tracking across Haiti</p>
+</div>
+<div class="flex space-x-2">
+<button class="px-3 py-1 text-xs bg-surface-container-high rounded-full font-medium">Monthly</button>
+<button class="px-3 py-1 text-xs text-on-surface-variant rounded-full hover:bg-surface-container-low transition-colors">Quarterly</button>
+</div>
+</div>
+<div class="h-64 flex items-end space-x-4">
+<!-- Simplified Bar Chart UI -->
+<div class="flex-1 bg-surface-container-low rounded-t-lg h-[40%] hover:bg-primary-fixed-dim transition-colors group relative">
+<div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-primary text-white text-[10px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">1.2k</div>
+</div>
+<div class="flex-1 bg-surface-container-low rounded-t-lg h-[55%] hover:bg-primary-fixed-dim transition-colors group relative"></div>
+<div class="flex-1 bg-primary-container rounded-t-lg h-[75%] group relative"></div>
+<div class="flex-1 bg-surface-container-low rounded-t-lg h-[60%] hover:bg-primary-fixed-dim transition-colors group relative"></div>
+<div class="flex-1 bg-surface-container-low rounded-t-lg h-[85%] hover:bg-primary-fixed-dim transition-colors group relative"></div>
+<div class="flex-1 bg-primary-container rounded-t-lg h-[95%] group relative"></div>
+<div class="flex-1 bg-surface-container-low rounded-t-lg h-[80%] hover:bg-primary-fixed-dim transition-colors group relative"></div>
+</div>
+<div class="flex justify-between mt-4 px-2 text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+<span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span><span>Jun</span><span>Jul</span>
+</div>
+</div>
+<!-- Recent Activity Log -->
+<div class="lg:col-span-4 bg-surface-container-low p-6 rounded-xl flex flex-col">
+<h4 class="text-lg font-bold text-primary font-headline mb-6">Recent Activity</h4>
+<div class="space-y-6 flex-1 overflow-y-auto max-h-[350px] pr-2">
+<div class="flex space-x-4">
+<div class="relative shrink-0">
+<div class="w-2 h-2 bg-secondary rounded-full mt-2"></div>
+<div class="absolute top-4 left-1/2 w-px h-full bg-outline-variant/30"></div>
+</div>
+<div>
+<p class="text-sm font-bold text-on-surface leading-tight">New Sponsor: Digicel Haiti</p>
+<p class="text-xs text-on-surface-variant mt-1">Partnership agreement finalized.</p>
+<p class="text-[10px] text-slate-400 mt-1 uppercase font-bold tracking-tighter">2 mins ago</p>
+</div>
+</div>
+<div class="flex space-x-4">
+<div class="relative shrink-0">
+<div class="w-2 h-2 bg-primary rounded-full mt-2"></div>
+<div class="absolute top-4 left-1/2 w-px h-full bg-outline-variant/30"></div>
+</div>
+<div>
+<p class="text-sm font-bold text-on-surface leading-tight">Provider Update</p>
+<p class="text-xs text-on-surface-variant mt-1">Dr. Marie L. updated clinic availability.</p>
+<p class="text-[10px] text-slate-400 mt-1 uppercase font-bold tracking-tighter">45 mins ago</p>
+</div>
+</div>
+<div class="flex space-x-4">
+<div class="relative shrink-0">
+<div class="w-2 h-2 bg-error rounded-full mt-2"></div>
+</div>
+<div>
+<p class="text-sm font-bold text-on-surface leading-tight">System Alert</p>
+<p class="text-xs text-on-surface-variant mt-1">Unusual login attempt from Pétion-Ville.</p>
+<p class="text-[10px] text-slate-400 mt-1 uppercase font-bold tracking-tighter">2 hours ago</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Pending Inscriptions Queue -->
+<section class="space-y-6">
+<div class="flex justify-between items-end">
+<div>
+<h4 class="text-xl font-extrabold text-primary font-headline">Pending Inscriptions</h4>
+<p class="text-sm text-on-surface-variant">Review new health professional applications</p>
+</div>
+<button class="text-sm font-bold text-primary flex items-center hover:underline">
+                        View All Queue <span class="material-symbols-outlined ml-1 text-sm" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+<!-- Application Card 1 -->
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-[0_20px_40px_rgba(0,27,63,0.04)] flex flex-col">
+<div class="flex items-center space-x-4 mb-6">
+<img alt="Doctor Profile" class="w-14 h-14 rounded-full object-cover" data-alt="Close-up of a young Haitian female medical professional with protective eyewear and stethoscope, natural lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB3rxBQzuzyHsPfVm3y5O03jmaJTtenzYFrH9xXoz4XSV_k3KEWcpYs8ZcM9yogfrGLIYSDJe6NY-lxciwjU8Vu5nnj_DPVVQijdmZTITwtEbbjAdespIwERkB4nAFsG0OwwGxFSPGdz-VrjmO2Q__zRhW7VZ7KPx2YZGKXBqY1ml1X75b8mCkCqRgHwOmWNFVgHYc63UaC3Eg5PCCoIOcAmZDoLCSmS0KtzW6skaVUl5ue6UkOb6pDsg2LHoD60lii0s1akl0xFXWf"/>
+<div>
+<p class="font-bold text-primary font-headline">Dr. Marie-Laure Célestin</p>
+<p class="text-xs text-secondary font-medium">Cardiology • Cap-Haïtien</p>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4 mb-6 bg-surface-container-low p-4 rounded-lg">
+<div>
+<p class="text-[10px] uppercase font-bold text-slate-400 tracking-wider">License ID</p>
+<p class="text-xs font-semibold text-on-surface">#HT-99281-MD</p>
+</div>
+<div>
+<p class="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Applied</p>
+<p class="text-xs font-semibold text-on-surface">Oct 24, 2023</p>
+</div>
+</div>
+<div class="flex space-x-3 mt-auto">
+<button class="flex-1 py-2 text-xs font-bold text-error border border-error/20 rounded-lg hover:bg-error/5 transition-colors">Reject</button>
+<button class="flex-1 py-2 text-xs font-bold text-white bg-primary rounded-lg hover:bg-primary-container transition-colors">Approve</button>
+</div>
+</div>
+<!-- Application Card 2 -->
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-[0_20px_40px_rgba(0,27,63,0.04)] flex flex-col">
+<div class="flex items-center space-x-4 mb-6">
+<img alt="Doctor Profile" class="w-14 h-14 rounded-full object-cover" data-alt="Professional portrait of a Haitian male doctor with a warm smile, wearing a blue tie and stethoscope in a clinical setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBL5eYsqbzprSECxzJqsfLHwsTijikiU22__SGDNFEkFX6RcfdYGMtqZSAm89PKbp8_EwjDVnARwwNEKtOE7lmN41yxqmUG94eODlMbaA5AamZOng4KMKSY-AdB7tjxGWT00gT_VQc0DNzwMo7dt-39ZENQuwXdNT-Woc-ELIaV1VwMotHWUNwsJReCQ9vMr_rhwgKys-gMEQgtuYJdD4BzMGXSab-sJj5Qnzcbm24AUo8Qo0aJFBGOzxrrOu7130ddv_UddepRYopr"/>
+<div>
+<p class="font-bold text-primary font-headline">Dr. Marc-André Noël</p>
+<p class="text-xs text-secondary font-medium">General Practice • Jacmel</p>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4 mb-6 bg-surface-container-low p-4 rounded-lg">
+<div>
+<p class="text-[10px] uppercase font-bold text-slate-400 tracking-wider">License ID</p>
+<p class="text-xs font-semibold text-on-surface">#HT-10442-MD</p>
+</div>
+<div>
+<p class="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Applied</p>
+<p class="text-xs font-semibold text-on-surface">Oct 25, 2023</p>
+</div>
+</div>
+<div class="flex space-x-3 mt-auto">
+<button class="flex-1 py-2 text-xs font-bold text-error border border-error/20 rounded-lg hover:bg-error/5 transition-colors">Reject</button>
+<button class="flex-1 py-2 text-xs font-bold text-white bg-primary rounded-lg hover:bg-primary-container transition-colors">Approve</button>
+</div>
+</div>
+<!-- Application Card 3 -->
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-[0_20px_40px_rgba(0,27,63,0.04)] flex flex-col">
+<div class="flex items-center space-x-4 mb-6">
+<img alt="Doctor Profile" class="w-14 h-14 rounded-full object-cover" data-alt="Frontal view of a determined Haitian female doctor in a light blue clinical uniform, serious and professional expression" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCvE3ImVHUvEqw2eUl8eTJes9xqjsN6VjIsFrvWWX1mE-4Jv9PriGjWJLWkTc-1YRyRjiiMxQY3SHJDJCzLtOr8lvbtRvrZKmEEVVFlRAUePeNjM6BrGixWAMt19zIy5DhKXQUMBLldFGw7jScBBwRLGYVwbPZCwc1XBeE22CyqPsHcAepZz7U8EOjucwn-55OX1HxKxj9czVnqIlwhzDOIuMsZm7GQlCfgpwj35Wv1MgRGpuotOlfLzf40VFJUCQk1s9joQd5p_g5s"/>
+<div>
+<p class="font-bold text-primary font-headline">Dr. Fabiola Desrosiers</p>
+<p class="text-xs text-secondary font-medium">Pediatrics • Port-au-Prince</p>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4 mb-6 bg-surface-container-low p-4 rounded-lg">
+<div>
+<p class="text-[10px] uppercase font-bold text-slate-400 tracking-wider">License ID</p>
+<p class="text-xs font-semibold text-on-surface">#HT-88320-MD</p>
+</div>
+<div>
+<p class="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Applied</p>
+<p class="text-xs font-semibold text-on-surface">Oct 26, 2023</p>
+</div>
+</div>
+<div class="flex space-x-3 mt-auto">
+<button class="flex-1 py-2 text-xs font-bold text-error border border-error/20 rounded-lg hover:bg-error/5 transition-colors">Reject</button>
+<button class="flex-1 py-2 text-xs font-bold text-white bg-primary rounded-lg hover:bg-primary-container transition-colors">Approve</button>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Footer -->
+<footer class="w-full py-12 border-t border-slate-100 bg-slate-50">
+<div class="flex flex-col md:flex-row justify-between items-center px-8 w-full max-w-7xl mx-auto space-y-4 md:space-y-0">
+<p class="font-inter text-xs text-slate-500">© 2024 Vita Santé Club. All Rights Reserved.</p>
+<div class="flex space-x-8">
+<a class="font-inter text-xs text-slate-400 hover:text-blue-600 transition-colors" href="#">Privacy Policy</a>
+<a class="font-inter text-xs text-slate-400 hover:text-blue-600 transition-colors" href="#">Terms of Service</a>
+<a class="font-inter text-xs text-slate-400 hover:text-blue-600 transition-colors" href="#">Compliance</a>
+<a class="font-inter text-xs text-slate-400 hover:text-blue-600 transition-colors" href="#">Global Standards</a>
+</div>
+</div>
+</footer>
+</main>
+</body></html>

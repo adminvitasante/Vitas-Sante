@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Vita Santé Club | Health for Haiti &amp; Diaspora</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-error": "#ffffff",
+                    "surface-container-low": "#f2f4f6",
+                    "primary-fixed": "#d7e2ff",
+                    "on-secondary-container": "#0f6f62",
+                    "on-primary-container": "#9bbdff",
+                    "tertiary": "#003f0b",
+                    "secondary-fixed-dim": "#84d5c5",
+                    "surface-bright": "#f7f9fb",
+                    "surface-variant": "#e0e3e5",
+                    "on-primary-fixed": "#001b3f",
+                    "on-background": "#191c1e",
+                    "on-primary-fixed-variant": "#00458f",
+                    "error-container": "#ffdad6",
+                    "on-surface": "#191c1e",
+                    "surface": "#f7f9fb",
+                    "on-secondary": "#ffffff",
+                    "on-secondary-fixed-variant": "#005046",
+                    "tertiary-container": "#005914",
+                    "background": "#f7f9fb",
+                    "on-secondary-fixed": "#00201b",
+                    "on-tertiary-container": "#7ecf79",
+                    "surface-container-lowest": "#ffffff",
+                    "secondary-fixed": "#a0f2e1",
+                    "secondary": "#046b5e",
+                    "on-surface-variant": "#424751",
+                    "inverse-on-surface": "#eff1f3",
+                    "on-primary": "#ffffff",
+                    "secondary-container": "#9defde",
+                    "surface-tint": "#255dad",
+                    "on-tertiary-fixed-variant": "#005312",
+                    "tertiary-fixed": "#a3f69c",
+                    "on-tertiary": "#ffffff",
+                    "primary": "#00346f",
+                    "inverse-surface": "#2d3133",
+                    "outline": "#737783",
+                    "outline-variant": "#c2c6d3",
+                    "error": "#ba1a1a",
+                    "tertiary-fixed-dim": "#88d982",
+                    "primary-container": "#004a99",
+                    "surface-container": "#eceef0",
+                    "surface-container-high": "#e6e8ea",
+                    "on-error-container": "#93000a",
+                    "primary-fixed-dim": "#abc7ff",
+                    "surface-dim": "#d8dadc",
+                    "on-tertiary-fixed": "#002204",
+                    "inverse-primary": "#abc7ff",
+                    "surface-container-highest": "#e0e3e5"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "fontFamily": {
+                    "headline": ["Manrope"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .clinical-gradient {
+            background: linear-gradient(135deg, #00346f 0%, #004a99 100%);
+        }
+        .glass-effect {
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface">
+<!-- TopNavBar -->
+<header class="fixed top-0 w-full z-50 bg-surface/80 glass-effect shadow-sm">
+<nav class="flex justify-between items-center px-6 py-4 w-full max-w-screen-2xl mx-auto">
+<div class="text-xl font-bold tracking-tighter text-blue-900 font-headline">Vita Santé Club</div>
+<div class="hidden md:flex items-center gap-8">
+<div class="flex items-center gap-6">
+<span class="text-blue-700 font-bold border-b-2 border-blue-700 font-headline text-sm tracking-tight cursor-pointer">FR | EN</span>
+</div>
+<button class="bg-primary text-white px-6 py-2.5 rounded-xl font-headline text-sm font-semibold tracking-tight hover:opacity-90 transition-all">
+                    Member Login
+                </button>
+</div>
+<!-- Mobile Menu Icon (Visual Only) -->
+<div class="md:hidden">
+<span class="material-symbols-outlined text-primary">menu</span>
+</div>
+</nav>
+</header>
+<main class="pt-20">
+<!-- Hero Section -->
+<section class="relative overflow-hidden min-h-[870px] flex items-center px-6 md:px-20 bg-surface-container-low">
+<div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+<div class="z-10 text-left">
+<h1 class="font-headline font-extrabold text-5xl md:text-7xl text-primary leading-[1.1] mb-6 tracking-tight">
+                        Your health is our mission. <br/>
+<span class="text-primary-container">In Haiti and for the Diaspora.</span>
+</h1>
+<p class="text-on-surface-variant text-lg md:text-xl max-w-xl mb-10 leading-relaxed">
+                        Access premium medical care and secure health coverage for you and your loved ones, bridging the gap between distances with trust and clinical excellence.
+                    </p>
+<div class="flex flex-col sm:flex-row gap-4">
+<button class="clinical-gradient text-white px-8 py-4 rounded-xl font-headline font-bold text-lg shadow-lg hover:scale-[1.02] transition-transform">
+                            S'inscrire maintenant
+                        </button>
+<button class="px-8 py-4 rounded-xl font-headline font-bold text-lg text-primary hover:bg-surface-container-high transition-colors">
+                            Voir le réseau
+                        </button>
+</div>
+</div>
+<div class="relative hidden lg:block">
+<div class="absolute -right-20 -top-20 w-96 h-96 bg-secondary-container/30 rounded-full blur-3xl"></div>
+<div class="relative rounded-[2rem] overflow-hidden shadow-2xl transform rotate-2">
+<img alt="Professional Black Haitian male doctor in a modern medical setting" class="w-full h-[600px] object-cover" data-alt="A professional and friendly Black Haitian male doctor in a modern medical setting, wearing a white lab coat and a stethoscope, smiling at the camera." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCE1OiEnsf-LwHBBcq-igkaU12at_5_z6XZtmOT3k0rpAtFvG2uCrWa1RN1J2lq7qOupWo_g5tIJ5hnuQlmlRu-j_x_a3bEENqh6XcbuDNjS3oPW4w35nGuHBEYcnl24LOs-aQ9JIPrwPZY3OuV7wsMPKYCyD9ZH9oZ4RuF9wdYqYq99P8lRu31iPKwgDR3Ki21qkUWR3DvKaqIJm-brbszrTAO94e6GI65HKnjKAMw6nhcAiT7bF5n5ZUAHj4bNc3CsfXY0xStEaiC"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/40 to-transparent"></div>
+</div>
+<!-- Stats Card Float -->
+<div class="absolute bottom-12 -left-12 bg-white/90 glass-effect p-6 rounded-2xl shadow-xl border border-white/20">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-secondary/10 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</div>
+<div>
+<p class="text-xs font-bold text-primary/60 uppercase tracking-widest">Satisfaction</p>
+<p class="text-2xl font-black text-primary">98% Positive</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Mission & Vision Section -->
+<section class="py-24 px-6 bg-surface">
+<div class="max-w-7xl mx-auto">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-16 items-start">
+<div class="col-span-1">
+<div class="w-16 h-1 bg-secondary mb-8"></div>
+<h2 class="font-headline font-extrabold text-4xl text-on-primary-fixed mb-6 tracking-tighter">The Clinical Atelier Philosophy</h2>
+<p class="text-on-surface-variant leading-relaxed mb-8">
+                            We believe healthcare is not a transaction—it is a curated journey. Our vision is to provide a sanctuary of health for the Haitian community, regardless of geographic boundaries.
+                        </p>
+</div>
+<div class="col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-8">
+<div class="p-8 bg-surface-container-lowest rounded-2xl border-l-4 border-primary">
+<span class="material-symbols-outlined text-4xl text-primary mb-4" data-icon="clinical_notes">clinical_notes</span>
+<h3 class="font-headline font-bold text-xl mb-3 text-primary">Mission</h3>
+<p class="text-on-surface-variant text-sm leading-relaxed">
+                                Deploying world-class medical standards to every corner of Haiti, ensuring every member receives dignified and precise care.
+                            </p>
+</div>
+<div class="p-8 bg-surface-container-lowest rounded-2xl border-l-4 border-secondary">
+<span class="material-symbols-outlined text-4xl text-secondary mb-4" data-icon="visibility">visibility</span>
+<h3 class="font-headline font-bold text-xl mb-3 text-secondary">Vision</h3>
+<p class="text-on-surface-variant text-sm leading-relaxed">
+                                To be the digital bridge that connects the Haitian Diaspora to the well-being of their families back home through a trusted medical ecosystem.
+                            </p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Pricing Plans Section -->
+<section class="py-24 px-6 bg-surface-container-low">
+<div class="max-w-7xl mx-auto">
+<div class="text-center mb-16">
+<h2 class="font-headline font-extrabold text-4xl text-primary mb-4">Choose Your Membership</h2>
+<p class="text-on-surface-variant max-w-2xl mx-auto">Transparent plans designed to meet the diverse needs of families in Haiti and those supporting from abroad.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Basic Plan -->
+<div class="bg-surface-container-lowest p-10 rounded-3xl flex flex-col items-start transition-all hover:translate-y-[-8px]">
+<span class="px-4 py-1 bg-surface-container-high rounded-full text-xs font-bold text-primary mb-6">ESSENTIAL</span>
+<div class="flex items-baseline gap-1 mb-8">
+<span class="text-4xl font-black text-primary">$99</span>
+<span class="text-on-surface-variant text-sm">/year</span>
+</div>
+<ul class="space-y-4 mb-10 w-full"><li class="flex items-center gap-3 text-sm text-on-surface-variant"><span class="material-symbols-outlined text-secondary text-lg" style="font-variation-settings: 'FILL' 1;">check_circle</span>6 Visits/Televisits</li><li class="flex items-center gap-3 text-sm text-on-surface-variant"><span class="material-symbols-outlined text-secondary text-lg" style="font-variation-settings: 'FILL' 1;">check_circle</span>15% Labs &amp; Pharmacy</li><li class="flex items-center gap-3 text-sm text-on-surface-variant"><span class="material-symbols-outlined text-secondary text-lg" style="font-variation-settings: 'FILL' 1;">check_circle</span>$1-$10 per visit</li></ul>
+<button class="w-full py-4 border-2 border-primary text-primary font-bold rounded-xl hover:bg-primary hover:text-white transition-colors mt-auto">Select Essential</button>
+</div>
+<!-- Standard Plan -->
+<div class="clinical-gradient p-10 rounded-3xl flex flex-col items-start relative overflow-hidden text-white transition-all hover:translate-y-[-8px] shadow-2xl">
+<div class="absolute top-0 right-0 p-4 bg-secondary text-white text-[10px] font-black uppercase tracking-widest rotate-45 translate-x-10 translate-y-2 w-40 text-center">Popular</div>
+<span class="px-4 py-1 bg-white/20 rounded-full text-xs font-bold text-white mb-6">ADVANTAGE</span>
+<div class="flex items-baseline gap-1 mb-8">
+<span class="text-4xl font-black text-white">$135</span>
+<span class="text-white/70 text-sm">/year</span>
+</div>
+<ul class="space-y-4 mb-10 w-full"><li class="flex items-center gap-3 text-sm"><span class="material-symbols-outlined text-secondary-fixed text-lg" style="font-variation-settings: 'FILL' 1;">check_circle</span>8 Visits/Televisits</li><li class="flex items-center gap-3 text-sm"><span class="material-symbols-outlined text-secondary-fixed text-lg" style="font-variation-settings: 'FILL' 1;">check_circle</span>20% Labs &amp; Pharmacy</li><li class="flex items-center gap-3 text-sm"><span class="material-symbols-outlined text-secondary-fixed text-lg" style="font-variation-settings: 'FILL' 1;">check_circle</span>$1-$10 per visit</li></ul>
+<button class="w-full py-4 bg-white text-primary font-bold rounded-xl hover:bg-opacity-90 transition-opacity mt-auto">Select Advantage</button>
+</div>
+<!-- Premium Plan -->
+<div class="bg-surface-container-lowest p-10 rounded-3xl flex flex-col items-start transition-all hover:translate-y-[-8px]">
+<span class="px-4 py-1 bg-tertiary-fixed text-tertiary rounded-full text-xs font-bold mb-6">PREMIUM</span>
+<div class="flex items-baseline gap-1 mb-8">
+<span class="text-4xl font-black text-primary">$200</span>
+<span class="text-on-surface-variant text-sm">/year</span>
+</div>
+<ul class="space-y-4 mb-10 w-full"><li class="flex items-center gap-3 text-sm text-on-surface-variant"><span class="material-symbols-outlined text-secondary text-lg" style="font-variation-settings: 'FILL' 1;">check_circle</span>12 Visits/Televisits</li><li class="flex items-center gap-3 text-sm text-on-surface-variant"><span class="material-symbols-outlined text-secondary text-lg" style="font-variation-settings: 'FILL' 1;">check_circle</span>35% Labs &amp; Pharmacy</li><li class="flex items-center gap-3 text-sm text-on-surface-variant"><span class="material-symbols-outlined text-secondary text-lg" style="font-variation-settings: 'FILL' 1;">check_circle</span>$1-$10 per visit</li></ul>
+<button class="w-full py-4 border-2 border-primary text-primary font-bold rounded-xl hover:bg-primary hover:text-white transition-colors mt-auto">Select Premium</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Network Map Section -->
+<section class="py-24 px-6 bg-surface">
+<div class="max-w-7xl mx-auto">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+<div>
+<h2 class="font-headline font-extrabold text-4xl text-primary mb-6">Our Medical Network</h2>
+<p class="text-on-surface-variant mb-8 text-lg">
+                            Vita Santé Club partners with the most reputable clinics and hospitals across Haiti. From Port-au-Prince to Cap-Haïtien, our members are never far from expert care.
+                        </p>
+<div class="space-y-6">
+<div class="flex gap-4 p-4 rounded-xl hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-primary text-2xl">location_on</span>
+<div>
+<h4 class="font-bold text-primary">Port-au-Prince Hub</h4>
+<p class="text-sm text-on-surface-variant">4 Major Medical Centers + 12 Diagnostic Labs</p>
+</div>
+</div>
+<div class="flex gap-4 p-4 rounded-xl hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-primary text-2xl">location_on</span>
+<div>
+<h4 class="font-bold text-primary">Northern District</h4>
+<p class="text-sm text-on-surface-variant">2 Hospitals in Cap-Haïtien</p>
+</div>
+</div>
+<div class="flex gap-4 p-4 rounded-xl hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-primary text-2xl">location_on</span>
+<div>
+<h4 class="font-bold text-primary">Southern Coverage</h4>
+<p class="text-sm text-on-surface-variant">Specialized Clinic in Les Cayes</p>
+</div>
+</div>
+</div>
+</div>
+<div class="relative bg-surface-container-high rounded-3xl overflow-hidden min-h-[450px] shadow-inner group">
+<!-- Map Placeholder -->
+<div class="absolute inset-0 grayscale contrast-125 opacity-40 mix-blend-multiply bg-center bg-cover" data-alt="Detailed topographic map of Haiti with subtle glowing markers over major cities like Port-au-Prince and Cap-Haitien" data-location="Haiti" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAx53atZlH-iT7d3Be0C9iwiPC10k21bLGMPHDix2ipemb7lcpFh1vldZ7wu3wLyCw23v0x-Sy3kfhVhOswdCldQf3Jl6TQPSxWto3MC7ke2VhfnDkDl8bwPEDHXFQKurk8gQvh3aIlJDPqPaBf493Bu5sOSmWUsU6tDQ5Hxh5uawdOcpulhNeAmpmr5tFgvCj7-ikwfWDD7Z52M335qdqlb1W1ds5qfvACkC7oV5lZyKCqRCoxYOqK_W7aodq2ahcG3pRjP0YuD6kA')">
+</div>
+<div class="absolute inset-0 flex items-center justify-center">
+<div class="bg-white/90 glass-effect p-8 rounded-2xl shadow-2xl text-center max-w-sm mx-4">
+<span class="material-symbols-outlined text-5xl text-primary mb-4" style="font-variation-settings: 'FILL' 1;">map</span>
+<h4 class="font-headline font-bold text-xl text-primary mb-2">Interactive Network Map</h4>
+<p class="text-sm text-on-surface-variant mb-6">Explore our growing list of 50+ affiliated health partners across the nation.</p>
+<button class="bg-primary text-white px-6 py-3 rounded-lg font-bold text-sm hover:opacity-90 transition-all">
+                                    Open Network Explorer
+                                </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Newsletter / Trust CTA -->
+<section class="py-24 px-6">
+<div class="max-w-5xl mx-auto clinical-gradient rounded-[3rem] p-12 md:p-20 text-center relative overflow-hidden shadow-2xl">
+<div class="absolute -top-10 -left-10 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
+<div class="relative z-10">
+<h2 class="font-headline font-extrabold text-4xl text-white mb-6">Ready to secure your future?</h2>
+<p class="text-primary-fixed-dim text-lg mb-10 max-w-2xl mx-auto">Join the 15,000+ members who trust Vita Santé Club for their daily healthcare needs and emergency coverage.</p>
+<div class="flex flex-col sm:flex-row justify-center gap-4">
+<button class="bg-white text-primary font-bold px-10 py-4 rounded-xl text-lg hover:bg-surface-container-lowest transition-colors">Start Your Journey</button>
+<button class="bg-primary-container/30 border border-white/20 text-white font-bold px-10 py-4 rounded-xl text-lg hover:bg-white/10 transition-colors">Contact Our Advisors</button>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-low border-t border-slate-200 dark:border-slate-800 py-12 px-8">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-screen-2xl mx-auto">
+<div class="space-y-4">
+<div class="text-lg font-black text-blue-900 font-headline uppercase tracking-tighter">Vita Santé Club</div>
+<p class="text-slate-500 font-inter text-xs leading-relaxed max-w-xs">Providing premium medical infrastructure and health solutions for the Haitian nation and its global diaspora.</p>
+</div>
+<div class="flex flex-col gap-3">
+<h5 class="text-primary font-bold text-sm uppercase tracking-widest mb-2">Quick Links</h5>
+<a class="text-slate-500 hover:text-blue-900 font-inter text-xs transition-colors" href="#">About Us</a>
+<a class="text-slate-500 hover:text-blue-900 font-inter text-xs transition-colors" href="#">Medical Network</a>
+<a class="text-slate-500 hover:text-blue-900 font-inter text-xs transition-colors" href="#">Privacy Policy</a>
+<a class="text-slate-500 hover:text-blue-900 font-inter text-xs transition-colors" href="#">Contact</a>
+</div>
+<div class="flex flex-col gap-6">
+<h5 class="text-primary font-bold text-sm uppercase tracking-widest">Connect With Us</h5>
+<div class="flex gap-4">
+<div class="w-10 h-10 bg-white rounded-full flex items-center justify-center text-primary shadow-sm cursor-pointer hover:bg-primary hover:text-white transition-all">
+<span class="material-symbols-outlined">share</span>
+</div>
+<div class="w-10 h-10 bg-white rounded-full flex items-center justify-center text-primary shadow-sm cursor-pointer hover:bg-primary hover:text-white transition-all">
+<span class="material-symbols-outlined">mail</span>
+</div>
+<div class="w-10 h-10 bg-white rounded-full flex items-center justify-center text-primary shadow-sm cursor-pointer hover:bg-primary hover:text-white transition-all">
+<span class="material-symbols-outlined">call</span>
+</div>
+</div>
+<p class="text-slate-400 font-inter text-xs leading-relaxed">© 2024 Vita Santé Club. All rights reserved. Haiti Medical Network.</p>
+</div>
+</div>
+</footer>
+</body></html>

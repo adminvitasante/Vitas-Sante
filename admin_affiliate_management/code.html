@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Affiliate Management | Clinical Atelier</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary-fixed": "#002204",
+                    "primary-fixed-dim": "#abc7ff",
+                    "secondary-fixed-dim": "#84d5c5",
+                    "on-background": "#191c1e",
+                    "on-secondary": "#ffffff",
+                    "tertiary-container": "#005914",
+                    "surface-container-low": "#f2f4f6",
+                    "on-primary-fixed-variant": "#00458f",
+                    "inverse-surface": "#2d3133",
+                    "on-secondary-fixed": "#00201b",
+                    "on-surface": "#191c1e",
+                    "tertiary-fixed-dim": "#88d982",
+                    "error": "#ba1a1a",
+                    "on-tertiary": "#ffffff",
+                    "on-primary-container": "#9bbdff",
+                    "error-container": "#ffdad6",
+                    "surface-container": "#eceef0",
+                    "primary": "#00346f",
+                    "outline-variant": "#c2c6d3",
+                    "surface-container-lowest": "#ffffff",
+                    "background": "#f7f9fb",
+                    "primary-container": "#004a99",
+                    "tertiary": "#003f0b",
+                    "surface-tint": "#255dad",
+                    "surface-dim": "#d8dadc",
+                    "tertiary-fixed": "#a3f69c",
+                    "surface-variant": "#e0e3e5",
+                    "surface-container-highest": "#e0e3e5",
+                    "on-secondary-container": "#0f6f62",
+                    "on-tertiary-container": "#7ecf79",
+                    "on-error": "#ffffff",
+                    "inverse-on-surface": "#eff1f3",
+                    "on-primary": "#ffffff",
+                    "on-error-container": "#93000a",
+                    "surface-container-high": "#e6e8ea",
+                    "secondary-fixed": "#a0f2e1",
+                    "surface-bright": "#f7f9fb",
+                    "secondary-container": "#9defde",
+                    "primary-fixed": "#d7e2ff",
+                    "on-tertiary-fixed-variant": "#005312",
+                    "outline": "#737783",
+                    "secondary": "#046b5e",
+                    "inverse-primary": "#abc7ff",
+                    "on-surface-variant": "#424751",
+                    "surface": "#f7f9fb",
+                    "on-primary-fixed": "#001b3f",
+                    "on-secondary-fixed-variant": "#005046"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "fontFamily": {
+                    "headline": ["Manrope"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #f7f9fb; }
+        .font-manrope { font-family: 'Manrope', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body class="text-on-surface antialiased">
+<!-- SideNavBar Implementation -->
+<aside class="fixed left-0 top-0 h-full flex flex-col py-8 bg-slate-50 dark:bg-slate-950 h-screen w-64 border-r-0 z-50">
+<div class="px-6 mb-10">
+<h1 class="text-2xl font-bold tracking-tighter text-blue-950 dark:text-blue-100 font-manrope">Clinical Atelier</h1>
+<p class="text-xs text-slate-500 font-medium tracking-wide">Administrative Suite</p>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 py-3 text-slate-500 dark:text-slate-400 pl-4 hover:text-blue-600 dark:hover:text-blue-300 font-manrope text-sm font-medium tracking-tight hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span>Overview</span>
+</a>
+<a class="flex items-center gap-3 py-3 text-slate-500 dark:text-slate-400 pl-4 hover:text-blue-600 dark:hover:text-blue-300 font-manrope text-sm font-medium tracking-tight hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">group</span>
+<span>Users</span>
+</a>
+<a class="flex items-center gap-3 py-3 text-slate-500 dark:text-slate-400 pl-4 hover:text-blue-600 dark:hover:text-blue-300 font-manrope text-sm font-medium tracking-tight hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">medical_services</span>
+<span>Medical Plans</span>
+</a>
+<!-- ACTIVE TAB: Affiliates -->
+<a class="flex items-center gap-3 py-3 text-blue-700 dark:text-blue-400 font-bold border-l-4 border-blue-700 dark:border-blue-400 pl-4 font-manrope text-sm tracking-tight transition-transform duration-150 active:scale-95" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">handshake</span>
+<span>Affiliates</span>
+</a>
+<a class="flex items-center gap-3 py-3 text-slate-500 dark:text-slate-400 pl-4 hover:text-blue-600 dark:hover:text-blue-300 font-manrope text-sm font-medium tracking-tight hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">terminal</span>
+<span>System Logs</span>
+</a>
+</nav>
+<div class="px-4 mt-auto space-y-1">
+<button class="w-full mb-6 bg-gradient-to-r from-primary to-primary-container text-white py-2.5 rounded-xl text-sm font-bold shadow-md hover:opacity-90 transition-opacity">
+                Generate Report
+            </button>
+<a class="flex items-center gap-3 py-2 text-slate-500 dark:text-slate-400 pl-4 hover:text-blue-600 dark:hover:text-blue-300 font-manrope text-sm" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span>Settings</span>
+</a>
+<a class="flex items-center gap-3 py-2 text-slate-500 dark:text-slate-400 pl-4 hover:text-blue-600 dark:hover:text-blue-300 font-manrope text-sm" href="#">
+<span class="material-symbols-outlined">help</span>
+<span>Support</span>
+</a>
+<div class="pt-6 flex items-center gap-3 px-4">
+<img alt="Admin Profile Avatar" class="w-8 h-8 rounded-full bg-slate-200" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBt7L31JAbDCGRQOD1pAZ3XOJtJMn3lgLC6ms8JpGPBJquqAYWHsZfAW2naC5wcoTv3GG0ZBBLTYjuo9dbVQ2qXjEo2922KrN_SKcqqHpDAbsjyv__qinG7QrHSf4fKf8R5ZP4veKXYLCakdA4lVeXZY7ILDGOOIm47opQ7pxC8Ao5nGoLi3LCZnItu2_gw3BOz9mvB_Hnyt8N3wNZER5NSgkCE-Nx0I_tZBQFoDN2G5zNDW5yM0UYI0nas6XZZUNG7UI2MYpKqvlUg"/>
+<div class="overflow-hidden">
+<p class="text-xs font-bold text-blue-950 truncate">Dr. Aris Thorne</p>
+<p class="text-[10px] text-slate-500">Super Admin</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- TopNavBar Implementation -->
+<header class="flex justify-between items-center h-16 ml-64 px-8 sticky top-0 z-40 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md shadow-sm dark:shadow-none font-inter text-sm">
+<div class="flex items-center gap-8">
+<span class="text-blue-900 dark:text-blue-400 font-bold text-lg">Admin Console</span>
+<nav class="hidden md:flex gap-6">
+<a class="text-slate-600 dark:text-slate-400 hover:text-blue-600 transition-opacity" href="#">Directives</a>
+<a class="text-blue-700 dark:text-blue-400 font-semibold" href="#">Live Monitor</a>
+</nav>
+</div>
+<div class="flex items-center gap-6">
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-3 text-slate-400">search</span>
+<input class="pl-10 pr-4 py-1.5 bg-slate-50 border-none rounded-full text-xs w-64 focus:ring-2 focus:ring-primary/20" placeholder="Search affiliates..." type="text"/>
+</div>
+<div class="flex items-center gap-4 text-slate-600">
+<button class="hover:opacity-80 transition-opacity">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="hover:opacity-80 transition-opacity">
+<span class="material-symbols-outlined">account_circle</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="ml-64 p-8 min-h-screen">
+<!-- Header Section -->
+<section class="mb-10">
+<div class="flex justify-between items-end">
+<div class="max-w-2xl">
+<h2 class="text-4xl font-extrabold font-manrope tracking-tight text-on-surface mb-2">Affiliate Ecosystem</h2>
+<p class="text-on-surface-variant text-lg font-light leading-relaxed">
+                        Precision tracking for our clinical partners. Monitor conversions, validate credentials, and optimize surgical agent commissions.
+                    </p>
+</div>
+<div class="flex gap-3">
+<button class="px-6 py-2.5 rounded-xl bg-surface-container-low text-primary font-semibold text-sm hover:bg-surface-container-high transition-colors">
+                        Export Ledger
+                    </button>
+<button class="px-6 py-2.5 rounded-xl bg-gradient-to-br from-primary to-primary-container text-white font-bold text-sm shadow-lg shadow-primary/10 hover:opacity-90 transition-opacity">
+                        Network Overview
+                    </button>
+</div>
+</div>
+</section>
+<!-- KPI Bento Grid -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-10">
+<div class="col-span-1 md:col-span-1 bg-surface-container-lowest p-6 rounded-xl border-none transition-transform hover:scale-[1.02] duration-300">
+<div class="flex justify-between items-start mb-4">
+<span class="p-2 bg-blue-50 text-primary rounded-lg material-symbols-outlined">payments</span>
+<span class="text-xs font-bold text-secondary flex items-center gap-1">+12.4% <span class="material-symbols-outlined text-[14px]">trending_up</span></span>
+</div>
+<p class="text-on-surface-variant text-xs font-semibold uppercase tracking-wider mb-1">Total Payouts</p>
+<h3 class="text-2xl font-bold font-manrope">$428,904.00</h3>
+<p class="text-[10px] text-slate-400 mt-2">Fiscal Year 2024</p>
+</div>
+<div class="col-span-1 md:col-span-1 bg-surface-container-lowest p-6 rounded-xl border-none transition-transform hover:scale-[1.02] duration-300">
+<div class="flex justify-between items-start mb-4">
+<span class="p-2 bg-secondary-container text-on-secondary-container rounded-lg material-symbols-outlined">data_exploration</span>
+<span class="text-xs font-bold text-secondary flex items-center gap-1">+4.2% <span class="material-symbols-outlined text-[14px]">trending_up</span></span>
+</div>
+<p class="text-on-surface-variant text-xs font-semibold uppercase tracking-wider mb-1">Avg. Conversion</p>
+<h3 class="text-2xl font-bold font-manrope">18.6%</h3>
+<p class="text-[10px] text-slate-400 mt-2">Industry Average: 12.1%</p>
+</div>
+<div class="col-span-1 md:col-span-1 bg-surface-container-lowest p-6 rounded-xl border-none transition-transform hover:scale-[1.02] duration-300">
+<div class="flex justify-between items-start mb-4">
+<span class="p-2 bg-tertiary-fixed text-on-tertiary-fixed rounded-lg material-symbols-outlined">pending_actions</span>
+</div>
+<p class="text-on-surface-variant text-xs font-semibold uppercase tracking-wider mb-1">Pending Requests</p>
+<h3 class="text-2xl font-bold font-manrope">14</h3>
+<p class="text-[10px] text-slate-400 mt-2">6 requiring immediate review</p>
+</div>
+<div class="col-span-1 md:col-span-1 bg-surface-container-lowest p-6 rounded-xl border-none transition-transform hover:scale-[1.02] duration-300">
+<div class="flex justify-between items-start mb-4">
+<span class="p-2 bg-error-container text-on-error-container rounded-lg material-symbols-outlined">hourglass_empty</span>
+</div>
+<p class="text-on-surface-variant text-xs font-semibold uppercase tracking-wider mb-1">Unpaid Commissions</p>
+<h3 class="text-2xl font-bold font-manrope text-error">$12,450.20</h3>
+<p class="text-[10px] text-slate-400 mt-2">Next cycle: Friday</p>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Main Agent Tracking List -->
+<div class="lg:col-span-2 space-y-6">
+<div class="flex items-center justify-between">
+<h3 class="text-xl font-bold font-manrope">Performance Leaderboard</h3>
+<div class="flex items-center gap-2">
+<button class="p-2 hover:bg-slate-100 rounded-lg text-slate-400"><span class="material-symbols-outlined">filter_list</span></button>
+<button class="p-2 hover:bg-slate-100 rounded-lg text-slate-400"><span class="material-symbols-outlined">sort</span></button>
+</div>
+</div>
+<!-- Agent Cards -->
+<div class="space-y-4">
+<!-- Agent Item 1 -->
+<div class="bg-surface-container-lowest p-5 rounded-xl flex items-center gap-6 group hover:bg-surface-bright transition-colors">
+<img class="w-14 h-14 rounded-full object-cover" data-alt="professional portrait of a medical consultant in a well-lit modern clinic office with blurred medical equipment in the background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBHyabg_yDkWdBnh1tJhXrma39NXy51Y65GN5o2fSNXS4xrVJNxfmRHPidOaljHVPvF6JjWK18JDIovMtOufBFvSA_nhYwyhNtyK8Rj3nuTOFoQaKjCE1v1niV64QFzAsUNWlY7rzXfbd1FCzaE-drxtMcG9UbnVGfSQtDkd6RwHQj6iqfsZuayD3I5ZaHyMc6qNidl_VZeT2yTYJR19LM_fQ_5JFTE-xKzXGI2f0hff5NqbODNARl48Lwcmk2JcpaxHpEnBjZ6jGgL"/>
+<div class="flex-1">
+<h4 class="font-bold text-on-surface">Dr. Marc Andreessen</h4>
+<p class="text-xs text-slate-400">Cardiology Specialist • Zurich, CH</p>
+</div>
+<div class="text-right px-6 border-x border-slate-100">
+<p class="text-xs text-slate-400 mb-0.5">Conversion</p>
+<p class="font-bold text-secondary">24.8%</p>
+</div>
+<div class="text-right px-6 border-r border-slate-100">
+<p class="text-xs text-slate-400 mb-0.5">YTD Earnings</p>
+<p class="font-bold text-primary">$84,200</p>
+</div>
+<button class="p-2 rounded-lg opacity-0 group-hover:opacity-100 hover:bg-primary/5 text-primary transition-all">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+<!-- Agent Item 2 -->
+<div class="bg-surface-container-lowest p-5 rounded-xl flex items-center gap-6 group hover:bg-surface-bright transition-colors">
+<img class="w-14 h-14 rounded-full object-cover" data-alt="headshot of a business executive in professional attire with soft natural lighting and warm neutral background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAXjCDr4pnZnAs4yBls9VZoQ4Qun2Pjr0JjxSUZeM60MLq2fvaVrK-IEwYWKiLNAHWU0nJ9npcqji440wgiioEOsaz2apaoy83iFuZwYfNJJu_1CIR3tu9xSDTS3tvrR010HyUHhDOnDGUSh0Grge8ZEt03z4FLYysYVovg21-raY0jmJIHPnOi72iHedMfjAm_RjzypkfA8eKkMoZunWVJNpwUC_Psm2vBVvsR60gmiDhgURmDYT45FcR912_r5S80y9KTovZkqLCg"/>
+<div class="flex-1">
+<h4 class="font-bold text-on-surface">Sarah Wellington</h4>
+<p class="text-xs text-slate-400">Surgical Sales Lead • London, UK</p>
+</div>
+<div class="text-right px-6 border-x border-slate-100">
+<p class="text-xs text-slate-400 mb-0.5">Conversion</p>
+<p class="font-bold text-secondary">19.2%</p>
+</div>
+<div class="text-right px-6 border-r border-slate-100">
+<p class="text-xs text-slate-400 mb-0.5">YTD Earnings</p>
+<p class="font-bold text-primary">$62,150</p>
+</div>
+<button class="p-2 rounded-lg opacity-0 group-hover:opacity-100 hover:bg-primary/5 text-primary transition-all">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+<!-- Agent Item 3 -->
+<div class="bg-surface-container-lowest p-5 rounded-xl flex items-center gap-6 group hover:bg-surface-bright transition-colors">
+<img class="w-14 h-14 rounded-full object-cover" data-alt="clean professional headshot of a smiling health professional against a light blue textured background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA0gVggWCf-qENNx_g1IQ_Hlshtec7INdeYywNGyuGksqVNWxq2WOcqS_PA-NRKhPUKwEZcxmfshglAHTtj0KH_weFuV2qpn-AG22rQRsnEOnTDTjyBoEwTFxAdoLUQ_WIfm6OPormrWWQ0N_zSFGnFQstBw8UFsbJ3giFKGb7uBbyzDDZSvrAi3oJJAJFDMvnkKSBuyVoWNRDihCUrwjpc0oLPUl6Gu-C1Fw5riweiQqpDR1hybKpMjh2LEbilVU7p5zfBie9V8Eaq"/>
+<div class="flex-1">
+<h4 class="font-bold text-on-surface">Thomas Kovacs</h4>
+<p class="text-xs text-slate-400">Device Consultant • Berlin, DE</p>
+</div>
+<div class="text-right px-6 border-x border-slate-100">
+<p class="text-xs text-slate-400 mb-0.5">Conversion</p>
+<p class="font-bold text-slate-400">11.5%</p>
+</div>
+<div class="text-right px-6 border-r border-slate-100">
+<p class="text-xs text-slate-400 mb-0.5">YTD Earnings</p>
+<p class="font-bold text-primary">$31,400</p>
+</div>
+<button class="p-2 rounded-lg opacity-0 group-hover:opacity-100 hover:bg-primary/5 text-primary transition-all">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+<!-- Performance Graph Area (Stylized) -->
+<div class="bg-surface-container-low p-8 rounded-2xl relative overflow-hidden h-64 flex flex-col justify-end">
+<div class="absolute inset-0 bg-gradient-to-t from-white/40 to-transparent"></div>
+<div class="relative z-10">
+<p class="text-sm font-bold text-primary mb-1 uppercase tracking-widest">Network Growth</p>
+<h4 class="text-3xl font-bold font-manrope mb-4 text-blue-950">Projected Q4 Upside</h4>
+<div class="flex items-end gap-1 h-20">
+<div class="w-full bg-primary/20 rounded-t h-[40%]"></div>
+<div class="w-full bg-primary/20 rounded-t h-[55%]"></div>
+<div class="w-full bg-primary/20 rounded-t h-[45%]"></div>
+<div class="w-full bg-primary/30 rounded-t h-[70%]"></div>
+<div class="w-full bg-primary/40 rounded-t h-[85%]"></div>
+<div class="w-full bg-primary rounded-t h-[100%] shadow-lg shadow-primary/20"></div>
+<div class="w-full bg-primary-container rounded-t h-[90%] opacity-50"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Side Panel: Applications & Tools -->
+<div class="space-y-8">
+<!-- Approval Queue -->
+<div class="bg-surface-container-lowest p-6 rounded-2xl shadow-sm">
+<h3 class="text-lg font-bold font-manrope mb-6 flex justify-between items-center">
+                        Approval Queue
+                        <span class="bg-primary/10 text-primary text-[10px] px-2 py-0.5 rounded-full uppercase tracking-tighter">New Applications</span>
+</h3>
+<div class="space-y-6">
+<div class="flex gap-4">
+<div class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-slate-400">person_add</span>
+</div>
+<div class="flex-1">
+<p class="text-sm font-bold">Dr. Elena Rodriguez</p>
+<p class="text-[11px] text-slate-500 mb-3">Neurology Specialist • 14 years exp.</p>
+<div class="flex gap-2">
+<button class="flex-1 py-1.5 bg-secondary text-white text-[11px] font-bold rounded-lg hover:opacity-90">Approve</button>
+<button class="px-3 py-1.5 bg-slate-100 text-slate-500 text-[11px] font-bold rounded-lg hover:bg-slate-200">Review</button>
+</div>
+</div>
+</div>
+<div class="border-t border-slate-50 pt-6 flex gap-4">
+<div class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-slate-400">medical_information</span>
+</div>
+<div class="flex-1">
+<p class="text-sm font-bold">MediCorp Solutions</p>
+<p class="text-[11px] text-slate-500 mb-3">Group Agency • 45 Agents</p>
+<div class="flex gap-2">
+<button class="flex-1 py-1.5 bg-secondary text-white text-[11px] font-bold rounded-lg hover:opacity-90">Approve</button>
+<button class="px-3 py-1.5 bg-slate-100 text-slate-500 text-[11px] font-bold rounded-lg hover:bg-slate-200">Review</button>
+</div>
+</div>
+</div>
+</div>
+<button class="w-full mt-8 text-primary text-xs font-bold py-2 border border-primary/10 rounded-xl hover:bg-primary/5 transition-colors">
+                        View All Applications
+                    </button>
+</div>
+<!-- Payment History Log -->
+<div class="bg-surface-container-low p-6 rounded-2xl">
+<h3 class="text-lg font-bold font-manrope mb-4">Payment History</h3>
+<div class="space-y-4">
+<div class="flex justify-between items-center text-sm">
+<div>
+<p class="font-medium text-on-surface">Batch #88219</p>
+<p class="text-[10px] text-slate-500">Oct 12, 2024 • 24 Agents</p>
+</div>
+<div class="text-right">
+<p class="font-bold text-primary">$42,500.00</p>
+<span class="text-[10px] text-secondary font-bold uppercase tracking-widest">Completed</span>
+</div>
+</div>
+<div class="flex justify-between items-center text-sm">
+<div>
+<p class="font-medium text-on-surface">Batch #88218</p>
+<p class="text-[10px] text-slate-500">Oct 05, 2024 • 18 Agents</p>
+</div>
+<div class="text-right">
+<p class="font-bold text-primary">$18,240.50</p>
+<span class="text-[10px] text-secondary font-bold uppercase tracking-widest">Completed</span>
+</div>
+</div>
+<div class="flex justify-between items-center text-sm opacity-50">
+<div>
+<p class="font-medium text-on-surface">Batch #88217</p>
+<p class="text-[10px] text-slate-500">Sep 28, 2024 • 31 Agents</p>
+</div>
+<div class="text-right">
+<p class="font-bold text-primary">$31,900.00</p>
+<span class="text-[10px] text-secondary font-bold uppercase tracking-widest">Completed</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Admin Action Card -->
+<div class="relative rounded-2xl overflow-hidden p-6 text-white h-48 flex flex-col justify-between">
+<div class="absolute inset-0 z-0">
+<div class="absolute inset-0 bg-gradient-to-br from-primary via-primary-container to-blue-900 opacity-90"></div>
+<img class="w-full h-full object-cover" data-alt="abstract geometric pattern of interlocking clinical icons in deep blue and teal colors representing medical network connections" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAjgD8ok22N4E1AouNV4BqEgQRfy96jOUKtiyfNt5YjL1JV4_hk7umHzaQSGANfcutn8ErP_PlmZ8eU5mPIHxAsnXDLrf3EUU8RDv4UDeXtP6wkeVx_HwtL2RPAoIGqSp1YKfPbsl9iA4BciYykLcJpwi7B7YZAoKVzAxTggn8Rd4h0jqH1EMpa4JCVhnVDmMphvFddFwrb3VoOymCEGic_65wEZFfb9LNzWEPnUdPxY5eXzP8mKnHd255proiUjPkhJ4BaPBguE2OW"/>
+</div>
+<div class="relative z-10">
+<h4 class="text-xl font-bold font-manrope">Tier Calibration</h4>
+<p class="text-xs text-blue-100 mt-2">Adjust global commission scales for the upcoming surgical cycle.</p>
+</div>
+<div class="relative z-10 flex justify-end">
+<button class="bg-white text-primary px-4 py-2 rounded-xl text-xs font-bold shadow-xl">
+                            Configure Rates
+                        </button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

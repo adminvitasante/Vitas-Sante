@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Sponsor Overview Dashboard | Vita Santé Club</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "on-surface": "#191c1e",
+                "on-primary-container": "#9bbdff",
+                "secondary-fixed-dim": "#84d5c5",
+                "surface-bright": "#f7f9fb",
+                "primary-container": "#004a99",
+                "error": "#ba1a1a",
+                "on-tertiary-fixed-variant": "#005312",
+                "surface-container-high": "#e6e8ea",
+                "tertiary-fixed-dim": "#88d982",
+                "primary": "#00346f",
+                "tertiary": "#003f0b",
+                "primary-fixed": "#d7e2ff",
+                "on-tertiary-fixed": "#002204",
+                "secondary-fixed": "#a0f2e1",
+                "primary-fixed-dim": "#abc7ff",
+                "error-container": "#ffdad6",
+                "surface-tint": "#255dad",
+                "on-primary": "#ffffff",
+                "on-error": "#ffffff",
+                "on-secondary": "#ffffff",
+                "inverse-surface": "#2d3133",
+                "surface-container-lowest": "#ffffff",
+                "on-secondary-fixed-variant": "#005046",
+                "outline-variant": "#c2c6d3",
+                "surface-container": "#eceef0",
+                "tertiary-fixed": "#a3f69c",
+                "on-tertiary": "#ffffff",
+                "inverse-on-surface": "#eff1f3",
+                "on-primary-fixed": "#001b3f",
+                "surface-container-highest": "#e0e3e5",
+                "surface-variant": "#e0e3e5",
+                "on-secondary-fixed": "#00201b",
+                "surface": "#f7f9fb",
+                "secondary-container": "#9defde",
+                "on-tertiary-container": "#7ecf79",
+                "on-surface-variant": "#424751",
+                "tertiary-container": "#005914",
+                "secondary": "#046b5e",
+                "on-secondary-container": "#0f6f62",
+                "on-primary-fixed-variant": "#00458f",
+                "on-error-container": "#93000a",
+                "surface-container-low": "#f2f4f6",
+                "outline": "#737783",
+                "surface-dim": "#d8dadc",
+                "inverse-primary": "#abc7ff",
+                "on-background": "#191c1e",
+                "background": "#f7f9fb"
+            },
+            "borderRadius": {
+                "DEFAULT": "0.125rem",
+                "lg": "0.25rem",
+                "xl": "0.5rem",
+                "full": "0.75rem"
+            },
+            "fontFamily": {
+                "headline": ["Manrope"],
+                "body": ["Inter"],
+                "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, .brand-font { font-family: 'Manrope', sans-serif; }
+        .glass-header {
+            background: rgba(247, 249, 251, 0.8);
+            backdrop-filter: blur(20px);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface">
+<!-- TopNavBar -->
+<header class="fixed top-0 w-full z-50 glass-header shadow-sm flex justify-between items-center px-8 py-4 w-full">
+<div class="flex items-center gap-8">
+<span class="text-xl font-bold text-blue-900 dark:text-blue-100 uppercase tracking-wider">Vita Santé Club</span>
+<nav class="hidden md:flex gap-6">
+<a class="text-blue-700 dark:text-blue-300 font-bold border-b-2 border-blue-700 cursor-pointer active:opacity-70 transition-colors duration-200" href="#">Overview</a>
+<a class="text-slate-500 dark:text-slate-400 font-medium hover:text-blue-600 dark:hover:text-blue-300 transition-colors duration-200 cursor-pointer active:opacity-70" href="#">Funded Members</a>
+<a class="text-slate-500 dark:text-slate-400 font-medium hover:text-blue-600 dark:hover:text-blue-300 transition-colors duration-200 cursor-pointer active:opacity-70" href="#">Impact Reports</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden lg:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-sm">search</span>
+<input class="bg-surface-container-low border-none rounded-xl pl-10 pr-4 py-2 text-sm focus:ring-2 focus:ring-primary-container w-64" placeholder="Search members..." type="text"/>
+</div>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors cursor-pointer">notifications</button>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors cursor-pointer">settings</button>
+<img alt="Sponsor Institution Profile" class="w-10 h-10 rounded-full border-2 border-primary-fixed" data-alt="professional corporate logo for a medical foundation or charitable institution with clean geometric lines" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZZ3LNwJeV9_fAnBgn_Klq9vnOw-7i0yLaqwzXUTym3qFIa0G-JZwfFNArwBW6z2HoZ_6pZrATCWO0onCQL7eGS_9XLC1f6sMaKh00Z1Idjjky7stCybg82-jLcD2XAXKTCjNVtTcX2TNp49zBe_M2XNPRlG9zWIdzCVRGZTPSpyFkmUH44AD7Mp89R9zMnZu1M5CjVdfIcsqw5EW-jJ6YEqK6_mY4Yhx2yZI34DGOjLz7j1HQTX2oeG-mMPG4HOwYiujCHmSJqVP2"/>
+</div>
+</header>
+<!-- SideNavBar (Desktop Only) -->
+<aside class="fixed left-0 top-0 h-full w-64 border-r-0 bg-slate-100 dark:bg-slate-950 flex flex-col h-full p-6 space-y-8 hidden md:flex pt-24">
+<div class="flex items-center gap-3 px-2">
+<div class="w-10 h-10 bg-primary-container rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-white">medical_services</span>
+</div>
+<div>
+<h3 class="font-manrope font-bold text-blue-900 dark:text-blue-50 leading-tight">Sponsor Portal</h3>
+<p class="text-[10px] text-slate-500 font-inter uppercase tracking-widest">Vita Santé Club</p>
+</div>
+</div>
+<nav class="flex-1 space-y-2">
+<a class="flex items-center gap-3 px-4 py-3 text-blue-900 dark:text-white font-bold bg-white/50 dark:bg-white/10 rounded-lg transition-all ease-in-out hover:translate-x-1 duration-200" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span>Overview</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 font-medium hover:bg-slate-200/50 dark:hover:bg-slate-800/50 rounded-lg transition-all ease-in-out hover:translate-x-1 duration-200" href="#">
+<span class="material-symbols-outlined">group</span>
+<span>Funded Members</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 font-medium hover:bg-slate-200/50 dark:hover:bg-slate-800/50 rounded-lg transition-all ease-in-out hover:translate-x-1 duration-200" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span>Impact Reports</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 font-medium hover:bg-slate-200/50 dark:hover:bg-slate-800/50 rounded-lg transition-all ease-in-out hover:translate-x-1 duration-200" href="#">
+<span class="material-symbols-outlined">receipt_long</span>
+<span>Billing</span>
+</a>
+</nav>
+<div class="bg-primary/5 rounded-2xl p-4 mt-auto">
+<p class="text-xs font-semibold text-primary mb-2">Grow your impact</p>
+<button class="w-full bg-primary text-white text-xs py-2 rounded-xl font-bold shadow-md hover:shadow-lg transition-shadow">Support More Members</button>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="md:ml-64 pt-24 px-8 pb-12">
+<!-- Hero Editorial Header -->
+<header class="mb-12">
+<p class="text-secondary font-semibold tracking-widest uppercase text-xs mb-2">Institutional Dashboard</p>
+<h1 class="text-4xl lg:text-5xl font-extrabold text-on-surface leading-tight max-w-2xl">
+                Elevating healthcare standards for our global community.
+            </h1>
+</header>
+<!-- KPI Grid -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+<!-- Total Investment -->
+<div class="bg-surface-container-lowest rounded-xl p-8 shadow-[0_20px_40px_rgba(0,27,63,0.04)] relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-6xl text-primary">payments</span>
+</div>
+<p class="text-sm font-medium text-on-surface-variant mb-4">Total Investment</p>
+<h2 class="text-3xl font-bold text-primary mb-1">$450,200</h2>
+<div class="flex items-center gap-1 text-secondary font-bold text-sm">
+<span class="material-symbols-outlined text-sm">trending_up</span>
+<span>+12.4% vs LY</span>
+</div>
+</div>
+<!-- Active Beneficiaries -->
+<div class="bg-surface-container-lowest rounded-xl p-8 shadow-[0_20px_40px_rgba(0,27,63,0.04)] relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-6xl text-primary">diversity_3</span>
+</div>
+<p class="text-sm font-medium text-on-surface-variant mb-4">Active Beneficiaries</p>
+<h2 class="text-3xl font-bold text-primary mb-1">1,284</h2>
+<div class="flex items-center gap-1 text-secondary font-bold text-sm">
+<span class="material-symbols-outlined text-sm">add</span>
+<span>42 new this month</span>
+</div>
+</div>
+<!-- Health Outcomes -->
+<div class="bg-surface-container-lowest rounded-xl p-8 shadow-[0_20px_40px_rgba(0,27,63,0.04)] relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-6xl text-tertiary">monitor_heart</span>
+</div>
+<p class="text-sm font-medium text-on-surface-variant mb-4">Health Outcomes</p>
+<h2 class="text-3xl font-bold text-tertiary mb-1">94.2%</h2>
+<div class="flex items-center gap-1 text-tertiary font-bold text-sm">
+<span class="material-symbols-outlined text-sm">check_circle</span>
+<span>Exceeding targets</span>
+</div>
+</div>
+</section>
+<!-- Main Layout: Chart & Highlights (Asymmetric) -->
+<section class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+<!-- Monthly Trends Chart -->
+<div class="lg:col-span-8 bg-surface-container-low rounded-xl p-8">
+<div class="flex justify-between items-end mb-10">
+<div>
+<h3 class="text-xl font-bold text-blue-900 mb-1">Community Impact Trends</h3>
+<p class="text-sm text-on-surface-variant">Preventative care engagement over the last 6 months</p>
+</div>
+<div class="flex gap-2">
+<button class="px-4 py-1 bg-surface-container-lowest text-xs font-bold rounded-lg border border-outline-variant/30">Monthly</button>
+<button class="px-4 py-1 text-xs font-medium rounded-lg text-on-surface-variant">Quarterly</button>
+</div>
+</div>
+<!-- Mock Chart Visualization -->
+<div class="relative h-64 flex items-end justify-between px-4 pb-4">
+<div class="absolute inset-0 flex flex-col justify-between pointer-events-none opacity-20">
+<div class="border-b border-outline"></div>
+<div class="border-b border-outline"></div>
+<div class="border-b border-outline"></div>
+<div class="border-b border-outline"></div>
+</div>
+<div class="group relative flex flex-col items-center gap-2">
+<div class="w-12 bg-primary/20 rounded-t-lg h-32 group-hover:bg-primary transition-colors"></div>
+<span class="text-[10px] font-bold text-outline">JAN</span>
+</div>
+<div class="group relative flex flex-col items-center gap-2">
+<div class="w-12 bg-primary/20 rounded-t-lg h-40 group-hover:bg-primary transition-colors"></div>
+<span class="text-[10px] font-bold text-outline">FEB</span>
+</div>
+<div class="group relative flex flex-col items-center gap-2">
+<div class="w-12 bg-primary/20 rounded-t-lg h-48 group-hover:bg-primary transition-colors"></div>
+<span class="text-[10px] font-bold text-outline">MAR</span>
+</div>
+<div class="group relative flex flex-col items-center gap-2">
+<div class="w-12 bg-primary/20 rounded-t-lg h-44 group-hover:bg-primary transition-colors"></div>
+<span class="text-[10px] font-bold text-outline">APR</span>
+</div>
+<div class="group relative flex flex-col items-center gap-2">
+<div class="w-12 bg-primary/20 rounded-t-lg h-56 group-hover:bg-primary transition-colors"></div>
+<span class="text-[10px] font-bold text-outline">MAY</span>
+</div>
+<div class="group relative flex flex-col items-center gap-2">
+<div class="w-12 bg-primary-container rounded-t-lg h-60"></div>
+<span class="text-[10px] font-bold text-primary">JUN</span>
+</div>
+</div>
+</div>
+<!-- Wellness Champion Card -->
+<div class="lg:col-span-4 flex flex-col gap-8">
+<div class="bg-surface-container-lowest rounded-xl overflow-hidden shadow-[0_20px_40px_rgba(0,27,63,0.06)] border border-outline-variant/10">
+<div class="h-48 relative overflow-hidden">
+<img alt="Dr. Luc Dessalines" class="w-full h-full object-cover" data-alt="Dignified close-up of a Haitian doctor Dr. Luc Dessalines in a clean modern clinic setting, warm studio lighting, professional medical attire" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBgPKyvzAyeQJlv1DcDl5_7M95-j2eb1c65AtH_aMPeBJOlx5bfcr_g0_Uarlw-57QetEvCDSVmKYPM-bY0-wlP-eLoxqSQNLNzzUDQSfJsAgn3FdLGeSg2QU_hCcvInpyU9l07W8C_yDItY0Jm8YXqBXN464pe2jWwiNqvUU6wph9QhpCCthuhEyYtSF4kD448XMPqD4DqH6XuNvT-Yfzv9JcwU7liuokheAVvqQMU9opz1Ux64qafl835zS0pnwM1saOcg9nYTJ6c"/>
+<div class="absolute bottom-0 left-0 p-4 bg-gradient-to-t from-black/60 to-transparent w-full">
+<span class="bg-secondary-container text-on-secondary-container px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider">Wellness Champion</span>
+</div>
+</div>
+<div class="p-6">
+<h4 class="text-xl font-bold text-primary mb-1">Dr. Luc Dessalines</h4>
+<p class="text-sm text-on-surface-variant mb-4 italic">"Transforming healthcare access through community resilience."</p>
+<p class="text-xs text-on-surface-variant leading-relaxed">Dr. Dessalines has facilitated over 200 pediatric screenings this month in our sponsored zones, achieving 100% vaccination compliance.</p>
+<hr class="my-4 border-surface-container"/>
+<button class="text-primary text-xs font-bold flex items-center gap-2 hover:gap-3 transition-all">
+                            VIEW FULL IMPACT STORY <span class="material-symbols-outlined text-xs">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Sponsor CTA Banner -->
+<div class="bg-gradient-to-br from-primary to-primary-container rounded-xl p-8 text-white relative overflow-hidden">
+<div class="absolute -right-8 -bottom-8 opacity-10">
+<span class="material-symbols-outlined text-[160px]">volunteer_activism</span>
+</div>
+<h4 class="text-2xl font-bold mb-3">Scale Your Impact</h4>
+<p class="text-sm text-primary-fixed/80 mb-6 leading-relaxed">We have 142 families in need of immediate preventative care coverage. Every sponsorship changes a life.</p>
+<button class="bg-white text-primary px-6 py-3 rounded-xl font-bold text-sm shadow-xl hover:bg-primary-fixed transition-colors active:scale-95">Sponsor New Members</button>
+</div>
+</div>
+</section>
+<!-- Secondary Insights / Vitals Row -->
+<section class="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<div class="bg-white/40 backdrop-blur-md border border-outline-variant/20 rounded-xl p-6">
+<div class="flex items-center gap-3 mb-4">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">favorite</span>
+<span class="text-xs font-bold text-on-surface-variant uppercase tracking-widest">Cardiac Health</span>
+</div>
+<p class="text-2xl font-bold text-primary">+14%</p>
+<p class="text-[10px] text-outline mt-1 uppercase">Reduction in risk factors</p>
+</div>
+<div class="bg-white/40 backdrop-blur-md border border-outline-variant/20 rounded-xl p-6">
+<div class="flex items-center gap-3 mb-4">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">child_care</span>
+<span class="text-xs font-bold text-on-surface-variant uppercase tracking-widest">Pediatric Care</span>
+</div>
+<p class="text-2xl font-bold text-primary">892</p>
+<p class="text-[10px] text-outline mt-1 uppercase">Children fully covered</p>
+</div>
+<div class="bg-white/40 backdrop-blur-md border border-outline-variant/20 rounded-xl p-6">
+<div class="flex items-center gap-3 mb-4">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">medication</span>
+<span class="text-xs font-bold text-on-surface-variant uppercase tracking-widest">Med Adherence</span>
+</div>
+<p class="text-2xl font-bold text-primary">98%</p>
+<p class="text-[10px] text-outline mt-1 uppercase">Consistency in chronic care</p>
+</div>
+<div class="bg-white/40 backdrop-blur-md border border-outline-variant/20 rounded-xl p-6">
+<div class="flex items-center gap-3 mb-4">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">psychology</span>
+<span class="text-xs font-bold text-on-surface-variant uppercase tracking-widest">Mental Wellness</span>
+</div>
+<p class="text-2xl font-bold text-primary">450</p>
+<p class="text-[10px] text-outline mt-1 uppercase">Counseling sessions funded</p>
+</div>
+</section>
+</main>
+<!-- Contextual FAB - Restricted to Dashboard Context -->
+<button class="fixed bottom-8 right-8 w-14 h-14 bg-primary text-white rounded-full shadow-2xl flex items-center justify-center hover:scale-110 active:scale-95 transition-all z-50">
+<span class="material-symbols-outlined">add</span>
+</button>
+</body></html>

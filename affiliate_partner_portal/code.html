@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-surface": "#191c1e",
+                        "error": "#ba1a1a",
+                        "on-error": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "surface-dim": "#d8dadc",
+                        "tertiary": "#003f0b",
+                        "error-container": "#ffdad6",
+                        "on-secondary-fixed-variant": "#005046",
+                        "secondary-fixed-dim": "#84d5c5",
+                        "inverse-surface": "#2d3133",
+                        "primary": "#00346f",
+                        "tertiary-fixed-dim": "#88d982",
+                        "surface-tint": "#255dad",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-container": "#004a99",
+                        "outline-variant": "#c2c6d3",
+                        "on-tertiary-container": "#7ecf79",
+                        "on-secondary-fixed": "#00201b",
+                        "on-primary-container": "#9bbdff",
+                        "surface-container": "#eceef0",
+                        "inverse-primary": "#abc7ff",
+                        "on-secondary": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-fixed": "#a3f69c",
+                        "on-background": "#191c1e",
+                        "surface": "#f7f9fb",
+                        "surface-container-highest": "#e0e3e5",
+                        "surface-bright": "#f7f9fb",
+                        "outline": "#737783",
+                        "on-tertiary-fixed-variant": "#005312",
+                        "primary-fixed-dim": "#abc7ff",
+                        "on-tertiary-fixed": "#002204",
+                        "tertiary-container": "#005914",
+                        "inverse-on-surface": "#eff1f3",
+                        "secondary-container": "#9defde",
+                        "on-surface-variant": "#424751",
+                        "surface-variant": "#e0e3e5",
+                        "secondary": "#046b5e",
+                        "on-primary-fixed": "#001b3f",
+                        "secondary-fixed": "#a0f2e1",
+                        "primary-fixed": "#d7e2ff",
+                        "on-error-container": "#93000a",
+                        "surface-container-low": "#f2f4f6",
+                        "on-secondary-container": "#0f6f62",
+                        "surface-container-high": "#e6e8ea",
+                        "background": "#f7f9fb",
+                        "on-primary-fixed-variant": "#00458f"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .glass-header {
+            background: rgba(247, 249, 251, 0.8);
+            backdrop-filter: blur(20px);
+        }
+        .tonal-shadow {
+            box-shadow: 0 20px 40px rgba(0, 27, 63, 0.06);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface antialiased">
+<!-- SideNavBar Component -->
+<aside class="h-screen w-64 fixed left-0 top-0 bg-surface-container-low flex flex-col py-6 px-4 space-y-2 z-40">
+<div class="mb-8 px-2">
+<h1 class="text-lg font-black text-blue-900 uppercase tracking-wider font-headline">Vita Santé Portal</h1>
+<p class="text-xs font-medium text-slate-500 font-manrope">Clinical Professional</p>
+</div>
+<nav class="flex-1 space-y-1">
+<!-- Active State for Affiliates -->
+<a class="flex items-center space-x-3 px-4 py-3 text-slate-500 font-manrope text-sm font-medium hover:bg-surface-container-high transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="flex items-center space-x-3 px-4 py-3 bg-surface-container-lowest text-blue-900 rounded-lg shadow-sm font-manrope text-sm font-semibold" href="#">
+<span class="material-symbols-outlined" data-icon="handshake" style="font-variation-settings: 'FILL' 1;">handshake</span>
+<span>Affiliates</span>
+</a>
+<a class="flex items-center space-x-3 px-4 py-3 text-slate-500 font-manrope text-sm font-medium hover:bg-surface-container-high transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="medical_services">medical_services</span>
+<span>Patient Care</span>
+</a>
+<a class="flex items-center space-x-3 px-4 py-3 text-slate-500 font-manrope text-sm font-medium hover:bg-surface-container-high transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="account_balance">account_balance</span>
+<span>Sponsors</span>
+</a>
+<a class="flex items-center space-x-3 px-4 py-3 text-slate-500 font-manrope text-sm font-medium hover:bg-surface-container-high transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="monitoring">monitoring</span>
+<span>Health Analytics</span>
+</a>
+</nav>
+<div class="pt-4 border-t border-outline-variant/20 space-y-1">
+<button class="w-full flex items-center space-x-3 px-4 py-3 text-slate-500 font-manrope text-sm font-medium hover:bg-surface-container-high transition-all rounded-lg">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span>Settings</span>
+</button>
+<button class="w-full flex items-center space-x-3 px-4 py-3 text-slate-500 font-manrope text-sm font-medium hover:bg-surface-container-high transition-all rounded-lg">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+<span>Support</span>
+</button>
+</div>
+<div class="mt-6">
+<button class="w-full bg-primary text-white py-3 rounded-xl font-headline text-xs font-bold tracking-tight uppercase hover:opacity-90 transition-opacity">
+                Urgent Consult
+            </button>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-64 min-h-screen p-8 lg:p-12">
+<!-- Header Section -->
+<header class="mb-12 flex flex-col md:flex-row justify-between items-end gap-6">
+<div class="max-w-2xl">
+<h2 class="text-4xl font-extrabold text-primary font-headline tracking-tight leading-tight mb-2">Affiliate Workspace</h2>
+<p class="text-on-surface-variant leading-relaxed max-w-lg">Manage your health network expansion, track commission evolution, and access certified marketing materials.</p>
+</div>
+<div class="flex items-center gap-4 bg-surface-container-low p-2 rounded-full px-6 py-2">
+<div class="text-right">
+<p class="text-xs font-bold text-primary font-headline">DR. JULIEN MOREAU</p>
+<p class="text-[10px] text-on-surface-variant uppercase tracking-widest">Global Partner ID: #8829</p>
+</div>
+<div class="w-10 h-10 rounded-full bg-primary-fixed flex items-center justify-center text-primary font-bold">
+                    JM
+                </div>
+</div>
+</header>
+<!-- KPI Grid: Tonal Layering -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+<div class="bg-surface-container-lowest p-8 rounded-xl tonal-shadow relative overflow-hidden group">
+<div class="relative z-10">
+<p class="text-xs font-bold text-on-surface-variant uppercase tracking-widest mb-4">Total Members Referred</p>
+<h3 class="text-5xl font-black text-primary font-headline mb-2">1,284</h3>
+<div class="flex items-center text-tertiary font-bold text-sm">
+<span class="material-symbols-outlined text-sm mr-1" data-icon="trending_up">trending_up</span>
+<span>+12.5% this month</span>
+</div>
+</div>
+<span class="material-symbols-outlined absolute -right-4 -bottom-4 text-9xl text-surface-container-low opacity-40 group-hover:scale-110 transition-transform duration-500" data-icon="groups">groups</span>
+</div>
+<div class="bg-surface-container-lowest p-8 rounded-xl tonal-shadow relative overflow-hidden group">
+<div class="relative z-10">
+<p class="text-xs font-bold text-on-surface-variant uppercase tracking-widest mb-4">Commissions Due</p>
+<h3 class="text-5xl font-black text-primary font-headline mb-2">$4,290.50</h3>
+<p class="text-xs text-on-surface-variant">Scheduled for payout on Oct 1st</p>
+</div>
+<span class="material-symbols-outlined absolute -right-4 -bottom-4 text-9xl text-surface-container-low opacity-40 group-hover:scale-110 transition-transform duration-500" data-icon="pending_actions">pending_actions</span>
+</div>
+<div class="bg-surface-container-lowest p-8 rounded-xl tonal-shadow relative overflow-hidden group">
+<div class="relative z-10">
+<p class="text-xs font-bold text-on-surface-variant uppercase tracking-widest mb-4">Commissions Paid</p>
+<h3 class="text-5xl font-black text-secondary font-headline mb-2">$32,840</h3>
+<p class="text-xs text-on-surface-variant">Lifetime earnings to date</p>
+</div>
+<span class="material-symbols-outlined absolute -right-4 -bottom-4 text-9xl text-surface-container-low opacity-40 group-hover:scale-110 transition-transform duration-500" data-icon="verified">verified</span>
+</div>
+</section>
+<!-- Referral & Analytics Bento Grid -->
+<section class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-12">
+<!-- Referral Link Generator (Asymmetric Width) -->
+<div class="lg:col-span-4 flex flex-col space-y-8">
+<div class="bg-surface-container-low p-8 rounded-xl">
+<h4 class="text-sm font-bold text-primary uppercase tracking-widest mb-6">Unique Referral Link</h4>
+<p class="text-xs text-on-surface-variant mb-4">Share this unique link with your medical network to track new members automatically.</p>
+<div class="relative">
+<input class="w-full bg-surface-container-lowest border-none rounded-lg py-4 pl-4 pr-12 text-sm font-medium text-primary focus:ring-2 focus:ring-primary/20" readonly="" type="text" value="vitasante.club/ref/drmoreau"/>
+<button class="absolute right-2 top-2 p-2 text-primary hover:bg-surface-container-high rounded-md transition-colors">
+<span class="material-symbols-outlined" data-icon="content_copy">content_copy</span>
+</button>
+</div>
+<div class="mt-6 flex gap-2">
+<button class="flex-1 bg-surface-container-lowest py-3 rounded-lg text-[10px] font-bold uppercase text-primary tracking-widest border border-outline-variant/20 hover:bg-white transition-colors">Generate QR</button>
+<button class="flex-1 bg-surface-container-lowest py-3 rounded-lg text-[10px] font-bold uppercase text-primary tracking-widest border border-outline-variant/20 hover:bg-white transition-colors">Shorten Link</button>
+</div>
+</div>
+<div class="bg-primary-container p-8 rounded-xl text-white relative overflow-hidden">
+<div class="relative z-10">
+<h4 class="text-xs font-bold uppercase tracking-widest mb-2 opacity-80">Marketing Materials</h4>
+<p class="text-xl font-bold mb-6 font-headline">Access Certified Assets</p>
+<button class="w-full bg-white text-primary font-bold py-3 rounded-xl text-xs uppercase tracking-tight flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="download">download</span>
+                            Brand Guidelines &amp; Media Kit
+                        </button>
+</div>
+<!-- Decorative element -->
+<div class="absolute -top-12 -right-12 w-32 h-32 bg-white/10 rounded-full blur-3xl"></div>
+</div>
+</div>
+<!-- Commission Evolution Chart (Editorial Style) -->
+<div class="lg:col-span-8 bg-surface-container-lowest p-8 rounded-xl tonal-shadow">
+<div class="flex justify-between items-start mb-8">
+<div>
+<h4 class="text-sm font-bold text-primary uppercase tracking-widest">Payout Evolution</h4>
+<p class="text-xs text-on-surface-variant">Past 6 months growth</p>
+</div>
+<div class="flex gap-2">
+<span class="px-3 py-1 bg-surface-container-low rounded-full text-[10px] font-bold text-primary">Monthly</span>
+<span class="px-3 py-1 text-[10px] font-bold text-on-surface-variant">Quarterly</span>
+</div>
+</div>
+<!-- Mockup Chart Area -->
+<div class="h-64 flex items-end justify-between gap-4 pt-4">
+<div class="w-full bg-surface-container-low rounded-t-lg h-24 hover:bg-primary/20 transition-colors cursor-pointer relative group">
+<span class="absolute -top-6 left-1/2 -translate-x-1/2 text-[10px] font-bold text-on-surface opacity-0 group-hover:opacity-100">$2.1k</span>
+</div>
+<div class="w-full bg-surface-container-low rounded-t-lg h-32 hover:bg-primary/20 transition-colors cursor-pointer relative group">
+<span class="absolute -top-6 left-1/2 -translate-x-1/2 text-[10px] font-bold text-on-surface opacity-0 group-hover:opacity-100">$2.8k</span>
+</div>
+<div class="w-full bg-surface-container-low rounded-t-lg h-40 hover:bg-primary/20 transition-colors cursor-pointer relative group">
+<span class="absolute -top-6 left-1/2 -translate-x-1/2 text-[10px] font-bold text-on-surface opacity-0 group-hover:opacity-100">$3.5k</span>
+</div>
+<div class="w-full bg-surface-container-low rounded-t-lg h-36 hover:bg-primary/20 transition-colors cursor-pointer relative group">
+<span class="absolute -top-6 left-1/2 -translate-x-1/2 text-[10px] font-bold text-on-surface opacity-0 group-hover:opacity-100">$3.2k</span>
+</div>
+<div class="w-full bg-surface-container-low rounded-t-lg h-52 hover:bg-primary/20 transition-colors cursor-pointer relative group">
+<span class="absolute -top-6 left-1/2 -translate-x-1/2 text-[10px] font-bold text-on-surface opacity-0 group-hover:opacity-100">$4.8k</span>
+</div>
+<div class="w-full bg-primary-container rounded-t-lg h-60 hover:opacity-90 transition-colors cursor-pointer relative group">
+<span class="absolute -top-6 left-1/2 -translate-x-1/2 text-[10px] font-bold text-primary opacity-100">$5.4k</span>
+</div>
+</div>
+<div class="flex justify-between text-[10px] font-bold text-on-surface-variant uppercase tracking-widest mt-4">
+<span>Apr</span>
+<span>May</span>
+<span>Jun</span>
+<span>Jul</span>
+<span>Aug</span>
+<span>Sep</span>
+</div>
+</div>
+</section>
+<!-- Recent Referrals Table Section -->
+<section class="bg-surface-container-lowest p-8 rounded-xl tonal-shadow overflow-hidden">
+<div class="flex justify-between items-center mb-8">
+<h4 class="text-sm font-bold text-primary uppercase tracking-widest">Recent Referrals</h4>
+<button class="text-xs font-bold text-primary-container flex items-center gap-1 hover:underline">
+                    View Full Directory
+                    <span class="material-symbols-outlined text-sm" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead>
+<tr class="border-b border-outline-variant/10">
+<th class="pb-4 text-[10px] font-bold text-on-surface-variant uppercase tracking-widest">Member Name</th>
+<th class="pb-4 text-[10px] font-bold text-on-surface-variant uppercase tracking-widest">Date Joined</th>
+<th class="pb-4 text-[10px] font-bold text-on-surface-variant uppercase tracking-widest">Selected Plan</th>
+<th class="pb-4 text-[10px] font-bold text-on-surface-variant uppercase tracking-widest">Status</th>
+<th class="pb-4 text-right text-[10px] font-bold text-on-surface-variant uppercase tracking-widest">Comm. Est.</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/5">
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="py-5">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-container-low overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="portrait of a professional woman with neutral medical background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCRFC5pSbJSpY1AQAZPq-s2QQAv69WhHxJbu_JYDl2kesryQJTH8h--xwsgVDCJSLJtZtLWXweq2GSE0AFVNzkU0ZJnxa9orNocXVbmj3MnrFUAikio0zMg4YfMMqmXfoYCVl7ATEBdwP4wCYmr3oowoIr7r1rap146JrBz7nKi1RiSPwLTqbGIkXM96eN1_4S-MG-L4uD1M9fJIkbplzSqhmkXXI5jXriRoqYemK89wOLMfwqH7wH6fWNoUcj3RPuboqUkUxQC2cob"/>
+</div>
+<span class="text-sm font-semibold text-on-surface">Alice Dubois</span>
+</div>
+</td>
+<td class="py-5 text-sm text-on-surface-variant">Sep 24, 2024</td>
+<td class="py-5">
+<span class="px-3 py-1 bg-secondary-container text-on-secondary-container rounded-full text-[10px] font-bold uppercase tracking-tight">Global Wellness Plus</span>
+</td>
+<td class="py-5">
+<div class="flex items-center gap-2 text-tertiary text-xs font-semibold">
+<span class="w-2 h-2 rounded-full bg-tertiary"></span>
+                                    Active
+                                </div>
+</td>
+<td class="py-5 text-right font-headline font-bold text-primary">$120.00</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="py-5">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-container-low overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="portrait of a professional man in business casual attire smiling" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAvTBdmshhcaCcK0bPa377Zc6HnX9MDicD9aHdZxDf1GIARuXfy9mSwESNheR9oLHBsvlOekqzIvhHkr0uyCJKwy3Kraw8irDCt0aFDa6QD_H11PcQEW6AeuFvPReuSfK2w3-UjJloGUwV-uRjzrL6cRDMZ5yNdvfW9kVDq4uwtnPw0XKEoieJ7Q5myKhMOUsYqZXGTnJSRSNrVLH3YSz67mrKt7pscRpI9p6j7ORz2qwoCZ9j7rUxtgiimI5oC0f93Ay1uzNjbl6Vh"/>
+</div>
+<span class="text-sm font-semibold text-on-surface">Marc Lefebvre</span>
+</div>
+</td>
+<td class="py-5 text-sm text-on-surface-variant">Sep 22, 2024</td>
+<td class="py-5">
+<span class="px-3 py-1 bg-primary-fixed text-primary rounded-full text-[10px] font-bold uppercase tracking-tight">Executive Elite</span>
+</td>
+<td class="py-5">
+<div class="flex items-center gap-2 text-tertiary text-xs font-semibold">
+<span class="w-2 h-2 rounded-full bg-tertiary"></span>
+                                    Active
+                                </div>
+</td>
+<td class="py-5 text-right font-headline font-bold text-primary">$180.00</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="py-5">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-container-low overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="close-up portrait of a medical professional woman in clinic setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD9AIxqdHSk7uVT6jMmaxXfuveJHfOO8QF7cPiZ7ivo09ejM7Zbwp1WO1fiAXyxOXee1xLAcwnvHUXwYoE3u6z24IAT4SFfSJpBajlatuV4uL2pghIBtsuE5n0ZkikNRH7XiSI811JHhCGOpWy7MsDKqvBXn-VJTtfWyUP2Xe0Xcnc6XKZfUhys9iNSayHGFgc9uSyNIoU_C_3qL7qqXlkWaaZrXZCwjml2cInbTezXzsqOtfQLK6fJPuO6hoXnzQsFdvJY_RrXeFqk"/>
+</div>
+<span class="text-sm font-semibold text-on-surface">Sophie Laurent</span>
+</div>
+</td>
+<td class="py-5 text-sm text-on-surface-variant">Sep 20, 2024</td>
+<td class="py-5">
+<span class="px-3 py-1 bg-surface-container-high text-on-surface-variant rounded-full text-[10px] font-bold uppercase tracking-tight">Family Core</span>
+</td>
+<td class="py-5">
+<div class="flex items-center gap-2 text-primary-container text-xs font-semibold">
+<span class="w-2 h-2 rounded-full bg-primary-container animate-pulse"></span>
+                                    Pending Review
+                                </div>
+</td>
+<td class="py-5 text-right font-headline font-bold text-on-surface-variant opacity-50">$45.00</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</main>
+<!-- Footer Component -->
+<footer class="ml-64 bg-surface dark:bg-slate-900 border-t border-slate-100 dark:border-slate-800">
+<div class="flex flex-col md:flex-row justify-between items-center px-8 py-12 w-full max-w-7xl mx-auto">
+<div class="mb-6 md:mb-0">
+<p class="font-inter text-xs text-slate-500">© 2024 Vita Santé Club. All Rights Reserved.</p>
+</div>
+<div class="flex flex-wrap justify-center gap-8">
+<a class="font-inter text-xs text-slate-400 hover:text-blue-600 transition-colors" href="#">Privacy Policy</a>
+<a class="font-inter text-xs text-slate-400 hover:text-blue-600 transition-colors" href="#">Terms of Service</a>
+<a class="font-inter text-xs text-slate-400 hover:text-blue-600 transition-colors" href="#">Compliance</a>
+<a class="font-inter text-xs text-slate-400 hover:text-blue-600 transition-colors" href="#">Global Standards</a>
+</div>
+</div>
+</footer>
+</body></html>

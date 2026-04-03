@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Visit History - Vita Santé Club</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;400;600;700;800&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary-fixed-variant": "#00458f",
+                    "error-container": "#ffdad6",
+                    "surface-tint": "#255dad",
+                    "surface-container-highest": "#e0e3e5",
+                    "surface": "#f7f9fb",
+                    "secondary": "#046b5e",
+                    "inverse-on-surface": "#eff1f3",
+                    "on-primary": "#ffffff",
+                    "inverse-surface": "#2d3133",
+                    "on-tertiary-container": "#7ecf79",
+                    "surface-container-low": "#f2f4f6",
+                    "outline": "#737783",
+                    "on-secondary": "#ffffff",
+                    "tertiary-fixed": "#a3f69c",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-bright": "#f7f9fb",
+                    "secondary-container": "#9defde",
+                    "background": "#f7f9fb",
+                    "on-primary-container": "#9bbdff",
+                    "secondary-fixed": "#a0f2e1",
+                    "on-primary-fixed": "#001b3f",
+                    "error": "#ba1a1a",
+                    "on-surface-variant": "#424751",
+                    "on-surface": "#191c1e",
+                    "surface-container-high": "#e6e8ea",
+                    "on-tertiary-fixed": "#002204",
+                    "primary-container": "#004a99",
+                    "on-secondary-fixed": "#00201b",
+                    "surface-container": "#eceef0",
+                    "tertiary": "#003f0b",
+                    "surface-variant": "#e0e3e5",
+                    "outline-variant": "#c2c6d3",
+                    "surface-dim": "#d8dadc",
+                    "on-tertiary": "#ffffff",
+                    "on-background": "#191c1e",
+                    "inverse-primary": "#abc7ff",
+                    "primary-fixed-dim": "#abc7ff",
+                    "secondary-fixed-dim": "#84d5c5",
+                    "on-error-container": "#93000a",
+                    "tertiary-fixed-dim": "#88d982",
+                    "on-secondary-fixed-variant": "#005046",
+                    "primary": "#00346f",
+                    "on-tertiary-fixed-variant": "#005312",
+                    "on-secondary-container": "#0f6f62",
+                    "tertiary-container": "#005914",
+                    "primary-fixed": "#d7e2ff",
+                    "on-error": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "fontFamily": {
+                    "headline": ["Manrope"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .font-manrope { font-family: 'Manrope', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-effect {
+            background: rgba(247, 249, 251, 0.8);
+            backdrop-filter: blur(20px);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 glass-effect shadow-sm">
+<div class="flex justify-between items-center px-6 py-3 w-full">
+<div class="flex items-center gap-4">
+<span class="text-xl font-extrabold text-blue-900 dark:text-blue-100 tracking-tighter font-manrope">Vita Santé Club</span>
+</div>
+<div class="flex items-center gap-6">
+<div class="hidden md:flex items-center bg-surface-container-low px-4 py-2 rounded-full border-none">
+<span class="material-symbols-outlined text-outline text-sm mr-2">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-sm w-64 text-on-surface" placeholder="Search encounters..." type="text"/>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer active:scale-95 duration-200 rounded-full">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer active:scale-95 duration-200 rounded-full">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<div class="h-8 w-8 rounded-full overflow-hidden border border-outline-variant/30">
+<img alt="Doctor profile avatar" data-alt="professional portrait of a male doctor in clinical attire with a warm and trustworthy expression in a bright studio" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBVg6G3YgFA4lwp3jwnGBfN4LWVpp6xT-Gqf2z-1Vlnmdp2jul7ubZBusvtcEIrM6q16cLKdyfbn8byCNbYoaBWeJBJ2cEuUkoST2cKjFEmn7_ADnTuNV6Cuym1Y4jQ0tVeDgLjkoJRv2j3X3_C86g1_hyF1_naDLl3ftE1Zs-iDuHXNOeuInZ3-qaajBFYQs_UUTWcyZhp5dI3D9CvKF0EfCEdOcNLRgY4_XPv_YtNEVmBAYyNACKhMAJv0zSzhEzz_UnnPydRkh4W"/>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-slate-200/50 dark:bg-slate-800/50 h-[1px]"></div>
+</header>
+<div class="flex pt-16">
+<!-- SideNavBar -->
+<aside class="hidden md:flex flex-col h-[calc(100vh-64px)] w-64 border-r border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 py-8 space-y-4 sticky top-16">
+<div class="px-6 mb-6">
+<h2 class="font-manrope text-sm font-semibold uppercase tracking-wider text-slate-500">Clinical Atelier</h2>
+<p class="text-xs text-outline mt-1">Practitioner Dashboard</p>
+</div>
+<nav class="flex-1 px-3 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 font-manrope text-sm font-semibold uppercase tracking-wider text-slate-500 opacity-70 hover:text-blue-800 dark:hover:text-blue-200 hover:bg-slate-100 dark:hover:bg-slate-900 transition-all duration-300 ease-in-out" href="#">
+<span class="material-symbols-outlined">medical_services</span>
+                    Patient Care
+                </a>
+<a class="flex items-center gap-3 px-4 py-3 font-manrope text-sm font-semibold uppercase tracking-wider text-blue-900 dark:text-blue-200 border-l-4 border-blue-900 dark:border-blue-400 bg-slate-100 dark:bg-slate-900 transition-all duration-300 ease-in-out" href="#">
+<span class="material-symbols-outlined">history</span>
+                    Visit History
+                </a>
+<a class="flex items-center gap-3 px-4 py-3 font-manrope text-sm font-semibold uppercase tracking-wider text-slate-500 opacity-70 hover:text-blue-800 dark:hover:text-blue-200 hover:bg-slate-100 dark:hover:bg-slate-900 transition-all duration-300 ease-in-out" href="#">
+<span class="material-symbols-outlined">person</span>
+                    Profile
+                </a>
+</nav>
+<div class="px-6 pt-4">
+<button class="w-full py-3 bg-gradient-to-br from-primary to-primary-container text-on-primary rounded-xl font-semibold text-sm shadow-sm active:scale-95 transition-transform">
+                    New Appointment
+                </button>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 min-h-screen p-8 md:p-12">
+<!-- Editorial Header -->
+<header class="max-w-6xl mx-auto mb-12">
+<h1 class="font-manrope text-5xl font-extrabold text-on-surface tracking-tight mb-2">Visit History</h1>
+<p class="text-on-surface-variant font-body text-lg max-w-2xl">A curated chronological record of all clinical encounters and registered patient interactions within your atelier.</p>
+</header>
+<!-- Filters Section - Asymmetric Balance -->
+<section class="max-w-6xl mx-auto mb-10">
+<div class="flex flex-col md:flex-row gap-6 items-end">
+<div class="flex-1 w-full md:w-auto">
+<label class="block text-xs font-bold uppercase tracking-widest text-outline mb-2 ml-1">Patient Name</label>
+<div class="relative">
+<input class="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary/20 text-on-surface text-sm transition-all" placeholder="Filter by name..." type="text"/>
+<span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-outline">search</span>
+</div>
+</div>
+<div class="w-full md:w-64">
+<label class="block text-xs font-bold uppercase tracking-widest text-outline mb-2 ml-1">Date Range</label>
+<div class="relative">
+<input class="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary/20 text-on-surface text-sm transition-all" type="date"/>
+</div>
+</div>
+<div class="w-full md:w-auto">
+<button class="flex items-center gap-2 px-6 py-3 bg-surface-container-high hover:bg-surface-dim text-on-surface font-semibold text-sm rounded-xl transition-colors">
+<span class="material-symbols-outlined text-sm">tune</span>
+                            Advanced Filters
+                        </button>
+</div>
+</div>
+</section>
+<!-- Table Section - Tonal Layering (No Borders) -->
+<section class="max-w-6xl mx-auto bg-surface-container-low rounded-2xl overflow-hidden p-1">
+<div class="bg-surface-container-lowest rounded-xl overflow-x-auto shadow-sm">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low/50">
+<th class="px-6 py-5 text-xs font-bold uppercase tracking-widest text-outline">Date &amp; Time</th>
+<th class="px-6 py-5 text-xs font-bold uppercase tracking-widest text-outline">Patient</th>
+<th class="px-6 py-5 text-xs font-bold uppercase tracking-widest text-outline">Service Type</th>
+<th class="px-6 py-5 text-xs font-bold uppercase tracking-widest text-outline">Visit Note Snippet</th>
+<th class="px-6 py-5 text-xs font-bold uppercase tracking-widest text-outline text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container">
+<!-- Entry 1 -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-6 py-5">
+<div class="flex flex-col">
+<span class="text-on-surface font-semibold text-sm">Oct 24, 2023</span>
+<span class="text-xs text-outline">09:15 AM</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="h-8 w-8 rounded-full bg-primary-fixed flex items-center justify-center text-primary text-xs font-bold">EM</div>
+<span class="text-on-surface font-medium text-sm">Elena Moretti</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-secondary-container text-on-secondary-container">
+                                        Specialist
+                                    </span>
+</td>
+<td class="px-6 py-5">
+<p class="text-sm text-on-surface-variant line-clamp-1 max-w-xs">Post-operative follow-up. Healing progressing as expected. No signs of infection...</p>
+</td>
+<td class="px-6 py-5 text-right">
+<button class="text-primary hover:bg-primary/5 p-2 rounded-lg transition-colors">
+<span class="material-symbols-outlined">visibility</span>
+</button>
+</td>
+</tr>
+<!-- Entry 2 -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-6 py-5">
+<div class="flex flex-col">
+<span class="text-on-surface font-semibold text-sm">Oct 23, 2023</span>
+<span class="text-xs text-outline">02:30 PM</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="h-8 w-8 rounded-full bg-tertiary-fixed flex items-center justify-center text-tertiary text-xs font-bold">JC</div>
+<span class="text-on-surface font-medium text-sm">Julian Chen</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-surface-container-high text-on-surface-variant">
+                                        Generalist
+                                    </span>
+</td>
+<td class="px-6 py-5">
+<p class="text-sm text-on-surface-variant line-clamp-1 max-w-xs">Annual physical examination. Blood pressure slightly elevated. Recommended diet changes.</p>
+</td>
+<td class="px-6 py-5 text-right">
+<button class="text-primary hover:bg-primary/5 p-2 rounded-lg transition-colors">
+<span class="material-symbols-outlined">visibility</span>
+</button>
+</td>
+</tr>
+<!-- Entry 3 -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-6 py-5">
+<div class="flex flex-col">
+<span class="text-on-surface font-semibold text-sm">Oct 21, 2023</span>
+<span class="text-xs text-outline">11:00 AM</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="h-8 w-8 rounded-full bg-on-primary-container/20 flex items-center justify-center text-primary text-xs font-bold">SB</div>
+<span class="text-on-surface font-medium text-sm">Sarah Bernard</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-secondary-container text-on-secondary-container">
+                                        Specialist
+                                    </span>
+</td>
+<td class="px-6 py-5">
+<p class="text-sm text-on-surface-variant line-clamp-1 max-w-xs">Dermatological consultation regarding persistent rash. Prescribed topical steroid.</p>
+</td>
+<td class="px-6 py-5 text-right">
+<button class="text-primary hover:bg-primary/5 p-2 rounded-lg transition-colors">
+<span class="material-symbols-outlined">visibility</span>
+</button>
+</td>
+</tr>
+<!-- Entry 4 -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-6 py-5">
+<div class="flex flex-col">
+<span class="text-on-surface font-semibold text-sm">Oct 19, 2023</span>
+<span class="text-xs text-outline">04:45 PM</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="h-8 w-8 rounded-full bg-secondary-fixed flex items-center justify-center text-on-secondary-container text-xs font-bold">MR</div>
+<span class="text-on-surface font-medium text-sm">Marcus Rodriguez</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-surface-container-high text-on-surface-variant">
+                                        Generalist
+                                    </span>
+</td>
+<td class="px-6 py-5">
+<p class="text-sm text-on-surface-variant line-clamp-1 max-w-xs">Acute respiratory infection. Lungs clear. Advised rest and hydration.</p>
+</td>
+<td class="px-6 py-5 text-right">
+<button class="text-primary hover:bg-primary/5 p-2 rounded-lg transition-colors">
+<span class="material-symbols-outlined">visibility</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination / Footer - Airy aesthetic -->
+<div class="flex items-center justify-between px-6 py-6 text-sm text-outline">
+<span>Showing 1-4 of 128 registered encounters</span>
+<div class="flex items-center gap-2">
+<button class="p-2 hover:bg-surface-container-high rounded-lg disabled:opacity-30" disabled="">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<span class="px-4 py-2 bg-primary text-on-primary rounded-lg font-bold">1</span>
+<button class="px-4 py-2 hover:bg-surface-container-high rounded-lg transition-colors">2</button>
+<button class="px-4 py-2 hover:bg-surface-container-high rounded-lg transition-colors">3</button>
+<button class="p-2 hover:bg-surface-container-high rounded-lg">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Vitals Contextual Card - Asymmetric Layout -->
+<section class="max-w-6xl mx-auto mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
+<div class="md:col-span-2 glass-effect p-8 rounded-2xl border-none flex items-center justify-between overflow-hidden relative">
+<div class="z-10">
+<h3 class="font-manrope text-2xl font-bold text-primary mb-2">Clinical Trends</h3>
+<p class="text-on-surface-variant mb-6">Patient volume has increased by 12% this month. Ensure all notes are finalized within 24 hours.</p>
+<button class="px-6 py-3 bg-primary text-on-primary rounded-xl font-semibold text-sm transition-transform active:scale-95">Generate Monthly Report</button>
+</div>
+<div class="absolute -right-10 -bottom-10 opacity-10">
+<span class="material-symbols-outlined text-[160px]" style="font-variation-settings: 'FILL' 1;">analytics</span>
+</div>
+</div>
+<div class="bg-tertiary-container/30 p-8 rounded-2xl border-none">
+<div class="flex items-center gap-3 mb-4">
+<span class="material-symbols-outlined text-tertiary">check_circle</span>
+<h3 class="font-manrope font-bold text-tertiary">Efficiency Status</h3>
+</div>
+<p class="text-5xl font-manrope font-black text-tertiary mb-2">98%</p>
+<p class="text-sm text-on-tertiary-fixed-variant">Note completion rate within the required clinical window.</p>
+</div>
+</section>
+</main>
+</div>
+<!-- Mobile Navigation -->
+<nav class="md:hidden fixed bottom-0 left-0 right-0 glass-effect border-t border-outline-variant/10 px-6 py-3 flex justify-around items-center z-50">
+<button class="flex flex-col items-center gap-1 text-slate-500">
+<span class="material-symbols-outlined">medical_services</span>
+<span class="text-[10px] font-bold uppercase tracking-tighter">Care</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-blue-900">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">history</span>
+<span class="text-[10px] font-bold uppercase tracking-tighter">History</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-slate-500">
+<span class="material-symbols-outlined">person</span>
+<span class="text-[10px] font-bold uppercase tracking-tighter">Profile</span>
+</button>
+</nav>
+</body></html>

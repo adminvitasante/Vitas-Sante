@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Clinical Atelier | Insurance Plan Configuration</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary-fixed": "#002204",
+                    "primary-fixed-dim": "#abc7ff",
+                    "secondary-fixed-dim": "#84d5c5",
+                    "on-background": "#191c1e",
+                    "on-secondary": "#ffffff",
+                    "tertiary-container": "#005914",
+                    "surface-container-low": "#f2f4f6",
+                    "on-primary-fixed-variant": "#00458f",
+                    "inverse-surface": "#2d3133",
+                    "on-secondary-fixed": "#00201b",
+                    "on-surface": "#191c1e",
+                    "tertiary-fixed-dim": "#88d982",
+                    "error": "#ba1a1a",
+                    "on-tertiary": "#ffffff",
+                    "on-primary-container": "#9bbdff",
+                    "error-container": "#ffdad6",
+                    "surface-container": "#eceef0",
+                    "primary": "#00346f",
+                    "outline-variant": "#c2c6d3",
+                    "surface-container-lowest": "#ffffff",
+                    "background": "#f7f9fb",
+                    "primary-container": "#004a99",
+                    "tertiary": "#003f0b",
+                    "surface-tint": "#255dad",
+                    "surface-dim": "#d8dadc",
+                    "tertiary-fixed": "#a3f69c",
+                    "surface-variant": "#e0e3e5",
+                    "surface-container-highest": "#e0e3e5",
+                    "on-secondary-container": "#0f6f62",
+                    "on-tertiary-container": "#7ecf79",
+                    "on-error": "#ffffff",
+                    "inverse-on-surface": "#eff1f3",
+                    "on-primary": "#ffffff",
+                    "on-error-container": "#93000a",
+                    "surface-container-high": "#e6e8ea",
+                    "secondary-fixed": "#a0f2e1",
+                    "surface-bright": "#f7f9fb",
+                    "secondary-container": "#9defde",
+                    "primary-fixed": "#d7e2ff",
+                    "on-tertiary-fixed-variant": "#005312",
+                    "outline": "#737783",
+                    "secondary": "#046b5e",
+                    "inverse-primary": "#abc7ff",
+                    "on-surface-variant": "#424751",
+                    "surface": "#f7f9fb",
+                    "on-primary-fixed": "#001b3f",
+                    "on-secondary-fixed-variant": "#005046"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "fontFamily": {
+                    "headline": ["Manrope"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3 { font-family: 'Manrope', sans-serif; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface">
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-0 h-full flex flex-col py-8 bg-slate-50 dark:bg-slate-950 h-screen w-64 border-r-0 z-50">
+<div class="px-6 mb-12">
+<h1 class="text-2xl font-bold tracking-tighter text-blue-950 dark:text-blue-100">Clinical Atelier</h1>
+<p class="font-manrope text-sm font-medium tracking-tight text-slate-500">Administrative Suite</p>
+</div>
+<nav class="flex-1 space-y-2">
+<a class="flex items-center gap-3 text-slate-500 dark:text-slate-400 pl-4 hover:text-blue-600 dark:hover:text-blue-300 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-colors duration-200 py-2" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-manrope text-sm font-medium tracking-tight">Overview</span>
+</a>
+<a class="flex items-center gap-3 text-slate-500 dark:text-slate-400 pl-4 hover:text-blue-600 dark:hover:text-blue-300 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-colors duration-200 py-2" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span class="font-manrope text-sm font-medium tracking-tight">Users</span>
+</a>
+<a class="flex items-center gap-3 text-blue-700 dark:text-blue-400 font-bold border-l-4 border-blue-700 dark:border-blue-400 pl-4 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-colors duration-200 py-2" href="#">
+<span class="material-symbols-outlined" data-icon="medical_services">medical_services</span>
+<span class="font-manrope text-sm font-medium tracking-tight">Medical Plans</span>
+</a>
+<a class="flex items-center gap-3 text-slate-500 dark:text-slate-400 pl-4 hover:text-blue-600 dark:hover:text-blue-300 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-colors duration-200 py-2" href="#">
+<span class="material-symbols-outlined" data-icon="handshake">handshake</span>
+<span class="font-manrope text-sm font-medium tracking-tight">Affiliates</span>
+</a>
+<a class="flex items-center gap-3 text-slate-500 dark:text-slate-400 pl-4 hover:text-blue-600 dark:hover:text-blue-300 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-colors duration-200 py-2" href="#">
+<span class="material-symbols-outlined" data-icon="terminal">terminal</span>
+<span class="font-manrope text-sm font-medium tracking-tight">System Logs</span>
+</a>
+</nav>
+<div class="px-6 mb-8">
+<button class="w-full py-3 px-4 bg-gradient-to-br from-primary to-primary-container text-white rounded-xl font-semibold shadow-lg shadow-primary/20 hover:opacity-90 transition-opacity">
+                Generate Report
+            </button>
+</div>
+<div class="mt-auto border-t border-slate-200 dark:border-slate-800 pt-6 space-y-2">
+<a class="flex items-center gap-3 text-slate-500 dark:text-slate-400 pl-4 hover:text-blue-600 dark:hover:text-blue-300 py-2" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-manrope text-sm font-medium tracking-tight">Settings</span>
+</a>
+<a class="flex items-center gap-3 text-slate-500 dark:text-slate-400 pl-4 hover:text-blue-600 dark:hover:text-blue-300 py-2" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+<span class="font-manrope text-sm font-medium tracking-tight">Support</span>
+</a>
+</div>
+</aside>
+<!-- TopNavBar -->
+<header class="flex justify-between items-center h-16 ml-64 px-8 sticky top-0 z-40 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md shadow-sm dark:shadow-none">
+<div class="flex items-center gap-8">
+<span class="text-blue-900 dark:text-blue-400 font-inter text-sm font-semibold">Admin Console</span>
+<div class="flex gap-6">
+<a class="text-slate-600 dark:text-slate-400 hover:text-blue-600 transition-opacity font-inter text-sm" href="#">Directives</a>
+<a class="text-blue-700 dark:text-blue-400 font-semibold font-inter text-sm" href="#">Live Monitor</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative">
+<input class="bg-surface-container-low border-none rounded-full py-2 px-4 text-sm w-64 focus:ring-2 focus:ring-primary" placeholder="Search parameters..." type="text"/>
+<span class="material-symbols-outlined absolute right-3 top-2 text-slate-400 text-lg" data-icon="search">search</span>
+</div>
+<button class="text-slate-600 dark:text-slate-400 hover:opacity-80 transition-opacity">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<div class="w-8 h-8 rounded-full overflow-hidden bg-slate-200">
+<img alt="Administrator Avatar" data-alt="Close-up portrait of a professional male administrator in a modern office setting, soft studio lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBn0MBhWtphlqhazFGfisQdTdGJQCCrzb9Jc5I5e_tr3SMoyUpp0WdnVwjy5i-XLfrcvjDEmtH0lFFWmVGUptesoDNz_yQQVWP7VkNfvXoyrRwdCh0Qd0hurdIm418DLG3rqiDywtw1pl_MFZRUBAJp9j3vFWGPeeaxDB_Ego4lPpMUEl5ckKauuGWrg_dJK0KFaXbHGvzIDiZIWe6hVF-6J3LhD1q9qAkkxHRbGoPYWoqcttYY-0NdFB-u04jP9af81ElmuzGyFOoL"/>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="ml-64 p-8 bg-surface">
+<!-- Editorial Header -->
+<section class="mb-12">
+<div class="max-w-4xl">
+<h2 class="text-5xl font-extrabold tracking-tight text-on-surface mb-4 leading-tight">Tiered Benefit <span class="text-primary-container">Orchestration</span></h2>
+<p class="text-lg text-on-surface-variant leading-relaxed max-w-2xl">
+                    Configure the architectural foundations of your medical coverage. Adjust membership costs, coverage ratios, and clinical limits across our eight distinct tiers with real-time impact forecasting.
+                </p>
+</div>
+</section>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-12 gap-8 items-start">
+<!-- Plan Selector & Basic Info (Left Column) -->
+<div class="col-span-12 lg:col-span-4 space-y-8">
+<div class="bg-surface-container-lowest p-8 rounded-xl shadow-sm">
+<h3 class="text-xl font-bold mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="tune">tune</span>
+                        Active Configuration
+                    </h3>
+<div class="space-y-3">
+<label class="block text-xs font-bold text-slate-400 uppercase tracking-widest">Select Membership Tier</label>
+<div class="grid grid-cols-1 gap-2">
+<button class="flex justify-between items-center p-4 rounded-lg bg-surface-container-low border-l-4 border-primary text-primary font-bold">
+<span>Elite Platinum</span>
+<span class="text-xs bg-primary/10 px-2 py-1 rounded">Active</span>
+</button>
+<button class="flex justify-between items-center p-4 rounded-lg hover:bg-surface-container-low text-on-surface-variant transition-colors">
+<span>Platinum Gold</span>
+</button>
+<button class="flex justify-between items-center p-4 rounded-lg hover:bg-surface-container-low text-on-surface-variant transition-colors">
+<span>Advanced Plus</span>
+</button>
+<button class="flex justify-between items-center p-4 rounded-lg hover:bg-surface-container-low text-on-surface-variant transition-colors">
+<span>Standard Global</span>
+</button>
+<button class="flex justify-between items-center p-4 rounded-lg hover:bg-surface-container-low text-on-surface-variant transition-colors">
+<span>Essential Core</span>
+</button>
+<button class="text-primary text-sm font-semibold mt-2 hover:underline text-left pl-4">+ View 3 Other Tiers</button>
+</div>
+</div>
+</div>
+<div class="bg-primary-container rounded-xl p-8 text-white relative overflow-hidden">
+<div class="relative z-10">
+<h4 class="text-lg font-bold mb-2">Impact Forecast</h4>
+<p class="text-primary-fixed-dim text-sm mb-6">Real-time simulation of changes to the "Elite Platinum" tier.</p>
+<div class="space-y-4">
+<div class="flex justify-between items-end">
+<span class="text-sm">Revenue Delta</span>
+<span class="text-2xl font-bold">+12.4%</span>
+</div>
+<div class="w-full bg-primary/30 h-1 rounded-full">
+<div class="bg-secondary-fixed w-3/4 h-1 rounded-full"></div>
+</div>
+<div class="flex justify-between items-end">
+<span class="text-sm">Member Retention Risk</span>
+<span class="text-2xl font-bold text-secondary-fixed">LOW</span>
+</div>
+</div>
+</div>
+<div class="absolute top-0 right-0 -mr-8 -mt-8 w-40 h-40 bg-white/5 rounded-full blur-3xl"></div>
+</div>
+</div>
+<!-- Configuration Workbench (Right Column) -->
+<div class="col-span-12 lg:col-span-8 space-y-8">
+<!-- Financial Parameters -->
+<div class="bg-surface-container-lowest p-8 rounded-xl">
+<div class="flex justify-between items-center mb-8">
+<h3 class="text-2xl font-bold">Financial Parameters</h3>
+<span class="text-xs font-medium px-3 py-1 bg-surface-container text-outline rounded-full">Modified 2d ago</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+<div class="space-y-4">
+<label class="block text-sm font-semibold">Annual Membership Premium</label>
+<div class="relative">
+<span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">$</span>
+<input class="w-full bg-surface-container-low border-none rounded-xl pl-8 pr-4 py-4 text-xl font-bold focus:ring-2 focus:ring-primary" type="number" value="12500"/>
+</div>
+<p class="text-xs text-slate-400">Previous value: $11,200. Adjusts for regional inflation.</p>
+</div>
+<div class="space-y-4">
+<label class="block text-sm font-semibold">Deductible Threshold</label>
+<div class="relative">
+<span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">$</span>
+<input class="w-full bg-surface-container-low border-none rounded-xl pl-8 pr-4 py-4 text-xl font-bold focus:ring-2 focus:ring-primary" type="number" value="500"/>
+</div>
+<p class="text-xs text-slate-400">Global standard for Elite tiers.</p>
+</div>
+</div>
+</div>
+<!-- Benefit Percentages -->
+<div class="bg-surface-container-lowest p-8 rounded-xl">
+<h3 class="text-2xl font-bold mb-8">Benefit Coverage Matrix</h3>
+<div class="space-y-10">
+<!-- Lab Coverage -->
+<div class="space-y-4">
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" data-icon="biotech">biotech</span>
+</div>
+<span class="font-bold">Laboratory &amp; Diagnostics</span>
+</div>
+<span class="text-2xl font-bold text-primary">95%</span>
+</div>
+<input class="w-full h-2 bg-surface-container-low rounded-lg appearance-none cursor-pointer accent-primary" max="100" min="0" type="range" value="95"/>
+<div class="flex justify-between text-xs text-slate-400 px-1">
+<span>Standard: 80%</span>
+<span>Maximum: 100%</span>
+</div>
+</div>
+<!-- Pharmacy Coverage -->
+<div class="space-y-4">
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-teal-50 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined" data-icon="medication">medication</span>
+</div>
+<span class="font-bold">Pharmaceuticals</span>
+</div>
+<span class="text-2xl font-bold text-secondary">90%</span>
+</div>
+<input class="w-full h-2 bg-surface-container-low rounded-lg appearance-none cursor-pointer accent-secondary" max="100" min="0" type="range" value="90"/>
+</div>
+<!-- Surgery Coverage -->
+<div class="space-y-4">
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-purple-50 flex items-center justify-center text-purple-600">
+<span class="material-symbols-outlined" data-icon="surgery">surgical</span>
+</div>
+<span class="font-bold">Complex Surgery</span>
+</div>
+<span class="text-2xl font-bold text-purple-600">100%</span>
+</div>
+<input class="w-full h-2 bg-surface-container-low rounded-lg appearance-none cursor-pointer accent-purple-600" max="100" min="0" type="range" value="100"/>
+</div>
+</div>
+</div>
+<!-- Clinical Limits -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="bg-surface-container-lowest p-8 rounded-xl">
+<h3 class="text-lg font-bold mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary" data-icon="event_available">event_available</span>
+                            Annual Visit Limits
+                        </h3>
+<div class="space-y-6">
+<div class="flex justify-between items-center">
+<span class="text-sm text-on-surface-variant">Specialist Consults</span>
+<div class="flex items-center gap-3">
+<button class="w-8 h-8 rounded-full border border-outline-variant flex items-center justify-center">-</button>
+<span class="font-bold w-8 text-center">Unlimited</span>
+<button class="w-8 h-8 rounded-full border border-outline-variant flex items-center justify-center">+</button>
+</div>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-sm text-on-surface-variant">Mental Health Sessions</span>
+<div class="flex items-center gap-3">
+<button class="w-8 h-8 rounded-full border border-outline-variant flex items-center justify-center">-</button>
+<span class="font-bold w-8 text-center">52</span>
+<button class="w-8 h-8 rounded-full border border-outline-variant flex items-center justify-center">+</button>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-8 rounded-xl border border-dashed border-outline-variant flex flex-col items-center justify-center text-center">
+<span class="material-symbols-outlined text-4xl text-slate-300 mb-2" data-icon="add_circle">add_circle</span>
+<p class="font-semibold text-slate-500">Add Limit Constraint</p>
+<p class="text-xs text-slate-400 mt-1">E.g. In-home nursing, Rehab</p>
+</div>
+</div>
+<!-- Action Footer -->
+<div class="flex justify-end gap-4 pt-8">
+<button class="px-8 py-3 rounded-xl font-semibold text-outline hover:bg-surface-container transition-colors">Discard Draft</button>
+<button class="px-8 py-3 rounded-xl font-semibold bg-primary text-white shadow-xl shadow-primary/30 hover:opacity-90 transition-opacity">Deploy Configuration Updates</button>
+</div>
+</div>
+</div>
+<!-- Demographic Impact Visualization -->
+<section class="mt-16">
+<h3 class="text-2xl font-bold mb-8">Demographic Transition Analysis</h3>
+<div class="bg-surface-container-low rounded-2xl p-8">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+<div class="bg-surface-container-lowest p-6 rounded-xl">
+<p class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Affected Members</p>
+<h4 class="text-3xl font-extrabold text-primary">12,402</h4>
+<p class="text-xs text-secondary font-medium mt-2 flex items-center gap-1">
+<span class="material-symbols-outlined text-sm" data-icon="trending_up">trending_up</span>
+                            +3.1% from Q3
+                        </p>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl">
+<p class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Average Utilization</p>
+<h4 class="text-3xl font-extrabold text-primary">82%</h4>
+<div class="mt-3 flex gap-1">
+<div class="h-1 flex-1 bg-primary rounded-full"></div>
+<div class="h-1 flex-1 bg-primary rounded-full"></div>
+<div class="h-1 flex-1 bg-primary rounded-full"></div>
+<div class="h-1 flex-1 bg-slate-200 rounded-full"></div>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl">
+<p class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Tier Migration</p>
+<h4 class="text-3xl font-extrabold text-on-surface">450</h4>
+<p class="text-xs text-slate-400 mt-2">Predicted upgrades to Elite</p>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl">
+<p class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Net Promoter Score</p>
+<h4 class="text-3xl font-extrabold text-on-surface">78</h4>
+<p class="text-xs text-slate-400 mt-2">Stable premium sentiment</p>
+</div>
+</div>
+<div class="mt-12 h-64 w-full relative">
+<!-- Faux Data Visualization -->
+<div class="absolute inset-0 flex items-end justify-between px-10">
+<div class="w-12 bg-primary/10 rounded-t-lg h-32 relative group">
+<div class="absolute -top-8 left-1/2 -translate-x-1/2 text-xs font-bold opacity-0 group-hover:opacity-100 transition-opacity">Jan</div>
+</div>
+<div class="w-12 bg-primary/20 rounded-t-lg h-48"></div>
+<div class="w-12 bg-primary/40 rounded-t-lg h-36"></div>
+<div class="w-12 bg-primary/60 rounded-t-lg h-56"></div>
+<div class="w-12 bg-primary/80 rounded-t-lg h-44"></div>
+<div class="w-12 bg-primary rounded-t-lg h-64"></div>
+<div class="w-12 bg-primary rounded-t-lg h-52"></div>
+<div class="w-12 bg-primary rounded-t-lg h-58"></div>
+</div>
+<div class="absolute bottom-0 left-0 w-full h-px bg-outline-variant/30"></div>
+</div>
+</div>
+</section>
+</main>
+</body></html>
