@@ -1,0 +1,23 @@
+{
+  "common": {
+    "login": "Member Login",
+    "signup": "Sign Up",
+    "about": "About",
+    "plans": "Plans",
+    "affiliate": "Affiliate"
+  },
+  "home": {
+    "heroTitle": "Your health is our mission.",
+    "heroSubtitle": "In Haiti and for the Diaspora.",
+    "heroDescription": "Access premium medical care and secure health coverage for you and your loved ones.",
+    "ctaPrimary": "Sign Up Now",
+    "ctaSecondary": "View the Network"
+  },
+  "member": {
+    "dashboard": "Dashboard",
+    "medicalCard": "Medical Card",
+    "dependents": "Dependents",
+    "payments": "Payments",
+    "urgentConsult": "Urgent Consult"
+  }
+}

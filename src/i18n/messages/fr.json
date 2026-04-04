@@ -1,0 +1,23 @@
+{
+  "common": {
+    "login": "Connexion Membre",
+    "signup": "S'inscrire",
+    "about": "À propos",
+    "plans": "Forfaits",
+    "affiliate": "Affilié"
+  },
+  "home": {
+    "heroTitle": "Votre santé est notre mission.",
+    "heroSubtitle": "En Haïti et pour la Diaspora.",
+    "heroDescription": "Accédez à des soins médicaux premium et à une couverture santé sécurisée pour vous et vos proches.",
+    "ctaPrimary": "S'inscrire maintenant",
+    "ctaSecondary": "Voir le réseau"
+  },
+  "member": {
+    "dashboard": "Tableau de bord",
+    "medicalCard": "Carte Médicale",
+    "dependents": "Personnes à charge",
+    "payments": "Paiements",
+    "urgentConsult": "Consultation Urgente"
+  }
+}

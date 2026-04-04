@@ -1,0 +1,10 @@
+
+/src/generated/prisma
+
+# environment variables
+.env
+.env.local
+node_modules/
+.next/
+.env
+.env.local
