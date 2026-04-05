@@ -226,6 +226,33 @@ export default function LandingPage() {
               </Link>
             </div>
           </div>
+
+          {/* Elite Tiers Teaser */}
+          <div className="mt-12 relative rounded-3xl overflow-hidden clinical-gradient p-8 md:p-12">
+            <div className="absolute -top-10 -right-10 w-40 h-40 bg-white/10 rounded-full blur-3xl" />
+            <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
+              <div className="text-center md:text-left">
+                <div className="flex items-center gap-2 mb-3">
+                  <Icon name="diamond" filled size="md" className="text-amber-400" />
+                  <span className="text-xs font-bold text-white/60 uppercase tracking-widest">
+                    Elite Collection
+                  </span>
+                </div>
+                <h3 className="font-headline text-2xl md:text-3xl font-extrabold text-white mb-2">
+                  Need more coverage? Explore our Elite Tiers.
+                </h3>
+                <p className="text-primary-fixed-dim text-sm md:text-base max-w-xl">
+                  From <span className="font-bold text-white">$365</span> to <span className="font-bold text-white">$5,000</span>/year — including surgery coverage, at-home services, and exclusive US network access for Gold &amp; Platinum members.
+                </p>
+              </div>
+              <Link href="/plans" className="shrink-0">
+                <button className="bg-white text-primary px-8 py-4 rounded-xl font-headline font-bold text-sm hover:bg-surface-container-lowest transition-colors flex items-center gap-2 shadow-lg">
+                  View All 8 Plans
+                  <Icon name="arrow_forward" size="sm" />
+                </button>
+              </Link>
+            </div>
+          </div>
         </div>
       </section>
 
