@@ -1,17 +1,26 @@
 "use client";
 
 import { useState, FormEvent } from "react";
-import { signIn } from "next-auth/react";
+import { signIn, getSession } from "next-auth/react";
 import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/ui/icon";
 import Link from "next/link";
 
+const roleRedirects: Record<string, string> = {
+  ADMIN: "/admin/dashboard",
+  DOCTOR: "/doctor/patient-care",
+  AFFILIATE: "/affiliate/dashboard",
+  PAYER: "/member/dashboard",
+  BENEFICIARY: "/member/dashboard",
+};
+
 const devUsers = [
-  { label: "Member", email: "jean@member.ht", role: "member" },
-  { label: "Doctor", email: "doctor@vitasante.ht", role: "doctor" },
-  { label: "Affiliate", email: "affiliate@vitasante.ht", role: "affiliate" },
-  { label: "Sponsor", email: "sponsor@vitasante.ht", role: "sponsor" },
-  { label: "Admin", email: "admin@vitasante.ht", role: "admin" },
+  { label: "Member", email: "jean@member.ht", icon: "person" },
+  { label: "Diaspora", email: "marie@diaspora.us", icon: "public" },
+  { label: "Doctor", email: "doctor@vitasante.ht", icon: "medical_services" },
+  { label: "Affiliate", email: "affiliate@vitasante.ht", icon: "handshake" },
+  { label: "Sponsor", email: "sponsor@vitasante.ht", icon: "volunteer_activism" },
+  { label: "Admin", email: "admin@vitasante.ht", icon: "admin_panel_settings" },
 ];
 
 export default function SignInPage() {
@@ -20,51 +29,39 @@ export default function SignInPage() {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
-  async function handleSubmit(e: FormEvent) {
-    e.preventDefault();
+  async function doLogin(loginEmail: string, loginPassword: string) {
     setError(null);
     setLoading(true);
 
     try {
       const result = await signIn("credentials", {
-        email,
-        password,
+        email: loginEmail,
+        password: loginPassword,
         redirect: false,
       });
 
       if (result?.error) {
         setError("Invalid email or password. Please try again.");
-      } else if (result?.ok) {
-        window.location.href = "/";
+        setLoading(false);
+        return;
+      }
+
+      if (result?.ok) {
+        // Fetch session to get role for redirect
+        const session = await getSession();
+        const role = (session?.user as { role?: string })?.role || "BENEFICIARY";
+        const redirect = roleRedirects[role] || "/member/dashboard";
+        window.location.href = redirect;
       }
     } catch {
       setError("An unexpected error occurred. Please try again.");
-    } finally {
       setLoading(false);
     }
   }
 
-  async function handleDevLogin(email: string) {
-    setError(null);
-    setLoading(true);
-
-    try {
-      const result = await signIn("credentials", {
-        email,
-        password: "password",
-        redirect: false,
-      });
-
-      if (result?.error) {
-        setError("Dev login failed. Ensure the dev auth provider is configured.");
-      } else if (result?.ok) {
-        window.location.href = "/";
-      }
-    } catch {
-      setError("An unexpected error occurred. Please try again.");
-    } finally {
-      setLoading(false);
-    }
+  async function handleSubmit(e: FormEvent) {
+    e.preventDefault();
+    await doLogin(email, password);
   }
 
   return (
@@ -100,10 +97,7 @@ export default function SignInPage() {
 
           <div className="space-y-5">
             <div>
-              <label
-                htmlFor="email"
-                className="mb-1.5 block text-sm font-medium text-on-surface"
-              >
+              <label htmlFor="email" className="mb-1.5 block text-sm font-medium text-on-surface">
                 Email Address
               </label>
               <input
@@ -118,10 +112,7 @@ export default function SignInPage() {
             </div>
 
             <div>
-              <label
-                htmlFor="password"
-                className="mb-1.5 block text-sm font-medium text-on-surface"
-              >
+              <label htmlFor="password" className="mb-1.5 block text-sm font-medium text-on-surface">
                 Password
               </label>
               <input
@@ -154,40 +145,36 @@ export default function SignInPage() {
 
           <p className="mt-6 text-center text-sm text-on-surface-variant">
             Don&rsquo;t have an account?{" "}
-            <Link
-              href="/auth/signup"
-              className="font-semibold text-primary underline underline-offset-4"
-            >
+            <Link href="/auth/signup" className="font-semibold text-primary underline underline-offset-4">
               Enroll now
             </Link>
           </p>
         </form>
 
-        {/* Dev Quick Login Panel */}
-        {process.env.NODE_ENV === "development" && (
-          <div className="rounded-3xl border-2 border-dashed border-outline-variant bg-surface-container-lowest p-6">
-            <div className="mb-4 flex items-center gap-2">
-              <Icon name="terminal" size="sm" className="text-secondary" />
-              <h3 className="font-headline text-sm font-bold uppercase tracking-widest text-secondary">
-                Dev Quick Login
-              </h3>
-            </div>
-            <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
-              {devUsers.map((user) => (
-                <button
-                  key={user.email}
-                  type="button"
-                  onClick={() => handleDevLogin(user.email)}
-                  disabled={loading}
-                  className="rounded-xl bg-surface-container-low px-3 py-2.5 text-xs font-medium text-on-surface-variant transition-all hover:bg-surface-container-high hover:text-primary disabled:opacity-50"
-                >
-                  <div className="font-headline font-bold">{user.label}</div>
-                  <div className="mt-0.5 truncate text-[10px] opacity-60">{user.email}</div>
-                </button>
-              ))}
-            </div>
+        {/* Quick Login Panel */}
+        <div className="rounded-3xl border-2 border-dashed border-outline-variant bg-surface-container-lowest p-6">
+          <div className="mb-4 flex items-center gap-2">
+            <Icon name="bolt" size="sm" className="text-secondary" />
+            <h3 className="font-headline text-sm font-bold uppercase tracking-widest text-secondary">
+              Quick Access
+            </h3>
           </div>
-        )}
+          <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
+            {devUsers.map((user) => (
+              <button
+                key={user.email}
+                type="button"
+                onClick={() => doLogin(user.email, "dev-password")}
+                disabled={loading}
+                className="rounded-xl bg-surface-container-low px-3 py-3 text-xs font-medium text-on-surface-variant transition-all hover:bg-surface-container-high hover:text-primary disabled:opacity-50 flex flex-col items-center gap-1"
+              >
+                <Icon name={user.icon} size="sm" className="text-primary" />
+                <div className="font-headline font-bold">{user.label}</div>
+                <div className="truncate text-[10px] opacity-60 max-w-full">{user.email}</div>
+              </button>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );

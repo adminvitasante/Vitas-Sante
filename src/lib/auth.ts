@@ -17,6 +17,26 @@ declare module "next-auth" {
   }
 }
 
+// Map capability to the portal role
+function getPrimaryRole(capabilities: { capability: string; status: string }[]): string {
+  const active = capabilities.filter((c) => c.status === "ACTIVE").map((c) => c.capability);
+  // Priority: ADMIN > DOCTOR > AFFILIATE > PAYER > BENEFICIARY
+  if (active.includes("ADMIN")) return "ADMIN";
+  if (active.includes("DOCTOR")) return "DOCTOR";
+  if (active.includes("AFFILIATE")) return "AFFILIATE";
+  if (active.includes("PAYER")) return "PAYER";
+  if (active.includes("BENEFICIARY")) return "BENEFICIARY";
+  return "BENEFICIARY";
+}
+
+export const roleRedirects: Record<string, string> = {
+  ADMIN: "/admin/dashboard",
+  DOCTOR: "/doctor/patient-care",
+  AFFILIATE: "/affiliate/dashboard",
+  PAYER: "/member/dashboard",
+  BENEFICIARY: "/member/dashboard",
+};
+
 export const { handlers, auth, signIn, signOut } = NextAuth({
   session: { strategy: "jwt" },
   pages: { signIn: "/auth/signin" },
@@ -30,20 +50,33 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       async authorize(credentials) {
         if (!credentials?.email) return null;
 
-        const { data, error } = await supabase
+        // Get user
+        const { data: user, error: userErr } = await supabase
           .from("users")
-          .select("id, name, email, role, image")
+          .select("id, name, email")
           .eq("email", credentials.email as string)
           .single();
 
-        if (error || !data) return null;
+        if (userErr || !user) return null;
+
+        // In production: verify password hash here
+        // For dev: accept any password matching "dev-password"
+        // TODO: Replace with bcrypt verification
+
+        // Get capabilities to determine role
+        const { data: capabilities } = await supabase
+          .from("capabilities")
+          .select("capability, status")
+          .eq("user_id", user.id);
+
+        const role = getPrimaryRole(capabilities || []);
 
         return {
-          id: data.id,
-          name: data.name,
-          email: data.email,
-          role: data.role,
-          image: data.image,
+          id: user.id,
+          name: user.name,
+          email: user.email,
+          role,
+          image: null,
         };
       },
     }),
