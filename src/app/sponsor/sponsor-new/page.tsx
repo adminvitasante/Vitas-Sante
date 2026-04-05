@@ -1,324 +1,175 @@
-"use client";
-
-import { useState } from "react";
-import { TopBar } from "@/components/layout/top-bar";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Icon } from "@/components/ui/icon";
-import { Badge } from "@/components/ui/badge";
-import { Card } from "@/components/ui/card";
-
-const plans = [
-  {
-    id: "essential",
-    name: "Essential",
-    price: "$120/yr",
-    description: "Basic preventive care and annual check-ups",
-  },
-  {
-    id: "advantage",
-    name: "Advantage",
-    price: "$280/yr",
-    description: "Extended coverage with specialist visits and diagnostics",
-  },
-  {
-    id: "premium",
-    name: "Premium",
-    price: "$480/yr",
-    description: "Comprehensive coverage including dental, vision, and mental health",
-  },
-];
-
-const cities = ["Port-au-Prince", "Cap-Ha\u00eftien", "Gonaives", "Les Cayes", "Jacmel"];
-const departments = ["Ouest", "Nord", "Artibonite", "Sud", "Sud-Est"];
-
-const steps = ["Beneficiary Info", "Plan Selection", "Review & Confirm"];
 
 export default function SponsorNewPage() {
-  const [step, setStep] = useState(0);
-  const [form, setForm] = useState({
-    firstName: "",
-    lastName: "",
-    dob: "",
-    email: "",
-    phone: "",
-    address: "",
-    city: "",
-    department: "",
-    plan: "",
-  });
-
-  function updateField(field: string, value: string) {
-    setForm((prev) => ({ ...prev, [field]: value }));
-  }
-
-  const selectedPlan = plans.find((p) => p.id === form.plan);
-
   return (
-    <div>
-      <TopBar
-        greeting="Sponsor a New Member"
-        subtitle="Complete the form to enroll a beneficiary"
-        initials="SP"
-      />
-
-      {/* Progress Bar */}
-      <Card className="mb-8">
-        <div className="flex items-center justify-between mb-4">
-          {steps.map((label, i) => (
-            <div key={label} className="flex items-center gap-2 flex-1">
-              <div
-                className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold shrink-0 ${
-                  i <= step
-                    ? "clinical-gradient text-white"
-                    : "bg-surface-container-high text-on-surface-variant"
-                }`}
-              >
-                {i < step ? (
-                  <Icon name="check" size="sm" className="text-white" />
-                ) : (
-                  i + 1
-                )}
-              </div>
-              <span
-                className={`text-xs font-bold uppercase tracking-widest hidden sm:inline ${
-                  i <= step ? "text-primary" : "text-on-surface-variant"
-                }`}
-              >
-                {label}
-              </span>
-              {i < steps.length - 1 && (
-                <div
-                  className={`flex-1 h-0.5 mx-2 rounded ${
-                    i < step ? "bg-primary" : "bg-outline-variant"
-                  }`}
-                />
-              )}
-            </div>
-          ))}
+    <div className="max-w-7xl mx-auto">
+      {/* Header Section */}
+      <div className="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
+        <div>
+          <nav className="flex items-center gap-2 text-outline mb-4">
+            <span>Sponsor Portal</span>
+            <Icon name="chevron_right" className="text-sm" />
+            <span>Funded Members</span>
+            <Icon name="chevron_right" className="text-sm" />
+            <span className="text-primary font-semibold">New Beneficiary</span>
+          </nav>
+          <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight text-primary mb-2">Register New Member</h1>
+          <p className="text-on-surface-variant max-w-2xl text-lg">Add a single beneficiary to your corporate sponsorship plan or use the bulk upload for multiple enrollments.</p>
         </div>
-      </Card>
+        <button className="bg-secondary-container text-on-secondary-container px-6 py-3 rounded-xl flex items-center gap-2 font-semibold hover:bg-secondary-fixed transition-colors duration-200">
+          <Icon name="upload_file" />
+          Bulk Upload CSV
+        </button>
+      </div>
 
-      {/* Step 1: Beneficiary Info */}
-      {step === 0 && (
-        <Card>
-          <h3 className="text-lg font-bold text-on-surface font-headline tracking-tight mb-6">
-            Beneficiary Information
-          </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <Input
-              label="First Name"
-              id="firstName"
-              placeholder="Enter first name"
-              value={form.firstName}
-              onChange={(e) => updateField("firstName", e.target.value)}
-            />
-            <Input
-              label="Last Name"
-              id="lastName"
-              placeholder="Enter last name"
-              value={form.lastName}
-              onChange={(e) => updateField("lastName", e.target.value)}
-            />
-            <Input
-              label="Date of Birth"
-              id="dob"
-              type="date"
-              value={form.dob}
-              onChange={(e) => updateField("dob", e.target.value)}
-            />
-            <Input
-              label="Email"
-              id="email"
-              type="email"
-              placeholder="email@example.com"
-              value={form.email}
-              onChange={(e) => updateField("email", e.target.value)}
-            />
-            <Input
-              label="Phone"
-              id="phone"
-              type="tel"
-              placeholder="+509 0000 0000"
-              value={form.phone}
-              onChange={(e) => updateField("phone", e.target.value)}
-            />
-            <Input
-              label="Street Address"
-              id="address"
-              placeholder="Enter street address"
-              value={form.address}
-              onChange={(e) => updateField("address", e.target.value)}
-            />
-            <div>
-              <label
-                htmlFor="city"
-                className="block text-xs font-bold text-on-surface-variant uppercase tracking-widest mb-2"
-              >
-                City
-              </label>
-              <select
-                id="city"
-                value={form.city}
-                onChange={(e) => updateField("city", e.target.value)}
-                className="w-full bg-surface-container-low border-none rounded-xl px-4 py-3.5 text-on-surface font-body text-sm focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary focus:outline-none transition-colors"
-              >
-                <option value="">Select city</option>
-                {cities.map((c) => (
-                  <option key={c} value={c}>
-                    {c}
-                  </option>
-                ))}
-              </select>
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+        {/* Left: Stepper */}
+        <div className="lg:col-span-3 space-y-8 sticky top-28">
+          <div className="flex flex-col gap-8 border-l-2 border-surface-container-high">
+            <div className="pl-6 relative">
+              <div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-primary ring-4 ring-primary-fixed"></div>
+              <span className="block text-sm font-bold uppercase tracking-widest text-primary mb-1">Step 1</span>
+              <h3 className="text-lg font-bold text-on-surface leading-tight">Beneficiary Information</h3>
             </div>
-            <div>
-              <label
-                htmlFor="department"
-                className="block text-xs font-bold text-on-surface-variant uppercase tracking-widest mb-2"
-              >
-                Department
-              </label>
-              <select
-                id="department"
-                value={form.department}
-                onChange={(e) => updateField("department", e.target.value)}
-                className="w-full bg-surface-container-low border-none rounded-xl px-4 py-3.5 text-on-surface font-body text-sm focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary focus:outline-none transition-colors"
-              >
-                <option value="">Select department</option>
-                {departments.map((d) => (
-                  <option key={d} value={d}>
-                    {d}
-                  </option>
-                ))}
-              </select>
+            <div className="pl-6 relative opacity-40">
+              <div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-outline-variant ring-4 ring-surface"></div>
+              <span className="block text-sm font-bold uppercase tracking-widest text-outline mb-1">Step 2</span>
+              <h3 className="text-lg font-bold text-on-surface leading-tight">Plan Selection</h3>
+            </div>
+            <div className="pl-6 relative opacity-40">
+              <div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-outline-variant ring-4 ring-surface"></div>
+              <span className="block text-sm font-bold uppercase tracking-widest text-outline mb-1">Step 3</span>
+              <h3 className="text-lg font-bold text-on-surface leading-tight">Review &amp; Confirm</h3>
             </div>
           </div>
-        </Card>
-      )}
+          <div className="bg-surface-container-low p-6 rounded-xl border-l-4 border-tertiary">
+            <div className="flex items-center gap-3 mb-3 text-tertiary">
+              <Icon name="verified_user" />
+              <span className="font-bold text-sm">Secure Enrollment</span>
+            </div>
+            <p className="text-xs text-on-surface-variant leading-relaxed">
+              Data is encrypted using military-grade standards. Members will receive their digital Vita Sant&eacute; ID within 24 hours.
+            </p>
+          </div>
+        </div>
 
-      {/* Step 2: Plan Selection */}
-      {step === 1 && (
-        <Card>
-          <h3 className="text-lg font-bold text-on-surface font-headline tracking-tight mb-6">
-            Select a Plan
-          </h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {plans.map((plan) => (
-              <button
-                key={plan.id}
-                type="button"
-                onClick={() => updateField("plan", plan.id)}
-                className={`text-left rounded-2xl p-6 transition-all border-2 ${
-                  form.plan === plan.id
-                    ? "border-primary bg-primary-fixed"
-                    : "border-outline-variant bg-surface-container-lowest hover:border-primary/40"
-                }`}
-              >
-                <div className="flex items-center justify-between mb-3">
-                  <h4 className="text-base font-bold text-on-surface font-headline">
-                    {plan.name}
-                  </h4>
-                  <div
-                    className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
-                      form.plan === plan.id
-                        ? "border-primary"
-                        : "border-outline-variant"
-                    }`}
-                  >
-                    {form.plan === plan.id && (
-                      <div className="w-3 h-3 rounded-full bg-primary" />
-                    )}
+        {/* Right: Form Content */}
+        <div className="lg:col-span-9">
+          <div className="bg-surface-container-lowest rounded-xl shadow-[0_20px_40px_rgba(0,27,63,0.06)] p-8 md:p-12">
+            <form className="space-y-12">
+              {/* Personal Info */}
+              <section>
+                <div className="flex items-center gap-4 mb-8">
+                  <div className="w-12 h-12 rounded-xl bg-primary-fixed flex items-center justify-center text-primary">
+                    <Icon name="person" filled />
+                  </div>
+                  <div>
+                    <h2 className="text-2xl font-bold">Personal Details</h2>
+                    <p className="text-sm text-outline">Ensure details match official government ID (CIN/NIF).</p>
                   </div>
                 </div>
-                <p className="text-2xl font-black text-primary tracking-tight mb-2">
-                  {plan.price}
-                </p>
-                <p className="text-xs text-on-surface-variant leading-relaxed">
-                  {plan.description}
-                </p>
-              </button>
-            ))}
-          </div>
-        </Card>
-      )}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <label className="text-sm font-bold text-on-surface-variant px-1">Full Legal Name</label>
+                    <input className="w-full bg-surface-container-low border-none rounded-xl py-4 px-5 focus:ring-2 focus:ring-primary focus:bg-surface-container-lowest transition-all" placeholder="e.g. Marie-Louise Desir" type="text" />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-sm font-bold text-on-surface-variant px-1">Date of Birth</label>
+                    <input className="w-full bg-surface-container-low border-none rounded-xl py-4 px-5 focus:ring-2 focus:ring-primary focus:bg-surface-container-lowest transition-all" type="date" />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-sm font-bold text-on-surface-variant px-1">Email Address</label>
+                    <input className="w-full bg-surface-container-low border-none rounded-xl py-4 px-5 focus:ring-2 focus:ring-primary focus:bg-surface-container-lowest transition-all" placeholder="m.desir@example.com" type="email" />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-sm font-bold text-on-surface-variant px-1">Phone Number (WhatsApp preferred)</label>
+                    <input className="w-full bg-surface-container-low border-none rounded-xl py-4 px-5 focus:ring-2 focus:ring-primary focus:bg-surface-container-lowest transition-all" placeholder="+509 0000 0000" type="tel" />
+                  </div>
+                </div>
+              </section>
 
-      {/* Step 3: Review & Confirm */}
-      {step === 2 && (
-        <Card>
-          <h3 className="text-lg font-bold text-on-surface font-headline tracking-tight mb-6">
-            Review & Confirm
-          </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-            <div className="space-y-3">
-              <h4 className="text-xs font-bold text-on-surface-variant uppercase tracking-widest">
-                Beneficiary
-              </h4>
-              <p className="text-on-surface font-bold">
-                {form.firstName} {form.lastName}
-              </p>
-              <p className="text-sm text-on-surface-variant">{form.dob}</p>
-              <p className="text-sm text-on-surface-variant">{form.email}</p>
-              <p className="text-sm text-on-surface-variant">{form.phone}</p>
-            </div>
-            <div className="space-y-3">
-              <h4 className="text-xs font-bold text-on-surface-variant uppercase tracking-widest">
-                Address
-              </h4>
-              <p className="text-on-surface font-bold">{form.address}</p>
-              <p className="text-sm text-on-surface-variant">
-                {form.city}, {form.department}
-              </p>
-            </div>
-          </div>
-          {selectedPlan && (
-            <div className="bg-primary-fixed rounded-2xl p-6">
-              <h4 className="text-xs font-bold text-on-surface-variant uppercase tracking-widest mb-2">
-                Selected Plan
-              </h4>
-              <div className="flex items-center gap-3">
-                <p className="text-xl font-bold text-primary font-headline">
-                  {selectedPlan.name}
-                </p>
-                <Badge variant="success">{selectedPlan.price}</Badge>
+              {/* Address Info */}
+              <section>
+                <div className="flex items-center gap-4 mb-8">
+                  <div className="w-12 h-12 rounded-xl bg-secondary-fixed flex items-center justify-center text-secondary">
+                    <Icon name="location_on" filled />
+                  </div>
+                  <div>
+                    <h2 className="text-2xl font-bold">Haiti Residential Address</h2>
+                    <p className="text-sm text-outline">Used for home care visits and medicine delivery.</p>
+                  </div>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="md:col-span-2 space-y-2">
+                    <label className="text-sm font-bold text-on-surface-variant px-1">Street Address</label>
+                    <input className="w-full bg-surface-container-low border-none rounded-xl py-4 px-5 focus:ring-2 focus:ring-primary focus:bg-surface-container-lowest transition-all" placeholder="123 Rue de la Paix" type="text" />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-sm font-bold text-on-surface-variant px-1">City/Commune</label>
+                    <select className="w-full bg-surface-container-low border-none rounded-xl py-4 px-5 focus:ring-2 focus:ring-primary focus:bg-surface-container-lowest transition-all appearance-none">
+                      <option>Pétion-Ville</option>
+                      <option>Port-au-Prince</option>
+                      <option>Cap-Haïtien</option>
+                      <option>Jacmel</option>
+                      <option>Delmas</option>
+                    </select>
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-sm font-bold text-on-surface-variant px-1">Department</label>
+                    <select className="w-full bg-surface-container-low border-none rounded-xl py-4 px-5 focus:ring-2 focus:ring-primary focus:bg-surface-container-lowest transition-all appearance-none">
+                      <option>Ouest</option>
+                      <option>Nord</option>
+                      <option>Sud</option>
+                      <option>Artibonite</option>
+                    </select>
+                  </div>
+                </div>
+              </section>
+
+              {/* Form Actions */}
+              <div className="pt-8 border-t border-surface-container flex flex-col sm:flex-row justify-between items-center gap-4">
+                <button className="text-outline font-bold px-8 py-4 hover:text-on-surface transition-colors flex items-center gap-2" type="button">
+                  <Icon name="arrow_back" />
+                  Cancel
+                </button>
+                <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+                  <button className="bg-surface-container-high text-on-surface font-bold px-8 py-4 rounded-xl hover:bg-surface-dim transition-colors" type="button">
+                    Save Draft
+                  </button>
+                  <button className="bg-gradient-to-br from-primary to-primary-container text-white font-bold px-12 py-4 rounded-xl shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all flex items-center justify-center gap-2" type="button">
+                    Next: Select Plan
+                    <Icon name="arrow_forward" />
+                  </button>
+                </div>
               </div>
-              <p className="text-sm text-on-surface-variant mt-1">
-                {selectedPlan.description}
-              </p>
-            </div>
-          )}
-        </Card>
-      )}
+            </form>
+          </div>
 
-      {/* Navigation Buttons */}
-      <div className="flex items-center justify-between mt-8">
-        <Button
-          variant="secondary"
-          onClick={() => setStep((s) => Math.max(0, s - 1))}
-          disabled={step === 0}
-        >
-          <span className="flex items-center gap-2">
-            <Icon name="arrow_back" size="sm" />
-            Previous
-          </span>
-        </Button>
-        {step < 2 ? (
-          <Button
-            variant="primary"
-            onClick={() => setStep((s) => Math.min(2, s + 1))}
-          >
-            <span className="flex items-center gap-2">
-              Next Step
-              <Icon name="arrow_forward" size="sm" />
-            </span>
-          </Button>
-        ) : (
-          <Button variant="primary">
-            <span className="flex items-center gap-2">
-              <Icon name="check_circle" size="sm" />
-              Confirm Sponsorship
-            </span>
-          </Button>
-        )}
+          {/* Bento Info Grid */}
+          <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="bg-primary-container text-on-primary-container p-8 rounded-xl flex flex-col justify-between min-h-[200px]">
+              <Icon name="inventory_2" className="text-4xl" />
+              <div>
+                <h4 className="font-bold text-xl mb-1">Flexible Tiers</h4>
+                <p className="text-sm opacity-80 leading-relaxed">Upgrade or downgrade member plans at any monthly renewal cycle.</p>
+              </div>
+            </div>
+            <div className="bg-secondary-container text-on-secondary-container p-8 rounded-xl flex flex-col justify-between min-h-[200px]">
+              <Icon name="group_add" className="text-4xl" />
+              <div>
+                <h4 className="font-bold text-xl mb-1">Institutional Perks</h4>
+                <p className="text-sm opacity-80 leading-relaxed">Groups of 50+ qualify for our Custom Wellness Program integrations.</p>
+              </div>
+            </div>
+            <div className="bg-tertiary-container text-on-tertiary-container p-8 rounded-xl flex flex-col justify-between min-h-[200px]">
+              <Icon name="speed" className="text-4xl" />
+              <div>
+                <h4 className="font-bold text-xl mb-1">Instant Coverage</h4>
+                <p className="text-sm opacity-80 leading-relaxed">Emergency tele-consultations are active immediately upon payment.</p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

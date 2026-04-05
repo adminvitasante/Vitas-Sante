@@ -1,59 +1,53 @@
-import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/ui/icon";
 import Link from "next/link";
 
-export default function LandingPage() {
+export default function HomePage() {
   return (
-    <div className="bg-surface">
-      {/* ── Hero Section ── */}
-      <section className="relative overflow-hidden bg-surface-container-lowest">
-        <div className="mx-auto max-w-screen-2xl px-6 py-20 lg:py-28">
-          <div className="grid items-center gap-12 lg:grid-cols-2">
-            <div className="space-y-8">
-              <h1 className="font-headline text-4xl font-extrabold leading-tight tracking-tight text-on-surface md:text-5xl lg:text-6xl">
-                Your health is our mission.{" "}
-                <span className="text-primary">In Haiti and for the Diaspora.</span>
-              </h1>
-              <p className="max-w-lg text-lg leading-relaxed text-on-surface-variant">
-                Vita Sant&eacute; Club connects you with Haiti&rsquo;s finest medical professionals,
-                modern clinics, and a comprehensive care network &mdash; whether you live on the
-                island or across the globe.
-              </p>
-              <div className="flex flex-wrap gap-4">
-                <Link href="/plans">
-                  <Button size="lg">
-                    <span className="flex items-center gap-2">
-                      Explore Plans
-                      <Icon name="arrow_forward" size="sm" />
-                    </span>
-                  </Button>
-                </Link>
-                <Link href="/about">
-                  <Button variant="ghost" size="lg">
-                    Learn More
-                  </Button>
-                </Link>
-              </div>
+    <main className="pt-20">
+      {/* Hero Section */}
+      <section className="relative overflow-hidden min-h-[870px] flex items-center px-6 md:px-20 bg-surface-container-low">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className="z-10 text-left">
+            <h1 className="font-headline font-extrabold text-5xl md:text-7xl text-primary leading-[1.1] mb-6 tracking-tight">
+              Your health is our mission. <br />
+              <span className="text-primary-container">In Haiti and for the Diaspora.</span>
+            </h1>
+            <p className="text-on-surface-variant text-lg md:text-xl max-w-xl mb-10 leading-relaxed">
+              Access premium medical care and secure health coverage for you and your loved ones, bridging the gap between distances with trust and clinical excellence.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4">
+              <Link href="/auth/signup">
+                <button className="clinical-gradient text-white px-8 py-4 rounded-xl font-headline font-bold text-lg shadow-lg hover:scale-[1.02] transition-transform">
+                  S&apos;inscrire maintenant
+                </button>
+              </Link>
+              <Link href="/network">
+                <button className="px-8 py-4 rounded-xl font-headline font-bold text-lg text-primary hover:bg-surface-container-high transition-colors">
+                  Voir le r&eacute;seau
+                </button>
+              </Link>
             </div>
-
-            <div className="relative flex justify-center">
-              <div className="relative">
-                <img
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuCE1OiEnsf-LwHBBcq-igkaU12at_5_z6XZtmOT3k0rpAtFvG2uCrWa1RN1J2lq7qOupWo_g5tIJ5hnuQlmlRu-j_x_a3bEENqh6XcbuDNjS3oPW4w35nGuHBEYcnl24LOs-aQ9JIPrwPZY3OuV7wsMPKYCyD9ZH9oZ4RuF9wdYqYq99P8lRu31iPKwgDR3Ki21qkUWR3DvKaqIJm-brbszrTAO94e6GI65HKnjKAMw6nhcAiT7bF5n5ZUAHj4bNc3CsfXY0xStEaiC"
-                  alt="Professional healthcare provider ready to assist"
-                  className="h-auto w-full max-w-md rounded-3xl object-cover shadow-clinical"
-                />
-                {/* Floating stats card */}
-                <div className="glass-effect absolute -bottom-4 -left-4 flex items-center gap-3 rounded-2xl bg-surface-container-lowest/90 px-5 py-4 shadow-lg">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-secondary text-on-secondary">
-                    <Icon name="thumb_up" filled size="md" />
-                  </div>
-                  <div>
-                    <p className="font-headline text-2xl font-extrabold text-primary">98%</p>
-                    <p className="text-xs font-medium text-on-surface-variant">
-                      Positive Satisfaction
-                    </p>
-                  </div>
+          </div>
+          <div className="relative hidden lg:block">
+            <div className="absolute -right-20 -top-20 w-96 h-96 bg-secondary-container/30 rounded-full blur-3xl"></div>
+            <div className="relative rounded-[2rem] overflow-hidden shadow-2xl transform rotate-2">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                alt="Professional Black Haitian male doctor in a modern medical setting"
+                className="w-full h-[600px] object-cover"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCE1OiEnsf-LwHBBcq-igkaU12at_5_z6XZtmOT3k0rpAtFvG2uCrWa1RN1J2lq7qOupWo_g5tIJ5hnuQlmlRu-j_x_a3bEENqh6XcbuDNjS3oPW4w35nGuHBEYcnl24LOs-aQ9JIPrwPZY3OuV7wsMPKYCyD9ZH9oZ4RuF9wdYqYq99P8lRu31iPKwgDR3Ki21qkUWR3DvKaqIJm-brbszrTAO94e6GI65HKnjKAMw6nhcAiT7bF5n5ZUAHj4bNc3CsfXY0xStEaiC"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-primary/40 to-transparent"></div>
+            </div>
+            {/* Stats Card Float */}
+            <div className="absolute bottom-12 -left-12 bg-white/90 glass-effect p-6 rounded-2xl shadow-xl border border-white/20">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 bg-secondary/10 rounded-full flex items-center justify-center">
+                  <Icon name="favorite" filled className="text-secondary" />
+                </div>
+                <div>
+                  <p className="text-xs font-bold text-primary/60 uppercase tracking-widest">Satisfaction</p>
+                  <p className="text-2xl font-black text-primary">98% Positive</p>
                 </div>
               </div>
             </div>
@@ -61,168 +55,121 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* ── Mission & Vision ── */}
-      <section className="bg-surface-container-low py-20 lg:py-28">
-        <div className="mx-auto max-w-screen-2xl px-6">
-          <div className="mb-16 text-center">
-            <p className="mb-2 text-sm font-semibold uppercase tracking-widest text-secondary">
-              Who We Are
-            </p>
-            <h2 className="font-headline text-3xl font-extrabold tracking-tight text-on-surface md:text-4xl">
-              The Clinical Atelier Philosophy
-            </h2>
-            <p className="mx-auto mt-4 max-w-2xl text-on-surface-variant">
-              We blend world-class medical standards with deep cultural understanding, creating a
-              healthcare experience designed specifically for the Haitian community.
-            </p>
-          </div>
-
-          <div className="grid gap-8 md:grid-cols-2">
-            {/* Mission Card */}
-            <div className="group rounded-3xl bg-surface-container-lowest p-8 shadow-clinical transition-all hover:shadow-lg">
-              <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-primary-fixed">
-                <Icon name="emergency" filled className="text-primary" size="lg" />
-              </div>
-              <h3 className="font-headline text-xl font-bold text-on-surface">Our Mission</h3>
-              <p className="mt-3 leading-relaxed text-on-surface-variant">
-                To democratize access to quality healthcare for every Haitian &mdash; at home and
-                abroad. Through strategic partnerships with clinics, pharmacies, and specialists, we
-                remove the barriers that separate families from the care they deserve.
+      {/* Mission & Vision Section */}
+      <section className="py-24 px-6 bg-surface">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-16 items-start">
+            <div className="col-span-1">
+              <div className="w-16 h-1 bg-secondary mb-8"></div>
+              <h2 className="font-headline font-extrabold text-4xl text-on-primary-fixed mb-6 tracking-tighter">The Clinical Atelier Philosophy</h2>
+              <p className="text-on-surface-variant leading-relaxed mb-8">
+                We believe healthcare is not a transaction—it is a curated journey. Our vision is to provide a sanctuary of health for the Haitian community, regardless of geographic boundaries.
               </p>
             </div>
-
-            {/* Vision Card */}
-            <div className="group rounded-3xl bg-surface-container-lowest p-8 shadow-clinical transition-all hover:shadow-lg">
-              <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-secondary-fixed">
-                <Icon name="visibility" filled className="text-secondary" size="lg" />
+            <div className="col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-8">
+              <div className="p-8 bg-surface-container-lowest rounded-2xl border-l-4 border-primary">
+                <Icon name="clinical_notes" size="lg" className="text-primary mb-4" />
+                <h3 className="font-headline font-bold text-xl mb-3 text-primary">Mission</h3>
+                <p className="text-on-surface-variant text-sm leading-relaxed">
+                  Deploying world-class medical standards to every corner of Haiti, ensuring every member receives dignified and precise care.
+                </p>
               </div>
-              <h3 className="font-headline text-xl font-bold text-on-surface">Our Vision</h3>
-              <p className="mt-3 leading-relaxed text-on-surface-variant">
-                A Haiti where distance is never an obstacle to health. We envision a connected
-                medical ecosystem that empowers diaspora members to provide care for loved ones with
-                dignity, transparency, and clinical excellence.
-              </p>
+              <div className="p-8 bg-surface-container-lowest rounded-2xl border-l-4 border-secondary">
+                <Icon name="visibility" size="lg" className="text-secondary mb-4" />
+                <h3 className="font-headline font-bold text-xl mb-3 text-secondary">Vision</h3>
+                <p className="text-on-surface-variant text-sm leading-relaxed">
+                  To be the digital bridge that connects the Haitian Diaspora to the well-being of their families back home through a trusted medical ecosystem.
+                </p>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── Pricing Plans ── */}
-      <section className="bg-surface py-20 lg:py-28">
-        <div className="mx-auto max-w-screen-2xl px-6">
-          <div className="mb-16 text-center">
-            <p className="mb-2 text-sm font-semibold uppercase tracking-widest text-secondary">
-              Membership Plans
-            </p>
-            <h2 className="font-headline text-3xl font-extrabold tracking-tight text-on-surface md:text-4xl">
-              Invest in Health, Not Worry
-            </h2>
-            <p className="mx-auto mt-4 max-w-2xl text-on-surface-variant">
-              Choose a plan that fits your needs. Every membership includes access to our vetted
-              medical network across Haiti.
-            </p>
+      {/* Pricing Plans Section */}
+      <section className="py-24 px-6 bg-surface-container-low">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="font-headline font-extrabold text-4xl text-primary mb-4">Choose Your Membership</h2>
+            <p className="text-on-surface-variant max-w-2xl mx-auto">Transparent plans designed to meet the diverse needs of families in Haiti and those supporting from abroad.</p>
           </div>
-
-          <div className="grid gap-8 md:grid-cols-3">
-            {/* Essential */}
-            <div className="flex flex-col rounded-3xl bg-surface-container-lowest p-8 shadow-clinical">
-              <div className="mb-6">
-                <h3 className="font-headline text-lg font-bold text-on-surface">Essential</h3>
-                <p className="mt-1 text-sm text-on-surface-variant">
-                  Core coverage for individuals
-                </p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* Basic Plan */}
+            <div className="bg-surface-container-lowest p-10 rounded-3xl flex flex-col items-start transition-all hover:translate-y-[-8px]">
+              <span className="px-4 py-1 bg-surface-container-high rounded-full text-xs font-bold text-primary mb-6">ESSENTIAL</span>
+              <div className="flex items-baseline gap-1 mb-8">
+                <span className="text-4xl font-black text-primary">$99</span>
+                <span className="text-on-surface-variant text-sm">/year</span>
               </div>
-              <div className="mb-6">
-                <span className="font-headline text-4xl font-extrabold text-primary">$99</span>
-                <span className="text-sm text-on-surface-variant">/year</span>
-              </div>
-              <ul className="mb-8 flex-1 space-y-3">
-                {[
-                  "Primary care consultations",
-                  "Basic lab work coverage",
-                  "24/7 telemedicine access",
-                  "Pharmacy network discounts",
-                ].map((feature) => (
-                  <li key={feature} className="flex items-start gap-2 text-sm text-on-surface-variant">
-                    <Icon name="check_circle" filled size="sm" className="mt-0.5 text-secondary" />
-                    {feature}
-                  </li>
-                ))}
+              <ul className="space-y-4 mb-10 w-full">
+                <li className="flex items-center gap-3 text-sm text-on-surface-variant">
+                  <Icon name="check_circle" filled size="sm" className="text-secondary" />
+                  6 Visits/Televisits
+                </li>
+                <li className="flex items-center gap-3 text-sm text-on-surface-variant">
+                  <Icon name="check_circle" filled size="sm" className="text-secondary" />
+                  15% Labs & Pharmacy
+                </li>
+                <li className="flex items-center gap-3 text-sm text-on-surface-variant">
+                  <Icon name="check_circle" filled size="sm" className="text-secondary" />
+                  $1-$10 per visit
+                </li>
               </ul>
-              <Link href="/auth/signup">
-                <Button variant="ghost" className="w-full">
-                  Get Started
-                </Button>
+              <Link href="/auth/signup" className="w-full mt-auto">
+                <button className="w-full py-4 border-2 border-primary text-primary font-bold rounded-xl hover:bg-primary hover:text-white transition-colors">Select Essential</button>
               </Link>
             </div>
 
-            {/* Advantage (Highlighted) */}
-            <div className="relative flex flex-col rounded-3xl clinical-gradient p-8 text-white shadow-lg">
-              <div className="absolute -top-3 right-6 rounded-full bg-secondary px-4 py-1 text-xs font-bold uppercase tracking-wider text-on-secondary">
-                Most Popular
+            {/* Standard Plan */}
+            <div className="clinical-gradient p-10 rounded-3xl flex flex-col items-start relative overflow-hidden text-white transition-all hover:translate-y-[-8px] shadow-2xl">
+              <div className="absolute top-0 right-0 p-4 bg-secondary text-white text-[10px] font-black uppercase tracking-widest rotate-45 translate-x-10 translate-y-2 w-40 text-center">Popular</div>
+              <span className="px-4 py-1 bg-white/20 rounded-full text-xs font-bold text-white mb-6">ADVANTAGE</span>
+              <div className="flex items-baseline gap-1 mb-8">
+                <span className="text-4xl font-black text-white">$135</span>
+                <span className="text-white/70 text-sm">/year</span>
               </div>
-              <div className="mb-6">
-                <h3 className="font-headline text-lg font-bold text-white">Advantage</h3>
-                <p className="mt-1 text-sm text-white/70">
-                  Enhanced protection for families
-                </p>
-              </div>
-              <div className="mb-6">
-                <span className="font-headline text-4xl font-extrabold text-white">$135</span>
-                <span className="text-sm text-white/70">/year</span>
-              </div>
-              <ul className="mb-8 flex-1 space-y-3">
-                {[
-                  "Everything in Essential",
-                  "Specialist referral network",
-                  "Emergency room coverage",
-                  "Dental & vision basics",
-                  "Family member add-ons",
-                ].map((feature) => (
-                  <li key={feature} className="flex items-start gap-2 text-sm text-white/90">
-                    <Icon name="check_circle" filled size="sm" className="mt-0.5 text-secondary-fixed" />
-                    {feature}
-                  </li>
-                ))}
+              <ul className="space-y-4 mb-10 w-full">
+                <li className="flex items-center gap-3 text-sm">
+                  <Icon name="check_circle" filled size="sm" className="text-secondary-fixed" />
+                  8 Visits/Televisits
+                </li>
+                <li className="flex items-center gap-3 text-sm">
+                  <Icon name="check_circle" filled size="sm" className="text-secondary-fixed" />
+                  20% Labs & Pharmacy
+                </li>
+                <li className="flex items-center gap-3 text-sm">
+                  <Icon name="check_circle" filled size="sm" className="text-secondary-fixed" />
+                  $1-$10 per visit
+                </li>
               </ul>
-              <Link href="/auth/signup">
-                <Button className="w-full bg-white text-primary hover:bg-white/90">
-                  Get Started
-                </Button>
+              <Link href="/auth/signup" className="w-full mt-auto">
+                <button className="w-full py-4 bg-white text-primary font-bold rounded-xl hover:bg-opacity-90 transition-opacity">Select Advantage</button>
               </Link>
             </div>
 
-            {/* Premium */}
-            <div className="flex flex-col rounded-3xl bg-surface-container-lowest p-8 shadow-clinical">
-              <div className="mb-6">
-                <h3 className="font-headline text-lg font-bold text-on-surface">Premium</h3>
-                <p className="mt-1 text-sm text-on-surface-variant">
-                  Comprehensive VIP coverage
-                </p>
+            {/* Premium Plan */}
+            <div className="bg-surface-container-lowest p-10 rounded-3xl flex flex-col items-start transition-all hover:translate-y-[-8px]">
+              <span className="px-4 py-1 bg-tertiary-fixed text-tertiary rounded-full text-xs font-bold mb-6">PREMIUM</span>
+              <div className="flex items-baseline gap-1 mb-8">
+                <span className="text-4xl font-black text-primary">$200</span>
+                <span className="text-on-surface-variant text-sm">/year</span>
               </div>
-              <div className="mb-6">
-                <span className="font-headline text-4xl font-extrabold text-primary">$200</span>
-                <span className="text-sm text-on-surface-variant">/year</span>
-              </div>
-              <ul className="mb-8 flex-1 space-y-3">
-                {[
-                  "Everything in Advantage",
-                  "International specialist consults",
-                  "Medical evacuation assistance",
-                  "Concierge health coordinator",
-                  "Priority appointment booking",
-                  "Annual executive health exam",
-                ].map((feature) => (
-                  <li key={feature} className="flex items-start gap-2 text-sm text-on-surface-variant">
-                    <Icon name="check_circle" filled size="sm" className="mt-0.5 text-secondary" />
-                    {feature}
-                  </li>
-                ))}
+              <ul className="space-y-4 mb-10 w-full">
+                <li className="flex items-center gap-3 text-sm text-on-surface-variant">
+                  <Icon name="check_circle" filled size="sm" className="text-secondary" />
+                  12 Visits/Televisits
+                </li>
+                <li className="flex items-center gap-3 text-sm text-on-surface-variant">
+                  <Icon name="check_circle" filled size="sm" className="text-secondary" />
+                  35% Labs & Pharmacy
+                </li>
+                <li className="flex items-center gap-3 text-sm text-on-surface-variant">
+                  <Icon name="check_circle" filled size="sm" className="text-secondary" />
+                  $1-$10 per visit
+                </li>
               </ul>
-              <Link href="/auth/signup">
-                <Button variant="ghost" className="w-full">
-                  Get Started
-                </Button>
+              <Link href="/auth/signup" className="w-full mt-auto">
+                <button className="w-full py-4 border-2 border-primary text-primary font-bold rounded-xl hover:bg-primary hover:text-white transition-colors">Select Premium</button>
               </Link>
             </div>
           </div>
@@ -233,7 +180,7 @@ export default function LandingPage() {
             <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
               <div className="text-center md:text-left">
                 <div className="flex items-center gap-2 mb-3">
-                  <Icon name="diamond" filled size="md" className="text-amber-400" />
+                  <Icon name="diamond" filled className="text-amber-400" />
                   <span className="text-xs font-bold text-white/60 uppercase tracking-widest">
                     Elite Collection
                   </span>
@@ -242,7 +189,7 @@ export default function LandingPage() {
                   Need more coverage? Explore our Elite Tiers.
                 </h3>
                 <p className="text-primary-fixed-dim text-sm md:text-base max-w-xl">
-                  From <span className="font-bold text-white">$365</span> to <span className="font-bold text-white">$5,000</span>/year — including surgery coverage, at-home services, and exclusive US network access for Gold &amp; Platinum members.
+                  From <span className="font-bold text-white">$365</span> to <span className="font-bold text-white">$5,000</span>/year — including surgery coverage, at-home services, and exclusive US network access for Gold & Platinum members.
                 </p>
               </div>
               <Link href="/plans" className="shrink-0">
@@ -256,92 +203,80 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* ── Medical Network ── */}
-      <section className="bg-surface-container-low py-20 lg:py-28">
-        <div className="mx-auto max-w-screen-2xl px-6">
-          <div className="mb-16 text-center">
-            <p className="mb-2 text-sm font-semibold uppercase tracking-widest text-secondary">
-              Our Reach
-            </p>
-            <h2 className="font-headline text-3xl font-extrabold tracking-tight text-on-surface md:text-4xl">
-              A Network Built for Haiti
-            </h2>
-          </div>
-
-          <div className="grid gap-8 md:grid-cols-3">
-            {[
-              {
-                icon: "location_city",
-                title: "Port-au-Prince Hub",
-                description:
-                  "Our flagship network of 20+ partner clinics and hospitals in the capital, providing the widest range of specialist services and emergency care.",
-              },
-              {
-                icon: "explore",
-                title: "Northern District",
-                description:
-                  "Expanding coverage across Cap-Ha\u00EFtien, Gonaives, and surrounding communities with 15+ affiliated care centers and mobile health units.",
-              },
-              {
-                icon: "public",
-                title: "Southern Coverage",
-                description:
-                  "Serving Les Cayes, Jacmel, and the southern peninsula with growing partnerships ensuring no region is left behind in quality healthcare.",
-              },
-            ].map((region) => (
-              <div
-                key={region.title}
-                className="rounded-3xl bg-surface-container-lowest p-8 shadow-clinical transition-all hover:shadow-lg"
-              >
-                <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-primary-fixed">
-                  <Icon name={region.icon} filled className="text-primary" />
+      {/* Network Map Section */}
+      <section className="py-24 px-6 bg-surface">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div>
+              <h2 className="font-headline font-extrabold text-4xl text-primary mb-6">Our Medical Network</h2>
+              <p className="text-on-surface-variant mb-8 text-lg">
+                Vita Sant&eacute; Club partners with the most reputable clinics and hospitals across Haiti. From Port-au-Prince to Cap-Ha&iuml;tien, our members are never far from expert care.
+              </p>
+              <div className="space-y-6">
+                <div className="flex gap-4 p-4 rounded-xl hover:bg-surface-container-low transition-colors">
+                  <Icon name="location_on" className="text-primary" />
+                  <div>
+                    <h4 className="font-bold text-primary">Port-au-Prince Hub</h4>
+                    <p className="text-sm text-on-surface-variant">4 Major Medical Centers + 12 Diagnostic Labs</p>
+                  </div>
                 </div>
-                <h3 className="font-headline text-lg font-bold text-on-surface">
-                  {region.title}
-                </h3>
-                <p className="mt-3 text-sm leading-relaxed text-on-surface-variant">
-                  {region.description}
-                </p>
+                <div className="flex gap-4 p-4 rounded-xl hover:bg-surface-container-low transition-colors">
+                  <Icon name="location_on" className="text-primary" />
+                  <div>
+                    <h4 className="font-bold text-primary">Northern District</h4>
+                    <p className="text-sm text-on-surface-variant">2 Hospitals in Cap-Ha&iuml;tien</p>
+                  </div>
+                </div>
+                <div className="flex gap-4 p-4 rounded-xl hover:bg-surface-container-low transition-colors">
+                  <Icon name="location_on" className="text-primary" />
+                  <div>
+                    <h4 className="font-bold text-primary">Southern Coverage</h4>
+                    <p className="text-sm text-on-surface-variant">Specialized Clinic in Les Cayes</p>
+                  </div>
+                </div>
               </div>
-            ))}
+            </div>
+            <div className="relative bg-surface-container-high rounded-3xl overflow-hidden min-h-[450px] shadow-inner group">
+              {/* Map Placeholder */}
+              <div
+                className="absolute inset-0 grayscale contrast-125 opacity-40 mix-blend-multiply bg-center bg-cover"
+                style={{ backgroundImage: "url('https://lh3.googleusercontent.com/aida-public/AB6AXuAx53atZlH-iT7d3Be0C9iwiPC10k21bLGMPHDix2ipemb7lcpFh1vldZ7wu3wLyCw23v0x-Sy3kfhVhOswdCldQf3Jl6TQPSxWto3MC7ke2VhfnDkDl8bwPEDHXFQKurk8gQvh3aIlJDPqPaBf493Bu5sOSmWUsU6tDQ5Hxh5uawdOcpulhNeAmpmr5tFgvCj7-ikwfWDD7Z52M335qdqlb1W1ds5qfvACkC7oV5lZyKCqRCoxYOqK_W7aodq2ahcG3pRjP0YuD6kA')" }}
+              ></div>
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="bg-white/90 glass-effect p-8 rounded-2xl shadow-2xl text-center max-w-sm mx-4">
+                  <Icon name="map" filled size="xl" className="text-primary mb-4" />
+                  <h4 className="font-headline font-bold text-xl text-primary mb-2">Interactive Network Map</h4>
+                  <p className="text-sm text-on-surface-variant mb-6">Explore our growing list of 50+ affiliated health partners across the nation.</p>
+                  <Link href="/network">
+                    <button className="bg-primary text-white px-6 py-3 rounded-lg font-bold text-sm hover:opacity-90 transition-all">
+                      Open Network Explorer
+                    </button>
+                  </Link>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* ── Final CTA ── */}
-      <section className="clinical-gradient py-20 lg:py-28">
-        <div className="mx-auto max-w-screen-2xl px-6 text-center">
-          <p className="mb-3 text-sm font-semibold uppercase tracking-widest text-white/60">
-            15,000+ members trust Vita Sant&eacute; Club
-          </p>
-          <h2 className="font-headline text-3xl font-extrabold tracking-tight text-white md:text-5xl">
-            Ready to secure your future?
-          </h2>
-          <p className="mx-auto mt-4 max-w-xl text-lg text-white/80">
-            Join thousands of Haitians who have chosen proactive, dignified healthcare for
-            themselves and their families.
-          </p>
-          <div className="mt-10 flex flex-wrap justify-center gap-4">
-            <Link href="/auth/signup">
-              <Button size="lg" className="bg-white text-primary hover:bg-white/90">
-                <span className="flex items-center gap-2">
-                  Become a Member
-                  <Icon name="arrow_forward" size="sm" />
-                </span>
-              </Button>
-            </Link>
-            <Link href="/plans">
-              <Button
-                variant="ghost"
-                size="lg"
-                className="border-white text-white hover:bg-white/10 hover:text-white"
-              >
-                Compare Plans
-              </Button>
-            </Link>
+      {/* Newsletter / Trust CTA */}
+      <section className="py-24 px-6">
+        <div className="max-w-5xl mx-auto clinical-gradient rounded-[3rem] p-12 md:p-20 text-center relative overflow-hidden shadow-2xl">
+          <div className="absolute -top-10 -left-10 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
+          <div className="relative z-10">
+            <h2 className="font-headline font-extrabold text-4xl text-white mb-6">Ready to secure your future?</h2>
+            <p className="text-primary-fixed-dim text-lg mb-10 max-w-2xl mx-auto">Join the 15,000+ members who trust Vita Sant&eacute; Club for their daily healthcare needs and emergency coverage.</p>
+            <div className="flex flex-col sm:flex-row justify-center gap-4">
+              <Link href="/auth/signup">
+                <button className="bg-white text-primary font-bold px-10 py-4 rounded-xl text-lg hover:bg-surface-container-lowest transition-colors">Start Your Journey</button>
+              </Link>
+              <Link href="/contact">
+                <button className="bg-primary-container/30 border border-white/20 text-white font-bold px-10 py-4 rounded-xl text-lg hover:bg-white/10 transition-colors">Contact Our Advisors</button>
+              </Link>
+            </div>
           </div>
         </div>
       </section>
-    </div>
+    </main>
   );
 }
