@@ -7,6 +7,10 @@
     background: linear-gradient(135deg, #00346f 0%, #004a99 100%);
   }
 
+  .medical-card-gradient {
+    background: linear-gradient(135deg, #00346f 0%, #004a99 100%);
+  }
+
   .glass-effect {
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
