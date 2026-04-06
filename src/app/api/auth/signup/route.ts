@@ -4,7 +4,7 @@ import { supabase } from "@/lib/supabase";
 
 export async function POST(req: NextRequest) {
   const body = await req.json();
-  const { email, password, firstName, lastName, phone, country, plan } = body;
+  const { email, password, firstName, lastName, phone, country } = body;
 
   if (!email || !password || !firstName || !lastName) {
     return NextResponse.json(
