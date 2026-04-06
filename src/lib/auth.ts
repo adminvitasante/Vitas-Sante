@@ -1,5 +1,6 @@
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
+import bcrypt from "bcryptjs";
 import { supabase } from "./supabase";
 
 declare module "next-auth" {
@@ -48,20 +49,26 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        if (!credentials?.email) return null;
+        if (!credentials?.email || !credentials?.password) return null;
 
-        // Get user
+        // Get user with password hash
         const { data: user, error: userErr } = await supabase
           .from("users")
-          .select("id, name, email")
+          .select("id, name, email, password_hash")
           .eq("email", credentials.email as string)
           .single();
 
         if (userErr || !user) return null;
 
-        // In production: verify password hash here
-        // For dev: accept any password matching "dev-password"
-        // TODO: Replace with bcrypt verification
+        // Verify password: bcrypt hash or plain dev-password fallback
+        const password = credentials.password as string;
+        if (user.password_hash?.startsWith("$2")) {
+          const valid = await bcrypt.compare(password, user.password_hash);
+          if (!valid) return null;
+        } else {
+          // Legacy/seed data: plain text comparison
+          if (password !== user.password_hash) return null;
+        }
 
         // Get capabilities to determine role
         const { data: capabilities } = await supabase

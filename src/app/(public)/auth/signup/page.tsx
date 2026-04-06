@@ -91,8 +91,27 @@ export default function SignUpPage() {
     setError(null);
 
     try {
-      // Simulate enrollment API call
-      await new Promise((resolve) => setTimeout(resolve, 1500));
+      const res = await fetch("/api/auth/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: formData.email,
+          password: formData.password,
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          phone: formData.phone,
+          country: formData.country,
+          plan: formData.plan,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        setError(data.error || "Enrollment failed. Please try again.");
+        return;
+      }
+
       window.location.href = "/auth/signin";
     } catch {
       setError("Enrollment failed. Please try again.");
