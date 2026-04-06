@@ -6,8 +6,9 @@ export function PublicNavbar() {
   return (
     <header className="fixed top-0 w-full z-50 bg-surface/80 glass-effect shadow-sm">
       <nav className="flex justify-between items-center px-6 py-4 w-full max-w-screen-2xl mx-auto">
-        <Link href="/" className="text-xl font-bold tracking-tighter text-primary font-headline">
-          Vita Santé Club
+        <Link href="/">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/Vita-Sante-Logo.png" alt="Vita Santé" className="h-10" />
         </Link>
         <div className="hidden md:flex items-center gap-8">
           <div className="flex items-center gap-6">

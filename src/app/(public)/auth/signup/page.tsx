@@ -130,11 +130,9 @@ export default function SignUpPage() {
       <div className="w-full max-w-lg space-y-8">
         {/* Header */}
         <div className="text-center">
-          <Link
-            href="/"
-            className="inline-block font-headline text-2xl font-extrabold tracking-tighter text-primary"
-          >
-            Vita Sant&eacute; Club
+          <Link href="/">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/Vita-Sante-Logo.png" alt="Vita Santé" className="h-12 mx-auto" />
           </Link>
           <h1 className="mt-4 font-headline text-3xl font-extrabold tracking-tight text-on-surface">
             Become a Member
