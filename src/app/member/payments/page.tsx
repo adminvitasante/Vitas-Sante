@@ -2,8 +2,6 @@ import { auth } from "@/lib/auth";
 import { getMemberPayments } from "@/lib/server/queries";
 import { TopBar } from "@/components/layout/top-bar";
 import { Icon } from "@/components/ui/icon";
-import Link from "next/link";
-
 export default async function PaymentsPage() {
   const session = await auth();
   const userId = session?.user?.id;
