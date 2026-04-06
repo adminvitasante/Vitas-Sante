@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { signOut } from "next-auth/react";
 import { cn } from "@/lib/utils";
 import { Icon } from "@/components/ui/icon";
 import type { SidebarConfig } from "./sidebar-items";
@@ -58,6 +59,13 @@ export function Sidebar({ config, basePath }: { config: SidebarConfig; basePath:
             <span>{item.label}</span>
           </Link>
         ))}
+        <button
+          onClick={() => signOut({ callbackUrl: "/auth/signin" })}
+          className="w-full flex items-center space-x-3 px-4 py-2 text-error hover:bg-error-container/30 transition-all font-headline text-sm font-medium rounded-lg mt-2"
+        >
+          <Icon name="logout" size="sm" />
+          <span>Sign Out</span>
+        </button>
       </div>
     </aside>
   );
