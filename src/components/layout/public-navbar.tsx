@@ -8,7 +8,7 @@ export function PublicNavbar() {
       <nav className="flex justify-between items-center px-6 py-4 w-full max-w-screen-2xl mx-auto">
         <Link href="/">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/Vita-Sante-Logo.png" alt="Vita Santé" className="h-10" />
+          <img src="/logo.svg" alt="Vita Santé" className="h-10" />
         </Link>
         <div className="hidden md:flex items-center gap-8">
           <div className="flex items-center gap-6">

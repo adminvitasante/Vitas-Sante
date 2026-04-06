@@ -14,7 +14,7 @@ export function Sidebar({ config, basePath }: { config: SidebarConfig; basePath:
     <aside className="h-screen w-64 fixed left-0 top-0 bg-surface-container-low flex flex-col py-6 px-4 space-y-2 z-40 hidden md:flex">
       <div className="mb-8 px-2">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/Vita-Sante-Logo.png" alt="Vita Santé" className="h-10 mb-2" />
+        <img src="/logo.svg" alt="Vita Santé" className="h-10 mb-2" />
         <p className="text-xs font-medium text-on-surface-variant">{config.subtitle}</p>
       </div>
 

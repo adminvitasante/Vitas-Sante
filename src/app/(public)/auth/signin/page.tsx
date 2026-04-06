@@ -71,7 +71,7 @@ export default function SignInPage() {
         <div className="text-center">
           <Link href="/">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/Vita-Sante-Logo.png" alt="Vita Santé" className="h-12 mx-auto" />
+            <img src="/logo.svg" alt="Vita Santé" className="h-12 mx-auto" />
           </Link>
           <h1 className="mt-4 font-headline text-3xl font-extrabold tracking-tight text-on-surface">
             Welcome Back

@@ -6,7 +6,7 @@ export function PublicFooter() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-screen-2xl mx-auto">
         <div className="space-y-4">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/Vita-Sante-Logo.png" alt="Vita Santé" className="h-10" />
+          <img src="/logo.svg" alt="Vita Santé" className="h-10" />
           <p className="text-on-surface-variant text-xs leading-relaxed max-w-xs">
             Providing premium medical infrastructure and health solutions for the Haitian nation and its global diaspora.
           </p>

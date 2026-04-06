@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 100" fill="none">
+  <!-- "Vita" in dark navy -->
+  <text x="10" y="68" font-family="Georgia, 'Times New Roman', serif" font-size="56" font-weight="700" fill="#0a1f44" letter-spacing="-1">Vita</text>
+  <!-- "Santé" in deep red -->
+  <text x="145" y="68" font-family="Georgia, 'Times New Roman', serif" font-size="56" font-weight="700" fill="#b91c1c" letter-spacing="-1">Santé</text>
+  <!-- Colibri / Hummingbird -->
+  <g transform="translate(318, 8) scale(0.5)">
+    <!-- Body -->
+    <path d="M80 90 C60 95, 40 85, 35 70 C30 55, 40 40, 55 35 C65 32, 75 35, 80 42 C85 35, 95 30, 105 35 C115 40, 118 55, 110 65 C105 72, 95 78, 85 80 Z" fill="#0a1f44"/>
+    <!-- Head -->
+    <ellipse cx="58" cy="38" rx="18" ry="16" fill="#0a1f44"/>
+    <!-- Eye -->
+    <circle cx="52" cy="34" r="2.5" fill="white"/>
+    <!-- Beak -->
+    <path d="M40 38 L15 42 L40 43 Z" fill="#0a1f44"/>
+    <!-- Wing top -->
+    <path d="M85 45 C100 20, 130 5, 155 15 C140 10, 115 18, 95 38 Z" fill="#0a1f44"/>
+    <!-- Wing bottom -->
+    <path d="M90 55 C110 30, 140 18, 160 25 C145 20, 120 28, 100 48 Z" fill="#b91c1c"/>
+    <!-- Wing accent -->
+    <path d="M95 60 C115 40, 138 32, 155 38 C140 34, 120 40, 105 55 Z" fill="#c62828" opacity="0.7"/>
+    <!-- Tail feathers -->
+    <path d="M80 80 C70 100, 55 120, 40 135 C50 125, 60 108, 68 90 Z" fill="#0a1f44"/>
+    <path d="M85 82 C78 105, 68 125, 58 140 C65 128, 72 110, 78 92 Z" fill="#b91c1c"/>
+    <path d="M88 85 C84 108, 78 128, 72 142 C76 130, 80 112, 84 95 Z" fill="#0a1f44" opacity="0.6"/>
+  </g>
+</svg>
