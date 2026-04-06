@@ -1,151 +1,153 @@
+import { auth } from "@/lib/auth";
+import { getDoctorProfile } from "@/lib/server/queries";
+import { TopBar } from "@/components/layout/top-bar";
 import { Icon } from "@/components/ui/icon";
+import Link from "next/link";
 
-export default function DoctorProfilePage() {
+export default async function DoctorProfilePage() {
+  const session = await auth();
+  const userId = session?.user?.id;
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let user: any = null;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let doctor: any = null;
+
+  if (userId) {
+    const data = await getDoctorProfile(userId);
+    user = data.user;
+    doctor = data.doctor;
+  }
+
+  const doctorName = user?.name || session?.user?.name || "Doctor";
+  const firstName = doctorName.split(" ")[0];
+  const initials = doctorName
+    .split(" ")
+    .map((w: string) => w[0])
+    .join("")
+    .slice(0, 2)
+    .toUpperCase();
+
+  const verificationColors: Record<string, string> = {
+    VERIFIED: "bg-secondary-container text-on-secondary-container",
+    PENDING: "bg-amber-100 text-amber-800",
+    SUSPENDED: "bg-error-container text-on-error-container",
+    REVOKED: "bg-error-container text-on-error-container",
+  };
+  const verificationClass = verificationColors[doctor?.verification_status] || "bg-surface-container-high text-on-surface-variant";
+
   return (
     <>
-      {/* Hero Profile Section */}
-      <section className="max-w-6xl mx-auto mb-16">
-        <div className="flex flex-col md:flex-row gap-8 items-end">
-          <div className="relative group">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              alt="Main profile image"
-              className="w-48 h-48 md:w-64 md:h-64 rounded-full object-cover shadow-2xl ring-4 ring-surface-container-lowest"
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuDPp_5_3W_Kn13Mdia0GPONaPPUvb9pEQJXsUKqT_jiAAcYWsR97vYUXMrhb-Z-GyH2VR7hzqxQqk5016mbJjFtLwMXiEsa_1URPAxZYs9ONzy3MCbU_I_rJmNw1ZiqMKP13Y1rd-ygur9GnMI46UegO2zwwtzGtLalCBMwAViYv-NftrZbPSwJxQeZa-xoGbkE2mb9aT7usGOrd1PXKjroodX6yq6LEuf_roNIEXtYjTkeJ3uKt9oKevPCHvz0g29FvaPkX-70LXDT"
-            />
-            <button className="absolute bottom-4 right-4 bg-primary text-on-primary p-3 rounded-full shadow-lg hover:scale-105 transition-transform">
-              <Icon name="photo_camera" />
-            </button>
-          </div>
-          <div className="flex-1 text-left">
-            <div className="flex items-center gap-3 mb-2">
-              <span className="px-3 py-1 rounded-full bg-secondary-container text-on-secondary-container text-xs font-bold uppercase tracking-widest">Medical Board Verified</span>
-            </div>
-            <h1 className="text-4xl md:text-5xl font-extrabold text-primary font-headline tracking-tight mb-2">Dr. Jean-Baptiste Valcourt</h1>
-            <p className="text-xl text-outline font-medium">Senior Cardiologist &amp; Medical Director</p>
-          </div>
-        </div>
-      </section>
+      <TopBar
+        greeting={`Dr. ${firstName}`}
+        subtitle="Your professional profile"
+        initials={initials}
+      />
 
-      {/* Bento Grid Content */}
-      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        {/* Profile Header Card */}
+        <section className="lg:col-span-12">
+          <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary to-primary-container p-8 text-white">
+            <div className="z-10 relative">
+              <div className="flex items-center gap-3 mb-4">
+                <span className={`px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest ${verificationClass}`}>
+                  {doctor?.verification_status || "UNKNOWN"}
+                </span>
+              </div>
+              <h3 className="text-4xl font-extrabold font-headline mb-1">{doctorName}</h3>
+              <p className="text-primary-fixed opacity-90 text-lg">
+                {doctor?.specialty || "General Practice"}
+              </p>
+            </div>
+            <div className="absolute -bottom-10 -right-10 w-64 h-64 bg-secondary/20 rounded-full blur-3xl" />
+          </div>
+        </section>
+
         {/* Personal Information */}
-        <div className="md:col-span-2 bg-surface-container-lowest rounded-xl p-8 shadow-sm">
+        <section className="lg:col-span-7 bg-surface-container-lowest rounded-3xl p-8 shadow-sm">
           <div className="flex items-center justify-between mb-8">
-            <h3 className="text-2xl font-bold font-headline text-primary">Personal Information</h3>
-            <button className="text-secondary font-bold flex items-center gap-1 hover:underline">
-              <Icon name="edit" className="text-sm" /> Edit
-            </button>
+            <h4 className="font-headline font-bold text-xl text-primary">Personal Information</h4>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-8 gap-x-12">
             <div>
-              <p className="text-xs font-bold text-outline-variant uppercase tracking-widest mb-1">Full Name</p>
-              <p className="text-lg font-semibold text-on-surface">Jean-Baptiste Valcourt, MD</p>
+              <p className="text-[10px] font-bold text-outline-variant uppercase tracking-widest mb-1">Full Name</p>
+              <p className="text-lg font-semibold text-on-surface">{user?.name || "--"}</p>
             </div>
             <div>
-              <p className="text-xs font-bold text-outline-variant uppercase tracking-widest mb-1">Specialty</p>
-              <p className="text-lg font-semibold text-on-surface">Interventional Cardiology</p>
+              <p className="text-[10px] font-bold text-outline-variant uppercase tracking-widest mb-1">Email Address</p>
+              <p className="text-lg font-semibold text-on-surface">{user?.email || "--"}</p>
             </div>
             <div>
-              <p className="text-xs font-bold text-outline-variant uppercase tracking-widest mb-1">License ID</p>
-              <p className="text-lg font-semibold text-on-surface">HT-8829-MED-2024</p>
+              <p className="text-[10px] font-bold text-outline-variant uppercase tracking-widest mb-1">Phone Number</p>
+              <p className="text-lg font-semibold text-on-surface">{user?.phone || "--"}</p>
             </div>
             <div>
-              <p className="text-xs font-bold text-outline-variant uppercase tracking-widest mb-1">Clinic Location</p>
-              <p className="text-lg font-semibold text-on-surface">Centre de Sant&eacute;, P&eacute;tion-Ville, Haiti</p>
+              <p className="text-[10px] font-bold text-outline-variant uppercase tracking-widest mb-1">Member Since</p>
+              <p className="text-lg font-semibold text-on-surface">
+                {user?.created_at
+                  ? new Date(user.created_at).toLocaleDateString("en", { month: "long", day: "numeric", year: "numeric" })
+                  : "--"}
+              </p>
             </div>
           </div>
-          <div className="mt-12 p-6 rounded-xl bg-surface-container-low border-none">
-            <h4 className="text-sm font-bold text-primary uppercase tracking-wider mb-4">Clinic Location Map</h4>
-            <div className="aspect-video w-full rounded-lg overflow-hidden relative">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                alt="Location map"
-                className="w-full h-full object-cover grayscale opacity-50"
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBCB3ciZ8pRwc9pkSg1PmiBHPb0H75cy9NHZD-XRjm_tvUNp0p_j3d_p3Sv_1BKrcVZvOM54dqcwu1ttHt-YVCO85EWeqj2NuQVGy1P0FOwjwwAMFTTNIyFOXCGEG5uQj9X76wcvPm91exZa5zrXVmcD_Ca85l_hQn0kO-URARQSK4KZlyl9LZiNkEUuTmDw6-weVjNh71l9I6KhA3xBvumhuEQUoJsKUKB6dZzsWvHlXdLK3CdnDPrsiESLz0Odysp0eE60tHl-_I5"
-              />
-              <div className="absolute inset-0 flex items-center justify-center">
-                <Icon name="location_on" filled className="text-primary text-4xl" />
-              </div>
-            </div>
-          </div>
-        </div>
+        </section>
 
-        {/* Account Settings Column */}
-        <div className="flex flex-col gap-8">
-          {/* Account Security */}
-          <div className="bg-surface-container-lowest rounded-xl p-8 shadow-sm">
-            <h3 className="text-xl font-bold font-headline text-primary mb-6">Account Security</h3>
-            <div className="space-y-6">
-              <div className="group cursor-pointer">
-                <p className="text-xs font-bold text-outline-variant uppercase tracking-widest mb-1">Email Address</p>
-                <div className="flex items-center justify-between">
-                  <p className="text-sm font-medium">jb.valcourt@vitasante.ht</p>
-                  <Icon name="chevron_right" className="text-outline group-hover:text-primary" />
-                </div>
-              </div>
-              <div className="bg-surface-container-low h-[1px] w-full"></div>
-              <div className="group cursor-pointer">
-                <p className="text-xs font-bold text-outline-variant uppercase tracking-widest mb-1">Password</p>
-                <div className="flex items-center justify-between">
-                  <p className="text-sm font-medium">&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;</p>
-                  <Icon name="chevron_right" className="text-outline group-hover:text-primary" />
-                </div>
-                <p className="text-[10px] text-secondary mt-1">Last changed 45 days ago</p>
-              </div>
-              <div className="bg-surface-container-low h-[1px] w-full"></div>
-              <button className="w-full text-left py-2 text-sm font-bold text-error hover:opacity-80 flex items-center gap-2">
-                <Icon name="logout" className="text-base" /> Sign Out
-              </button>
+        {/* Doctor Details */}
+        <section className="lg:col-span-5 bg-surface-container-lowest rounded-3xl p-8 shadow-sm">
+          <h4 className="font-headline font-bold text-xl text-primary mb-8">Professional Details</h4>
+          <div className="space-y-6">
+            <div>
+              <p className="text-[10px] font-bold text-outline-variant uppercase tracking-widest mb-1">License ID</p>
+              <p className="text-lg font-semibold text-on-surface font-mono">{doctor?.license_id || "--"}</p>
+            </div>
+            <div>
+              <p className="text-[10px] font-bold text-outline-variant uppercase tracking-widest mb-1">Specialty</p>
+              <p className="text-lg font-semibold text-on-surface">{doctor?.specialty || "--"}</p>
+            </div>
+            <div>
+              <p className="text-[10px] font-bold text-outline-variant uppercase tracking-widest mb-1">Region</p>
+              <p className="text-lg font-semibold text-on-surface">{doctor?.region || "--"}</p>
             </div>
           </div>
+        </section>
 
-          {/* Notification Preferences */}
-          <div className="bg-surface-container-lowest rounded-xl p-8 shadow-sm">
-            <h3 className="text-xl font-bold font-headline text-primary mb-6">Notifications</h3>
-            <div className="space-y-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-semibold">Patient Alerts</p>
-                  <p className="text-xs text-outline">Real-time emergency signals</p>
-                </div>
-                <div className="w-12 h-6 bg-secondary-container rounded-full relative p-1 cursor-pointer">
-                  <div className="w-4 h-4 bg-on-secondary-container rounded-full absolute right-1"></div>
-                </div>
-              </div>
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-semibold">Clinic Updates</p>
-                  <p className="text-xs text-outline">Weekly newsletter &amp; reports</p>
-                </div>
-                <div className="w-12 h-6 bg-surface-container-highest rounded-full relative p-1 cursor-pointer">
-                  <div className="w-4 h-4 bg-outline-variant rounded-full absolute left-1"></div>
-                </div>
-              </div>
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-semibold">System Security</p>
-                  <p className="text-xs text-outline">Critical login warnings</p>
-                </div>
-                <div className="w-12 h-6 bg-secondary-container rounded-full relative p-1 cursor-pointer">
-                  <div className="w-4 h-4 bg-on-secondary-container rounded-full absolute right-1"></div>
-                </div>
-              </div>
+        {/* Clinic Information */}
+        <section className="lg:col-span-12 bg-surface-container-low rounded-3xl p-8">
+          <h4 className="font-headline font-bold text-xl text-primary mb-8">Clinic Information</h4>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-y-8 gap-x-12">
+            <div>
+              <p className="text-[10px] font-bold text-outline-variant uppercase tracking-widest mb-1">Clinic Name</p>
+              <p className="text-lg font-semibold text-on-surface">{doctor?.clinic_name || "--"}</p>
+            </div>
+            <div className="sm:col-span-2">
+              <p className="text-[10px] font-bold text-outline-variant uppercase tracking-widest mb-1">Clinic Address</p>
+              <p className="text-lg font-semibold text-on-surface">{doctor?.clinic_address || "--"}</p>
             </div>
           </div>
-        </div>
-      </div>
+        </section>
 
-      {/* Language & Preferences Bar */}
-      <div className="max-w-6xl mx-auto mt-16 p-4 bg-surface-container-low rounded-full flex items-center justify-between px-8">
-        <div className="flex items-center gap-4">
-          <span className="text-xs font-bold text-outline-variant uppercase tracking-widest">Interface Language</span>
-          <div className="flex p-1 bg-surface-container-high rounded-full">
-            <button className="px-4 py-1 text-xs font-bold bg-white rounded-full shadow-sm">EN</button>
-            <button className="px-4 py-1 text-xs font-bold text-outline">FR</button>
+        {/* Quick Links */}
+        <section className="lg:col-span-12 bg-surface-container-lowest rounded-3xl p-8 shadow-sm">
+          <h4 className="font-headline font-bold text-xl text-primary mb-8">Quick Actions</h4>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            {[
+              { label: "Patient Care", icon: "medical_services", href: "/doctor/patient-care" },
+              { label: "Visit History", icon: "history", href: "/doctor/visit-history" },
+              { label: "Verification Status", icon: "verified_user", href: "/doctor/verification" },
+            ].map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="flex items-center gap-3 p-4 bg-surface-container-low hover:bg-surface-container-high transition-colors rounded-xl group"
+              >
+                <div className="h-10 w-10 rounded-xl bg-primary-fixed flex items-center justify-center text-primary">
+                  <Icon name={item.icon} size="sm" />
+                </div>
+                <span className="font-bold text-sm text-on-surface">{item.label}</span>
+              </Link>
+            ))}
           </div>
-        </div>
-        <p className="text-[10px] text-outline italic">Vita Sant&eacute; Club &copy; 2024. All health data is encrypted according to international standards.</p>
+        </section>
       </div>
     </>
   );

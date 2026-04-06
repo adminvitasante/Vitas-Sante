@@ -1,13 +1,65 @@
+import { auth } from "@/lib/auth";
+import { getMemberProfile } from "@/lib/server/queries";
 import { TopBar } from "@/components/layout/top-bar";
 import { Icon } from "@/components/ui/icon";
+import Link from "next/link";
 
-export default function ProfilePage() {
+export default async function ProfilePage() {
+  const session = await auth();
+  const userId = session?.user?.id;
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let user: any = null;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let capabilities: any[] = [];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let enrollment: any = null;
+
+  if (userId) {
+    const data = await getMemberProfile(userId);
+    user = data.user;
+    capabilities = data.capabilities || [];
+    enrollment = data.enrollment;
+  }
+
+  const memberName = user?.name || session?.user?.name || "Member";
+  const firstName = memberName.split(" ")[0];
+  const initials = memberName
+    .split(" ")
+    .map((w: string) => w[0])
+    .join("")
+    .slice(0, 2)
+    .toUpperCase();
+
+  const email = user?.email || session?.user?.email || "—";
+  const phone = user?.phone || "—";
+  const locale = user?.locale || "en";
+  const planName = enrollment?.plans?.name_en || "No Plan";
+  const enrollmentStatus = enrollment?.status || "—";
+  const periodStart = enrollment?.subscriptions?.current_period_start;
+  const periodEnd = enrollment?.subscriptions?.current_period_end;
+  const memberSince = periodStart
+    ? new Date(periodStart).toLocaleDateString("en", { month: "short", year: "numeric" })
+    : "—";
+  const renewal = periodEnd
+    ? new Date(periodEnd).toLocaleDateString("en", { month: "short", year: "numeric" })
+    : "—";
+  const createdAt = user?.created_at
+    ? new Date(user.created_at).toLocaleDateString("en", { month: "long", day: "numeric", year: "numeric" })
+    : "—";
+
+  const activeCapabilities = capabilities
+    .filter((c: { status: string }) => c.status === "ACTIVE")
+    .map((c: { capability: string }) => c.capability);
+
+  const languageLabel = locale === "fr" ? "Français" : locale === "ht" ? "Kreyòl" : "English";
+
   return (
     <>
       <TopBar
-        greeting="My Profile"
+        greeting={`${firstName}'s Profile`}
         subtitle="Manage your personal information and preferences."
-        initials="JP"
+        initials={initials}
       />
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
@@ -15,24 +67,29 @@ export default function ProfilePage() {
         <section className="lg:col-span-12">
           <div className="bg-surface-container-lowest rounded-3xl p-8 shadow-sm flex flex-col md:flex-row items-center gap-8">
             <div className="h-24 w-24 rounded-full bg-primary flex items-center justify-center text-white text-3xl font-black">
-              JP
+              {initials}
             </div>
             <div className="text-center md:text-left flex-1">
-              <h2 className="text-2xl font-headline font-extrabold text-on-surface">Jean-Pierre Valcourt</h2>
-              <p className="text-on-surface-variant mt-1">jean@member.ht</p>
+              <h2 className="text-2xl font-headline font-extrabold text-on-surface">{memberName}</h2>
+              <p className="text-on-surface-variant mt-1">{email}</p>
               <div className="mt-3 flex flex-wrap gap-2 justify-center md:justify-start">
                 <span className="inline-flex items-center gap-1 px-3 py-1 bg-primary-fixed text-primary rounded-full text-xs font-bold">
-                  <Icon name="verified" size="sm" /> Premium Member
+                  <Icon name="verified" size="sm" /> {planName} Member
                 </span>
-                <span className="inline-flex items-center gap-1 px-3 py-1 bg-tertiary-fixed text-on-tertiary-container rounded-full text-xs font-bold">
-                  <Icon name="location_on" size="sm" /> Haiti
-                </span>
+                {activeCapabilities.map((cap: string) => (
+                  <span key={cap} className="inline-flex items-center gap-1 px-3 py-1 bg-tertiary-fixed text-on-tertiary-container rounded-full text-xs font-bold">
+                    <Icon name="shield" size="sm" /> {cap}
+                  </span>
+                ))}
               </div>
             </div>
-            <button className="px-6 py-3 bg-primary text-white rounded-xl font-bold text-sm hover:shadow-lg transition-shadow flex items-center gap-2">
-              <Icon name="edit" size="sm" />
-              Edit Profile
-            </button>
+            <Link
+              href="/member/dashboard"
+              className="px-6 py-3 bg-primary text-white rounded-xl font-bold text-sm hover:shadow-lg transition-shadow flex items-center gap-2"
+            >
+              <Icon name="arrow_back" size="sm" />
+              Back to Dashboard
+            </Link>
           </div>
         </section>
 
@@ -42,12 +99,12 @@ export default function ProfilePage() {
             <h3 className="font-headline font-bold text-lg text-primary mb-6">Personal Information</h3>
             <dl className="space-y-5">
               {[
-                { label: "Full Name", value: "Jean-Pierre Valcourt", icon: "person" },
-                { label: "Email", value: "jean@member.ht", icon: "email" },
-                { label: "Phone", value: "+509 3456 7890", icon: "phone" },
-                { label: "Date of Birth", value: "March 15, 1985", icon: "cake" },
-                { label: "Member ID", value: "VSC-88291-HT", icon: "badge" },
-                { label: "Language", value: "Fran\u00e7ais", icon: "translate" },
+                { label: "Full Name", value: memberName, icon: "person" },
+                { label: "Email", value: email, icon: "email" },
+                { label: "Phone", value: phone, icon: "phone" },
+                { label: "Account Created", value: createdAt, icon: "cake" },
+                { label: "Member ID", value: enrollment?.member_id_code || "—", icon: "badge" },
+                { label: "Language", value: languageLabel, icon: "translate" },
               ].map((item) => (
                 <div key={item.label} className="flex items-center gap-4 py-3 border-b border-outline-variant/20 last:border-0">
                   <div className="h-10 w-10 rounded-xl bg-surface-container-low flex items-center justify-center text-primary">
@@ -70,21 +127,21 @@ export default function ProfilePage() {
             <div className="space-y-4">
               <div className="flex justify-between items-center">
                 <span className="text-sm text-on-surface-variant">Plan</span>
-                <span className="font-bold text-on-surface">Premium</span>
+                <span className="font-bold text-on-surface">{planName}</span>
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-sm text-on-surface-variant">Status</span>
                 <span className="inline-flex items-center gap-1 text-tertiary font-bold text-sm">
-                  <span className="w-2 h-2 bg-tertiary rounded-full" /> Active
+                  <span className={`w-2 h-2 rounded-full ${enrollmentStatus === "ACTIVE" ? "bg-tertiary" : "bg-outline"}`} /> {enrollmentStatus}
                 </span>
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-sm text-on-surface-variant">Member Since</span>
-                <span className="font-bold text-on-surface">Jan 2024</span>
+                <span className="font-bold text-on-surface">{memberSince}</span>
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-sm text-on-surface-variant">Renewal</span>
-                <span className="font-bold text-on-surface">Jan 2025</span>
+                <span className="font-bold text-on-surface">{renewal}</span>
               </div>
             </div>
           </div>

@@ -1,13 +1,60 @@
+import { auth } from "@/lib/auth";
+import { getAffiliateDashboard } from "@/lib/server/queries";
+import { TopBar } from "@/components/layout/top-bar";
 import { Icon } from "@/components/ui/icon";
+import { redirect } from "next/navigation";
 
-export default function CommissionsPage() {
+export default async function CommissionsPage() {
+  const session = await auth();
+  const userId = session?.user?.id;
+  if (!userId) redirect("/login");
+
+  const { affiliate, referrals } = await getAffiliateDashboard(userId);
+
+  const initials = session.user.name
+    ? session.user.name.split(" ").map((n: string) => n[0]).join("").toUpperCase().slice(0, 2)
+    : "AF";
+
+  if (!affiliate) {
+    return (
+      <>
+        <TopBar greeting="Affiliate" subtitle="Commissions" initials="--" />
+        <div className="flex flex-col items-center justify-center py-32">
+          <Icon name="person_off" className="!text-6xl text-outline mb-4" />
+          <h2 className="text-2xl font-headline font-bold text-on-surface mb-2">No Affiliate Account</h2>
+          <p className="text-on-surface-variant max-w-md text-center">You do not have an affiliate account yet. Please contact support or apply to become a partner.</p>
+        </div>
+      </>
+    );
+  }
+
+  const totalEarned = (affiliate.total_earned_cents / 100).toFixed(2);
+  const pendingAmount = (affiliate.pending_cents / 100).toFixed(2);
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const commissionReferrals = referrals?.filter((r: any) => r.commission_cents > 0) ?? [];
+  const paidReferrals = commissionReferrals.filter(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (r: any) => r.paid_at != null
+  );
+  const unpaidReferrals = commissionReferrals.filter(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (r: any) => r.paid_at == null
+  );
+
   return (
     <>
+      <TopBar
+        greeting={session.user.name ?? "Partner"}
+        subtitle="Commissions & Payments"
+        initials={initials}
+      />
+
       {/* Editorial Header */}
       <div className="mb-12 max-w-4xl">
         <span className="text-secondary font-bold tracking-widest text-[10px] uppercase mb-2 block">Partner Earnings</span>
         <h1 className="text-4xl lg:text-5xl font-headline font-extrabold text-on-surface leading-tight tracking-tighter">Commissions &amp; Payments</h1>
-        <p className="text-on-surface-variant mt-4 text-lg max-w-2xl leading-relaxed">A detailed overview of your editorial contributions and financial growth within the Atelier ecosystem. Track every patient journey you facilitate.</p>
+        <p className="text-on-surface-variant mt-4 text-lg max-w-2xl leading-relaxed">Track your earnings, pending commissions, and payment history across your entire referral network.</p>
       </div>
 
       {/* Bento Summary Cards */}
@@ -19,166 +66,164 @@ export default function CommissionsPage() {
           </div>
           <div>
             <div className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Total Earned</div>
-            <div className="text-3xl font-headline font-extrabold text-primary">$42,850.00</div>
+            <div className="text-3xl font-headline font-extrabold text-primary">${totalEarned}</div>
           </div>
-          <div className="text-[11px] font-medium text-tertiary flex items-center gap-1 mt-4">
-            <Icon name="trending_up" className="text-[14px]" />
-            +12.4% from last month
+          <div className="text-[11px] font-medium text-on-surface-variant mt-4">
+            Lifetime earnings across {commissionReferrals.length} referral{commissionReferrals.length !== 1 ? "s" : ""}
           </div>
         </div>
 
-        {/* Pending Validation */}
+        {/* Pending */}
         <div className="bg-surface-container-low rounded-xl p-8 flex flex-col justify-between min-h-[180px] relative overflow-hidden">
           <div className="absolute -bottom-4 -right-4 w-24 h-24 bg-primary/5 rounded-full blur-2xl" />
           <div>
-            <div className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Pending Validation</div>
-            <div className="text-3xl font-headline font-extrabold text-on-surface">$3,120.45</div>
+            <div className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Pending Commissions</div>
+            <div className="text-3xl font-headline font-extrabold text-on-surface">${pendingAmount}</div>
           </div>
           <div className="text-[11px] font-medium text-on-surface-variant mt-4">
-            Awaiting 30-day clinical verification
+            {unpaidReferrals.length} commission{unpaidReferrals.length !== 1 ? "s" : ""} awaiting payout
           </div>
         </div>
 
-        {/* Next Payout */}
+        {/* Tier Info */}
         <div className="bg-primary text-white rounded-xl p-8 flex flex-col justify-between min-h-[180px] shadow-lg shadow-primary/20 relative overflow-hidden">
           <div className="absolute top-0 right-0 p-4 opacity-20">
-            <Icon name="event_upcoming" className="!text-4xl" />
+            <Icon name="workspace_premium" className="!text-4xl" />
           </div>
           <div>
-            <div className="text-xs font-bold text-primary-fixed-dim uppercase tracking-widest mb-1">Next Payout Date</div>
-            <div className="text-3xl font-headline font-extrabold text-white">Oct 15, 2024</div>
+            <div className="text-xs font-bold text-primary-fixed-dim uppercase tracking-widest mb-1">Partner Tier</div>
+            <div className="text-3xl font-headline font-extrabold text-white">{affiliate.tier ?? "Standard"}</div>
           </div>
           <div className="flex items-center gap-2 mt-4">
             <span className="w-2 h-2 bg-secondary-fixed rounded-full animate-pulse" />
-            <span className="text-[11px] font-medium text-primary-fixed">Scheduled: Auto-deposit</span>
+            <span className="text-[11px] font-medium text-primary-fixed">Status: {affiliate.status ?? "Active"}</span>
           </div>
         </div>
       </div>
 
-      {/* Main Layout: Payouts & Commission Breakdown */}
+      {/* Commission Breakdown */}
       <div className="flex flex-col xl:flex-row gap-12">
-        {/* Payout History Table */}
+        {/* Commission Table */}
         <div className="flex-1">
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-xl font-headline font-bold text-on-surface">Payout History</h2>
-            <button className="text-primary text-sm font-semibold flex items-center gap-1 hover:underline">
-              <Icon name="download" className="text-[18px]" />
-              Export CSV
-            </button>
+            <h2 className="text-xl font-headline font-bold text-on-surface">Commission Details</h2>
+            <span className="text-xs font-medium text-on-surface-variant">{commissionReferrals.length} record{commissionReferrals.length !== 1 ? "s" : ""}</span>
           </div>
-          <div className="bg-surface-container-lowest rounded-xl overflow-hidden shadow-sm">
-            <table className="w-full text-left border-collapse">
-              <thead>
-                <tr className="bg-surface-container-low/50">
-                  <th className="px-6 py-4 text-[11px] font-bold text-slate-500 uppercase tracking-wider">Payout ID</th>
-                  <th className="px-6 py-4 text-[11px] font-bold text-slate-500 uppercase tracking-wider">Date</th>
-                  <th className="px-6 py-4 text-[11px] font-bold text-slate-500 uppercase tracking-wider text-right">Amount</th>
-                  <th className="px-6 py-4 text-[11px] font-bold text-slate-500 uppercase tracking-wider text-center">Status</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-surface-container">
-                <tr className="hover:bg-surface-container-low transition-colors group">
-                  <td className="px-6 py-5 font-manrope font-bold text-primary text-sm">#PA-99201</td>
-                  <td className="px-6 py-5 text-sm text-on-surface-variant font-medium">Sep 15, 2024</td>
-                  <td className="px-6 py-5 text-sm text-on-surface font-extrabold text-right">$8,450.00</td>
-                  <td className="px-6 py-5 text-center">
-                    <span className="px-3 py-1 rounded-full text-[10px] font-bold uppercase bg-tertiary-fixed text-on-tertiary-fixed-variant">Paid</span>
-                  </td>
-                </tr>
-                <tr className="hover:bg-surface-container-low transition-colors">
-                  <td className="px-6 py-5 font-manrope font-bold text-primary text-sm">#PA-98842</td>
-                  <td className="px-6 py-5 text-sm text-on-surface-variant font-medium">Aug 15, 2024</td>
-                  <td className="px-6 py-5 text-sm text-on-surface font-extrabold text-right">$7,120.00</td>
-                  <td className="px-6 py-5 text-center">
-                    <span className="px-3 py-1 rounded-full text-[10px] font-bold uppercase bg-tertiary-fixed text-on-tertiary-fixed-variant">Paid</span>
-                  </td>
-                </tr>
-                <tr className="hover:bg-surface-container-low transition-colors">
-                  <td className="px-6 py-5 font-manrope font-bold text-primary text-sm">#PA-98511</td>
-                  <td className="px-6 py-5 text-sm text-on-surface-variant font-medium">Jul 15, 2024</td>
-                  <td className="px-6 py-5 text-sm text-on-surface font-extrabold text-right">$9,880.00</td>
-                  <td className="px-6 py-5 text-center">
-                    <span className="px-3 py-1 rounded-full text-[10px] font-bold uppercase bg-secondary-container text-on-secondary-container">Processing</span>
-                  </td>
-                </tr>
-                <tr className="hover:bg-surface-container-low transition-colors">
-                  <td className="px-6 py-5 font-manrope font-bold text-primary text-sm">#PA-98105</td>
-                  <td className="px-6 py-5 text-sm text-on-surface-variant font-medium">Jun 15, 2024</td>
-                  <td className="px-6 py-5 text-sm text-on-surface font-extrabold text-right">$6,230.50</td>
-                  <td className="px-6 py-5 text-center">
-                    <span className="px-3 py-1 rounded-full text-[10px] font-bold uppercase bg-error-container text-on-error-container">Failed</span>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+
+          {commissionReferrals.length > 0 ? (
+            <div className="bg-surface-container-lowest rounded-xl overflow-hidden shadow-sm">
+              <table className="w-full text-left border-collapse">
+                <thead>
+                  <tr className="bg-surface-container-low/50">
+                    <th className="px-6 py-4 text-[11px] font-bold text-slate-500 uppercase tracking-wider">Member</th>
+                    <th className="px-6 py-4 text-[11px] font-bold text-slate-500 uppercase tracking-wider">Plan</th>
+                    <th className="px-6 py-4 text-[11px] font-bold text-slate-500 uppercase tracking-wider">Rate</th>
+                    <th className="px-6 py-4 text-[11px] font-bold text-slate-500 uppercase tracking-wider text-right">Amount</th>
+                    <th className="px-6 py-4 text-[11px] font-bold text-slate-500 uppercase tracking-wider text-center">Status</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-surface-container">
+                  {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                  {commissionReferrals.map((ref: any) => {
+                    const isPaid = ref.paid_at != null;
+                    const name = ref.enrollment?.users?.name ?? "Unknown";
+                    const plan = ref.enrollment?.plans?.name_en ?? "N/A";
+
+                    return (
+                      <tr key={ref.id} className="hover:bg-surface-container-low transition-colors">
+                        <td className="px-6 py-5">
+                          <div className="flex items-center gap-3">
+                            <div className="w-8 h-8 rounded-full bg-primary-fixed flex items-center justify-center text-primary text-xs font-bold">
+                              {name[0]?.toUpperCase() ?? "?"}
+                            </div>
+                            <div>
+                              <div className="font-bold text-on-surface text-sm">{name}</div>
+                              <div className="text-[11px] text-slate-500">{ref.enrollment?.users?.email ?? ""}</div>
+                            </div>
+                          </div>
+                        </td>
+                        <td className="px-6 py-5 text-sm text-on-surface-variant font-medium">{plan}</td>
+                        <td className="px-6 py-5 text-sm font-medium text-on-surface-variant">
+                          {ref.commission_rate_pct != null ? `${ref.commission_rate_pct}%` : "--"}
+                        </td>
+                        <td className="px-6 py-5 text-sm text-on-surface font-extrabold text-right">
+                          ${(ref.commission_cents / 100).toFixed(2)}
+                        </td>
+                        <td className="px-6 py-5 text-center">
+                          {isPaid ? (
+                            <span className="px-3 py-1 rounded-full text-[10px] font-bold uppercase bg-tertiary-fixed text-on-tertiary-fixed-variant">Paid</span>
+                          ) : (
+                            <span className="px-3 py-1 rounded-full text-[10px] font-bold uppercase bg-secondary-container text-on-secondary-container">Pending</span>
+                          )}
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          ) : (
+            <div className="bg-surface-container-lowest rounded-xl p-16 flex flex-col items-center justify-center text-center shadow-sm">
+              <Icon name="payments" className="!text-6xl text-outline mb-4" />
+              <h3 className="text-xl font-headline font-bold text-on-surface mb-2">No Commissions Yet</h3>
+              <p className="text-on-surface-variant max-w-md">Once your referrals are activated, commissions will appear here.</p>
+            </div>
+          )}
         </div>
 
-        {/* Commission Breakdown Sidebar */}
+        {/* Sidebar Summary */}
         <div className="w-full xl:w-96">
-          <h2 className="text-xl font-headline font-bold text-on-surface mb-6">Commission Breakdown</h2>
+          <h2 className="text-xl font-headline font-bold text-on-surface mb-6">Earnings Summary</h2>
           <div className="space-y-4">
-            {/* Breakdown Item 1 */}
             <div className="bg-surface-container-low rounded-xl p-6 border border-transparent hover:border-outline-variant/20 transition-all">
               <div className="flex justify-between items-start mb-4">
                 <div>
-                  <div className="text-sm font-bold text-on-surface">Executive Health Check</div>
-                  <div className="text-[11px] text-slate-500 font-medium">Patient: Luc Dupont</div>
+                  <div className="text-sm font-bold text-on-surface">Paid Commissions</div>
+                  <div className="text-[11px] text-slate-500 font-medium">{paidReferrals.length} referral{paidReferrals.length !== 1 ? "s" : ""}</div>
                 </div>
                 <div className="text-right">
-                  <div className="text-sm font-extrabold text-primary">$450.00</div>
-                  <div className="text-[10px] font-bold text-secondary uppercase">20% Tier</div>
+                  <div className="text-sm font-extrabold text-primary">
+                    ${(paidReferrals.reduce(
+                      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                      (sum: number, r: any) => sum + (r.commission_cents ?? 0), 0
+                    ) / 100).toFixed(2)}
+                  </div>
+                  <div className="text-[10px] font-bold text-tertiary uppercase">Completed</div>
                 </div>
               </div>
               <div className="w-full bg-surface-container-highest h-1.5 rounded-full overflow-hidden">
-                <div className="bg-primary h-full w-full" />
+                <div className="bg-tertiary h-full" style={{ width: commissionReferrals.length > 0 ? `${(paidReferrals.length / commissionReferrals.length) * 100}%` : "0%" }} />
               </div>
-              <div className="mt-2 text-[10px] text-slate-500">Credited: Sep 28, 2024</div>
             </div>
 
-            {/* Breakdown Item 2 */}
             <div className="bg-surface-container-low rounded-xl p-6 border border-transparent hover:border-outline-variant/20 transition-all">
               <div className="flex justify-between items-start mb-4">
                 <div>
-                  <div className="text-sm font-bold text-on-surface">Longevity Program Plus</div>
-                  <div className="text-[11px] text-slate-500 font-medium">Patient: Elena Rossi</div>
+                  <div className="text-sm font-bold text-on-surface">Unpaid Commissions</div>
+                  <div className="text-[11px] text-slate-500 font-medium">{unpaidReferrals.length} referral{unpaidReferrals.length !== 1 ? "s" : ""}</div>
                 </div>
                 <div className="text-right">
-                  <div className="text-sm font-extrabold text-primary">$1,200.00</div>
-                  <div className="text-[10px] font-bold text-secondary uppercase">Elite Partner</div>
+                  <div className="text-sm font-extrabold text-secondary">
+                    ${(unpaidReferrals.reduce(
+                      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                      (sum: number, r: any) => sum + (r.commission_cents ?? 0), 0
+                    ) / 100).toFixed(2)}
+                  </div>
+                  <div className="text-[10px] font-bold text-on-surface-variant uppercase">Pending</div>
                 </div>
               </div>
               <div className="w-full bg-surface-container-highest h-1.5 rounded-full overflow-hidden">
-                <div className="bg-primary h-full w-[85%]" />
+                <div className="bg-secondary h-full" style={{ width: commissionReferrals.length > 0 ? `${(unpaidReferrals.length / commissionReferrals.length) * 100}%` : "0%" }} />
               </div>
-              <div className="mt-2 text-[10px] text-slate-500">Credited: Sep 24, 2024</div>
-            </div>
-
-            {/* Breakdown Item 3 */}
-            <div className="bg-surface-container-low rounded-xl p-6 border border-transparent hover:border-outline-variant/20 transition-all">
-              <div className="flex justify-between items-start mb-4">
-                <div>
-                  <div className="text-sm font-bold text-on-surface">Genetic Consultation</div>
-                  <div className="text-[11px] text-slate-500 font-medium">Patient: Marcus Weber</div>
-                </div>
-                <div className="text-right">
-                  <div className="text-sm font-extrabold text-primary">$180.00</div>
-                  <div className="text-[10px] font-bold text-slate-400 uppercase">Standard</div>
-                </div>
-              </div>
-              <div className="w-full bg-surface-container-highest h-1.5 rounded-full overflow-hidden">
-                <div className="bg-primary h-full w-[40%]" />
-              </div>
-              <div className="mt-2 text-[10px] text-slate-500">Credited: Sep 22, 2024</div>
             </div>
           </div>
 
-          {/* Growth Opportunity Card */}
+          {/* Tier Card */}
           <div className="mt-8 p-6 bg-tertiary text-white rounded-xl relative overflow-hidden">
             <div className="relative z-10">
-              <div className="text-xs font-bold text-tertiary-fixed mb-1 uppercase tracking-widest">Growth Opportunity</div>
-              <div className="text-lg font-headline font-bold mb-4">You&apos;re $2,400 away from the Diamond Tier</div>
-              <button className="bg-white text-tertiary px-4 py-2 rounded-lg text-xs font-bold hover:bg-tertiary-fixed transition-colors">View Tier Benefits</button>
+              <div className="text-xs font-bold text-tertiary-fixed mb-1 uppercase tracking-widest">Current Tier</div>
+              <div className="text-lg font-headline font-bold mb-4">{affiliate.tier ?? "Standard"} Partner</div>
+              <p className="text-sm opacity-80">Total earned: ${totalEarned}</p>
             </div>
             <div className="absolute -right-10 -bottom-10 opacity-10">
               <Icon name="award_star" className="!text-[160px]" />
@@ -187,11 +232,11 @@ export default function CommissionsPage() {
         </div>
       </div>
 
-      {/* Footer / Disclaimer Section */}
+      {/* Footer */}
       <div className="mt-24 border-t border-surface-container-highest pt-8 pb-16 flex flex-col md:flex-row justify-between gap-8 items-start">
         <div className="max-w-md">
-          <div className="text-xl font-headline font-extrabold text-primary mb-2">The Clinical Atelier</div>
-          <p className="text-sm text-on-surface-variant leading-relaxed">Payments are processed securely via our medical billing infrastructure. All referrals undergo clinical validation to ensure the highest standards of patient care and ethical alignment.</p>
+          <div className="text-xl font-headline font-extrabold text-primary mb-2">Vita Sant&eacute; Club</div>
+          <p className="text-sm text-on-surface-variant leading-relaxed">Payments are processed securely. All referrals undergo validation to ensure the highest standards of care and ethical alignment.</p>
         </div>
         <div className="flex gap-16">
           <div>
@@ -199,7 +244,6 @@ export default function CommissionsPage() {
             <ul className="space-y-2 text-sm font-medium text-on-surface-variant">
               <li><a className="hover:text-primary" href="#">Payment Terms</a></li>
               <li><a className="hover:text-primary" href="#">Compliance Policy</a></li>
-              <li><a className="hover:text-primary" href="#">Tax Documents</a></li>
             </ul>
           </div>
           <div>

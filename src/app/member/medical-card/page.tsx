@@ -1,6 +1,32 @@
+import { auth } from "@/lib/auth";
+import { getMemberMedicalCard } from "@/lib/server/queries";
 import { Icon } from "@/components/ui/icon";
 
-export default function MedicalCardPage() {
+export default async function MedicalCardPage() {
+  const session = await auth();
+  const userId = session?.user?.id;
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let user: any = null;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let enrollment: any = null;
+
+  if (userId) {
+    const data = await getMemberMedicalCard(userId);
+    user = data.user;
+    enrollment = data.enrollment;
+  }
+
+  const memberName = user?.name || session?.user?.name || "Member";
+  const memberCode = enrollment?.member_id_code || "---";
+  const planName = enrollment?.plans?.name_en || "No Plan";
+  const periodEnd = enrollment?.subscriptions?.current_period_end;
+  const expiry = periodEnd
+    ? new Date(periodEnd).toLocaleDateString("en", { month: "2-digit", year: "numeric" })
+    : "--/--";
+  const enrollmentStatus = enrollment?.status || "INACTIVE";
+  const region = user?.locale === "ht" ? "Haiti" : user?.locale === "fr" ? "France" : "Port-au-Prince";
+
   return (
     <div className="max-w-5xl mx-auto">
       {/* Editorial Header */}
@@ -9,7 +35,7 @@ export default function MedicalCardPage() {
           Digital Identity
         </h1>
         <p className="text-on-surface-variant max-w-2xl leading-relaxed">
-          Your official Vita Santé Club digital credentials. Present this card at any partner clinic or laboratory for immediate verification and Elite Premium benefits.
+          Your official Vita Santé Club digital credentials. Present this card at any partner clinic or laboratory for immediate verification and {planName} benefits.
         </p>
       </div>
 
@@ -49,14 +75,14 @@ export default function MedicalCardPage() {
                 <div className="space-y-1">
                   <div className="flex items-center justify-center md:justify-start gap-2 mb-2">
                     <span className="px-2 py-0.5 bg-white/10 rounded-lg text-[10px] font-bold uppercase tracking-widest border border-white/20">
-                      Elite Premium Member
+                      {planName} Member
                     </span>
                   </div>
                   <h2 className="font-headline text-3xl font-extrabold tracking-tight">
-                    Beatrice Saint-Jean
+                    {memberName}
                   </h2>
                   <p className="text-primary-fixed-dim font-medium tracking-wide">
-                    ID: VSC-0032-HT
+                    ID: {memberCode}
                   </p>
                 </div>
 
@@ -65,29 +91,28 @@ export default function MedicalCardPage() {
                     <p className="text-[10px] text-white/50 uppercase font-bold tracking-widest">
                       Valid Thru
                     </p>
-                    <p className="font-semibold text-lg">12 / 2026</p>
+                    <p className="font-semibold text-lg">{expiry}</p>
                   </div>
                   <div>
                     <p className="text-[10px] text-white/50 uppercase font-bold tracking-widest">
                       Region
                     </p>
-                    <p className="font-semibold text-lg">Port-au-Prince</p>
+                    <p className="font-semibold text-lg">{region}</p>
                   </div>
                 </div>
 
-                <div className="pt-2">
-                  <p className="text-[10px] text-white/50 uppercase font-bold tracking-widest mb-2">
-                    Emergency Contacts
-                  </p>
-                  <div className="flex flex-wrap gap-2 justify-center md:justify-start">
-                    <span className="bg-white/10 px-3 py-1.5 rounded-xl text-xs font-medium">
-                      +509 3722-XXXX
-                    </span>
-                    <span className="bg-white/10 px-3 py-1.5 rounded-xl text-xs font-medium">
-                      +509 4401-XXXX
-                    </span>
+                {user?.phone && (
+                  <div className="pt-2">
+                    <p className="text-[10px] text-white/50 uppercase font-bold tracking-widest mb-2">
+                      Contact
+                    </p>
+                    <div className="flex flex-wrap gap-2 justify-center md:justify-start">
+                      <span className="bg-white/10 px-3 py-1.5 rounded-xl text-xs font-medium">
+                        {user.phone}
+                      </span>
+                    </div>
                   </div>
-                </div>
+                )}
               </div>
 
               {/* QR Section */}
@@ -170,9 +195,11 @@ export default function MedicalCardPage() {
             </div>
             <div className="flex items-center justify-between pt-2">
               <span className="text-[10px] font-bold text-outline uppercase tracking-wider">
-                Status: Active
+                Status: {enrollmentStatus === "ACTIVE" ? "Active" : enrollmentStatus}
               </span>
-              <div className="w-2 h-2 rounded-full bg-secondary animate-pulse" />
+              {enrollmentStatus === "ACTIVE" && (
+                <div className="w-2 h-2 rounded-full bg-secondary animate-pulse" />
+              )}
             </div>
           </div>
         </div>
@@ -198,7 +225,7 @@ export default function MedicalCardPage() {
             </div>
             <div>
               <p className="text-xs text-on-surface-variant font-medium">Plan Coverage</p>
-              <p className="text-xl font-bold text-on-surface">100% Core Services</p>
+              <p className="text-xl font-bold text-on-surface">{planName}</p>
             </div>
           </div>
         </div>

@@ -1,6 +1,14 @@
+import { auth } from "@/lib/auth";
+import { redirect } from "next/navigation";
 import { Icon } from "@/components/ui/icon";
 
-export default function SponsorNewPage() {
+export default async function SponsorNewPage() {
+  const session = await auth();
+  const userId = session?.user?.id;
+  if (!userId) redirect("/login");
+
+  const userName = session?.user?.name || "Sponsor";
+
   return (
     <div className="max-w-7xl mx-auto">
       {/* Header Section */}
@@ -9,140 +17,112 @@ export default function SponsorNewPage() {
           <nav className="flex items-center gap-2 text-outline mb-4">
             <span>Sponsor Portal</span>
             <Icon name="chevron_right" className="text-sm" />
-            <span>Funded Members</span>
-            <Icon name="chevron_right" className="text-sm" />
-            <span className="text-primary font-semibold">New Beneficiary</span>
+            <span className="text-primary font-semibold">Sponsor New Members</span>
           </nav>
-          <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight text-primary mb-2">Register New Member</h1>
-          <p className="text-on-surface-variant max-w-2xl text-lg">Add a single beneficiary to your corporate sponsorship plan or use the bulk upload for multiple enrollments.</p>
+          <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight text-primary mb-2">Sponsor New Members</h1>
+          <p className="text-on-surface-variant max-w-2xl text-lg">
+            Welcome, <span className="font-semibold text-on-surface">{userName}</span>. Expand your community health impact by sponsoring new beneficiaries through Vita Sant&eacute;.
+          </p>
         </div>
-        <button className="bg-secondary-container text-on-secondary-container px-6 py-3 rounded-xl flex items-center gap-2 font-semibold hover:bg-secondary-fixed transition-colors duration-200">
-          <Icon name="upload_file" />
-          Bulk Upload CSV
-        </button>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-        {/* Left: Stepper */}
-        <div className="lg:col-span-3 space-y-8 sticky top-28">
-          <div className="flex flex-col gap-8 border-l-2 border-surface-container-high">
-            <div className="pl-6 relative">
-              <div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-primary ring-4 ring-primary-fixed"></div>
-              <span className="block text-sm font-bold uppercase tracking-widest text-primary mb-1">Step 1</span>
-              <h3 className="text-lg font-bold text-on-surface leading-tight">Beneficiary Information</h3>
+        {/* Left: Info Panel */}
+        <div className="lg:col-span-4 space-y-8">
+          <div className="bg-gradient-to-br from-primary to-primary-container rounded-xl p-8 text-white relative overflow-hidden">
+            <div className="absolute -right-8 -bottom-8 opacity-10">
+              <Icon name="volunteer_activism" className="text-[120px]" />
             </div>
-            <div className="pl-6 relative opacity-40">
-              <div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-outline-variant ring-4 ring-surface"></div>
-              <span className="block text-sm font-bold uppercase tracking-widest text-outline mb-1">Step 2</span>
-              <h3 className="text-lg font-bold text-on-surface leading-tight">Plan Selection</h3>
-            </div>
-            <div className="pl-6 relative opacity-40">
-              <div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-outline-variant ring-4 ring-surface"></div>
-              <span className="block text-sm font-bold uppercase tracking-widest text-outline mb-1">Step 3</span>
-              <h3 className="text-lg font-bold text-on-surface leading-tight">Review &amp; Confirm</h3>
+            <h3 className="text-2xl font-bold mb-4 relative z-10">How It Works</h3>
+            <div className="space-y-4 relative z-10">
+              <div className="flex items-start gap-3">
+                <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">1</div>
+                <p className="text-sm text-primary-fixed/90">Contact our team with the number of members you want to sponsor.</p>
+              </div>
+              <div className="flex items-start gap-3">
+                <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">2</div>
+                <p className="text-sm text-primary-fixed/90">We will set up the appropriate plan and enrollment for each beneficiary.</p>
+              </div>
+              <div className="flex items-start gap-3">
+                <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">3</div>
+                <p className="text-sm text-primary-fixed/90">Members receive their digital Vita Sant&eacute; ID and can start accessing care immediately.</p>
+              </div>
             </div>
           </div>
+
           <div className="bg-surface-container-low p-6 rounded-xl border-l-4 border-tertiary">
             <div className="flex items-center gap-3 mb-3 text-tertiary">
               <Icon name="verified_user" />
               <span className="font-bold text-sm">Secure Enrollment</span>
             </div>
             <p className="text-xs text-on-surface-variant leading-relaxed">
-              Data is encrypted using military-grade standards. Members will receive their digital Vita Sant&eacute; ID within 24 hours.
+              Data is encrypted using industry standards. Members will receive their digital Vita Sant&eacute; ID within 24 hours of enrollment.
             </p>
           </div>
         </div>
 
-        {/* Right: Form Content */}
-        <div className="lg:col-span-9">
+        {/* Right: CTA Content */}
+        <div className="lg:col-span-8">
           <div className="bg-surface-container-lowest rounded-xl shadow-[0_20px_40px_rgba(0,27,63,0.06)] p-8 md:p-12">
-            <form className="space-y-12">
-              {/* Personal Info */}
-              <section>
-                <div className="flex items-center gap-4 mb-8">
-                  <div className="w-12 h-12 rounded-xl bg-primary-fixed flex items-center justify-center text-primary">
-                    <Icon name="person" filled />
-                  </div>
-                  <div>
-                    <h2 className="text-2xl font-bold">Personal Details</h2>
-                    <p className="text-sm text-outline">Ensure details match official government ID (CIN/NIF).</p>
-                  </div>
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <label className="text-sm font-bold text-on-surface-variant px-1">Full Legal Name</label>
-                    <input className="w-full bg-surface-container-low border-none rounded-xl py-4 px-5 focus:ring-2 focus:ring-primary focus:bg-surface-container-lowest transition-all" placeholder="e.g. Marie-Louise Desir" type="text" />
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-sm font-bold text-on-surface-variant px-1">Date of Birth</label>
-                    <input className="w-full bg-surface-container-low border-none rounded-xl py-4 px-5 focus:ring-2 focus:ring-primary focus:bg-surface-container-lowest transition-all" type="date" />
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-sm font-bold text-on-surface-variant px-1">Email Address</label>
-                    <input className="w-full bg-surface-container-low border-none rounded-xl py-4 px-5 focus:ring-2 focus:ring-primary focus:bg-surface-container-lowest transition-all" placeholder="m.desir@example.com" type="email" />
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-sm font-bold text-on-surface-variant px-1">Phone Number (WhatsApp preferred)</label>
-                    <input className="w-full bg-surface-container-low border-none rounded-xl py-4 px-5 focus:ring-2 focus:ring-primary focus:bg-surface-container-lowest transition-all" placeholder="+509 0000 0000" type="tel" />
-                  </div>
-                </div>
-              </section>
+            <div className="flex items-center gap-4 mb-8">
+              <div className="w-12 h-12 rounded-xl bg-primary-fixed flex items-center justify-center text-primary">
+                <Icon name="group_add" filled />
+              </div>
+              <div>
+                <h2 className="text-2xl font-bold">Ready to Sponsor?</h2>
+                <p className="text-sm text-outline">Our team will help you set up sponsorships for your beneficiaries.</p>
+              </div>
+            </div>
 
-              {/* Address Info */}
-              <section>
-                <div className="flex items-center gap-4 mb-8">
-                  <div className="w-12 h-12 rounded-xl bg-secondary-fixed flex items-center justify-center text-secondary">
-                    <Icon name="location_on" filled />
-                  </div>
+            <div className="space-y-6 mb-8">
+              <p className="text-on-surface-variant leading-relaxed">
+                To sponsor new members, please reach out to our institutional support team. We offer flexible plans for organizations of all sizes, including:
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="bg-surface-container-low p-4 rounded-lg flex items-start gap-3">
+                  <Icon name="check_circle" className="text-secondary mt-0.5" />
                   <div>
-                    <h2 className="text-2xl font-bold">Haiti Residential Address</h2>
-                    <p className="text-sm text-outline">Used for home care visits and medicine delivery.</p>
+                    <p className="font-bold text-sm text-on-surface">Individual Sponsorships</p>
+                    <p className="text-xs text-on-surface-variant">Sponsor specific individuals in your community.</p>
                   </div>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="md:col-span-2 space-y-2">
-                    <label className="text-sm font-bold text-on-surface-variant px-1">Street Address</label>
-                    <input className="w-full bg-surface-container-low border-none rounded-xl py-4 px-5 focus:ring-2 focus:ring-primary focus:bg-surface-container-lowest transition-all" placeholder="123 Rue de la Paix" type="text" />
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-sm font-bold text-on-surface-variant px-1">City/Commune</label>
-                    <select className="w-full bg-surface-container-low border-none rounded-xl py-4 px-5 focus:ring-2 focus:ring-primary focus:bg-surface-container-lowest transition-all appearance-none">
-                      <option>Pétion-Ville</option>
-                      <option>Port-au-Prince</option>
-                      <option>Cap-Haïtien</option>
-                      <option>Jacmel</option>
-                      <option>Delmas</option>
-                    </select>
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-sm font-bold text-on-surface-variant px-1">Department</label>
-                    <select className="w-full bg-surface-container-low border-none rounded-xl py-4 px-5 focus:ring-2 focus:ring-primary focus:bg-surface-container-lowest transition-all appearance-none">
-                      <option>Ouest</option>
-                      <option>Nord</option>
-                      <option>Sud</option>
-                      <option>Artibonite</option>
-                    </select>
+                <div className="bg-surface-container-low p-4 rounded-lg flex items-start gap-3">
+                  <Icon name="check_circle" className="text-secondary mt-0.5" />
+                  <div>
+                    <p className="font-bold text-sm text-on-surface">Bulk Enrollment</p>
+                    <p className="text-xs text-on-surface-variant">Groups of 10+ qualify for streamlined onboarding.</p>
                   </div>
                 </div>
-              </section>
-
-              {/* Form Actions */}
-              <div className="pt-8 border-t border-surface-container flex flex-col sm:flex-row justify-between items-center gap-4">
-                <button className="text-outline font-bold px-8 py-4 hover:text-on-surface transition-colors flex items-center gap-2" type="button">
-                  <Icon name="arrow_back" />
-                  Cancel
-                </button>
-                <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
-                  <button className="bg-surface-container-high text-on-surface font-bold px-8 py-4 rounded-xl hover:bg-surface-dim transition-colors" type="button">
-                    Save Draft
-                  </button>
-                  <button className="bg-gradient-to-br from-primary to-primary-container text-white font-bold px-12 py-4 rounded-xl shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all flex items-center justify-center gap-2" type="button">
-                    Next: Select Plan
-                    <Icon name="arrow_forward" />
-                  </button>
+                <div className="bg-surface-container-low p-4 rounded-lg flex items-start gap-3">
+                  <Icon name="check_circle" className="text-secondary mt-0.5" />
+                  <div>
+                    <p className="font-bold text-sm text-on-surface">Custom Plans</p>
+                    <p className="text-xs text-on-surface-variant">Tailor coverage levels to your organization&apos;s needs.</p>
+                  </div>
+                </div>
+                <div className="bg-surface-container-low p-4 rounded-lg flex items-start gap-3">
+                  <Icon name="check_circle" className="text-secondary mt-0.5" />
+                  <div>
+                    <p className="font-bold text-sm text-on-surface">Dedicated Support</p>
+                    <p className="text-xs text-on-surface-variant">Your own account manager for ongoing assistance.</p>
+                  </div>
                 </div>
               </div>
-            </form>
+            </div>
+
+            <div className="pt-8 border-t border-surface-container flex flex-col sm:flex-row justify-between items-center gap-4">
+              <a href="/sponsor/overview" className="text-outline font-bold px-8 py-4 hover:text-on-surface transition-colors flex items-center gap-2">
+                <Icon name="arrow_back" />
+                Back to Overview
+              </a>
+              <a
+                href="mailto:sponsors@vitasante.com?subject=New%20Sponsorship%20Inquiry"
+                className="bg-gradient-to-br from-primary to-primary-container text-white font-bold px-12 py-4 rounded-xl shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all flex items-center justify-center gap-2"
+              >
+                <Icon name="mail" />
+                Contact Our Team
+              </a>
+            </div>
           </div>
 
           {/* Bento Info Grid */}
