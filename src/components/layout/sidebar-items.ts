@@ -59,7 +59,7 @@ export const sidebarConfigs: Record<string, SidebarConfig> = {
     ],
     ctaLabel: "Generate Referral Link",
     ctaIcon: "link",
-    ctaHref: "#",
+    ctaHref: "/marketing",
     bottomItems: [
       { label: "Settings", icon: "settings", href: "/settings" },
       { label: "Support", icon: "help", href: "/support" },
