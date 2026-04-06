@@ -26,9 +26,6 @@ export const sidebarConfigs: Record<string, SidebarConfig> = {
       { label: "Profile", icon: "person", href: "/profile" },
       { label: "Health Analytics", icon: "monitoring", href: "/analytics" },
     ],
-    ctaLabel: "Urgent Consult",
-    ctaIcon: "emergency",
-    ctaHref: "#",
     bottomItems: [
       { label: "Settings", icon: "settings", href: "/settings" },
       { label: "Support", icon: "help", href: "/support" },
