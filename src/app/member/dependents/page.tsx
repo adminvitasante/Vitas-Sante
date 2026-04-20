@@ -184,10 +184,13 @@ export default async function DependentsPage() {
 
       {/* Add Dependent */}
       <section>
-        <button className="inline-flex items-center px-6 py-3 bg-primary text-white rounded-xl font-bold text-sm hover:shadow-lg transition-shadow">
+        <Link
+          href="/member/dependents/new"
+          className="inline-flex items-center px-6 py-3 bg-primary text-white rounded-xl font-bold text-sm hover:shadow-lg transition-shadow"
+        >
           <Icon name="person_add" size="sm" className="mr-2" />
           Add New Dependent
-        </button>
+        </Link>
       </section>
     </>
   );

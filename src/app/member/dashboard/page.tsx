@@ -216,9 +216,12 @@ export default async function MemberDashboard() {
                   <Icon name="chat_bubble" />
                   Chat with a Care Coordinator
                 </Link>
-                <button className="px-8 py-4 border-2 border-primary text-primary rounded-xl font-bold hover:bg-primary/5 transition-colors">
+                <Link
+                  href="/member/doctors"
+                  className="px-8 py-4 border-2 border-primary text-primary rounded-xl font-bold hover:bg-primary/5 transition-colors text-center"
+                >
                   Find a Local Doctor
-                </button>
+                </Link>
               </div>
             </div>
           </div>
@@ -226,10 +229,13 @@ export default async function MemberDashboard() {
       </div>
 
       <footer className="mt-20 py-12 border-t border-slate-100 flex flex-col md:flex-row justify-between items-center w-full">
-        <p className="font-body text-xs text-slate-500 mb-4 md:mb-0">&copy; 2024 Vita Sant&eacute; Club. All Rights Reserved.</p>
+        <p className="font-body text-xs text-slate-500 mb-4 md:mb-0">
+          &copy; {new Date().getFullYear()} Vita Sant&eacute; Club. Tous droits r&eacute;serv&eacute;s.
+        </p>
         <div className="flex gap-8">
-          <a className="text-slate-400 hover:text-blue-600 transition-colors text-xs font-medium" href="#">Privacy Policy</a>
-          <a className="text-slate-400 hover:text-blue-600 transition-colors text-xs font-medium" href="#">Terms of Service</a>
+          <a className="text-slate-400 hover:text-primary transition-colors text-xs font-medium" href="mailto:support@vitasante.ht">
+            support@vitasante.ht
+          </a>
         </div>
       </footer>
     </>

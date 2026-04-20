@@ -45,11 +45,16 @@ export default function SignUpPage() {
     plan: "advantage",
   });
 
-  // Capture ?ref=CODE from the URL so we can attribute the affiliate referral.
+  // Capture ?ref=CODE (affiliate attribution) and ?plan=SLUG (pre-select plan).
   useEffect(() => {
     if (typeof window !== "undefined") {
-      const ref = new URLSearchParams(window.location.search).get("ref");
+      const params = new URLSearchParams(window.location.search);
+      const ref = params.get("ref");
       if (ref) setReferralCode(ref);
+      const planParam = params.get("plan");
+      if (planParam === "essential" || planParam === "advantage" || planParam === "premium") {
+        setFormData((p) => ({ ...p, plan: planParam }));
+      }
     }
   }, []);
 

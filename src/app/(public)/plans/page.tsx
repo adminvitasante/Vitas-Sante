@@ -3,6 +3,7 @@ import Link from "next/link";
 
 const corePlans = [
   {
+    slug: "essential",
     name: "Essential / Esansyèl",
     price: "$99",
     depFee: "$55/year",
@@ -10,6 +11,7 @@ const corePlans = [
     highlighted: false,
   },
   {
+    slug: "advantage",
     name: "Advantage / Avantaj",
     price: "$135",
     depFee: "$55/year",
@@ -17,6 +19,7 @@ const corePlans = [
     highlighted: false,
   },
   {
+    slug: "premium",
     name: "Premium / Premyòm",
     price: "$200",
     depFee: "$55/year",
@@ -27,6 +30,7 @@ const corePlans = [
 
 const elitePlans = [
   {
+    slug: "elite",
     name: "Elite / Elit",
     price: "$365",
     depFee: "$95/year",
@@ -35,6 +39,7 @@ const elitePlans = [
     btnStyle: "bg-white text-primary hover:bg-surface-container-low",
   },
   {
+    slug: "elite_plus",
     name: "Elite Plus / Plis",
     price: "$700",
     depFee: "$120/year",
@@ -43,6 +48,7 @@ const elitePlans = [
     btnStyle: "border border-primary text-primary hover:bg-primary/5",
   },
   {
+    slug: "elite_silver",
     name: "Elite Silver / Ajan",
     price: "$1500",
     depFee: "$120/year",
@@ -51,6 +57,7 @@ const elitePlans = [
     btnStyle: "border border-primary text-primary hover:bg-primary/5",
   },
   {
+    slug: "elite_gold",
     name: "Elite Gold / Lò",
     price: "$3000",
     depFee: "",
@@ -61,6 +68,7 @@ const elitePlans = [
     nameClass: "text-amber-600",
   },
   {
+    slug: "elite_platinum",
     name: "Elite Platinum",
     price: "$5000",
     depFee: "",
@@ -140,10 +148,11 @@ export default function PlansPage() {
                     </li>
                   ))}
                 </ul>
-                <Link href="/auth/signup">
-                  <button className="w-full py-4 text-sm font-bold font-headline border-2 border-primary text-primary rounded-xl hover:bg-primary hover:text-white transition-colors">
-                    S&apos;inscrire
-                  </button>
+                <Link
+                  href={`/auth/signup?plan=${plan.slug}`}
+                  className="block w-full py-4 text-sm font-bold font-headline border-2 border-primary text-primary rounded-xl hover:bg-primary hover:text-white transition-colors text-center"
+                >
+                  S&apos;inscrire
                 </Link>
               </div>
             ))}
@@ -184,9 +193,12 @@ export default function PlansPage() {
                     </li>
                   ))}
                 </ul>
-                <button className={`w-full py-3 text-xs font-bold font-headline rounded-lg transition-colors ${plan.btnStyle}`}>
+                <Link
+                  href={`/auth/signup?plan=${plan.slug}`}
+                  className={`block w-full py-3 text-xs font-bold font-headline rounded-lg transition-colors text-center ${plan.btnStyle}`}
+                >
                   Select
-                </button>
+                </Link>
               </div>
             ))}
           </div>
@@ -287,12 +299,18 @@ export default function PlansPage() {
             </p>
           </div>
           <div className="relative z-10 flex flex-col sm:flex-row gap-4">
-            <button className="bg-secondary text-white px-8 py-4 rounded-xl font-bold font-headline shadow-lg hover:bg-on-secondary-container transition-colors">
+            <a
+              href="mailto:support@vitasante.ht?subject=Request%20a%20callback"
+              className="bg-secondary text-white px-8 py-4 rounded-xl font-bold font-headline shadow-lg hover:bg-on-secondary-container transition-colors text-center"
+            >
               Request a Callback
-            </button>
-            <button className="bg-white/10 backdrop-blur-md border border-white/20 text-white px-8 py-4 rounded-xl font-bold font-headline hover:bg-white/20 transition-colors">
-              View Network Map
-            </button>
+            </a>
+            <Link
+              href="/auth/signup"
+              className="bg-white/10 backdrop-blur-md border border-white/20 text-white px-8 py-4 rounded-xl font-bold font-headline hover:bg-white/20 transition-colors text-center"
+            >
+              Start Enrollment
+            </Link>
           </div>
         </div>
       </section>

@@ -1,103 +1,124 @@
-import { auth } from "@/lib/auth";
-import { getMemberMedicalCard } from "@/lib/server/queries";
+import { redirect } from "next/navigation";
 import { Icon } from "@/components/ui/icon";
+import { getMemberMedicalCard } from "@/lib/server/queries";
+import { getSessionUser } from "@/lib/server/authz";
+import { memberCodeQrDataUrl } from "@/lib/qr";
+import { MedicalCardActions } from "@/components/shared/medical-card-actions";
 
 export default async function MedicalCardPage() {
-  const session = await auth();
-  const userId = session?.user?.id;
+  const me = await getSessionUser();
+  if (!me) redirect("/auth/signin");
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  let user: any = null;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  let enrollment: any = null;
+  const { user, enrollment } = await getMemberMedicalCard(me.id);
 
-  if (userId) {
-    const data = await getMemberMedicalCard(userId);
-    user = data.user;
-    enrollment = data.enrollment;
-  }
-
-  const memberName = user?.name || session?.user?.name || "Member";
-  const memberCode = enrollment?.member_id_code || "---";
-  const planName = enrollment?.plans?.name_en || "No Plan";
+  const memberName = user?.name ?? me.name ?? "—";
+  const memberCode = enrollment?.member_id_code ?? null;
+  const planName = enrollment?.plans?.name_fr ?? enrollment?.plans?.name_en ?? null;
+  const planTier = enrollment?.plans?.tier ?? null;
   const periodEnd = enrollment?.subscriptions?.current_period_end;
   const expiry = periodEnd
-    ? new Date(periodEnd).toLocaleDateString("en", { month: "2-digit", year: "numeric" })
-    : "--/--";
-  const enrollmentStatus = enrollment?.status || "INACTIVE";
-  const region = user?.locale === "ht" ? "Haiti" : user?.locale === "fr" ? "France" : "Port-au-Prince";
+    ? new Date(periodEnd).toLocaleDateString("fr-FR", { month: "2-digit", year: "numeric" })
+    : null;
+  const enrollmentStatus = enrollment?.status ?? "INACTIVE";
+  const visitsRemaining = enrollment?.credit_accounts?.[0]?.visits_remaining ?? null;
+  const visitsTotal = enrollment?.credit_accounts?.[0]?.visits_total ?? null;
+
+  // Initials for the avatar tile — replaces the AI-generated stock photo.
+  const initials = memberName
+    .split(" ")
+    .filter(Boolean)
+    .map((w: string) => w[0])
+    .slice(0, 2)
+    .join("")
+    .toUpperCase() || "?";
+
+  // Generate a real QR encoding the member code (scannable by doctor flow).
+  const qrDataUrl = memberCode ? await memberCodeQrDataUrl(memberCode) : null;
+
+  const hasActiveCard = Boolean(memberCode && enrollmentStatus === "ACTIVE");
 
   return (
     <div className="max-w-5xl mx-auto">
-      {/* Editorial Header */}
       <div className="mb-12">
         <h1 className="font-headline text-4xl md:text-5xl font-extrabold text-primary tracking-tight mb-4">
-          Digital Identity
+          Carte Médicale
         </h1>
         <p className="text-on-surface-variant max-w-2xl leading-relaxed">
-          Your official Vita Santé Club digital credentials. Present this card at any partner clinic or laboratory for immediate verification and {planName} benefits.
+          {hasActiveCard
+            ? `Vos identifiants numériques officiels Vita Santé Club. Présentez cette carte chez tout prestataire partenaire pour activer vos avantages ${planName ?? ""}.`
+            : "Votre carte deviendra active dès que votre adhésion sera validée par un administrateur."}
         </p>
       </div>
 
-      {/* Bento Layout for Card and Actions */}
+      {!hasActiveCard && (
+        <div className="mb-8 rounded-3xl bg-amber-50 border border-amber-200 p-6">
+          <div className="flex gap-3">
+            <Icon name="info" className="text-amber-700" />
+            <div>
+              <p className="font-bold text-amber-900">Carte non encore disponible</p>
+              <p className="text-sm text-amber-800 mt-1">
+                Statut actuel: <span className="font-bold">{enrollmentStatus}</span>. Un code
+                membre vous sera attribué après validation de votre inscription. Pour toute
+                question, contactez le support.
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-        {/* Main Digital ID Card */}
+        {/* Main Card */}
         <div className="lg:col-span-8 group perspective-1000">
-          <div className="medical-card-gradient rounded-[2rem] p-8 md:p-12 text-white relative overflow-hidden shadow-2xl transition-transform duration-500 hover:rotate-y-2">
-            {/* Abstract Background Texture */}
-            <div
-              className="absolute inset-0 opacity-10 pointer-events-none"
-              style={{
-                backgroundImage:
-                  "url('https://lh3.googleusercontent.com/aida-public/AB6AXuBDfHoqkBE0sz5TVolhhlL8pfyRd_gUZAzMYWWRyyq3HJ3zwUc4rJujjcZ3q-zI6gdGyUfItQuaFfAusS0vl4qIT4QXEB3-LYv09s-fh8h8I4e9h-Q-7TFOvhmhCOTxLUWVuSnDuZN3yWINypTistXenuimQ2Zrjmh09i76XovmmbwkC7bB6LFWqBNZvTXdnOx3JdGSWqEUFjd1-s-LPiCGLPyH2bBHbvPnnMgK8Ut_Q3CJOBMp1IM_j8FGzZMXnx9JlOLhiRk1j_zh')",
-              }}
-            />
+          <div className="medical-card-gradient rounded-[2rem] p-8 md:p-12 text-white relative overflow-hidden shadow-2xl">
             <div className="absolute -right-20 -top-20 w-80 h-80 bg-white/5 rounded-full blur-3xl" />
 
             <div className="relative z-10 flex flex-col md:flex-row gap-10 items-center md:items-start">
-              {/* Profile Photo Container */}
+              {/* Initials tile — no more AI-generated stock photo. */}
               <div className="relative">
-                <div className="w-40 h-52 rounded-2xl overflow-hidden border-4 border-white/20 shadow-xl bg-slate-800">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    alt="Member Photo"
-                    className="w-full h-full object-cover"
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuClIh32BlHkr-hsqogsp7njDo8nLE8In2dwnj1z8W1aPg5Lta__YD2Vw8Zu4YfRIYfw6TpzKE066LRp_6o4jlEunl2QuyqXyB9oSeA-toHTqynTQ8e8GZHWSVnAA6gO40mLqHHhRP3pwKEmTR7RE6sTSl1zMMFzt7MHQ9zWzmEG1CrpX-JyR_6u0FB0COVYZYQl0BsB_bOFGXrpPZ7t_zwJS5l55yIvjzuf6kIWPysKzsNMGlTN7PKGZ-VMc1G8uQgioqWHb0sLVFKo"
-                  />
+                <div className="w-40 h-52 rounded-2xl overflow-hidden border-4 border-white/20 shadow-xl bg-primary-container/40 flex items-center justify-center">
+                  <span className="font-headline text-6xl font-extrabold text-white tracking-tighter">
+                    {initials}
+                  </span>
                 </div>
-                <div className="absolute -bottom-3 -right-3 bg-secondary p-2 rounded-full border-4 border-primary shadow-lg">
-                  <Icon name="verified" size="sm" filled className="text-white" />
-                </div>
+                {hasActiveCard && (
+                  <div className="absolute -bottom-3 -right-3 bg-secondary p-2 rounded-full border-4 border-primary shadow-lg">
+                    <Icon name="verified" size="sm" filled className="text-white" />
+                  </div>
+                )}
               </div>
 
-              {/* Identity Details */}
+              {/* Identity */}
               <div className="flex-1 space-y-6 text-center md:text-left">
                 <div className="space-y-1">
                   <div className="flex items-center justify-center md:justify-start gap-2 mb-2">
                     <span className="px-2 py-0.5 bg-white/10 rounded-lg text-[10px] font-bold uppercase tracking-widest border border-white/20">
-                      {planName} Member
+                      {planTier ? `${planTier} · ${planName ?? ""}` : "Adhésion en attente"}
                     </span>
                   </div>
                   <h2 className="font-headline text-3xl font-extrabold tracking-tight">
                     {memberName}
                   </h2>
-                  <p className="text-primary-fixed-dim font-medium tracking-wide">
-                    ID: {memberCode}
+                  <p className="text-primary-fixed-dim font-medium tracking-wide font-mono">
+                    {memberCode ? `ID: ${memberCode}` : "ID: en attente"}
                   </p>
                 </div>
 
                 <div className="grid grid-cols-2 gap-6 pt-4 border-t border-white/10">
                   <div>
                     <p className="text-[10px] text-white/50 uppercase font-bold tracking-widest">
-                      Valid Thru
+                      Valable jusqu&apos;au
                     </p>
-                    <p className="font-semibold text-lg">{expiry}</p>
+                    <p className="font-semibold text-lg">{expiry ?? "—"}</p>
                   </div>
                   <div>
                     <p className="text-[10px] text-white/50 uppercase font-bold tracking-widest">
-                      Region
+                      Visites restantes
                     </p>
-                    <p className="font-semibold text-lg">{region}</p>
+                    <p className="font-semibold text-lg">
+                      {visitsRemaining !== null && visitsTotal !== null
+                        ? `${visitsRemaining} / ${visitsTotal}`
+                        : "—"}
+                    </p>
                   </div>
                 </div>
 
@@ -115,15 +136,17 @@ export default async function MedicalCardPage() {
                 )}
               </div>
 
-              {/* QR Section */}
+              {/* Real QR code */}
               <div className="flex flex-col items-center gap-3">
                 <div className="bg-white p-4 rounded-3xl shadow-inner">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    alt="Verification QR Code"
-                    className="w-24 h-24"
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuBYMpRW98rcyO5xfATp1dEdt6-VO1OPyfvn-gjPBRMhIL7Xsk1-6jrm6nbLeRaqC1qHh6EkG42DoCFCm73HVG8LMPLmqkwSgLWQv3hNwsR1cloFVVH8ZyHrJ093U5mWA_Ts5nG-Cyt5R0F7daCvfsotF3RpbATZaTx6RdfKaeEuFRgjtGBxrsMEqz42Uyv8pqkwm36D4X5S1n6vCpn6SL6uT62MQnR0dHPyXm0iWhS3LR3dWdwfD-Oq58UFvtAxCrNcstOFnT6GHuyx"
-                  />
+                  {qrDataUrl ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img alt="Code membre" className="w-24 h-24" src={qrDataUrl} />
+                  ) : (
+                    <div className="w-24 h-24 flex items-center justify-center text-slate-400 text-xs text-center">
+                      En attente d&apos;activation
+                    </div>
+                  )}
                 </div>
                 <p className="text-[10px] text-white/40 font-medium tracking-tighter">
                   PROVIDER SCAN ONLY
@@ -131,71 +154,39 @@ export default async function MedicalCardPage() {
               </div>
             </div>
 
-            {/* Footer Decoration */}
             <div className="mt-12 flex justify-between items-end">
               <div className="flex items-center gap-2 opacity-50">
                 <Icon name="ecg_heart" className="text-[32px]" />
                 <span className="text-sm font-bold tracking-widest">VITA SANTÉ</span>
               </div>
               <div className="text-[10px] text-white/20 font-mono">
-                ENCRYPTED PROTOCOL v2.4.0
+                {hasActiveCard ? "ACTIVE" : enrollmentStatus}
               </div>
             </div>
           </div>
         </div>
 
-        {/* Side Actions & Details */}
+        {/* Side Actions */}
         <div className="lg:col-span-4 space-y-6">
-          {/* Action Card */}
           <div className="bg-surface-container-lowest p-6 rounded-3xl shadow-sm border border-outline-variant/10 space-y-4">
-            <h3 className="font-headline font-bold text-lg text-primary">Manage Card</h3>
-            <div className="space-y-3">
-              <button className="w-full flex items-center justify-between p-4 bg-surface-container-low hover:bg-surface-container-high transition-colors rounded-2xl group">
-                <div className="flex items-center gap-3 text-on-surface">
-                  <Icon name="picture_as_pdf" className="text-primary" />
-                  <span className="text-sm font-semibold">Download as PDF</span>
-                </div>
-                <Icon
-                  name="chevron_right"
-                  size="sm"
-                  className="text-outline group-hover:translate-x-1 transition-transform"
-                />
-              </button>
-              <button className="w-full flex items-center gap-3 p-4 bg-[#000] text-white hover:bg-zinc-800 transition-colors rounded-2xl">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  alt="Apple Wallet"
-                  className="w-5 h-5 invert"
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuBXFLxu_8OJ_Flnp9W_cOnDAX_boDIvZ0gFwpSu-n9j25bk-xMf4FPo-5jfnVKRePcYDAqBCg5JcyKFoGuGEyg1ULfBAkO1fXKr5PI8iPNmYUeq-NTvoVG-MWl8L48SHippZ_67CCbm5rX7NwGtvMF4Tii_HnqC8bZNUApTSUqrRerBw-llnXbTNDFFFFlPYnFTUgRKqQ5iarl34feeEU9h6YyxET9KkrZ3aMI0-FExu6g1Rt-EAaO4F9dph7bP-1fAXEEx87CPg8nN"
-                />
-                <span className="text-sm font-semibold">Add to Apple Wallet</span>
-              </button>
-              <button className="w-full flex items-center gap-3 p-4 bg-white text-[#5f6368] border-2 border-slate-100 hover:bg-slate-50 transition-colors rounded-2xl">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  alt="Google Wallet"
-                  className="w-5 h-5"
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuCvSlCN2ldAT9C9f6MP6SEDeInfVa05zFv2A-IGbLj3Rq-njuXfIcJ8-rmhO_Fi5shQ6LsZoHhX15b7kaUl1hl5vDPN11bUwRXgz8Ut4A3c2mpE4JZDqtDXiEPN7QGnk5_7Xr-wQ9iIXnWYIl0yYQ4ohWQoVzA-8HQHi4uoFvUrweWHQ47a4nQvSsOJsfVwjviuQWo-lHBGKhMu1qnW_a0rn83im24RFpyzA9Jq1jADTDHerRHUFcdwng22wxlADsaFTME2lCJRQCU-"
-                />
-                <span className="text-sm font-semibold">Add to Google Wallet</span>
-              </button>
-            </div>
+            <h3 className="font-headline font-bold text-lg text-primary">Actions</h3>
+            <MedicalCardActions canDownload={hasActiveCard} />
           </div>
 
-          {/* Usage Info */}
           <div className="bg-primary/5 p-6 rounded-3xl space-y-4">
             <div className="flex items-start gap-3">
               <Icon name="info" className="text-primary mt-0.5" />
               <div className="space-y-1">
-                <p className="text-sm font-bold text-primary">Digital Card Policy</p>
+                <p className="text-sm font-bold text-primary">Utilisation de la carte</p>
                 <p className="text-xs text-on-surface-variant leading-relaxed">
-                  This digital card is a valid substitute for physical membership ID at all VSC Club health facilities and affiliated pharmacies.
+                  Cette carte numérique est un substitut valide à la carte physique dans tout le
+                  réseau Vita Santé et ses pharmacies affiliées.
                 </p>
               </div>
             </div>
             <div className="flex items-center justify-between pt-2">
               <span className="text-[10px] font-bold text-outline uppercase tracking-wider">
-                Status: {enrollmentStatus === "ACTIVE" ? "Active" : enrollmentStatus}
+                Statut: {enrollmentStatus}
               </span>
               {enrollmentStatus === "ACTIVE" && (
                 <div className="w-2 h-2 rounded-full bg-secondary animate-pulse" />
@@ -205,40 +196,63 @@ export default async function MedicalCardPage() {
         </div>
       </div>
 
-      {/* Health Snapshot Section */}
-      <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="bg-surface-container-low p-6 rounded-[2rem] border-none">
-          <div className="flex items-center gap-4 mb-4">
-            <div className="w-12 h-12 rounded-2xl bg-tertiary-container/10 flex items-center justify-center">
-              <Icon name="bloodtype" className="text-tertiary" />
-            </div>
-            <div>
-              <p className="text-xs text-on-surface-variant font-medium">Blood Type</p>
-              <p className="text-xl font-bold text-on-surface">O Positive</p>
-            </div>
-          </div>
+      {/* Plan Coverage Summary — real data only, no fake blood-type/vaccination. */}
+      {hasActiveCard && enrollment?.plans && (
+        <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6">
+          <SummaryCard
+            icon="medical_services"
+            tone="primary"
+            label="Forfait"
+            value={planName ?? "—"}
+          />
+          <SummaryCard
+            icon="event_repeat"
+            tone="secondary"
+            label="Visites incluses par an"
+            value={enrollment.plans.visits_per_year ? String(enrollment.plans.visits_per_year) : "—"}
+          />
+          <SummaryCard
+            icon="account_balance_wallet"
+            tone="tertiary"
+            label="Crédits restants"
+            value={
+              visitsRemaining !== null && visitsTotal !== null
+                ? `${visitsRemaining} / ${visitsTotal}`
+                : "—"
+            }
+          />
         </div>
-        <div className="bg-surface-container-low p-6 rounded-[2rem] border-none">
-          <div className="flex items-center gap-4 mb-4">
-            <div className="w-12 h-12 rounded-2xl bg-primary-container/10 flex items-center justify-center">
-              <Icon name="history_edu" className="text-primary" />
-            </div>
-            <div>
-              <p className="text-xs text-on-surface-variant font-medium">Plan Coverage</p>
-              <p className="text-xl font-bold text-on-surface">{planName}</p>
-            </div>
-          </div>
+      )}
+    </div>
+  );
+}
+
+function SummaryCard({
+  icon,
+  tone,
+  label,
+  value,
+}: {
+  icon: string;
+  tone: "primary" | "secondary" | "tertiary";
+  label: string;
+  value: string;
+}) {
+  const toneMap = {
+    primary: "bg-primary-fixed/20 text-primary",
+    secondary: "bg-secondary-fixed/20 text-secondary",
+    tertiary: "bg-tertiary-fixed/20 text-tertiary",
+  }[tone];
+
+  return (
+    <div className="bg-surface-container-low p-6 rounded-[2rem]">
+      <div className="flex items-center gap-4">
+        <div className={`w-12 h-12 rounded-2xl flex items-center justify-center ${toneMap}`}>
+          <Icon name={icon} />
         </div>
-        <div className="bg-surface-container-low p-6 rounded-[2rem] border-none">
-          <div className="flex items-center gap-4 mb-4">
-            <div className="w-12 h-12 rounded-2xl bg-secondary-container/20 flex items-center justify-center">
-              <Icon name="vaccines" className="text-secondary" />
-            </div>
-            <div>
-              <p className="text-xs text-on-surface-variant font-medium">Vaccination</p>
-              <p className="text-xl font-bold text-on-surface">Up to Date</p>
-            </div>
-          </div>
+        <div>
+          <p className="text-xs text-on-surface-variant font-medium">{label}</p>
+          <p className="text-xl font-bold text-on-surface">{value}</p>
         </div>
       </div>
     </div>

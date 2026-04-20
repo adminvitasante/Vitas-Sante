@@ -2,6 +2,7 @@ import { auth } from "@/lib/auth";
 import { getAffiliateDashboard } from "@/lib/server/queries";
 import { TopBar } from "@/components/layout/top-bar";
 import { Icon } from "@/components/ui/icon";
+import { ReferralLink } from "@/components/shared/referral-link";
 import { redirect } from "next/navigation";
 
 export default async function MarketingPage() {
@@ -28,8 +29,6 @@ export default async function MarketingPage() {
     );
   }
 
-  const referralLink = `vitasante.club/ref/${affiliate.partner_code}`;
-
   return (
     <>
       <TopBar
@@ -52,14 +51,7 @@ export default async function MarketingPage() {
               <h2 className="text-xl font-headline font-bold text-primary mb-2">Your Unique Referral Link</h2>
               <p className="text-sm text-on-surface-variant">Share this personalized URL to track your referrals and commissions accurately.</p>
             </div>
-            <div className="flex-1 w-full flex items-center gap-2">
-              <div className="flex-1 bg-surface-container-low px-6 py-4 rounded-xl font-mono text-sm text-primary border-b-2 border-primary">
-                {referralLink}
-              </div>
-              <button className="bg-primary text-white p-4 rounded-xl hover:bg-primary-container transition-colors">
-                <Icon name="content_copy" className="block" />
-              </button>
-            </div>
+            <ReferralLink partnerCode={affiliate.partner_code} />
           </div>
         </div>
       </section>
@@ -157,17 +149,13 @@ export default async function MarketingPage() {
           <h3 className="text-xl font-headline font-bold text-on-surface mb-6">Quick Reference</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="flex items-start gap-4">
-              <Icon name="link" className="text-primary mt-1" />
-              <div>
-                <p className="font-bold text-on-surface text-sm mb-1">Referral Link</p>
-                <p className="text-sm text-primary font-mono">{referralLink}</p>
-              </div>
-            </div>
-            <div className="flex items-start gap-4">
               <Icon name="tag" className="text-primary mt-1" />
               <div>
                 <p className="font-bold text-on-surface text-sm mb-1">Partner Code</p>
                 <p className="text-sm text-primary font-mono">{affiliate.partner_code}</p>
+                <p className="text-xs text-on-surface-variant mt-1">
+                  Le lien de parrainage complet est en haut de la page. Cliquez pour le copier.
+                </p>
               </div>
             </div>
             <div className="flex items-start gap-4">

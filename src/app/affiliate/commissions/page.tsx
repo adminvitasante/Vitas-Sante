@@ -240,17 +240,16 @@ export default async function CommissionsPage() {
         </div>
         <div className="flex gap-16">
           <div>
-            <div className="text-[11px] font-bold text-slate-400 uppercase tracking-widest mb-4">Legal</div>
+            <div className="text-[11px] font-bold text-slate-400 uppercase tracking-widest mb-4">Besoin d&apos;aide?</div>
             <ul className="space-y-2 text-sm font-medium text-on-surface-variant">
-              <li><a className="hover:text-primary" href="#">Payment Terms</a></li>
-              <li><a className="hover:text-primary" href="#">Compliance Policy</a></li>
-            </ul>
-          </div>
-          <div>
-            <div className="text-[11px] font-bold text-slate-400 uppercase tracking-widest mb-4">Account</div>
-            <ul className="space-y-2 text-sm font-medium text-on-surface-variant">
-              <li><a className="hover:text-primary" href="#">Bank Details</a></li>
-              <li><a className="hover:text-primary" href="#">Notification Settings</a></li>
+              <li>
+                <a className="hover:text-primary" href="mailto:support@vitasante.ht?subject=Question%20commissions">
+                  support@vitasante.ht
+                </a>
+              </li>
+              <li>
+                <a className="hover:text-primary" href="/affiliate/support">Centre d&apos;aide</a>
+              </li>
             </ul>
           </div>
         </div>

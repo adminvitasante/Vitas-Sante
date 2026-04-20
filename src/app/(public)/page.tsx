@@ -21,7 +21,7 @@ export default function HomePage() {
                   S&apos;inscrire maintenant
                 </button>
               </Link>
-              <Link href="/network">
+              <Link href="/plans">
                 <button className="px-8 py-4 rounded-xl font-headline font-bold text-lg text-primary hover:bg-surface-container-high transition-colors">
                   Voir le r&eacute;seau
                 </button>
@@ -115,7 +115,7 @@ export default function HomePage() {
                   $1-$10 per visit
                 </li>
               </ul>
-              <Link href="/auth/signup" className="w-full mt-auto">
+              <Link href="/auth/signup?plan=essential" className="w-full mt-auto">
                 <button className="w-full py-4 border-2 border-primary text-primary font-bold rounded-xl hover:bg-primary hover:text-white transition-colors">Select Essential</button>
               </Link>
             </div>
@@ -142,7 +142,7 @@ export default function HomePage() {
                   $1-$10 per visit
                 </li>
               </ul>
-              <Link href="/auth/signup" className="w-full mt-auto">
+              <Link href="/auth/signup?plan=advantage" className="w-full mt-auto">
                 <button className="w-full py-4 bg-white text-primary font-bold rounded-xl hover:bg-opacity-90 transition-opacity">Select Advantage</button>
               </Link>
             </div>
@@ -168,7 +168,7 @@ export default function HomePage() {
                   $1-$10 per visit
                 </li>
               </ul>
-              <Link href="/auth/signup" className="w-full mt-auto">
+              <Link href="/auth/signup?plan=premium" className="w-full mt-auto">
                 <button className="w-full py-4 border-2 border-primary text-primary font-bold rounded-xl hover:bg-primary hover:text-white transition-colors">Select Premium</button>
               </Link>
             </div>
@@ -247,9 +247,9 @@ export default function HomePage() {
                   <Icon name="map" filled size="xl" className="text-primary mb-4" />
                   <h4 className="font-headline font-bold text-xl text-primary mb-2">Interactive Network Map</h4>
                   <p className="text-sm text-on-surface-variant mb-6">Explore our growing list of 50+ affiliated health partners across the nation.</p>
-                  <Link href="/network">
+                  <Link href="/plans">
                     <button className="bg-primary text-white px-6 py-3 rounded-lg font-bold text-sm hover:opacity-90 transition-all">
-                      Open Network Explorer
+                      Explorer les forfaits
                     </button>
                   </Link>
                 </div>
@@ -270,9 +270,9 @@ export default function HomePage() {
               <Link href="/auth/signup">
                 <button className="bg-white text-primary font-bold px-10 py-4 rounded-xl text-lg hover:bg-surface-container-lowest transition-colors">Start Your Journey</button>
               </Link>
-              <Link href="/contact">
+              <a href="mailto:support@vitasante.ht?subject=Demande%20d%27information">
                 <button className="bg-primary-container/30 border border-white/20 text-white font-bold px-10 py-4 rounded-xl text-lg hover:bg-white/10 transition-colors">Contact Our Advisors</button>
-              </Link>
+              </a>
             </div>
           </div>
         </div>

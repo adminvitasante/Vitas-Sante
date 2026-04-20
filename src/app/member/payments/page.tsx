@@ -69,14 +69,13 @@ export default async function PaymentsPage() {
 
       {/* Payment Actions */}
       <section className="flex flex-wrap gap-3 mb-8">
-        <button className="inline-flex items-center px-5 py-3 bg-primary text-white rounded-xl font-bold text-sm hover:shadow-lg transition-shadow">
-          <Icon name="credit_card" size="sm" className="mr-2" />
-          Make a Payment
-        </button>
-        <button className="inline-flex items-center px-5 py-3 bg-surface-container-low text-on-surface rounded-xl font-bold text-sm hover:bg-surface-container-high transition-colors">
+        <a
+          href="mailto:support@vitasante.ht?subject=Mise%20%C3%A0%20jour%20moyen%20de%20paiement"
+          className="inline-flex items-center px-5 py-3 bg-surface-container-low text-on-surface rounded-xl font-bold text-sm hover:bg-surface-container-high transition-colors"
+        >
           <Icon name="account_balance" size="sm" className="mr-2" />
-          Update Payment Method
-        </button>
+          Mettre à jour le moyen de paiement
+        </a>
       </section>
 
       {!hasData ? (

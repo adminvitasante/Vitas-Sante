@@ -186,12 +186,17 @@ export default async function AffiliateDashboard() {
       <footer className="border-t border-slate-100 mt-12">
         <div className="flex flex-col md:flex-row justify-between items-center py-12 w-full max-w-7xl mx-auto">
           <div className="mb-6 md:mb-0">
-            <p className="font-inter text-xs text-slate-500">&copy; 2024 Vita Sant&eacute; Club. All Rights Reserved.</p>
+            <p className="font-inter text-xs text-slate-500">
+              &copy; {new Date().getFullYear()} Vita Sant&eacute; Club. Tous droits r&eacute;serv&eacute;s.
+            </p>
           </div>
           <div className="flex flex-wrap justify-center gap-8">
-            <a className="font-inter text-xs text-slate-400 hover:text-blue-600 transition-colors" href="#">Privacy Policy</a>
-            <a className="font-inter text-xs text-slate-400 hover:text-blue-600 transition-colors" href="#">Terms of Service</a>
-            <a className="font-inter text-xs text-slate-400 hover:text-blue-600 transition-colors" href="#">Compliance</a>
+            <a
+              className="font-inter text-xs text-slate-400 hover:text-primary transition-colors"
+              href="mailto:support@vitasante.ht"
+            >
+              support@vitasante.ht
+            </a>
           </div>
         </div>
       </footer>
