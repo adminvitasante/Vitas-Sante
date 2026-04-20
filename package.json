@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "migrate": "tsx scripts/apply-migrations.ts",
+    "grant-admin": "tsx scripts/grant-admin.ts",
     "test": "vitest run",
     "test:watch": "vitest"
   },
