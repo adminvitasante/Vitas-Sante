@@ -1,14 +1,16 @@
-import { auth } from "@/lib/auth";
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import { TopBar } from "@/components/layout/top-bar";
 import { Icon } from "@/components/ui/icon";
 import { getAdminDashboard } from "@/lib/server/queries";
+import { getSessionWithCapability } from "@/lib/server/authz";
 
 export default async function AdminDashboard() {
-  const session = await auth();
-  if (!session?.user) redirect("/auth/signin");
+  const me = await getSessionWithCapability("ADMIN");
+  if (!me) redirect("/auth/signin");
 
   const { stats, recentEvents } = await getAdminDashboard();
+  const session = { user: { name: me.name } };
 
   return (
     <div className="min-h-screen px-8 py-8">
@@ -44,18 +46,21 @@ export default async function AdminDashboard() {
           </h3>
         </div>
 
-        <div className="bg-surface-container-lowest p-6 rounded-3xl shadow-[0_20px_40px_rgba(0,27,63,0.04)] border-l-4 border-error">
+        <Link
+          href="/admin/members"
+          className="bg-surface-container-lowest p-6 rounded-3xl shadow-[0_20px_40px_rgba(0,27,63,0.04)] border-l-4 border-error hover:shadow-lg transition-shadow block"
+        >
           <div className="flex justify-between items-start mb-4">
             <span className="p-2 bg-error-container rounded-lg">
               <Icon name="pending_actions" className="text-error" />
             </span>
-            <span className="text-error text-xs font-bold font-headline">Review</span>
+            <span className="text-error text-xs font-bold font-headline">Review →</span>
           </div>
-          <p className="text-sm text-on-surface-variant font-medium">Pending Enrollments</p>
+          <p className="text-sm text-on-surface-variant font-medium">Adhésions en attente</p>
           <h3 className="text-3xl font-headline font-black text-primary mt-1">
             {stats.pendingEnrollments.toLocaleString()}
           </h3>
-        </div>
+        </Link>
 
         <div className="bg-surface-container-lowest p-6 rounded-3xl shadow-[0_20px_40px_rgba(0,27,63,0.04)]">
           <div className="flex justify-between items-start mb-4">
@@ -69,17 +74,21 @@ export default async function AdminDashboard() {
           </h3>
         </div>
 
-        <div className="bg-surface-container-lowest p-6 rounded-3xl shadow-[0_20px_40px_rgba(0,27,63,0.04)] border-l-4 border-tertiary">
+        <Link
+          href="/admin/doctors"
+          className="bg-surface-container-lowest p-6 rounded-3xl shadow-[0_20px_40px_rgba(0,27,63,0.04)] border-l-4 border-tertiary hover:shadow-lg transition-shadow block"
+        >
           <div className="flex justify-between items-start mb-4">
             <span className="p-2 bg-tertiary-fixed rounded-lg">
               <Icon name="hourglass_empty" className="text-tertiary" />
             </span>
+            <span className="text-tertiary text-xs font-bold font-headline">Review →</span>
           </div>
-          <p className="text-sm text-on-surface-variant font-medium">Pending Doctors</p>
+          <p className="text-sm text-on-surface-variant font-medium">Médecins à vérifier</p>
           <h3 className="text-3xl font-headline font-black text-primary mt-1">
             {stats.pendingDoctors.toLocaleString()}
           </h3>
-        </div>
+        </Link>
       </section>
 
       {/* Recent Events */}
