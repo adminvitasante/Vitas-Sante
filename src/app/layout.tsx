@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Manrope } from "next/font/google";
 import { Providers } from "@/components/providers";
+import { DemoBanner } from "@/components/shared/demo-banner";
 import "./globals.css";
 
 const inter = Inter({
@@ -36,7 +37,10 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${manrope.variable} font-body bg-surface text-on-surface antialiased`}
       >
-        <Providers>{children}</Providers>
+        <Providers>
+          <DemoBanner />
+          {children}
+        </Providers>
       </body>
     </html>
   );

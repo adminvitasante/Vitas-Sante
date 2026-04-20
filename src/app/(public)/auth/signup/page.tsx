@@ -128,9 +128,12 @@ export default function SignUpPage() {
       }
 
       // If the server returned a Stripe checkout URL, redirect there to complete payment.
+      // Demo mode returns demoMode:true (no payment needed, enrollment auto-activated).
       // Otherwise (diaspora case, or checkout failure), send to signin.
       if (data.checkoutUrl) {
         window.location.href = data.checkoutUrl;
+      } else if (data.demoMode) {
+        window.location.href = "/auth/signin?demo=1";
       } else {
         window.location.href = "/auth/signin?registered=1";
       }

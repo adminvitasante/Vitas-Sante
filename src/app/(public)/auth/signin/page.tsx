@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, FormEvent } from "react";
+import { useState, useEffect, FormEvent } from "react";
 import { signIn, getSession } from "next-auth/react";
 import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/ui/icon";
@@ -28,6 +28,21 @@ export default function SignInPage() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [notice, setNotice] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("demo") === "1") {
+      setNotice(
+        "Mode démonstration: votre compte et votre carte membre sont prêts. Connectez-vous pour voir votre tableau de bord."
+      );
+    } else if (params.get("registered") === "1") {
+      setNotice("Compte créé. Connectez-vous avec votre email et mot de passe.");
+    } else if (params.get("enrolled") === "1") {
+      setNotice("Paiement reçu. Connectez-vous pour accéder à votre espace.");
+    }
+  }, []);
 
   async function doLogin(loginEmail: string, loginPassword: string) {
     setError(null);
@@ -86,6 +101,13 @@ export default function SignInPage() {
           onSubmit={handleSubmit}
           className="rounded-3xl bg-surface-container-lowest p-8 shadow-clinical"
         >
+          {notice && (
+            <div className="mb-6 flex items-start gap-2 rounded-xl bg-secondary-container px-4 py-3 text-sm text-on-secondary-container">
+              <Icon name="check_circle" size="sm" className="mt-0.5" />
+              <span>{notice}</span>
+            </div>
+          )}
+
           {error && (
             <div className="mb-6 flex items-center gap-2 rounded-xl bg-error-container px-4 py-3 text-sm text-on-error-container">
               <Icon name="error" size="sm" />

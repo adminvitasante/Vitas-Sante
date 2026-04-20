@@ -134,6 +134,33 @@ export async function addBeneficiaryAndCheckout(params: {
   const priceCents =
     plan.yearly_price_cents + (isSelf ? 0 : plan.dependent_fee_cents);
 
+  // DEMO MODE: activate enrollment directly, skip Stripe.
+  if (process.env.DEMO_MODE === "true") {
+    await supabase
+      .from("subscriptions")
+      .update({ status: "ACTIVE" })
+      .eq("id", subscriptionId);
+
+    await supabase
+      .from("enrollment")
+      .update({ status: "UNDER_REVIEW", enrolled_at: new Date().toISOString() })
+      .eq("id", enrollment.id)
+      .eq("status", "DRAFT");
+
+    const SEED_ADMIN_ID = "a0000000-0000-0000-0000-000000000001";
+    await supabase.rpc("approve_enrollment", {
+      p_enrollment_id: enrollment.id,
+      p_admin_id: SEED_ADMIN_ID,
+    });
+
+    return {
+      success: true as const,
+      url: params.successUrl,
+      enrollmentId: enrollment.id,
+      demoMode: true,
+    };
+  }
+
   // 8. Stripe checkout.
   const session = await stripe.checkout.sessions.create({
     mode: "payment",

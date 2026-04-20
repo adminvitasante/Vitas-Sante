@@ -78,6 +78,25 @@ export async function POST(req: NextRequest) {
   // If a plan was selected AND the user is self-paying (not diaspora),
   // create the subscription + enrollment + Stripe checkout session.
   if (plan && !isDiaspora) {
+    // Demo mode: skip Stripe entirely, activate the enrollment immediately.
+    if (process.env.DEMO_MODE === "true") {
+      const demoResult = await createAndActivateDemoEnrollment({
+        userId: user.id,
+        planSlug: plan,
+        referralCode: referralCode ?? null,
+      });
+      return NextResponse.json(
+        {
+          success: true,
+          userId: user.id,
+          demoMode: true,
+          enrollmentId: demoResult.enrollmentId,
+          memberIdCode: demoResult.memberIdCode,
+        },
+        { status: 201 }
+      );
+    }
+
     const checkout = await createSubscriptionAndCheckout({
       userId: user.id,
       planSlug: plan,
@@ -87,8 +106,6 @@ export async function POST(req: NextRequest) {
     });
 
     if (!checkout.success) {
-      // User was created but checkout failed. Return the user so they can sign in
-      // and complete payment from the dashboard.
       return NextResponse.json(
         { success: true, userId: user.id, checkoutError: checkout.error },
         { status: 201 }
@@ -103,6 +120,86 @@ export async function POST(req: NextRequest) {
 
   // Diaspora case: no plan to pay yet. They'll add beneficiaries from the dashboard.
   return NextResponse.json({ success: true, userId: user.id }, { status: 201 });
+}
+
+// ── Demo-mode enrollment activation ────────────────────────
+// Bypasses Stripe entirely: creates subscription as ACTIVE, enrollment as
+// ACTIVE with generated member_id_code + credit account. Used when
+// DEMO_MODE=true (env var) so a client can test the full signup → card flow
+// without real payment credentials.
+
+async function createAndActivateDemoEnrollment(params: {
+  userId: string;
+  planSlug: string;
+  referralCode: string | null;
+}) {
+  const { data: plan } = await supabase
+    .from("plans")
+    .select("*")
+    .eq("slug", params.planSlug)
+    .eq("is_active", true)
+    .single();
+
+  if (!plan) return { enrollmentId: null, memberIdCode: null };
+
+  // Active subscription (no Stripe id).
+  const { data: sub } = await supabase
+    .from("subscriptions")
+    .insert({
+      payer_id: params.userId,
+      status: "ACTIVE",
+    })
+    .select("id")
+    .single();
+
+  if (!sub) return { enrollmentId: null, memberIdCode: null };
+
+  // Create enrollment in UNDER_REVIEW so we can funnel through the RPC.
+  const { data: enrollment } = await supabase
+    .from("enrollment")
+    .insert({
+      subscription_id: sub.id,
+      beneficiary_id: params.userId,
+      plan_id: plan.id,
+      status: "UNDER_REVIEW",
+      enrolled_at: new Date().toISOString(),
+    })
+    .select("id")
+    .single();
+
+  if (!enrollment) return { enrollmentId: null, memberIdCode: null };
+
+  // Attach referral if provided.
+  if (params.referralCode) {
+    const { data: affiliate } = await supabase
+      .from("affiliates")
+      .select("id, tier")
+      .eq("partner_code", params.referralCode)
+      .eq("status", "ACTIVE")
+      .maybeSingle();
+
+    if (affiliate) {
+      const rate = affiliate.tier === "DIAMOND" ? 20 : affiliate.tier === "ELITE" ? 15 : 10;
+      await supabase.from("referrals").insert({
+        affiliate_id: affiliate.id,
+        enrollment_id: enrollment.id,
+        commission_rate_pct: rate,
+        idempotency_key: `referral:${enrollment.id}`,
+      });
+    }
+  }
+
+  // Approve it using the seed-admin actor. The RPC handles member ID
+  // generation, credit account creation, capability grant, events.
+  const SEED_ADMIN_ID = "a0000000-0000-0000-0000-000000000001";
+  const { data: approved } = await supabase.rpc("approve_enrollment", {
+    p_enrollment_id: enrollment.id,
+    p_admin_id: SEED_ADMIN_ID,
+  });
+
+  const memberIdCode = (approved as { member_id_code?: string } | null)?.member_id_code ?? null;
+
+  return { enrollmentId: enrollment.id, memberIdCode };
 }
 
 async function createSubscriptionAndCheckout(params: {

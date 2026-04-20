@@ -83,6 +83,21 @@ export async function createSponsorGrant(params: {
     return { success: false, error: grantErr?.message ?? "Erreur création grant" };
   }
 
+  // DEMO MODE: mark grant FUNDED directly, skip Stripe.
+  if (process.env.DEMO_MODE === "true") {
+    await supabase
+      .from("sponsor_grants")
+      .update({ status: "FUNDED" })
+      .eq("id", grant.id);
+
+    return {
+      success: true,
+      url: params.successUrl,
+      grantId: grant.id,
+      demoMode: true,
+    };
+  }
+
   const session = await stripe.checkout.sessions.create({
     mode: "payment",
     success_url: params.successUrl,
