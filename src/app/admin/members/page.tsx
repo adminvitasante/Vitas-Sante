@@ -5,6 +5,8 @@ import { getAdminMembers } from "@/lib/server/queries";
 import { getSessionWithCapability } from "@/lib/server/authz";
 import { getPendingEnrollments } from "@/lib/server/admin-actions";
 import { EnrollmentsReview } from "./enrollments-review";
+import { MemberRowActions } from "./member-row-actions";
+import type { CapabilityType } from "@/types/database";
 
 export default async function AdminMembersPage() {
   const me = await getSessionWithCapability("ADMIN");
@@ -110,24 +112,16 @@ export default async function AdminMembersPage() {
                       </td>
                       <td className="px-6 py-5 text-sm text-on-surface-variant">{user.email}</td>
                       <td className="px-6 py-5">
-                        <div className="flex flex-wrap gap-1.5">
-                          {user.capabilities && user.capabilities.length > 0 ? (
-                            user.capabilities.map((cap, i) => (
-                              <span
-                                key={i}
-                                className={`text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider ${
-                                  cap.status === "ACTIVE"
-                                    ? "bg-secondary-container text-secondary"
-                                    : "bg-surface-container-high text-on-surface-variant line-through"
-                                }`}
-                              >
-                                {cap.capability}
-                              </span>
-                            ))
-                          ) : (
-                            <span className="text-xs text-outline">Aucune</span>
-                          )}
-                        </div>
+                        <MemberRowActions
+                          userId={user.id}
+                          capabilities={
+                            (user.capabilities ?? []).map((c) => ({
+                              capability: c.capability as CapabilityType,
+                              status: c.status as "ACTIVE" | "SUSPENDED" | "REVOKED",
+                            }))
+                          }
+                          isSelf={user.id === me.id}
+                        />
                       </td>
                       <td className="px-6 py-5 text-sm text-on-surface-variant">
                         {user.created_at ? new Date(user.created_at).toLocaleDateString("fr-FR") : "—"}

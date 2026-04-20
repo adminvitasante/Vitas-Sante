@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Icon } from "@/components/ui/icon";
 
 export default function AboutPage() {
@@ -23,12 +24,18 @@ export default function AboutPage() {
               The Most Comprehensive Concierge Medicine Available.
             </h1>
             <div className="flex gap-4">
-              <button className="bg-secondary text-on-secondary px-8 py-4 xl rounded-xl font-bold tracking-wide hover:brightness-110 transition-all">
-                Join the Club
-              </button>
-              <button className="bg-white/10 backdrop-blur-md text-white border border-white/20 px-8 py-4 xl rounded-xl font-bold tracking-wide hover:bg-white/20 transition-all">
-                Our Network
-              </button>
+              <Link
+                href="/auth/signup"
+                className="bg-secondary text-on-secondary px-8 py-4 rounded-xl font-bold tracking-wide hover:brightness-110 transition-all"
+              >
+                Rejoindre le Club
+              </Link>
+              <Link
+                href="/plans"
+                className="bg-white/10 backdrop-blur-md text-white border border-white/20 px-8 py-4 rounded-xl font-bold tracking-wide hover:bg-white/20 transition-all"
+              >
+                Notre réseau
+              </Link>
             </div>
           </div>
         </div>
@@ -233,12 +240,18 @@ export default function AboutPage() {
             Sant&eacute; Club today.
           </p>
           <div className="flex flex-col md:flex-row justify-center gap-6 relative z-10">
-            <button className="bg-white text-primary px-10 py-5 rounded-xl font-bold text-lg hover:bg-primary-fixed transition-colors">
-              Apply for Membership
-            </button>
-            <button className="bg-primary-container text-white border border-white/20 px-10 py-5 rounded-xl font-bold text-lg hover:bg-primary/50 transition-colors">
-              Book a Consultation
-            </button>
+            <Link
+              href="/auth/signup"
+              className="bg-white text-primary px-10 py-5 rounded-xl font-bold text-lg hover:bg-primary-fixed transition-colors"
+            >
+              Devenir membre
+            </Link>
+            <a
+              href="mailto:support@vitasante.ht?subject=Prendre%20rendez-vous"
+              className="bg-primary-container text-white border border-white/20 px-10 py-5 rounded-xl font-bold text-lg hover:bg-primary/50 transition-colors"
+            >
+              Prendre rendez-vous
+            </a>
           </div>
         </div>
       </section>
