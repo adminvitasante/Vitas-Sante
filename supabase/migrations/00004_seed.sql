@@ -41,11 +41,12 @@ ON CONFLICT (slug) DO NOTHING;
 
 -- ────────────────────────────────────────────────────────────
 -- DEMO USERS
+-- All demo accounts use the password "dev-password" (bcrypt-hashed below).
 -- ────────────────────────────────────────────────────────────
 
 -- Admin
 INSERT INTO users (id, email, name, phone, password_hash, locale)
-VALUES ('a0000000-0000-0000-0000-000000000001', 'admin@vitasante.ht', 'Admin Vita Santé', '+509 0000 0001', 'dev-password', 'fr')
+VALUES ('a0000000-0000-0000-0000-000000000001', 'admin@vitasante.ht', 'Admin Vita Santé', '+509 0000 0001', '$2b$12$/7bQG5xILe191Qa4uGTiK.p5Wf5Y5PqGgL6DW2l00DCWzv98u08ES', 'fr')
 ON CONFLICT (id) DO NOTHING;
 
 INSERT INTO capabilities (user_id, capability, status)
@@ -54,7 +55,7 @@ ON CONFLICT (user_id, capability) DO NOTHING;
 
 -- Self-paying member in Haiti (PAYER + BENEFICIARY)
 INSERT INTO users (id, email, name, phone, password_hash, locale, is_diaspora)
-VALUES ('a0000000-0000-0000-0000-000000000002', 'jean@member.ht', 'Jean-Pierre Valcourt', '+509 3456 7890', 'dev-password', 'fr', false)
+VALUES ('a0000000-0000-0000-0000-000000000002', 'jean@member.ht', 'Jean-Pierre Valcourt', '+509 3456 7890', '$2b$12$/7bQG5xILe191Qa4uGTiK.p5Wf5Y5PqGgL6DW2l00DCWzv98u08ES', 'fr', false)
 ON CONFLICT (id) DO NOTHING;
 
 INSERT INTO capabilities (user_id, capability, status)
@@ -67,7 +68,7 @@ ON CONFLICT (user_id, capability) DO NOTHING;
 
 -- Diaspora payer in Miami (PAYER only — not a beneficiary)
 INSERT INTO users (id, email, name, phone, password_hash, locale, is_diaspora)
-VALUES ('a0000000-0000-0000-0000-000000000003', 'marie@diaspora.us', 'Marie Valcourt-Dupont', '+1 305 555 1234', 'dev-password', 'fr', true)
+VALUES ('a0000000-0000-0000-0000-000000000003', 'marie@diaspora.us', 'Marie Valcourt-Dupont', '+1 305 555 1234', '$2b$12$/7bQG5xILe191Qa4uGTiK.p5Wf5Y5PqGgL6DW2l00DCWzv98u08ES', 'fr', true)
 ON CONFLICT (id) DO NOTHING;
 
 INSERT INTO capabilities (user_id, capability, status)
@@ -76,7 +77,7 @@ ON CONFLICT (user_id, capability) DO NOTHING;
 
 -- Beneficiary in Haiti (funded by diaspora payer — BENEFICIARY only)
 INSERT INTO users (id, email, name, phone, password_hash, locale)
-VALUES ('a0000000-0000-0000-0000-000000000004', 'sarah@haiti.ht', 'Sarah Valcourt', '+509 4567 8901', 'dev-password', 'fr')
+VALUES ('a0000000-0000-0000-0000-000000000004', 'sarah@haiti.ht', 'Sarah Valcourt', '+509 4567 8901', '$2b$12$/7bQG5xILe191Qa4uGTiK.p5Wf5Y5PqGgL6DW2l00DCWzv98u08ES', 'fr')
 ON CONFLICT (id) DO NOTHING;
 
 INSERT INTO capabilities (user_id, capability, status)
@@ -85,7 +86,7 @@ ON CONFLICT (user_id, capability) DO NOTHING;
 
 -- Dependent child (funded by diaspora payer)
 INSERT INTO users (id, email, name, phone, password_hash, locale)
-VALUES ('a0000000-0000-0000-0000-000000000005', 'leo@haiti.ht', 'Leo Valcourt', NULL, 'dev-password', 'fr')
+VALUES ('a0000000-0000-0000-0000-000000000005', 'leo@haiti.ht', 'Leo Valcourt', NULL, '$2b$12$/7bQG5xILe191Qa4uGTiK.p5Wf5Y5PqGgL6DW2l00DCWzv98u08ES', 'fr')
 ON CONFLICT (id) DO NOTHING;
 
 INSERT INTO capabilities (user_id, capability, status)
@@ -94,7 +95,7 @@ ON CONFLICT (user_id, capability) DO NOTHING;
 
 -- Doctor
 INSERT INTO users (id, email, name, phone, password_hash, locale)
-VALUES ('a0000000-0000-0000-0000-000000000006', 'doctor@vitasante.ht', 'Dr. Jean-Baptiste Celestin', '+509 5678 9012', 'dev-password', 'fr')
+VALUES ('a0000000-0000-0000-0000-000000000006', 'doctor@vitasante.ht', 'Dr. Jean-Baptiste Celestin', '+509 5678 9012', '$2b$12$/7bQG5xILe191Qa4uGTiK.p5Wf5Y5PqGgL6DW2l00DCWzv98u08ES', 'fr')
 ON CONFLICT (id) DO NOTHING;
 
 INSERT INTO capabilities (user_id, capability, status)
@@ -107,7 +108,7 @@ ON CONFLICT (user_id) DO NOTHING;
 
 -- Affiliate
 INSERT INTO users (id, email, name, phone, password_hash, locale)
-VALUES ('a0000000-0000-0000-0000-000000000007', 'affiliate@vitasante.ht', 'Marie-Claire Dupont', '+509 6789 0123', 'dev-password', 'fr')
+VALUES ('a0000000-0000-0000-0000-000000000007', 'affiliate@vitasante.ht', 'Marie-Claire Dupont', '+509 6789 0123', '$2b$12$/7bQG5xILe191Qa4uGTiK.p5Wf5Y5PqGgL6DW2l00DCWzv98u08ES', 'fr')
 ON CONFLICT (id) DO NOTHING;
 
 INSERT INTO capabilities (user_id, capability, status)
@@ -120,7 +121,7 @@ ON CONFLICT (user_id) DO NOTHING;
 
 -- Sponsor (institutional payer)
 INSERT INTO users (id, email, name, phone, password_hash, locale)
-VALUES ('a0000000-0000-0000-0000-000000000008', 'sponsor@vitasante.ht', 'Fondation Haïti Santé', '+509 7890 1234', 'dev-password', 'fr')
+VALUES ('a0000000-0000-0000-0000-000000000008', 'sponsor@vitasante.ht', 'Fondation Haïti Santé', '+509 7890 1234', '$2b$12$/7bQG5xILe191Qa4uGTiK.p5Wf5Y5PqGgL6DW2l00DCWzv98u08ES', 'fr')
 ON CONFLICT (id) DO NOTHING;
 
 INSERT INTO capabilities (user_id, capability, status)

@@ -60,15 +60,13 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
         if (userErr || !user) return null;
 
-        // Verify password: bcrypt hash or plain dev-password fallback
+        // Verify password: bcrypt only. No plaintext fallback.
         const password = credentials.password as string;
-        if (user.password_hash?.startsWith("$2")) {
-          const valid = await bcrypt.compare(password, user.password_hash);
-          if (!valid) return null;
-        } else {
-          // Legacy/seed data: plain text comparison
-          if (password !== user.password_hash) return null;
+        if (!user.password_hash || !user.password_hash.startsWith("$2")) {
+          return null;
         }
+        const valid = await bcrypt.compare(password, user.password_hash);
+        if (!valid) return null;
 
         // Get capabilities to determine role
         const { data: capabilities } = await supabase

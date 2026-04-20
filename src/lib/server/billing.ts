@@ -1,6 +1,7 @@
 "use server";
 
 import { supabase } from "@/lib/supabase";
+import { stripe } from "@/lib/stripe";
 
 // ── Generate Invoice for Subscription ─────────────────────
 
@@ -134,6 +135,72 @@ export async function recordPayment(invoiceId: string, actorId: string) {
   }
 
   return { success: true };
+}
+
+// ── Create Stripe Checkout Session ────────────────────────
+// Signup and dashboard call this to kick off a Stripe-hosted payment.
+// Returns the Stripe URL the client should redirect to.
+
+export async function createStripeCheckout(params: {
+  payerUserId: string;
+  enrollmentId: string;
+  successUrl: string;
+  cancelUrl: string;
+}) {
+  // Load enrollment + plan + subscription.
+  const { data: enrollment, error: enrErr } = await supabase
+    .from("enrollment")
+    .select("id, subscription_id, plan_id, plans(slug, name_en, yearly_price_cents, dependent_fee_cents), subscriptions!inner(payer_id, stripe_subscription_id)")
+    .eq("id", params.enrollmentId)
+    .single();
+
+  if (enrErr || !enrollment) {
+    return { success: false, error: "Enrollment not found" };
+  }
+
+  const plan = enrollment.plans as unknown as {
+    slug: string;
+    name_en: string;
+    yearly_price_cents: number;
+    dependent_fee_cents: number;
+  };
+  const sub = enrollment.subscriptions as unknown as {
+    payer_id: string;
+    stripe_subscription_id: string | null;
+  };
+
+  if (sub.payer_id !== params.payerUserId) {
+    return { success: false, error: "Not authorized for this enrollment" };
+  }
+
+  // Create a one-off Stripe checkout session. Uses dynamic price_data so we
+  // don't have to pre-create Stripe products for every plan.
+  const session = await stripe.checkout.sessions.create({
+    mode: "payment",
+    success_url: params.successUrl,
+    cancel_url: params.cancelUrl,
+    client_reference_id: params.payerUserId,
+    metadata: {
+      subscriptionId: enrollment.subscription_id,
+      enrollmentId: enrollment.id,
+      planSlug: plan.slug,
+    },
+    line_items: [
+      {
+        price_data: {
+          currency: "usd",
+          product_data: {
+            name: `Vita Santé — ${plan.name_en}`,
+            description: `Annual membership for one beneficiary`,
+          },
+          unit_amount: plan.yearly_price_cents,
+        },
+        quantity: 1,
+      },
+    ],
+  });
+
+  return { success: true, url: session.url, sessionId: session.id };
 }
 
 // ── Get Payer's Invoices ──────────────────────────────────

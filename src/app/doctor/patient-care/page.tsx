@@ -2,6 +2,7 @@ import { auth } from "@/lib/auth";
 import { getDoctorDashboard } from "@/lib/server/queries";
 import { TopBar } from "@/components/layout/top-bar";
 import { Icon } from "@/components/ui/icon";
+import { VisitWorkflow } from "@/components/shared/visit-workflow";
 import Link from "next/link";
 
 export default async function PatientCarePage() {
@@ -57,6 +58,25 @@ export default async function PatientCarePage() {
         subtitle="Patient Care Dashboard"
         initials={initials}
       />
+
+      {/* Visit initiator + completer */}
+      {doctor.verification_status === "VERIFIED" && userId && (
+        <VisitWorkflow doctorId={doctor.id} doctorUserId={userId} />
+      )}
+
+      {doctor.verification_status !== "VERIFIED" && (
+        <div className="mb-6 rounded-3xl bg-amber-50 p-6 border border-amber-200">
+          <div className="flex gap-3">
+            <Icon name="warning" className="text-amber-700" />
+            <div>
+              <p className="font-bold text-amber-900">Compte non vérifié</p>
+              <p className="text-sm text-amber-800 mt-1">
+                Votre compte médecin est en statut {doctor.verification_status}. Vous ne pouvez pas recevoir de patients tant qu&apos;un administrateur ne vous a pas vérifié.
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Stats Overview */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">

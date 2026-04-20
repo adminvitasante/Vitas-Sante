@@ -47,6 +47,16 @@ export default async function DependentsPage() {
         initials={initials}
       />
 
+      <div className="mb-6 flex justify-end">
+        <Link
+          href="/member/dependents/new"
+          className="inline-flex items-center gap-2 rounded-xl bg-primary text-on-primary px-5 py-2.5 text-sm font-bold hover:opacity-90 transition-opacity"
+        >
+          <Icon name="person_add" size="sm" />
+          Ajouter un bénéficiaire
+        </Link>
+      </div>
+
       {/* Summary Row */}
       <section className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
         <div className="bg-surface-container-lowest rounded-3xl p-6 shadow-sm text-center">

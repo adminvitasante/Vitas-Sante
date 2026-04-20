@@ -21,6 +21,7 @@ export const sidebarConfigs: Record<string, SidebarConfig> = {
     items: [
       { label: "Dashboard", icon: "dashboard", href: "/dashboard" },
       { label: "Medical Card", icon: "medical_services", href: "/medical-card" },
+      { label: "Find a Doctor", icon: "stethoscope", href: "/doctors" },
       { label: "Dependents", icon: "groups", href: "/dependents" },
       { label: "Payments", icon: "payments", href: "/payments" },
       { label: "Profile", icon: "person", href: "/profile" },

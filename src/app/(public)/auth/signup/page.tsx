@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, FormEvent } from "react";
+import { useState, useEffect, FormEvent } from "react";
 import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/ui/icon";
 import Link from "next/link";
@@ -32,6 +32,7 @@ export default function SignUpPage() {
   const [step, setStep] = useState<Step>(1);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [referralCode, setReferralCode] = useState<string | null>(null);
   const [formData, setFormData] = useState<FormData>({
     email: "",
     password: "",
@@ -43,6 +44,14 @@ export default function SignUpPage() {
     country: "Haiti",
     plan: "advantage",
   });
+
+  // Capture ?ref=CODE from the URL so we can attribute the affiliate referral.
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const ref = new URLSearchParams(window.location.search).get("ref");
+      if (ref) setReferralCode(ref);
+    }
+  }, []);
 
   function updateField(field: keyof FormData, value: string) {
     setFormData((prev) => ({ ...prev, [field]: value }));
@@ -102,6 +111,7 @@ export default function SignUpPage() {
           phone: formData.phone,
           country: formData.country,
           plan: formData.plan,
+          referralCode,
         }),
       });
 
@@ -112,7 +122,13 @@ export default function SignUpPage() {
         return;
       }
 
-      window.location.href = "/auth/signin";
+      // If the server returned a Stripe checkout URL, redirect there to complete payment.
+      // Otherwise (diaspora case, or checkout failure), send to signin.
+      if (data.checkoutUrl) {
+        window.location.href = data.checkoutUrl;
+      } else {
+        window.location.href = "/auth/signin?registered=1";
+      }
     } catch {
       setError("Enrollment failed. Please try again.");
     } finally {

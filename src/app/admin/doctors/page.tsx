@@ -1,68 +1,93 @@
-import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { TopBar } from "@/components/layout/top-bar";
 import { Icon } from "@/components/ui/icon";
 import { getAdminDoctors } from "@/lib/server/queries";
+import { getSessionWithCapability } from "@/lib/server/authz";
+import { getDoctorApplications } from "@/lib/server/doctors";
+import { ApplicationsReview } from "./applications-review";
 
 function statusBadge(status: string) {
   switch (status) {
     case "VERIFIED":
       return "bg-tertiary-fixed text-on-tertiary-fixed";
     case "PENDING":
-      return "bg-error-container text-on-error-container";
+      return "bg-amber-100 text-amber-800";
     case "REJECTED":
-      return "bg-surface-container-high text-on-surface-variant";
+    case "REVOKED":
+      return "bg-error-container text-on-error-container";
     default:
       return "bg-surface-container-high text-on-surface-variant";
   }
 }
 
 export default async function AdminDoctorsPage() {
-  const session = await auth();
-  if (!session?.user) redirect("/auth/signin");
+  const me = await getSessionWithCapability("ADMIN");
+  if (!me) redirect("/auth/signin");
 
-  const doctors = await getAdminDoctors();
+  const [doctors, pendingApps] = await Promise.all([
+    getAdminDoctors(),
+    getDoctorApplications("PENDING"),
+  ]);
+
+  const initials = me.name.split(" ").map((w) => w[0]).join("").slice(0, 2).toUpperCase();
 
   return (
     <div className="min-h-screen px-8 py-8">
       <TopBar
         greeting="Doctor Network"
-        subtitle="Manage and verify healthcare professionals"
-        initials={session.user.name?.slice(0, 2).toUpperCase() || "AD"}
+        subtitle="Manage, verify, and onboard healthcare professionals"
+        initials={initials}
       />
 
-      {/* Stats Row */}
-      <section className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-        <div className="bg-surface-container-lowest p-6 rounded-3xl shadow-[0_20px_40px_rgba(0,27,63,0.04)] border-l-4 border-primary">
-          <p className="text-xs font-bold text-slate-400 uppercase tracking-tighter mb-1">Total Doctors</p>
-          <h3 className="text-3xl font-headline font-extrabold text-primary">{doctors.length}</h3>
-        </div>
-        <div className="bg-surface-container-lowest p-6 rounded-3xl shadow-[0_20px_40px_rgba(0,27,63,0.04)] border-l-4 border-secondary">
-          <p className="text-xs font-bold text-slate-400 uppercase tracking-tighter mb-1">Verified</p>
-          <h3 className="text-3xl font-headline font-extrabold text-secondary">
-            {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-            {doctors.filter((d: any) => d.verification_status === "VERIFIED").length}
-          </h3>
-        </div>
-        <div className="bg-surface-container-lowest p-6 rounded-3xl shadow-[0_20px_40px_rgba(0,27,63,0.04)] border-l-4 border-error">
-          <p className="text-xs font-bold text-slate-400 uppercase tracking-tighter mb-1">Pending Review</p>
-          <h3 className="text-3xl font-headline font-extrabold text-error">
-            {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-            {doctors.filter((d: any) => d.verification_status === "PENDING").length}
-          </h3>
-        </div>
+      {/* Stats */}
+      <section className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-10">
+        <StatCard
+          label="Total Doctors"
+          value={doctors.length}
+          icon="medical_services"
+          tone="primary"
+        />
+        <StatCard
+          label="Verified"
+          value={doctors.filter((d: { verification_status: string }) => d.verification_status === "VERIFIED").length}
+          icon="verified"
+          tone="secondary"
+        />
+        <StatCard
+          label="Pending Verification"
+          value={doctors.filter((d: { verification_status: string }) => d.verification_status === "PENDING").length}
+          icon="hourglass_empty"
+          tone="tertiary"
+        />
+        <StatCard
+          label="New Applications"
+          value={pendingApps.length}
+          icon="assignment_ind"
+          tone="error"
+        />
       </section>
 
-      {/* Doctors List */}
+      {/* Applications review */}
+      <ApplicationsReview applications={pendingApps} />
+
+      {/* Existing doctor registry */}
       {doctors.length > 0 ? (
         <section>
-          <h3 className="font-headline text-xl font-bold text-on-surface mb-6">Provider Registry</h3>
+          <h3 className="font-headline text-xl font-bold text-on-surface mb-6">
+            Provider Registry
+          </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-            {doctors.map((doctor: any) => (
+            {doctors.map((doctor: {
+              id: string;
+              specialty: string;
+              verification_status: string;
+              clinic_name: string | null;
+              region: string | null;
+              users: { name: string; email: string } | null;
+            }) => (
               <div
                 key={doctor.id}
-                className="bg-surface-container-lowest p-8 rounded-3xl flex items-start gap-6 shadow-[0_20px_40px_rgba(0,27,63,0.04)] hover:bg-white transition-all border border-transparent hover:border-outline-variant/20"
+                className="bg-surface-container-lowest p-8 rounded-3xl flex items-start gap-6 shadow-sm border border-transparent hover:border-outline-variant/20"
               >
                 <div className="h-16 w-16 rounded-xl bg-primary-fixed flex items-center justify-center text-primary font-bold text-lg shrink-0">
                   {doctor.users?.name?.slice(0, 2).toUpperCase() || "DR"}
@@ -72,12 +97,18 @@ export default async function AdminDoctorsPage() {
                     <h4 className="font-headline text-lg font-bold text-on-surface truncate">
                       {doctor.users?.name || "Unknown Doctor"}
                     </h4>
-                    <span className={`text-[10px] px-2 py-1 rounded font-bold shrink-0 ${statusBadge(doctor.verification_status)}`}>
+                    <span
+                      className={`text-[10px] px-2 py-1 rounded font-bold shrink-0 ${statusBadge(
+                        doctor.verification_status
+                      )}`}
+                    >
                       {doctor.verification_status}
                     </span>
                   </div>
                   {doctor.specialty && (
-                    <p className="text-secondary font-semibold text-sm uppercase tracking-wide mb-3">{doctor.specialty}</p>
+                    <p className="text-secondary font-semibold text-sm uppercase tracking-wide mb-3">
+                      {doctor.specialty}
+                    </p>
                   )}
                   <div className="space-y-1.5">
                     {doctor.users?.email && (
@@ -105,11 +136,44 @@ export default async function AdminDoctorsPage() {
           </div>
         </section>
       ) : (
-        <div className="bg-surface-container-lowest rounded-3xl p-12 text-center shadow-[0_20px_40px_rgba(0,27,63,0.04)]">
+        <div className="bg-surface-container-lowest rounded-3xl p-12 text-center shadow-sm">
           <Icon name="medical_services" className="text-outline !text-4xl mb-3" />
-          <p className="text-on-surface-variant font-medium">No doctors registered yet.</p>
+          <p className="text-on-surface-variant font-medium">Aucun médecin enregistré.</p>
         </div>
       )}
+    </div>
+  );
+}
+
+function StatCard({
+  label,
+  value,
+  icon,
+  tone,
+}: {
+  label: string;
+  value: number;
+  icon: string;
+  tone: "primary" | "secondary" | "tertiary" | "error";
+}) {
+  const toneClasses = {
+    primary: "border-primary bg-primary-fixed text-primary",
+    secondary: "border-secondary bg-secondary-fixed text-secondary",
+    tertiary: "border-tertiary bg-tertiary-fixed text-tertiary",
+    error: "border-error bg-error-container text-error",
+  }[tone];
+
+  return (
+    <div className={`bg-surface-container-lowest p-6 rounded-3xl shadow-sm border-l-4 ${toneClasses.split(" ")[0]}`}>
+      <div className="flex items-center justify-between mb-2">
+        <p className="text-xs font-bold text-on-surface-variant uppercase tracking-tighter">
+          {label}
+        </p>
+        <span className={`h-8 w-8 rounded-lg flex items-center justify-center ${toneClasses.split(" ").slice(1).join(" ")}`}>
+          <Icon name={icon} size="sm" />
+        </span>
+      </div>
+      <h3 className="text-3xl font-headline font-extrabold text-on-surface">{value}</h3>
     </div>
   );
 }

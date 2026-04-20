@@ -15,8 +15,9 @@ export function PublicFooter() {
           <h5 className="text-primary font-bold text-sm uppercase tracking-widest mb-2">Quick Links</h5>
           <Link href="/about" className="text-on-surface-variant hover:text-primary text-xs transition-colors">About Us</Link>
           <Link href="/plans" className="text-on-surface-variant hover:text-primary text-xs transition-colors">Medical Network</Link>
+          <Link href="/doctor-apply" className="text-on-surface-variant hover:text-primary text-xs transition-colors">Join as Doctor</Link>
+          <Link href="/affiliate-program" className="text-on-surface-variant hover:text-primary text-xs transition-colors">Become an Affiliate</Link>
           <Link href="#" className="text-on-surface-variant hover:text-primary text-xs transition-colors">Privacy Policy</Link>
-          <Link href="#" className="text-on-surface-variant hover:text-primary text-xs transition-colors">Contact</Link>
         </div>
         <div className="flex flex-col gap-6">
           <h5 className="text-primary font-bold text-sm uppercase tracking-widest">Connect With Us</h5>
