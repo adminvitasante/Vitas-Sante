@@ -9,8 +9,11 @@ import { deliverPendingEmails } from "@/lib/server/email";
 //   2. Email worker delivers pending EMAIL-channel notifications via Resend
 //   3. Subscription lifecycle: grace-period expiry → suspend → expire
 //
-// Wire via vercel.json:
-//   { "crons": [{ "path": "/api/cron", "schedule": "*/5 * * * *" }] }
+// Vercel Hobby plan allows only once-per-day crons. Set to 06:00 UTC
+// (~02:00 EDT, covers overnight activity). On Pro, swap to "*/5 * * * *"
+// for near-real-time delivery. For faster cadence on Hobby, trigger
+// this route manually or from an external scheduler (GitHub Actions,
+// Supabase pg_cron) with `Authorization: Bearer $CRON_SECRET`.
 
 export async function GET(req: NextRequest) {
   const authHeader = req.headers.get("authorization");
