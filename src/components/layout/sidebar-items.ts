@@ -93,6 +93,7 @@ export const sidebarConfigs: Record<string, SidebarConfig> = {
       { label: "Affiliates", icon: "handshake", href: "/affiliates" },
       { label: "Plan Config", icon: "tune", href: "/plans" },
       { label: "System Logs", icon: "terminal", href: "/logs" },
+      { label: "Design System", icon: "palette", href: "/design-system" },
     ],
     ctaLabel: "View System Logs",
     ctaIcon: "terminal",

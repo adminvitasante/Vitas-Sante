@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Manrope } from "next/font/google";
+import { NextIntlClientProvider } from "next-intl";
+import { getLocale, getMessages } from "next-intl/server";
 import { Providers } from "@/components/providers";
 import { DemoBanner } from "@/components/shared/demo-banner";
 import "./globals.css";
@@ -21,13 +23,16 @@ export const metadata: Metadata = {
   description: "Premium health platform for Haiti and its Diaspora",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const locale = await getLocale();
+  const messages = await getMessages();
+
   return (
-    <html lang="fr" className="light">
+    <html lang={locale} className="light">
       <head>
         <link
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
@@ -37,10 +42,12 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${manrope.variable} font-body bg-surface text-on-surface antialiased`}
       >
-        <Providers>
-          <DemoBanner />
-          {children}
-        </Providers>
+        <NextIntlClientProvider locale={locale} messages={messages}>
+          <Providers>
+            <DemoBanner />
+            {children}
+          </Providers>
+        </NextIntlClientProvider>
       </body>
     </html>
   );

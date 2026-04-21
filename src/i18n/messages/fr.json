@@ -1,23 +1,92 @@
 {
-  "common": {
-    "login": "Connexion Membre",
-    "signup": "S'inscrire",
+  "nav": {
     "about": "À propos",
     "plans": "Forfaits",
-    "affiliate": "Affilié"
+    "affiliate": "Affiliation",
+    "forDoctors": "Pour médecins",
+    "memberLogin": "Espace membre",
+    "language": "Langue"
+  },
+  "footer": {
+    "tagline": "Soins médicaux premium pour la nation haïtienne et sa diaspora.",
+    "quickLinks": "Liens rapides",
+    "plans": "Forfaits",
+    "joinAsDoctor": "Rejoindre comme médecin",
+    "affiliateProgram": "Programme d'affiliation",
+    "contact": "Contact",
+    "connectWithUs": "Restons en contact",
+    "copyright": "© {year} Vita Santé Club. Tous droits réservés."
   },
   "home": {
-    "heroTitle": "Votre santé est notre mission.",
-    "heroSubtitle": "En Haïti et pour la Diaspora.",
-    "heroDescription": "Accédez à des soins médicaux premium et à une couverture santé sécurisée pour vous et vos proches.",
+    "heroTag": "Pour la diaspora qui prend soin de ses proches",
+    "heroTitle": "Votre mère en Haïti.",
+    "heroTitleAccent": "Votre tranquillité à Brooklyn.",
+    "heroSubtitle": "La santé de vos proches en Haïti, suivie depuis votre téléphone. Un forfait annuel, une carte médicale numérique, un réseau de médecins vérifiés.",
     "ctaPrimary": "S'inscrire maintenant",
-    "ctaSecondary": "Voir le réseau"
+    "ctaSecondary": "Voir les forfaits",
+    "heroMicroCopy": "9 forfaits · à partir de $99/an · réseau en croissance",
+
+    "problemTitle": "Ce que vit la diaspora aujourd'hui",
+    "problemLead": "Trois scénarios qui reviennent, chaque semaine, dans nos conversations avec les familles.",
+    "problem1Title": "L'argent envoyé dans le noir",
+    "problem1Body": "Vous virez $400 à un cousin pour une consultation. Aucun reçu, aucune preuve que le médecin a été consulté, aucune visibilité sur ce qui a été prescrit.",
+    "problem2Title": "Le médecin inconnu",
+    "problem2Body": "Votre parent vous dit « je suis allé voir quelqu'un ». Vous n'avez aucun moyen de vérifier la compétence, la clinique, ni l'authenticité du diagnostic.",
+    "problem3Title": "L'urgence à 2h du matin",
+    "problem3Body": "Un coup de fil qui vous réveille. Vous êtes à Montréal ou à Miami. Personne ne sait quelle urgence appeler, qui contacter, combien envoyer.",
+
+    "howItWorksTitle": "Comment Vita Santé fonctionne pour vous",
+    "howItWorksLead": "Quatre étapes, pensées pour la diaspora. Du téléphone à la carte médicale en moins de 10 minutes.",
+    "step1Title": "1. Vous vous inscrivez",
+    "step1Body": "Depuis Montréal, Brooklyn, Paris. En français. Paiement sécurisé par carte.",
+    "step2Title": "2. Vous choisissez le forfait",
+    "step2Body": "De $99 à $5 000 par an. Nombre de visites, couverture labos, réseau Haïti ou US.",
+    "step3Title": "3. Votre proche reçoit sa carte numérique",
+    "step3Body": "Code membre unique VSC-XXXXX-HT. Un QR que tout médecin du réseau peut scanner en 10 secondes.",
+    "step4Title": "4. Vous voyez chaque visite",
+    "step4Body": "Notifications temps réel à chaque consultation. Crédits restants visibles. Historique médical accessible.",
+
+    "plansTitle": "Forfaits membres",
+    "plansLead": "Prix transparents. Aucun frais caché. Paiement annuel.",
+    "planSelectEssential": "Choisir Essentiel",
+    "planSelectAdvantage": "Choisir Avantage",
+    "planSelectPremium": "Choisir Premium",
+    "planPopular": "Populaire",
+    "planVisitsYear": "{n} visites/télévisites par an",
+    "planLabs": "{pct}% laboratoires et pharmacie",
+    "planCopay": "$1-$10 par consultation",
+    "viewAllPlans": "Voir les 8 forfaits",
+
+    "networkTitle": "Notre réseau médical",
+    "networkLead": "Vita Santé s'associe avec des cliniques et hôpitaux vérifiés à travers Haïti. De Port-au-Prince à Cap-Haïtien, votre famille n'est jamais loin d'un soin compétent.",
+    "networkPAP": "Port-au-Prince",
+    "networkPAPDesc": "Plusieurs centres médicaux et laboratoires partenaires",
+    "networkNord": "Département du Nord",
+    "networkNordDesc": "Établissements à Cap-Haïtien",
+    "networkSud": "Département du Sud",
+    "networkSudDesc": "Cabinet spécialisé aux Cayes",
+    "networkNote": "Réseau en croissance. Nouveaux partenaires ajoutés chaque mois.",
+
+    "forDoctorsTitle": "Médecins haïtiens — rejoignez le réseau",
+    "forDoctorsLead": "Nous cherchons des médecins vérifiés à Port-au-Prince, Cap-Haïtien, Les Cayes, Jacmel. Candidature en 5 minutes, réponse sous 5 jours ouvrés.",
+    "forDoctorsCta": "Candidater maintenant",
+
+    "ctaBandTitle": "Prêt à protéger vos proches ?",
+    "ctaBandLead": "Créez votre compte en quelques minutes. Paiement sécurisé. Résiliable à tout moment.",
+    "ctaBandPrimary": "Commencer maintenant",
+    "ctaBandSecondary": "Parler à un conseiller"
   },
-  "member": {
-    "dashboard": "Tableau de bord",
-    "medicalCard": "Carte Médicale",
-    "dependents": "Personnes à charge",
-    "payments": "Paiements",
-    "urgentConsult": "Consultation Urgente"
+  "settings": {
+    "title": "Paramètres",
+    "language": "Langue",
+    "languageDesc": "Langue de l'interface",
+    "languageFrench": "Français",
+    "languageEnglish": "English",
+    "languageSaved": "Langue mise à jour."
+  },
+  "common": {
+    "loading": "Chargement...",
+    "save": "Enregistrer",
+    "cancel": "Annuler"
   }
 }

@@ -1,28 +1,52 @@
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 
 export function PublicFooter() {
+  const t = useTranslations("footer");
+
   return (
     <footer className="bg-surface-container-low py-12 px-8">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-screen-2xl mx-auto">
         <div className="space-y-4">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/logo.svg" alt="Vita Santé" className="h-10" />
-          <p className="text-on-surface-variant text-xs leading-relaxed max-w-xs">
-            Providing premium medical infrastructure and health solutions for the Haitian nation and its global diaspora.
-          </p>
+          <p className="text-ink-muted text-xs leading-body max-w-xs">{t("tagline")}</p>
         </div>
         <div className="flex flex-col gap-3">
-          <h5 className="text-primary font-bold text-sm uppercase tracking-widest mb-2">Quick Links</h5>
-          <Link href="/about" className="text-on-surface-variant hover:text-primary text-xs transition-colors">About Us</Link>
-          <Link href="/plans" className="text-on-surface-variant hover:text-primary text-xs transition-colors">Forfaits</Link>
-          <Link href="/doctor-apply" className="text-on-surface-variant hover:text-primary text-xs transition-colors">Rejoindre comme médecin</Link>
-          <Link href="/affiliate-program" className="text-on-surface-variant hover:text-primary text-xs transition-colors">Programme d&apos;affiliation</Link>
-          <a href="mailto:support@vitasante.ht" className="text-on-surface-variant hover:text-primary text-xs transition-colors">Contact</a>
+          <h5 className="text-primary font-bold text-sm uppercase tracking-widest mb-2">
+            {t("quickLinks")}
+          </h5>
+          <Link
+            href="/plans"
+            className="text-ink-muted hover:text-primary text-xs transition-colors"
+          >
+            {t("plans")}
+          </Link>
+          <Link
+            href="/doctor-apply"
+            className="text-ink-muted hover:text-primary text-xs transition-colors"
+          >
+            {t("joinAsDoctor")}
+          </Link>
+          <Link
+            href="/affiliate-program"
+            className="text-ink-muted hover:text-primary text-xs transition-colors"
+          >
+            {t("affiliateProgram")}
+          </Link>
+          <a
+            href="mailto:support@vitasante.ht"
+            className="text-ink-muted hover:text-primary text-xs transition-colors"
+          >
+            {t("contact")}
+          </a>
         </div>
         <div className="flex flex-col gap-6">
-          <h5 className="text-primary font-bold text-sm uppercase tracking-widest">Connect With Us</h5>
-          <p className="text-on-surface-variant text-xs leading-relaxed">
-            &copy; {new Date().getFullYear()} Vita Santé Club. All rights reserved. Haiti Medical Network.
+          <h5 className="text-primary font-bold text-sm uppercase tracking-widest">
+            {t("connectWithUs")}
+          </h5>
+          <p className="text-ink-muted text-xs leading-body">
+            {t("copyright", { year: new Date().getFullYear() })}
           </p>
         </div>
       </div>

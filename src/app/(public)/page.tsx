@@ -1,53 +1,76 @@
-import { Icon } from "@/components/ui/icon";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
+import { Icon } from "@/components/ui/icon";
+
+// Hero photograph — replace with your own brand photography when ready.
+// Drop a file at /public/images/hero-family.jpg and update HERO_IMAGE.
+// Current: a warm caregiver-patient moment from Unsplash (free commercial use).
+const HERO_IMAGE =
+  "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=1600&q=80";
 
 export default function HomePage() {
+  const t = useTranslations("home");
+
   return (
     <main className="pt-20">
-      {/* Hero Section */}
-      <section className="relative overflow-hidden min-h-[870px] flex items-center px-6 md:px-20 bg-surface-container-low">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div className="z-10 text-left">
-            <h1 className="font-headline font-extrabold text-5xl md:text-7xl text-primary leading-[1.1] mb-6 tracking-tight">
-              Your health is our mission. <br />
-              <span className="text-primary-container">In Haiti and for the Diaspora.</span>
+      {/* ── Hero ──────────────────────────────────────────── */}
+      <section className="relative overflow-hidden px-6 md:px-16 lg:px-24 py-16 md:py-24 bg-surface-container-low">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          <div className="lg:col-span-6 z-10">
+            <span className="inline-block mb-6 px-3 py-1 rounded-full bg-warm-subtle text-warm-ink text-xs font-bold tracking-widest uppercase">
+              {t("heroTag")}
+            </span>
+            <h1 className="font-headline font-extrabold text-4xl md:text-6xl text-primary tracking-headline mb-6 leading-headline">
+              {t("heroTitle")}
+              <br />
+              <span className="text-warm">{t("heroTitleAccent")}</span>
             </h1>
-            <p className="text-on-surface-variant text-lg md:text-xl max-w-xl mb-10 leading-relaxed">
-              Access premium medical care and secure health coverage for you and your loved ones, bridging the gap between distances with trust and clinical excellence.
+            <p className="text-ink-muted text-lg leading-body max-w-xl mb-8">
+              {t("heroSubtitle")}
             </p>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Link href="/auth/signup">
-                <button className="clinical-gradient text-white px-8 py-4 rounded-xl font-headline font-bold text-lg shadow-lg hover:scale-[1.02] transition-transform">
-                  S&apos;inscrire maintenant
-                </button>
+            <div className="flex flex-col sm:flex-row gap-3 mb-8">
+              <Link
+                href="/auth/signup"
+                className="inline-flex items-center justify-center px-7 py-4 rounded-xl bg-primary text-on-primary font-headline font-bold text-base shadow-clinical hover:shadow-lg transition-shadow"
+              >
+                {t("ctaPrimary")}
               </Link>
-              <Link href="/plans">
-                <button className="px-8 py-4 rounded-xl font-headline font-bold text-lg text-primary hover:bg-surface-container-high transition-colors">
-                  Voir le r&eacute;seau
-                </button>
+              <Link
+                href="/plans"
+                className="inline-flex items-center justify-center px-7 py-4 rounded-xl border-2 border-primary text-primary font-headline font-bold text-base hover:bg-primary hover:text-on-primary transition-colors"
+              >
+                {t("ctaSecondary")}
               </Link>
             </div>
+            <p className="text-xs text-ink-subtle font-medium tracking-wider">
+              {t("heroMicroCopy")}
+            </p>
           </div>
-          <div className="relative hidden lg:block">
-            <div className="absolute -right-20 -top-20 w-96 h-96 bg-secondary-container/30 rounded-full blur-3xl"></div>
-            <div className="relative rounded-[2rem] overflow-hidden shadow-2xl transform rotate-2">
+
+          <div className="lg:col-span-6 relative">
+            <div className="relative rounded-[2rem] overflow-hidden shadow-clinical">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                alt="Professional Black Haitian male doctor in a modern medical setting"
-                className="w-full h-[600px] object-cover"
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCE1OiEnsf-LwHBBcq-igkaU12at_5_z6XZtmOT3k0rpAtFvG2uCrWa1RN1J2lq7qOupWo_g5tIJ5hnuQlmlRu-j_x_a3bEENqh6XcbuDNjS3oPW4w35nGuHBEYcnl24LOs-aQ9JIPrwPZY3OuV7wsMPKYCyD9ZH9oZ4RuF9wdYqYq99P8lRu31iPKwgDR3Ki21qkUWR3DvKaqIJm-brbszrTAO94e6GI65HKnjKAMw6nhcAiT7bF5n5ZUAHj4bNc3CsfXY0xStEaiC"
+                alt="Medical care"
+                src={HERO_IMAGE}
+                className="w-full h-[480px] md:h-[560px] object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-primary/40 to-transparent"></div>
+              <div className="absolute inset-0 bg-gradient-to-tr from-primary/30 via-transparent to-transparent" />
             </div>
-            {/* Stats Card Float */}
-            <div className="absolute bottom-12 -left-12 bg-white/90 glass-effect p-6 rounded-2xl shadow-xl border border-white/20">
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-secondary/10 rounded-full flex items-center justify-center">
-                  <Icon name="favorite" filled className="text-secondary" />
+
+            {/* Trust card — honest info, no fake satisfaction stats */}
+            <div className="absolute -bottom-6 left-6 right-6 md:left-auto md:right-6 md:w-72 bg-surface-container-lowest p-5 rounded-2xl shadow-clinical border border-outline-variant/40">
+              <div className="flex items-center gap-3">
+                <div className="h-10 w-10 rounded-xl bg-warm-subtle flex items-center justify-center text-warm-ink shrink-0">
+                  <Icon name="verified" size="sm" filled />
                 </div>
                 <div>
-                  <p className="text-xs font-bold text-primary/60 uppercase tracking-widest">Satisfaction</p>
-                  <p className="text-2xl font-black text-primary">98% Positive</p>
+                  <p className="text-[10px] font-bold text-ink-subtle uppercase tracking-widest">
+                    Réseau Vita Santé
+                  </p>
+                  <p className="text-sm font-bold text-ink">
+                    Port-au-Prince · Cap-Haïtien · Les Cayes
+                  </p>
                 </div>
               </div>
             </div>
@@ -55,228 +78,311 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Mission & Vision Section */}
-      <section className="py-24 px-6 bg-surface">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-16 items-start">
-            <div className="col-span-1">
-              <div className="w-16 h-1 bg-secondary mb-8"></div>
-              <h2 className="font-headline font-extrabold text-4xl text-on-primary-fixed mb-6 tracking-tighter">The Clinical Atelier Philosophy</h2>
-              <p className="text-on-surface-variant leading-relaxed mb-8">
-                We believe healthcare is not a transaction—it is a curated journey. Our vision is to provide a sanctuary of health for the Haitian community, regardless of geographic boundaries.
-              </p>
-            </div>
-            <div className="col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-8">
-              <div className="p-8 bg-surface-container-lowest rounded-2xl border-l-4 border-primary">
-                <Icon name="clinical_notes" size="lg" className="text-primary mb-4" />
-                <h3 className="font-headline font-bold text-xl mb-3 text-primary">Mission</h3>
-                <p className="text-on-surface-variant text-sm leading-relaxed">
-                  Deploying world-class medical standards to every corner of Haiti, ensuring every member receives dignified and precise care.
-                </p>
-              </div>
-              <div className="p-8 bg-surface-container-lowest rounded-2xl border-l-4 border-secondary">
-                <Icon name="visibility" size="lg" className="text-secondary mb-4" />
-                <h3 className="font-headline font-bold text-xl mb-3 text-secondary">Vision</h3>
-                <p className="text-on-surface-variant text-sm leading-relaxed">
-                  To be the digital bridge that connects the Haitian Diaspora to the well-being of their families back home through a trusted medical ecosystem.
-                </p>
-              </div>
-            </div>
+      {/* ── Problem ───────────────────────────────────────── */}
+      <section className="py-24 px-6 md:px-16 lg:px-24 bg-surface-warm">
+        <div className="max-w-6xl mx-auto">
+          <div className="max-w-2xl mb-14">
+            <h2 className="font-headline font-extrabold text-3xl md:text-5xl text-primary tracking-headline mb-4">
+              {t("problemTitle")}
+            </h2>
+            <p className="text-ink-muted text-lg leading-body">{t("problemLead")}</p>
           </div>
-        </div>
-      </section>
-
-      {/* Pricing Plans Section */}
-      <section className="py-24 px-6 bg-surface-container-low">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="font-headline font-extrabold text-4xl text-primary mb-4">Choose Your Membership</h2>
-            <p className="text-on-surface-variant max-w-2xl mx-auto">Transparent plans designed to meet the diverse needs of families in Haiti and those supporting from abroad.</p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Basic Plan */}
-            <div className="bg-surface-container-lowest p-10 rounded-3xl flex flex-col items-start transition-all hover:translate-y-[-8px]">
-              <span className="px-4 py-1 bg-surface-container-high rounded-full text-xs font-bold text-primary mb-6">ESSENTIAL</span>
-              <div className="flex items-baseline gap-1 mb-8">
-                <span className="text-4xl font-black text-primary">$99</span>
-                <span className="text-on-surface-variant text-sm">/year</span>
-              </div>
-              <ul className="space-y-4 mb-10 w-full">
-                <li className="flex items-center gap-3 text-sm text-on-surface-variant">
-                  <Icon name="check_circle" filled size="sm" className="text-secondary" />
-                  6 Visits/Televisits
-                </li>
-                <li className="flex items-center gap-3 text-sm text-on-surface-variant">
-                  <Icon name="check_circle" filled size="sm" className="text-secondary" />
-                  15% Labs & Pharmacy
-                </li>
-                <li className="flex items-center gap-3 text-sm text-on-surface-variant">
-                  <Icon name="check_circle" filled size="sm" className="text-secondary" />
-                  $1-$10 per visit
-                </li>
-              </ul>
-              <Link href="/auth/signup?plan=essential" className="w-full mt-auto">
-                <button className="w-full py-4 border-2 border-primary text-primary font-bold rounded-xl hover:bg-primary hover:text-white transition-colors">Select Essential</button>
-              </Link>
-            </div>
-
-            {/* Standard Plan */}
-            <div className="clinical-gradient p-10 rounded-3xl flex flex-col items-start relative overflow-hidden text-white transition-all hover:translate-y-[-8px] shadow-2xl">
-              <div className="absolute top-0 right-0 p-4 bg-secondary text-white text-[10px] font-black uppercase tracking-widest rotate-45 translate-x-10 translate-y-2 w-40 text-center">Popular</div>
-              <span className="px-4 py-1 bg-white/20 rounded-full text-xs font-bold text-white mb-6">ADVANTAGE</span>
-              <div className="flex items-baseline gap-1 mb-8">
-                <span className="text-4xl font-black text-white">$135</span>
-                <span className="text-white/70 text-sm">/year</span>
-              </div>
-              <ul className="space-y-4 mb-10 w-full">
-                <li className="flex items-center gap-3 text-sm">
-                  <Icon name="check_circle" filled size="sm" className="text-secondary-fixed" />
-                  8 Visits/Televisits
-                </li>
-                <li className="flex items-center gap-3 text-sm">
-                  <Icon name="check_circle" filled size="sm" className="text-secondary-fixed" />
-                  20% Labs & Pharmacy
-                </li>
-                <li className="flex items-center gap-3 text-sm">
-                  <Icon name="check_circle" filled size="sm" className="text-secondary-fixed" />
-                  $1-$10 per visit
-                </li>
-              </ul>
-              <Link href="/auth/signup?plan=advantage" className="w-full mt-auto">
-                <button className="w-full py-4 bg-white text-primary font-bold rounded-xl hover:bg-opacity-90 transition-opacity">Select Advantage</button>
-              </Link>
-            </div>
-
-            {/* Premium Plan */}
-            <div className="bg-surface-container-lowest p-10 rounded-3xl flex flex-col items-start transition-all hover:translate-y-[-8px]">
-              <span className="px-4 py-1 bg-tertiary-fixed text-tertiary rounded-full text-xs font-bold mb-6">PREMIUM</span>
-              <div className="flex items-baseline gap-1 mb-8">
-                <span className="text-4xl font-black text-primary">$200</span>
-                <span className="text-on-surface-variant text-sm">/year</span>
-              </div>
-              <ul className="space-y-4 mb-10 w-full">
-                <li className="flex items-center gap-3 text-sm text-on-surface-variant">
-                  <Icon name="check_circle" filled size="sm" className="text-secondary" />
-                  12 Visits/Televisits
-                </li>
-                <li className="flex items-center gap-3 text-sm text-on-surface-variant">
-                  <Icon name="check_circle" filled size="sm" className="text-secondary" />
-                  35% Labs & Pharmacy
-                </li>
-                <li className="flex items-center gap-3 text-sm text-on-surface-variant">
-                  <Icon name="check_circle" filled size="sm" className="text-secondary" />
-                  $1-$10 per visit
-                </li>
-              </ul>
-              <Link href="/auth/signup?plan=premium" className="w-full mt-auto">
-                <button className="w-full py-4 border-2 border-primary text-primary font-bold rounded-xl hover:bg-primary hover:text-white transition-colors">Select Premium</button>
-              </Link>
-            </div>
-          </div>
-
-          {/* Elite Tiers Teaser */}
-          <div className="mt-12 relative rounded-3xl overflow-hidden clinical-gradient p-8 md:p-12">
-            <div className="absolute -top-10 -right-10 w-40 h-40 bg-white/10 rounded-full blur-3xl" />
-            <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
-              <div className="text-center md:text-left">
-                <div className="flex items-center gap-2 mb-3">
-                  <Icon name="diamond" filled className="text-amber-400" />
-                  <span className="text-xs font-bold text-white/60 uppercase tracking-widest">
-                    Elite Collection
-                  </span>
-                </div>
-                <h3 className="font-headline text-2xl md:text-3xl font-extrabold text-white mb-2">
-                  Need more coverage? Explore our Elite Tiers.
-                </h3>
-                <p className="text-primary-fixed-dim text-sm md:text-base max-w-xl">
-                  From <span className="font-bold text-white">$365</span> to <span className="font-bold text-white">$5,000</span>/year — including surgery coverage, at-home services, and exclusive US network access for Gold & Platinum members.
-                </p>
-              </div>
-              <Link href="/plans" className="shrink-0">
-                <button className="bg-white text-primary px-8 py-4 rounded-xl font-headline font-bold text-sm hover:bg-surface-container-lowest transition-colors flex items-center gap-2 shadow-lg">
-                  View All 8 Plans
-                  <Icon name="arrow_forward" size="sm" />
-                </button>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Network Map Section */}
-      <section className="py-24 px-6 bg-surface">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            <div>
-              <h2 className="font-headline font-extrabold text-4xl text-primary mb-6">Our Medical Network</h2>
-              <p className="text-on-surface-variant mb-8 text-lg">
-                Vita Sant&eacute; Club partners with the most reputable clinics and hospitals across Haiti. From Port-au-Prince to Cap-Ha&iuml;tien, our members are never far from expert care.
-              </p>
-              <div className="space-y-6">
-                <div className="flex gap-4 p-4 rounded-xl hover:bg-surface-container-low transition-colors">
-                  <Icon name="location_on" className="text-primary" />
-                  <div>
-                    <h4 className="font-bold text-primary">Port-au-Prince Hub</h4>
-                    <p className="text-sm text-on-surface-variant">4 Major Medical Centers + 12 Diagnostic Labs</p>
-                  </div>
-                </div>
-                <div className="flex gap-4 p-4 rounded-xl hover:bg-surface-container-low transition-colors">
-                  <Icon name="location_on" className="text-primary" />
-                  <div>
-                    <h4 className="font-bold text-primary">Northern District</h4>
-                    <p className="text-sm text-on-surface-variant">2 Hospitals in Cap-Ha&iuml;tien</p>
-                  </div>
-                </div>
-                <div className="flex gap-4 p-4 rounded-xl hover:bg-surface-container-low transition-colors">
-                  <Icon name="location_on" className="text-primary" />
-                  <div>
-                    <h4 className="font-bold text-primary">Southern Coverage</h4>
-                    <p className="text-sm text-on-surface-variant">Specialized Clinic in Les Cayes</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="relative bg-surface-container-high rounded-3xl overflow-hidden min-h-[450px] shadow-inner group">
-              {/* Map Placeholder */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {[
+              { n: 1, icon: "savings" },
+              { n: 2, icon: "help" },
+              { n: 3, icon: "schedule" },
+            ].map(({ n, icon }) => (
               <div
-                className="absolute inset-0 grayscale contrast-125 opacity-40 mix-blend-multiply bg-center bg-cover"
-                style={{ backgroundImage: "url('https://lh3.googleusercontent.com/aida-public/AB6AXuAx53atZlH-iT7d3Be0C9iwiPC10k21bLGMPHDix2ipemb7lcpFh1vldZ7wu3wLyCw23v0x-Sy3kfhVhOswdCldQf3Jl6TQPSxWto3MC7ke2VhfnDkDl8bwPEDHXFQKurk8gQvh3aIlJDPqPaBf493Bu5sOSmWUsU6tDQ5Hxh5uawdOcpulhNeAmpmr5tFgvCj7-ikwfWDD7Z52M335qdqlb1W1ds5qfvACkC7oV5lZyKCqRCoxYOqK_W7aodq2ahcG3pRjP0YuD6kA')" }}
-              ></div>
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="bg-white/90 glass-effect p-8 rounded-2xl shadow-2xl text-center max-w-sm mx-4">
-                  <Icon name="map" filled size="xl" className="text-primary mb-4" />
-                  <h4 className="font-headline font-bold text-xl text-primary mb-2">Interactive Network Map</h4>
-                  <p className="text-sm text-on-surface-variant mb-6">Explore our growing list of 50+ affiliated health partners across the nation.</p>
-                  <Link href="/plans">
-                    <button className="bg-primary text-white px-6 py-3 rounded-lg font-bold text-sm hover:opacity-90 transition-all">
-                      Explorer les forfaits
-                    </button>
-                  </Link>
+                key={n}
+                className="p-8 bg-surface-container-lowest rounded-2xl border-l-4 border-warm"
+              >
+                <div className="h-10 w-10 rounded-xl bg-warm-subtle flex items-center justify-center text-warm-ink mb-4">
+                  <Icon name={icon} size="sm" />
                 </div>
+                <h3 className="font-headline font-bold text-lg mb-3 text-ink">
+                  {t(`problem${n}Title` as "problem1Title")}
+                </h3>
+                <p className="text-ink-muted text-sm leading-body">
+                  {t(`problem${n}Body` as "problem1Body")}
+                </p>
               </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Newsletter / Trust CTA */}
-      <section className="py-24 px-6">
-        <div className="max-w-5xl mx-auto clinical-gradient rounded-[3rem] p-12 md:p-20 text-center relative overflow-hidden shadow-2xl">
-          <div className="absolute -top-10 -left-10 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
+      {/* ── How it works ──────────────────────────────────── */}
+      <section className="py-24 px-6 md:px-16 lg:px-24 bg-surface">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-14 max-w-2xl mx-auto">
+            <h2 className="font-headline font-extrabold text-3xl md:text-5xl text-primary tracking-headline mb-4">
+              {t("howItWorksTitle")}
+            </h2>
+            <p className="text-ink-muted text-lg leading-body">
+              {t("howItWorksLead")}
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[
+              { n: 1, icon: "person_add" },
+              { n: 2, icon: "tune" },
+              { n: 3, icon: "badge" },
+              { n: 4, icon: "notifications_active" },
+            ].map(({ n, icon }) => (
+              <div
+                key={n}
+                className="p-6 bg-surface-container-lowest rounded-2xl shadow-clinical"
+              >
+                <div className="h-12 w-12 rounded-xl bg-primary-fixed flex items-center justify-center text-primary mb-5">
+                  <Icon name={icon} />
+                </div>
+                <h3 className="font-headline font-bold text-base mb-2 text-ink">
+                  {t(`step${n}Title` as "step1Title")}
+                </h3>
+                <p className="text-ink-muted text-sm leading-body">
+                  {t(`step${n}Body` as "step1Body")}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Plans ─────────────────────────────────────────── */}
+      <section className="py-24 px-6 md:px-16 lg:px-24 bg-surface-container-low">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-14 max-w-2xl mx-auto">
+            <h2 className="font-headline font-extrabold text-3xl md:text-5xl text-primary tracking-headline mb-4">
+              {t("plansTitle")}
+            </h2>
+            <p className="text-ink-muted text-lg leading-body">{t("plansLead")}</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <PlanCard
+              label="Essential"
+              slug="essential"
+              price={99}
+              highlighted={false}
+              ctaLabel={t("planSelectEssential")}
+              visitsLabel={t("planVisitsYear", { n: 6 })}
+              labsLabel={t("planLabs", { pct: 15 })}
+              copayLabel={t("planCopay")}
+            />
+            <PlanCard
+              label="Advantage"
+              slug="advantage"
+              price={135}
+              highlighted
+              ctaLabel={t("planSelectAdvantage")}
+              popularLabel={t("planPopular")}
+              visitsLabel={t("planVisitsYear", { n: 8 })}
+              labsLabel={t("planLabs", { pct: 20 })}
+              copayLabel={t("planCopay")}
+            />
+            <PlanCard
+              label="Premium"
+              slug="premium"
+              price={200}
+              highlighted={false}
+              ctaLabel={t("planSelectPremium")}
+              visitsLabel={t("planVisitsYear", { n: 12 })}
+              labsLabel={t("planLabs", { pct: 35 })}
+              copayLabel={t("planCopay")}
+            />
+          </div>
+
+          <div className="mt-10 text-center">
+            <Link
+              href="/plans"
+              className="inline-flex items-center gap-2 text-primary font-bold text-sm hover:underline underline-offset-4"
+            >
+              {t("viewAllPlans")}
+              <Icon name="arrow_forward" size="sm" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Network ───────────────────────────────────────── */}
+      <section className="py-24 px-6 md:px-16 lg:px-24 bg-surface">
+        <div className="max-w-6xl mx-auto">
+          <div className="max-w-2xl mb-12">
+            <h2 className="font-headline font-extrabold text-3xl md:text-5xl text-primary tracking-headline mb-4">
+              {t("networkTitle")}
+            </h2>
+            <p className="text-ink-muted text-lg leading-body">{t("networkLead")}</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {(["PAP", "Nord", "Sud"] as const).map((key) => (
+              <div
+                key={key}
+                className="p-6 bg-surface-container-lowest rounded-2xl border-t-4 border-secondary"
+              >
+                <Icon name="location_on" className="text-secondary mb-3" />
+                <h3 className="font-bold text-ink mb-2">
+                  {t(`network${key}` as "networkPAP")}
+                </h3>
+                <p className="text-sm text-ink-muted leading-body">
+                  {t(`network${key}Desc` as "networkPAPDesc")}
+                </p>
+              </div>
+            ))}
+          </div>
+          <p className="mt-8 text-xs text-ink-subtle italic">{t("networkNote")}</p>
+        </div>
+      </section>
+
+      {/* ── For doctors ───────────────────────────────────── */}
+      <section className="py-24 px-6 md:px-16 lg:px-24 bg-surface-warm">
+        <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center gap-10">
+          <div className="flex-1">
+            <span className="inline-block mb-4 px-3 py-1 rounded-full bg-primary-fixed text-primary text-xs font-bold tracking-widest uppercase">
+              Médecins
+            </span>
+            <h2 className="font-headline font-extrabold text-3xl md:text-4xl text-primary tracking-headline mb-4">
+              {t("forDoctorsTitle")}
+            </h2>
+            <p className="text-ink-muted text-lg leading-body mb-6">
+              {t("forDoctorsLead")}
+            </p>
+            <Link
+              href="/doctor-apply"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-warm text-white font-headline font-bold text-sm shadow-warm hover:opacity-90 transition-opacity"
+            >
+              {t("forDoctorsCta")}
+              <Icon name="arrow_forward" size="sm" />
+            </Link>
+          </div>
+          <div className="flex-1 grid grid-cols-2 gap-3">
+            {[
+              { icon: "verified", label: "Vérification en 5 jours" },
+              { icon: "payments", label: "Paiement mensuel" },
+              { icon: "schedule", label: "Agenda flexible" },
+              { icon: "groups", label: "Patients Diaspora" },
+            ].map((b) => (
+              <div
+                key={b.label}
+                className="p-4 bg-surface-container-lowest rounded-xl flex items-center gap-3"
+              >
+                <Icon name={b.icon} className="text-secondary" size="sm" />
+                <span className="text-sm font-bold text-ink">{b.label}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Final CTA ─────────────────────────────────────── */}
+      <section className="py-24 px-6 md:px-16 lg:px-24">
+        <div className="max-w-5xl mx-auto bg-primary rounded-[2rem] p-12 md:p-20 text-center relative overflow-hidden shadow-clinical">
+          <div className="absolute -top-10 -right-10 w-80 h-80 bg-warm/20 rounded-full blur-3xl" />
           <div className="relative z-10">
-            <h2 className="font-headline font-extrabold text-4xl text-white mb-6">Ready to secure your future?</h2>
-            <p className="text-primary-fixed-dim text-lg mb-10 max-w-2xl mx-auto">Join the 15,000+ members who trust Vita Sant&eacute; Club for their daily healthcare needs and emergency coverage.</p>
+            <h2 className="font-headline font-extrabold text-3xl md:text-5xl text-white tracking-headline mb-6">
+              {t("ctaBandTitle")}
+            </h2>
+            <p className="text-primary-fixed-dim text-lg leading-body mb-10 max-w-2xl mx-auto">
+              {t("ctaBandLead")}
+            </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4">
-              <Link href="/auth/signup">
-                <button className="bg-white text-primary font-bold px-10 py-4 rounded-xl text-lg hover:bg-surface-container-lowest transition-colors">Start Your Journey</button>
+              <Link
+                href="/auth/signup"
+                className="inline-flex items-center justify-center px-8 py-4 rounded-xl bg-white text-primary font-headline font-bold text-base hover:bg-warm-subtle transition-colors"
+              >
+                {t("ctaBandPrimary")}
               </Link>
-              <a href="mailto:support@vitasante.ht?subject=Demande%20d%27information">
-                <button className="bg-primary-container/30 border border-white/20 text-white font-bold px-10 py-4 rounded-xl text-lg hover:bg-white/10 transition-colors">Contact Our Advisors</button>
+              <a
+                href="mailto:support@vitasante.ht?subject=Demande%20d%27information"
+                className="inline-flex items-center justify-center px-8 py-4 rounded-xl border border-white/30 text-white font-headline font-bold text-base hover:bg-white/10 transition-colors"
+              >
+                {t("ctaBandSecondary")}
               </a>
             </div>
           </div>
         </div>
       </section>
     </main>
+  );
+}
+
+function PlanCard({
+  label,
+  slug,
+  price,
+  highlighted,
+  ctaLabel,
+  popularLabel,
+  visitsLabel,
+  labsLabel,
+  copayLabel,
+}: {
+  label: string;
+  slug: string;
+  price: number;
+  highlighted: boolean;
+  ctaLabel: string;
+  popularLabel?: string;
+  visitsLabel: string;
+  labsLabel: string;
+  copayLabel: string;
+}) {
+  const cardClass = highlighted
+    ? "bg-primary text-white shadow-clinical"
+    : "bg-surface-container-lowest text-ink shadow-clinical";
+  const priceClass = highlighted ? "text-white" : "text-primary";
+  const checkClass = highlighted ? "text-secondary-fixed" : "text-secondary";
+  const subtextClass = highlighted ? "text-white/70" : "text-ink-muted";
+  const labelPillClass = highlighted
+    ? "bg-white/20 text-white"
+    : "bg-surface-container-high text-primary";
+
+  return (
+    <div
+      className={`p-10 rounded-3xl flex flex-col items-start relative overflow-hidden transition-all hover:translate-y-[-6px] ${cardClass}`}
+    >
+      {highlighted && popularLabel && (
+        <div className="absolute top-6 right-6 px-3 py-1 rounded-full bg-warm text-white text-[10px] font-bold uppercase tracking-widest">
+          {popularLabel}
+        </div>
+      )}
+      <span
+        className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest mb-5 ${labelPillClass}`}
+      >
+        {label}
+      </span>
+      <div className="flex items-baseline gap-1 mb-8">
+        <span className={`text-4xl font-black font-headline ${priceClass}`}>
+          ${price}
+        </span>
+        <span className={`text-sm ${subtextClass}`}>/an</span>
+      </div>
+      <ul className="space-y-3 mb-10 w-full">
+        {[visitsLabel, labsLabel, copayLabel].map((item) => (
+          <li
+            key={item}
+            className={`flex items-start gap-3 text-sm ${subtextClass}`}
+          >
+            <Icon
+              name="check_circle"
+              filled
+              size="sm"
+              className={`${checkClass} mt-0.5 shrink-0`}
+            />
+            <span>{item}</span>
+          </li>
+        ))}
+      </ul>
+      <Link
+        href={`/auth/signup?plan=${slug}`}
+        className={`w-full mt-auto inline-flex items-center justify-center py-3.5 rounded-xl font-headline font-bold text-sm transition-colors ${
+          highlighted
+            ? "bg-white text-primary hover:bg-warm-subtle"
+            : "border-2 border-primary text-primary hover:bg-primary hover:text-on-primary"
+        }`}
+      >
+        {ctaLabel}
+      </Link>
+    </div>
   );
 }

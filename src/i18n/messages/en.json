@@ -1,23 +1,92 @@
 {
-  "common": {
-    "login": "Member Login",
-    "signup": "Sign Up",
+  "nav": {
     "about": "About",
     "plans": "Plans",
-    "affiliate": "Affiliate"
+    "affiliate": "Affiliate",
+    "forDoctors": "For doctors",
+    "memberLogin": "Member login",
+    "language": "Language"
+  },
+  "footer": {
+    "tagline": "Premium medical care for Haiti and its Diaspora.",
+    "quickLinks": "Quick links",
+    "plans": "Plans",
+    "joinAsDoctor": "Join as doctor",
+    "affiliateProgram": "Affiliate program",
+    "contact": "Contact",
+    "connectWithUs": "Stay in touch",
+    "copyright": "© {year} Vita Santé Club. All rights reserved."
   },
   "home": {
-    "heroTitle": "Your health is our mission.",
-    "heroSubtitle": "In Haiti and for the Diaspora.",
-    "heroDescription": "Access premium medical care and secure health coverage for you and your loved ones.",
-    "ctaPrimary": "Sign Up Now",
-    "ctaSecondary": "View the Network"
+    "heroTag": "For the diaspora caring for loved ones back home",
+    "heroTitle": "Your mother in Haiti.",
+    "heroTitleAccent": "Your peace of mind in Brooklyn.",
+    "heroSubtitle": "The health of your loved ones in Haiti, tracked from your phone. One annual plan, a digital medical card, a network of verified doctors.",
+    "ctaPrimary": "Sign up now",
+    "ctaSecondary": "See the plans",
+    "heroMicroCopy": "9 plans · starting at $99/year · growing network",
+
+    "problemTitle": "What the diaspora lives with today",
+    "problemLead": "Three scenarios we hear every week from families.",
+    "problem1Title": "Money sent in the dark",
+    "problem1Body": "You wire $400 to a cousin for a consultation. No receipt, no proof the doctor was seen, no visibility on what was prescribed.",
+    "problem2Title": "The doctor you've never met",
+    "problem2Body": "Your parent says \"I went to see someone.\" You have no way to verify the competence, the clinic, or whether the diagnosis is real.",
+    "problem3Title": "The 2am emergency",
+    "problem3Body": "A phone call wakes you up. You're in Montreal or Miami. Nobody knows which hospital to call, who to contact, or how much to send.",
+
+    "howItWorksTitle": "How Vita Santé works for you",
+    "howItWorksLead": "Four steps, built for the diaspora. From your phone to an active medical card in under 10 minutes.",
+    "step1Title": "1. You sign up",
+    "step1Body": "From Montreal, Brooklyn, Paris. In French or English. Secure card payment.",
+    "step2Title": "2. You choose the plan",
+    "step2Body": "From $99 to $5,000 per year. Visit count, lab coverage, Haiti-only or US network.",
+    "step3Title": "3. Your loved one gets a digital card",
+    "step3Body": "Unique member code VSC-XXXXX-HT. A QR any network doctor scans in 10 seconds.",
+    "step4Title": "4. You see every visit",
+    "step4Body": "Real-time notifications on every consultation. Remaining credits visible. Medical history accessible.",
+
+    "plansTitle": "Member plans",
+    "plansLead": "Transparent pricing. No hidden fees. Annual billing.",
+    "planSelectEssential": "Choose Essential",
+    "planSelectAdvantage": "Choose Advantage",
+    "planSelectPremium": "Choose Premium",
+    "planPopular": "Popular",
+    "planVisitsYear": "{n} visits/televisits per year",
+    "planLabs": "{pct}% labs and pharmacy",
+    "planCopay": "$1-$10 per consultation",
+    "viewAllPlans": "View all 8 plans",
+
+    "networkTitle": "Our medical network",
+    "networkLead": "Vita Santé partners with verified clinics and hospitals across Haiti. From Port-au-Prince to Cap-Haïtien, your family is never far from competent care.",
+    "networkPAP": "Port-au-Prince",
+    "networkPAPDesc": "Multiple medical centers and labs",
+    "networkNord": "Northern region",
+    "networkNordDesc": "Partner facilities in Cap-Haïtien",
+    "networkSud": "Southern region",
+    "networkSudDesc": "Specialized clinic in Les Cayes",
+    "networkNote": "Growing network. New partners added every month.",
+
+    "forDoctorsTitle": "Haitian doctors — join the network",
+    "forDoctorsLead": "We're looking for verified doctors in Port-au-Prince, Cap-Haïtien, Les Cayes, Jacmel. Application takes 5 minutes, response within 5 business days.",
+    "forDoctorsCta": "Apply now",
+
+    "ctaBandTitle": "Ready to protect your loved ones?",
+    "ctaBandLead": "Create your account in minutes. Secure payment. Cancel anytime.",
+    "ctaBandPrimary": "Get started",
+    "ctaBandSecondary": "Talk to an advisor"
   },
-  "member": {
-    "dashboard": "Dashboard",
-    "medicalCard": "Medical Card",
-    "dependents": "Dependents",
-    "payments": "Payments",
-    "urgentConsult": "Urgent Consult"
+  "settings": {
+    "title": "Settings",
+    "language": "Language",
+    "languageDesc": "Interface language",
+    "languageFrench": "Français",
+    "languageEnglish": "English",
+    "languageSaved": "Language updated."
+  },
+  "common": {
+    "loading": "Loading...",
+    "save": "Save",
+    "cancel": "Cancel"
   }
 }

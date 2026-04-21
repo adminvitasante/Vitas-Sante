@@ -1,5 +1,9 @@
 import type { Config } from "tailwindcss";
 
+// Design tokens live in src/design-system/tokens.ts.
+// This config extends Tailwind with those tokens + the legacy Material-3
+// surface scale still used by existing components.
+
 const config: Config = {
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
@@ -10,6 +14,7 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        // Primaries
         primary: "#00346f",
         "primary-container": "#004a99",
         "primary-fixed": "#d7e2ff",
@@ -34,13 +39,24 @@ const config: Config = {
         "on-tertiary-fixed": "#002204",
         "on-tertiary-fixed-variant": "#005312",
         "on-tertiary-container": "#7ecf79",
+
+        // Warm palette — Haitian terracotta + cream
+        warm: "#d4804d",
+        "warm-subtle": "#f5e6dc",
+        "warm-ink": "#6b3d1e",
+        "warm-container": "#fae4d2",
+
+        // Errors
         error: "#ba1a1a",
         "error-container": "#ffdad6",
         "on-error": "#ffffff",
         "on-error-container": "#93000a",
-        surface: "#f7f9fb",
+
+        // Surfaces
+        surface: "#fafbfc",
+        "surface-warm": "#faf4ec",
         "surface-dim": "#d8dadc",
-        "surface-bright": "#f7f9fb",
+        "surface-bright": "#fafbfc",
         "surface-container-lowest": "#ffffff",
         "surface-container-low": "#f2f4f6",
         "surface-container": "#eceef0",
@@ -48,12 +64,17 @@ const config: Config = {
         "surface-container-highest": "#e0e3e5",
         "surface-variant": "#e0e3e5",
         "surface-tint": "#255dad",
-        "on-surface": "#191c1e",
-        "on-surface-variant": "#424751",
-        "on-background": "#191c1e",
-        background: "#f7f9fb",
-        outline: "#737783",
-        "outline-variant": "#c2c6d3",
+
+        // Ink (text) — warm slate
+        ink: "#1f2937",
+        "ink-muted": "#475569",
+        "ink-subtle": "#94a3b8",
+        "on-surface": "#1f2937",
+        "on-surface-variant": "#475569",
+        "on-background": "#1f2937",
+        background: "#fafbfc",
+        outline: "#64748b",
+        "outline-variant": "#cbd5e1",
         "inverse-surface": "#2d3133",
         "inverse-on-surface": "#eff1f3",
         "inverse-primary": "#abc7ff",
@@ -65,6 +86,14 @@ const config: Config = {
       },
       boxShadow: {
         clinical: "0 20px 40px rgba(0, 27, 63, 0.06)",
+        warm: "0 20px 40px rgba(212, 128, 77, 0.12)",
+      },
+      lineHeight: {
+        // Tuned for French (longer words, slightly more generous than default)
+        body: "1.7",
+      },
+      letterSpacing: {
+        headline: "-0.02em",
       },
     },
   },

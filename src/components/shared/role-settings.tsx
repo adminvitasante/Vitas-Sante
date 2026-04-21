@@ -1,5 +1,6 @@
 import { TopBar } from "@/components/layout/top-bar";
 import { Icon } from "@/components/ui/icon";
+import { LanguageToggle } from "@/components/shared/language-toggle";
 
 // Shared settings page used by all five roles. Each role's /settings route
 // imports this component and passes its role label + user context.
@@ -57,16 +58,15 @@ export function RoleSettings({
         <section className="bg-surface-container-lowest rounded-3xl p-8 shadow-sm">
           <h3 className="font-headline font-bold text-lg text-primary mb-6">Langue et région</h3>
           <div className="space-y-5">
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between gap-4 flex-wrap">
               <div className="flex items-center gap-3">
                 <Icon name="translate" size="sm" className="text-primary" />
-                <span className="text-sm font-medium text-on-surface">Langue</span>
+                <div>
+                  <p className="text-sm font-medium text-ink">Langue de l&apos;interface</p>
+                  <p className="text-xs text-ink-muted">Le changement est instantané et se souvient de votre choix.</p>
+                </div>
               </div>
-              <select className="rounded-xl border border-outline-variant bg-surface px-4 py-2 text-sm text-on-surface">
-                <option>Français</option>
-                <option>English</option>
-                <option>Kreyòl</option>
-              </select>
+              <LanguageToggle variant="settings" />
             </div>
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
