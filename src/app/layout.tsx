@@ -45,7 +45,13 @@ export default async function RootLayout({
         <NextIntlClientProvider locale={locale} messages={messages}>
           <Providers>
             <DemoBanner />
-            {children}
+            {/*
+              Wrapper shifts all page content down by --banner-h so the
+              fixed banner doesn't overlap. Fixed elements (navbar,
+              sidebar) ignore this wrapper — they each set
+              `top: var(--banner-h, 0px)` themselves.
+            */}
+            <div style={{ paddingTop: "var(--banner-h, 0px)" }}>{children}</div>
           </Providers>
         </NextIntlClientProvider>
       </body>

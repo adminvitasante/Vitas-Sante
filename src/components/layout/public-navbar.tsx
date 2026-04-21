@@ -7,7 +7,10 @@ export function PublicNavbar() {
   const t = useTranslations("nav");
 
   return (
-    <header className="fixed top-0 w-full z-50 bg-surface/80 glass-effect shadow-sm backdrop-blur-xl">
+    <header
+      className="fixed left-0 right-0 z-50 bg-surface/80 glass-effect shadow-sm backdrop-blur-xl"
+      style={{ top: "var(--banner-h, 0px)" }}
+    >
       <nav className="flex justify-between items-center px-6 py-4 w-full max-w-screen-2xl mx-auto">
         <Link href="/">
           {/* eslint-disable-next-line @next/next/no-img-element */}

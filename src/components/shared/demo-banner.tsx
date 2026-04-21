@@ -1,14 +1,11 @@
 import { isSimulationMode } from "@/lib/stripe";
+import { DemoBannerClient } from "./demo-banner-client";
 
-// Visual indicator that the app is running in simulation mode (payments bypassed).
-// Auto-shows when Stripe isn't configured (no STRIPE_SECRET_KEY) OR when
-// DEMO_MODE=true is set explicitly.
+// Server-side gate: only render the dismissable banner when simulation
+// mode is on (no STRIPE_SECRET_KEY or DEMO_MODE=true). The actual
+// dismiss UI + CSS-variable bookkeeping lives in the client child so
+// it can use sessionStorage and React state.
 export function DemoBanner() {
   if (!isSimulationMode()) return null;
-
-  return (
-    <div className="w-full bg-amber-500 text-amber-950 text-xs font-bold tracking-wider uppercase py-1.5 text-center">
-      Mode Simulation · les paiements Stripe sont désactivés, les adhésions s&apos;activent automatiquement
-    </div>
-  );
+  return <DemoBannerClient />;
 }

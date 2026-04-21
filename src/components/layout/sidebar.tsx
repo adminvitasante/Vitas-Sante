@@ -11,7 +11,13 @@ export function Sidebar({ config, basePath }: { config: SidebarConfig; basePath:
   const pathname = usePathname();
 
   return (
-    <aside className="h-screen w-64 fixed left-0 top-0 bg-surface-container-low flex flex-col py-6 px-4 space-y-2 z-40 hidden md:flex">
+    <aside
+      className="w-64 fixed left-0 bg-surface-container-low flex flex-col py-6 px-4 space-y-2 z-40 hidden md:flex"
+      style={{
+        top: "var(--banner-h, 0px)",
+        height: "calc(100vh - var(--banner-h, 0px))",
+      }}
+    >
       <div className="mb-8 px-2">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="/logo.svg" alt="Vita Santé" className="h-10 mb-2" />
