@@ -1,7 +1,7 @@
 "use server";
 
 import { supabase } from "@/lib/supabase";
-import { stripe } from "@/lib/stripe";
+import { stripe, isSimulationMode } from "@/lib/stripe";
 import { requireCapability, getSessionUser } from "@/lib/server/authz";
 
 // ── Sponsor overview: how many people they fund, total contributed ──
@@ -83,8 +83,9 @@ export async function createSponsorGrant(params: {
     return { success: false, error: grantErr?.message ?? "Erreur création grant" };
   }
 
-  // DEMO MODE: mark grant FUNDED directly, skip Stripe.
-  if (process.env.DEMO_MODE === "true") {
+  // Simulation mode (no Stripe keys yet OR DEMO_MODE=true):
+  // mark grant FUNDED directly, skip Stripe.
+  if (isSimulationMode()) {
     await supabase
       .from("sponsor_grants")
       .update({ status: "FUNDED" })

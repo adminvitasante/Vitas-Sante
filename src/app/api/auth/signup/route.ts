@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import { supabase } from "@/lib/supabase";
-import { stripe } from "@/lib/stripe";
+import { stripe, isSimulationMode } from "@/lib/stripe";
 
 // Signup now handles the full onboarding flow:
 //   1. Create user + capabilities
@@ -78,8 +78,9 @@ export async function POST(req: NextRequest) {
   // If a plan was selected AND the user is self-paying (not diaspora),
   // create the subscription + enrollment + Stripe checkout session.
   if (plan && !isDiaspora) {
-    // Demo mode: skip Stripe entirely, activate the enrollment immediately.
-    if (process.env.DEMO_MODE === "true") {
+    // Simulation mode (no Stripe keys yet OR DEMO_MODE=true):
+    // skip Stripe entirely and activate the enrollment immediately.
+    if (isSimulationMode()) {
       const demoResult = await createAndActivateDemoEnrollment({
         userId: user.id,
         planSlug: plan,

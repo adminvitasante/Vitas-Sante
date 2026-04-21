@@ -1,7 +1,7 @@
 "use server";
 
 import { supabase } from "@/lib/supabase";
-import { stripe } from "@/lib/stripe";
+import { stripe, isSimulationMode } from "@/lib/stripe";
 import { requireCapability } from "@/lib/server/authz";
 
 // Diaspora beneficiary onboarding. The payer (diaspora user or self-paying
@@ -134,8 +134,9 @@ export async function addBeneficiaryAndCheckout(params: {
   const priceCents =
     plan.yearly_price_cents + (isSelf ? 0 : plan.dependent_fee_cents);
 
-  // DEMO MODE: activate enrollment directly, skip Stripe.
-  if (process.env.DEMO_MODE === "true") {
+  // Simulation mode (no Stripe keys yet OR DEMO_MODE=true):
+  // activate enrollment directly, skip Stripe.
+  if (isSimulationMode()) {
     await supabase
       .from("subscriptions")
       .update({ status: "ACTIVE" })
