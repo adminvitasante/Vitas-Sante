@@ -2,11 +2,9 @@ import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { Icon } from "@/components/ui/icon";
 
-// Hero photograph — replace with your own brand photography when ready.
-// Drop a file at /public/images/hero-family.jpg and update HERO_IMAGE.
-// Current: a warm caregiver-patient moment from Unsplash (free commercial use).
-const HERO_IMAGE =
-  "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=1600&q=80";
+// Hero photograph — stored at /public/photohead.jpg.
+// Replace that file to change the hero. Keep landscape ~4:3 or 3:2.
+const HERO_IMAGE = "/photohead.jpg";
 
 export default function HomePage() {
   const t = useTranslations("home");
@@ -51,9 +49,9 @@ export default function HomePage() {
             <div className="relative rounded-[2rem] overflow-hidden shadow-clinical">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                alt="Medical care"
+                alt="Médecin partenaire Vita Santé en consultation avec une patiente"
                 src={HERO_IMAGE}
-                className="w-full h-[480px] md:h-[560px] object-cover"
+                className="w-full h-[480px] md:h-[560px] object-cover object-center"
               />
               <div className="absolute inset-0 bg-gradient-to-tr from-primary/30 via-transparent to-transparent" />
             </div>
