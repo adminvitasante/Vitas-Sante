@@ -1,13 +1,16 @@
 "use client";
 
 import { useState, useEffect, FormEvent } from "react";
+import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/ui/icon";
 import Link from "next/link";
 
-type Step = 1 | 2 | 3;
+type Step = 0 | 1 | 2 | 3;
+type Flow = "self" | "loved_one" | "org";
 
 interface FormData {
+  flow: Flow | null;
   email: string;
   password: string;
   confirmPassword: string;
@@ -25,15 +28,14 @@ const planDetails = {
   premium: { name: "Premium", price: 200 },
 };
 
-const ENROLLMENT_FEE = 25;
-const TAX_RATE = 0.05;
-
 export default function SignUpPage() {
-  const [step, setStep] = useState<Step>(1);
+  const t = useTranslations("signup");
+  const [step, setStep] = useState<Step>(0);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [referralCode, setReferralCode] = useState<string | null>(null);
   const [formData, setFormData] = useState<FormData>({
+    flow: null,
     email: "",
     password: "",
     confirmPassword: "",
@@ -45,7 +47,6 @@ export default function SignUpPage() {
     plan: "advantage",
   });
 
-  // Capture ?ref=CODE (affiliate attribution) and ?plan=SLUG (pre-select plan).
   useEffect(() => {
     if (typeof window !== "undefined") {
       const params = new URLSearchParams(window.location.search);
@@ -55,33 +56,37 @@ export default function SignUpPage() {
       if (planParam === "essential" || planParam === "advantage" || planParam === "premium") {
         setFormData((p) => ({ ...p, plan: planParam }));
       }
+      // If a plan is preselected, default flow to self (they picked a plan = they want one).
+      if (planParam) {
+        setFormData((p) => ({ ...p, flow: "self" }));
+      }
     }
   }, []);
 
-  function updateField(field: keyof FormData, value: string) {
+  function updateField<K extends keyof FormData>(field: K, value: FormData[K]) {
     setFormData((prev) => ({ ...prev, [field]: value }));
     setError(null);
   }
 
-  function validateStep1(): boolean {
+  function validateAccount(): boolean {
     if (!formData.email || !formData.password || !formData.confirmPassword) {
-      setError("Please fill in all fields.");
+      setError(t("errorRequiredFields"));
       return false;
     }
     if (formData.password.length < 8) {
-      setError("Password must be at least 8 characters.");
+      setError(t("errorPasswordLength"));
       return false;
     }
     if (formData.password !== formData.confirmPassword) {
-      setError("Passwords do not match.");
+      setError(t("errorPasswordMismatch"));
       return false;
     }
     return true;
   }
 
-  function validateStep2(): boolean {
-    if (!formData.firstName || !formData.lastName || !formData.phone || !formData.dateOfBirth) {
-      setError("Please fill in all required fields.");
+  function validateInfo(): boolean {
+    if (!formData.firstName || !formData.lastName || !formData.phone) {
+      setError(t("errorRequiredInfo"));
       return false;
     }
     return true;
@@ -89,14 +94,18 @@ export default function SignUpPage() {
 
   function handleNext() {
     setError(null);
-    if (step === 1 && validateStep1()) setStep(2);
-    else if (step === 2 && validateStep2()) setStep(3);
+    if (step === 0 && !formData.flow) {
+      setError(t("errorRequiredFields"));
+      return;
+    }
+    if (step === 0) setStep(1);
+    else if (step === 1 && validateAccount()) setStep(2);
+    else if (step === 2 && validateInfo()) setStep(3);
   }
 
   function handleBack() {
     setError(null);
-    if (step === 2) setStep(1);
-    else if (step === 3) setStep(2);
+    if (step > 0) setStep((step - 1) as Step);
   }
 
   async function handleSubmit(e: FormEvent) {
@@ -115,7 +124,10 @@ export default function SignUpPage() {
           lastName: formData.lastName,
           phone: formData.phone,
           country: formData.country,
-          plan: formData.plan,
+          // For self flow, send chosen plan. For loved-one / org flows,
+          // no plan at signup — they pick it in the next flow.
+          plan: formData.flow === "self" ? formData.plan : undefined,
+          flow: formData.flow,
           referralCode,
         }),
       });
@@ -123,31 +135,35 @@ export default function SignUpPage() {
       const data = await res.json();
 
       if (!res.ok) {
-        setError(data.error || "Enrollment failed. Please try again.");
+        setError(data.error || t("errorGeneric"));
         return;
       }
 
-      // If the server returned a Stripe checkout URL, redirect there to complete payment.
-      // Demo mode returns demoMode:true (no payment needed, enrollment auto-activated).
-      // Otherwise (diaspora case, or checkout failure), send to signin.
+      // Route based on response + flow.
       if (data.checkoutUrl) {
         window.location.href = data.checkoutUrl;
+        return;
+      }
+
+      // Simulation or non-checkout path. Redirect based on flow.
+      if (formData.flow === "loved_one") {
+        // Diaspora / loved-one: they'll add their first beneficiary.
+        window.location.href = "/auth/signin?registered=1&next=/member/dependents/new";
+      } else if (formData.flow === "org") {
+        window.location.href = "/auth/signin?registered=1&next=/sponsor/sponsor-new";
       } else if (data.demoMode) {
         window.location.href = "/auth/signin?demo=1";
       } else {
         window.location.href = "/auth/signin?registered=1";
       }
     } catch {
-      setError("Enrollment failed. Please try again.");
+      setError(t("errorGeneric"));
     } finally {
       setLoading(false);
     }
   }
 
   const selectedPlan = planDetails[formData.plan];
-  const subtotal = selectedPlan.price + ENROLLMENT_FEE;
-  const tax = subtotal * TAX_RATE;
-  const total = subtotal + tax;
 
   return (
     <div className="flex min-h-[calc(100vh-5rem)] items-center justify-center bg-surface-container-low px-4 py-12">
@@ -158,32 +174,29 @@ export default function SignUpPage() {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/logo.svg" alt="Vita Santé" className="h-12 mx-auto" />
           </Link>
-          <h1 className="mt-4 font-headline text-3xl font-extrabold tracking-tight text-on-surface">
-            Become a Member
+          <h1 className="mt-4 font-headline text-3xl font-extrabold tracking-headline text-ink">
+            {t("heading")}
           </h1>
-          <p className="mt-2 text-sm text-on-surface-variant">
-            Complete your enrollment in 3 simple steps
-          </p>
         </div>
 
         {/* Step Indicator */}
         <div className="flex items-center justify-center gap-2">
-          {([1, 2, 3] as Step[]).map((s) => (
+          {([0, 1, 2, 3] as Step[]).map((s) => (
             <div key={s} className="flex items-center gap-2">
               <div
                 className={`flex h-9 w-9 items-center justify-center rounded-full font-headline text-sm font-bold transition-colors ${
                   s === step
-                    ? "clinical-gradient text-white"
+                    ? "bg-primary text-on-primary"
                     : s < step
                       ? "bg-secondary text-on-secondary"
                       : "bg-surface-container-high text-on-surface-variant"
                 }`}
               >
-                {s < step ? <Icon name="check" size="sm" /> : s}
+                {s < step ? <Icon name="check" size="sm" /> : s + 1}
               </div>
               {s < 3 && (
                 <div
-                  className={`h-0.5 w-8 rounded-full transition-colors ${
+                  className={`h-0.5 w-6 rounded-full transition-colors ${
                     s < step ? "bg-secondary" : "bg-surface-container-high"
                   }`}
                 />
@@ -204,142 +217,142 @@ export default function SignUpPage() {
             </div>
           )}
 
-          {/* Step 1: Account Creation */}
-          {step === 1 && (
+          {/* Step 0: Role Selection */}
+          {step === 0 && (
             <div className="space-y-5">
-              <h2 className="font-headline text-xl font-bold text-on-surface">
-                Create Your Account
-              </h2>
-              <p className="text-sm text-on-surface-variant">
-                Start with your login credentials.
-              </p>
-
               <div>
-                <label htmlFor="email" className="mb-1.5 block text-sm font-medium text-on-surface">
-                  Email Address
-                </label>
-                <input
-                  id="email"
-                  type="email"
-                  value={formData.email}
-                  onChange={(e) => updateField("email", e.target.value)}
-                  required
-                  placeholder="you@example.com"
-                  className="w-full rounded-xl border border-outline-variant bg-surface px-4 py-3 text-sm text-on-surface placeholder:text-on-surface-variant/50 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-colors"
-                />
+                <h2 className="font-headline text-xl font-bold text-ink">
+                  {t("roleQuestion")}
+                </h2>
+                <p className="text-sm text-ink-muted mt-1">{t("roleSubtitle")}</p>
               </div>
 
-              <div>
-                <label htmlFor="password" className="mb-1.5 block text-sm font-medium text-on-surface">
-                  Password
-                </label>
-                <input
-                  id="password"
-                  type="password"
-                  value={formData.password}
-                  onChange={(e) => updateField("password", e.target.value)}
-                  required
-                  placeholder="Minimum 8 characters"
-                  className="w-full rounded-xl border border-outline-variant bg-surface px-4 py-3 text-sm text-on-surface placeholder:text-on-surface-variant/50 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-colors"
+              <div className="space-y-3">
+                <RoleCard
+                  icon="self_care"
+                  tone="primary"
+                  tag={t("roleSelfTag")}
+                  label={t("roleSelfLabel")}
+                  desc={t("roleSelfDesc")}
+                  selected={formData.flow === "self"}
+                  onClick={() => updateField("flow", "self")}
                 />
-              </div>
-
-              <div>
-                <label htmlFor="confirmPassword" className="mb-1.5 block text-sm font-medium text-on-surface">
-                  Confirm Password
-                </label>
-                <input
-                  id="confirmPassword"
-                  type="password"
-                  value={formData.confirmPassword}
-                  onChange={(e) => updateField("confirmPassword", e.target.value)}
-                  required
-                  placeholder="Repeat your password"
-                  className="w-full rounded-xl border border-outline-variant bg-surface px-4 py-3 text-sm text-on-surface placeholder:text-on-surface-variant/50 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-colors"
+                <RoleCard
+                  icon="favorite"
+                  tone="warm"
+                  tag={t("roleLovedOneTag")}
+                  label={t("roleLovedOneLabel")}
+                  desc={t("roleLovedOneDesc")}
+                  selected={formData.flow === "loved_one"}
+                  onClick={() => updateField("flow", "loved_one")}
+                />
+                <RoleCard
+                  icon="volunteer_activism"
+                  tone="secondary"
+                  tag={t("roleOrgTag")}
+                  label={t("roleOrgLabel")}
+                  desc={t("roleOrgDesc")}
+                  selected={formData.flow === "org"}
+                  onClick={() => updateField("flow", "org")}
                 />
               </div>
             </div>
           )}
 
-          {/* Step 2: Personal Information */}
+          {/* Step 1: Account */}
+          {step === 1 && (
+            <div className="space-y-5">
+              <div>
+                <h2 className="font-headline text-xl font-bold text-ink">
+                  {t("accountTitle")}
+                </h2>
+                <p className="text-sm text-ink-muted mt-1">{t("accountSubtitle")}</p>
+              </div>
+
+              <Field
+                id="email"
+                type="email"
+                label={t("emailLabel")}
+                placeholder={t("emailPlaceholder")}
+                value={formData.email}
+                onChange={(v) => updateField("email", v)}
+                required
+              />
+              <Field
+                id="password"
+                type="password"
+                label={t("passwordLabel")}
+                placeholder={t("passwordPlaceholder")}
+                value={formData.password}
+                onChange={(v) => updateField("password", v)}
+                required
+              />
+              <Field
+                id="confirmPassword"
+                type="password"
+                label={t("confirmPasswordLabel")}
+                placeholder={t("confirmPasswordPlaceholder")}
+                value={formData.confirmPassword}
+                onChange={(v) => updateField("confirmPassword", v)}
+                required
+              />
+            </div>
+          )}
+
+          {/* Step 2: Personal Info + (if self flow) plan pick */}
           {step === 2 && (
             <div className="space-y-5">
-              <h2 className="font-headline text-xl font-bold text-on-surface">
-                Personal Information
-              </h2>
-              <p className="text-sm text-on-surface-variant">
-                Tell us about yourself so we can personalize your care.
-              </p>
+              <div>
+                <h2 className="font-headline text-xl font-bold text-ink">
+                  {t("infoTitle")}
+                </h2>
+                <p className="text-sm text-ink-muted mt-1">{t("infoSubtitle")}</p>
+              </div>
 
               <div className="grid gap-4 sm:grid-cols-2">
-                <div>
-                  <label htmlFor="firstName" className="mb-1.5 block text-sm font-medium text-on-surface">
-                    First Name
-                  </label>
-                  <input
-                    id="firstName"
-                    type="text"
-                    value={formData.firstName}
-                    onChange={(e) => updateField("firstName", e.target.value)}
-                    required
-                    placeholder="Jean"
-                    className="w-full rounded-xl border border-outline-variant bg-surface px-4 py-3 text-sm text-on-surface placeholder:text-on-surface-variant/50 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-colors"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="lastName" className="mb-1.5 block text-sm font-medium text-on-surface">
-                    Last Name
-                  </label>
-                  <input
-                    id="lastName"
-                    type="text"
-                    value={formData.lastName}
-                    onChange={(e) => updateField("lastName", e.target.value)}
-                    required
-                    placeholder="Baptiste"
-                    className="w-full rounded-xl border border-outline-variant bg-surface px-4 py-3 text-sm text-on-surface placeholder:text-on-surface-variant/50 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-colors"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label htmlFor="phone" className="mb-1.5 block text-sm font-medium text-on-surface">
-                  Phone Number
-                </label>
-                <input
-                  id="phone"
-                  type="tel"
-                  value={formData.phone}
-                  onChange={(e) => updateField("phone", e.target.value)}
+                <Field
+                  id="firstName"
+                  label={t("firstNameLabel")}
+                  value={formData.firstName}
+                  onChange={(v) => updateField("firstName", v)}
                   required
-                  placeholder="+509 0000 0000"
-                  className="w-full rounded-xl border border-outline-variant bg-surface px-4 py-3 text-sm text-on-surface placeholder:text-on-surface-variant/50 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-colors"
+                />
+                <Field
+                  id="lastName"
+                  label={t("lastNameLabel")}
+                  value={formData.lastName}
+                  onChange={(v) => updateField("lastName", v)}
+                  required
                 />
               </div>
-
+              <Field
+                id="phone"
+                type="tel"
+                label={t("phoneLabel")}
+                placeholder={t("phonePlaceholder")}
+                value={formData.phone}
+                onChange={(v) => updateField("phone", v)}
+                required
+              />
+              <Field
+                id="dob"
+                type="date"
+                label={t("dobLabel")}
+                value={formData.dateOfBirth}
+                onChange={(v) => updateField("dateOfBirth", v)}
+              />
               <div>
-                <label htmlFor="dateOfBirth" className="mb-1.5 block text-sm font-medium text-on-surface">
-                  Date of Birth
-                </label>
-                <input
-                  id="dateOfBirth"
-                  type="date"
-                  value={formData.dateOfBirth}
-                  onChange={(e) => updateField("dateOfBirth", e.target.value)}
-                  required
-                  className="w-full rounded-xl border border-outline-variant bg-surface px-4 py-3 text-sm text-on-surface focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-colors"
-                />
-              </div>
-
-              <div>
-                <label htmlFor="country" className="mb-1.5 block text-sm font-medium text-on-surface">
-                  Country of Residence
+                <label
+                  htmlFor="country"
+                  className="mb-1.5 block text-sm font-medium text-ink"
+                >
+                  {t("countryLabel")}
                 </label>
                 <select
                   id="country"
                   value={formData.country}
                   onChange={(e) => updateField("country", e.target.value)}
-                  className="w-full rounded-xl border border-outline-variant bg-surface px-4 py-3 text-sm text-on-surface focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-colors"
+                  className="w-full rounded-xl border border-outline-variant bg-surface px-4 py-3 text-sm text-ink focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
                 >
                   <option value="Haiti">Haiti</option>
                   <option value="United States">United States</option>
@@ -350,120 +363,71 @@ export default function SignUpPage() {
                 </select>
               </div>
 
-              <div>
-                <label className="mb-1.5 block text-sm font-medium text-on-surface">
-                  Select Plan
-                </label>
-                <div className="grid gap-3 sm:grid-cols-3">
-                  {(Object.entries(planDetails) as [FormData["plan"], typeof planDetails.essential][]).map(
-                    ([key, plan]) => (
-                      <button
-                        key={key}
-                        type="button"
-                        onClick={() => updateField("plan", key)}
-                        className={`rounded-xl border-2 px-4 py-3 text-center transition-all ${
-                          formData.plan === key
-                            ? "border-primary bg-primary-fixed text-primary"
-                            : "border-outline-variant bg-surface text-on-surface-variant hover:border-primary/50"
-                        }`}
-                      >
-                        <div className="font-headline text-sm font-bold">{plan.name}</div>
-                        <div className="text-xs">${plan.price}/yr</div>
-                      </button>
-                    )
-                  )}
+              {formData.flow === "self" && (
+                <div>
+                  <label className="mb-1.5 block text-sm font-medium text-ink">
+                    {t("planLabel")}
+                  </label>
+                  <div className="grid gap-3 sm:grid-cols-3">
+                    {(Object.entries(planDetails) as [FormData["plan"], typeof planDetails.essential][]).map(
+                      ([key, plan]) => (
+                        <button
+                          key={key}
+                          type="button"
+                          onClick={() => updateField("plan", key)}
+                          className={`rounded-xl border-2 px-4 py-3 text-center transition-all ${
+                            formData.plan === key
+                              ? "border-primary bg-primary-fixed text-primary"
+                              : "border-outline-variant bg-surface text-ink-muted hover:border-primary/50"
+                          }`}
+                        >
+                          <div className="font-headline text-sm font-bold">{plan.name}</div>
+                          <div className="text-xs">${plan.price}/yr</div>
+                        </button>
+                      )
+                    )}
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
           )}
 
-          {/* Step 3: Review & Confirm */}
+          {/* Step 3: Review */}
           {step === 3 && (
             <div className="space-y-6">
-              <h2 className="font-headline text-xl font-bold text-on-surface">
-                Review &amp; Confirm
-              </h2>
-              <p className="text-sm text-on-surface-variant">
-                Please review your details before completing enrollment.
-              </p>
+              <div>
+                <h2 className="font-headline text-xl font-bold text-ink">{t("reviewTitle")}</h2>
+                <p className="text-sm text-ink-muted mt-1">{t("reviewSubtitle")}</p>
+              </div>
 
-              {/* Personal Summary */}
               <div className="rounded-2xl bg-surface-container-low p-5">
-                <h3 className="mb-3 font-headline text-sm font-bold uppercase tracking-widest text-on-surface-variant">
-                  Your Information
-                </h3>
                 <dl className="space-y-2 text-sm">
-                  <div className="flex justify-between">
-                    <dt className="text-on-surface-variant">Name</dt>
-                    <dd className="font-medium text-on-surface">
-                      {formData.firstName} {formData.lastName}
-                    </dd>
-                  </div>
-                  <div className="flex justify-between">
-                    <dt className="text-on-surface-variant">Email</dt>
-                    <dd className="font-medium text-on-surface">{formData.email}</dd>
-                  </div>
-                  <div className="flex justify-between">
-                    <dt className="text-on-surface-variant">Phone</dt>
-                    <dd className="font-medium text-on-surface">{formData.phone}</dd>
-                  </div>
-                  <div className="flex justify-between">
-                    <dt className="text-on-surface-variant">Date of Birth</dt>
-                    <dd className="font-medium text-on-surface">{formData.dateOfBirth}</dd>
-                  </div>
-                  <div className="flex justify-between">
-                    <dt className="text-on-surface-variant">Country</dt>
-                    <dd className="font-medium text-on-surface">{formData.country}</dd>
-                  </div>
+                  <Row label={t("roleQuestion")} value={
+                    formData.flow === "self" ? t("roleSelfTag") :
+                    formData.flow === "loved_one" ? t("roleLovedOneTag") :
+                    t("roleOrgTag")
+                  } />
+                  <Row label={t("emailLabel")} value={formData.email} />
+                  <Row label={t("firstNameLabel")} value={`${formData.firstName} ${formData.lastName}`} />
+                  <Row label={t("phoneLabel")} value={formData.phone} />
+                  <Row label={t("countryLabel")} value={formData.country} />
+                  {formData.flow === "self" && (
+                    <Row label={t("planLabel")} value={`${selectedPlan.name} · $${selectedPlan.price}/yr`} />
+                  )}
                 </dl>
               </div>
 
-              {/* Order Summary */}
-              <div className="rounded-2xl bg-surface-container-low p-5">
-                <h3 className="mb-3 font-headline text-sm font-bold uppercase tracking-widest text-on-surface-variant">
-                  Order Summary
-                </h3>
-                <dl className="space-y-2 text-sm">
-                  <div className="flex justify-between">
-                    <dt className="text-on-surface-variant">
-                      {selectedPlan.name} Plan (Annual)
-                    </dt>
-                    <dd className="font-medium text-on-surface">
-                      ${selectedPlan.price.toFixed(2)}
-                    </dd>
-                  </div>
-                  <div className="flex justify-between">
-                    <dt className="text-on-surface-variant">Enrollment Fee</dt>
-                    <dd className="font-medium text-on-surface">
-                      ${ENROLLMENT_FEE.toFixed(2)}
-                    </dd>
-                  </div>
-                  <div className="flex justify-between">
-                    <dt className="text-on-surface-variant">Tax (5%)</dt>
-                    <dd className="font-medium text-on-surface">${tax.toFixed(2)}</dd>
-                  </div>
-                  <div className="border-t border-outline-variant pt-2">
-                    <div className="flex justify-between">
-                      <dt className="font-headline font-bold text-on-surface">Total</dt>
-                      <dd className="font-headline text-lg font-extrabold text-primary">
-                        ${total.toFixed(2)}
-                      </dd>
-                    </div>
-                  </div>
-                </dl>
+              <div className="rounded-xl bg-primary-fixed/40 p-4 text-xs text-primary leading-relaxed">
+                {formData.flow === "self" && t("planSelf")}
+                {formData.flow === "loved_one" && t("planLovedOne")}
+                {formData.flow === "org" && t("planOrg")}
               </div>
-
-              <p className="text-xs leading-relaxed text-on-surface-variant">
-                By completing enrollment, you agree to Vita Sant&eacute; Club&rsquo;s Terms of
-                Service and Privacy Policy. Your membership will activate immediately upon payment
-                confirmation.
-              </p>
             </div>
           )}
 
-          {/* Navigation Buttons */}
+          {/* Navigation */}
           <div className="mt-8 flex gap-3">
-            {step > 1 && (
+            {step > 0 && (
               <Button
                 type="button"
                 variant="secondary"
@@ -473,7 +437,7 @@ export default function SignUpPage() {
               >
                 <span className="flex items-center justify-center gap-2">
                   <Icon name="arrow_back" size="sm" />
-                  Back
+                  {t("back")}
                 </span>
               </Button>
             )}
@@ -483,28 +447,24 @@ export default function SignUpPage() {
                 type="button"
                 size="lg"
                 onClick={handleNext}
-                className={step === 1 ? "w-full" : "flex-1"}
+                disabled={step === 0 && !formData.flow}
+                className={step === 0 ? "w-full" : "flex-1"}
               >
                 <span className="flex items-center justify-center gap-2">
-                  Continue
+                  {t("next")}
                   <Icon name="arrow_forward" size="sm" />
                 </span>
               </Button>
             ) : (
-              <Button
-                type="submit"
-                size="lg"
-                disabled={loading}
-                className="flex-1"
-              >
+              <Button type="submit" size="lg" disabled={loading} className="flex-1">
                 {loading ? (
                   <span className="flex items-center justify-center gap-2">
                     <Icon name="progress_activity" size="sm" className="animate-spin" />
-                    Processing...
+                    {t("submitting")}
                   </span>
                 ) : (
                   <span className="flex items-center justify-center gap-2">
-                    Complete Enrollment
+                    {t("submit")}
                     <Icon name="check_circle" size="sm" />
                   </span>
                 )}
@@ -512,17 +472,129 @@ export default function SignUpPage() {
             )}
           </div>
 
-          <p className="mt-6 text-center text-sm text-on-surface-variant">
-            Already a member?{" "}
+          <p className="mt-6 text-center text-sm text-ink-muted">
+            {t("alreadyMember")}{" "}
             <Link
               href="/auth/signin"
               className="font-semibold text-primary underline underline-offset-4"
             >
-              Sign in
+              {t("signInLink")}
             </Link>
           </p>
         </form>
       </div>
+    </div>
+  );
+}
+
+// ── Helpers ──────────────────────────────────────────────
+
+function Field({
+  id,
+  label,
+  type = "text",
+  value,
+  onChange,
+  placeholder,
+  required,
+}: {
+  id: string;
+  label: string;
+  type?: string;
+  value: string;
+  onChange: (v: string) => void;
+  placeholder?: string;
+  required?: boolean;
+}) {
+  return (
+    <div>
+      <label htmlFor={id} className="mb-1.5 block text-sm font-medium text-ink">
+        {label}
+        {required && <span className="text-error"> *</span>}
+      </label>
+      <input
+        id={id}
+        type={type}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        required={required}
+        placeholder={placeholder}
+        className="w-full rounded-xl border border-outline-variant bg-surface px-4 py-3 text-sm text-ink placeholder:text-ink-subtle focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-colors"
+      />
+    </div>
+  );
+}
+
+function RoleCard({
+  icon,
+  tone,
+  tag,
+  label,
+  desc,
+  selected,
+  onClick,
+}: {
+  icon: string;
+  tone: "primary" | "warm" | "secondary";
+  tag: string;
+  label: string;
+  desc: string;
+  selected: boolean;
+  onClick: () => void;
+}) {
+  const tones = {
+    primary: {
+      border: selected ? "border-primary" : "border-outline-variant",
+      bg: selected ? "bg-primary-fixed/40" : "bg-surface",
+      iconBg: "bg-primary-fixed text-primary",
+      tagBg: "bg-primary-fixed text-primary",
+    },
+    warm: {
+      border: selected ? "border-warm" : "border-outline-variant",
+      bg: selected ? "bg-warm-subtle" : "bg-surface",
+      iconBg: "bg-warm-subtle text-warm-ink",
+      tagBg: "bg-warm-subtle text-warm-ink",
+    },
+    secondary: {
+      border: selected ? "border-secondary" : "border-outline-variant",
+      bg: selected ? "bg-secondary-container/40" : "bg-surface",
+      iconBg: "bg-secondary-fixed text-secondary",
+      tagBg: "bg-secondary-fixed text-secondary",
+    },
+  }[tone];
+
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={`w-full rounded-2xl border-2 p-4 text-left transition-all hover:-translate-y-0.5 ${tones.border} ${tones.bg}`}
+    >
+      <div className="flex items-start gap-3">
+        <div className={`h-10 w-10 shrink-0 rounded-xl flex items-center justify-center ${tones.iconBg}`}>
+          <Icon name={icon} size="sm" />
+        </div>
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center gap-2 mb-1">
+            <span className={`text-[10px] font-bold uppercase tracking-widest px-2 py-0.5 rounded-full ${tones.tagBg}`}>
+              {tag}
+            </span>
+          </div>
+          <p className="font-headline font-bold text-sm text-ink mb-1">{label}</p>
+          <p className="text-xs text-ink-muted leading-relaxed">{desc}</p>
+        </div>
+        {selected && (
+          <Icon name="check_circle" filled size="sm" className="text-primary shrink-0" />
+        )}
+      </div>
+    </button>
+  );
+}
+
+function Row({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="flex justify-between gap-4">
+      <dt className="text-ink-muted">{label}</dt>
+      <dd className="font-medium text-ink text-right">{value}</dd>
     </div>
   );
 }
