@@ -5,8 +5,9 @@ import { useTranslations } from "next-intl";
 import { Icon } from "@/components/ui/icon";
 
 // Client-side actions for the medical card. Download hits the server PDF
-// endpoint; wallet integrations are honestly disabled until the Pass/Pkpass
-// flows exist.
+// endpoint. Wallet integrations (Apple Wallet / Google Wallet) will be
+// added when the .pkpass / Google Wallet API flows are wired — removed
+// from the UI in the meantime to avoid showing disabled placeholders.
 
 export function MedicalCardActions({ canDownload }: { canDownload: boolean }) {
   const t = useTranslations("member.medicalCard");
@@ -75,23 +76,6 @@ export function MedicalCardActions({ canDownload }: { canDownload: boolean }) {
           className="text-outline group-hover:translate-x-1 transition-transform"
         />
       </button>
-
-      {/* Wallet integrations are honest about their status rather than fake. */}
-      <div className="w-full flex items-center gap-3 p-4 bg-surface-container-low rounded-2xl opacity-60 cursor-not-allowed">
-        <Icon name="account_balance_wallet" className="text-on-surface-variant" />
-        <div className="flex-1">
-          <p className="text-sm font-semibold text-on-surface">Apple Wallet</p>
-          <p className="text-[10px] text-on-surface-variant">{t("walletSoon")}</p>
-        </div>
-      </div>
-
-      <div className="w-full flex items-center gap-3 p-4 bg-surface-container-low rounded-2xl opacity-60 cursor-not-allowed">
-        <Icon name="wallet" className="text-on-surface-variant" />
-        <div className="flex-1">
-          <p className="text-sm font-semibold text-on-surface">Google Wallet</p>
-          <p className="text-[10px] text-on-surface-variant">{t("walletSoon")}</p>
-        </div>
-      </div>
     </div>
   );
 }
