@@ -68,6 +68,42 @@ export async function getMemberMedicalCard(userId: string) {
   return { user, enrollment };
 }
 
+// Payer-scoped access to a dependent's card. Verifies the caller is the
+// payer on the beneficiary's active subscription before returning data.
+export async function getBeneficiaryMedicalCard(
+  beneficiaryId: string,
+  callerPayerId: string
+): Promise<
+  | { user: unknown; enrollment: unknown }
+  | { error: string }
+> {
+  const { data: enrollment } = await supabase
+    .from("enrollment")
+    .select(
+      `*, plans(*), credit_accounts(*), subscriptions!inner(payer_id, current_period_end)`
+    )
+    .eq("beneficiary_id", beneficiaryId)
+    .eq("status", "ACTIVE")
+    .single();
+
+  if (!enrollment) {
+    return { error: "Aucune adhésion active pour ce bénéficiaire." };
+  }
+
+  const sub = enrollment.subscriptions as unknown as { payer_id: string };
+  if (sub.payer_id !== callerPayerId) {
+    return { error: "Vous n'êtes pas le payeur de ce bénéficiaire." };
+  }
+
+  const { data: user } = await supabase
+    .from("users")
+    .select("*")
+    .eq("id", beneficiaryId)
+    .single();
+
+  return { user, enrollment };
+}
+
 export async function getDependents(userId: string) {
   // Get subscriptions where user is the payer
   const { data: subscriptions } = await supabase

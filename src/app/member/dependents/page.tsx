@@ -147,11 +147,11 @@ export default async function DependentsPage() {
                   {/* Actions */}
                   <div className="flex gap-2">
                     <Link
-                      href="/member/dashboard"
-                      className="inline-flex items-center px-4 py-2 bg-surface-container-low hover:bg-surface-container-high transition-colors rounded-xl text-sm font-bold text-on-surface"
+                      href={`/member/dependents/${dep.users?.id}/card`}
+                      className="inline-flex items-center px-4 py-2 bg-primary text-on-primary rounded-xl text-sm font-bold hover:opacity-90 transition-opacity"
                     >
-                      <Icon name="visibility" size="sm" className="mr-1" />
-                      View
+                      <Icon name="badge" size="sm" className="mr-1" />
+                      Voir la carte
                     </Link>
                   </div>
                 </div>

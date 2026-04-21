@@ -1,20 +1,34 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import QRCode from "qrcode";
 import { PDFDocument, StandardFonts, rgb } from "pdf-lib";
 import { getSessionUser } from "@/lib/server/authz";
-import { getMemberMedicalCard } from "@/lib/server/queries";
+import { getMemberMedicalCard, getBeneficiaryMedicalCard } from "@/lib/server/queries";
 
 // Generates a real credit-card-sized PDF of the member's medical card.
 // Uses pdf-lib (pure JS, no Chromium) so it runs on Vercel with zero
 // special config. QR encodes the member code for doctor-scan verification.
+//
+// Optional query param ?beneficiary=<userId> lets the logged-in payer
+// download the PDF of a dependent they fund. The server verifies the
+// caller is the payer on that enrollment before returning the file.
 
-export async function GET() {
+export async function GET(req: NextRequest) {
   const me = await getSessionUser();
   if (!me) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const data = await getMemberMedicalCard(me.id);
+  const url = new URL(req.url);
+  const beneficiaryId = url.searchParams.get("beneficiary");
+
+  const data = beneficiaryId
+    ? await getBeneficiaryMedicalCard(beneficiaryId, me.id)
+    : await getMemberMedicalCard(me.id);
+
+  if ("error" in data) {
+    return NextResponse.json({ error: data.error }, { status: 403 });
+  }
+
   const user = data.user as { name: string; email: string; phone: string | null } | null;
   const enrollment = data.enrollment as {
     member_id_code: string | null;
