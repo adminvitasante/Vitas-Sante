@@ -48,6 +48,12 @@ export function PublicFooter() {
           <p className="text-ink-muted text-xs leading-body">
             {t("copyright", { year: new Date().getFullYear() })}
           </p>
+          <Link
+            href="/admin-login"
+            className="text-[10px] text-ink-subtle hover:text-primary uppercase tracking-widest transition-colors inline-flex items-center gap-1"
+          >
+            <span>·</span> Admin Portal
+          </Link>
         </div>
       </div>
     </footer>
