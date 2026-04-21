@@ -1,4 +1,5 @@
 import { auth } from "@/lib/auth";
+import { getTranslations } from "next-intl/server";
 import { getDoctorDashboard } from "@/lib/server/queries";
 import { TopBar } from "@/components/layout/top-bar";
 import { Icon } from "@/components/ui/icon";
@@ -6,6 +7,7 @@ import { VisitWorkflow } from "@/components/shared/visit-workflow";
 import Link from "next/link";
 
 export default async function PatientCarePage() {
+  const t = await getTranslations("doctor.patientCare");
   const session = await auth();
   const userId = session?.user?.id;
 
@@ -36,16 +38,13 @@ export default async function PatientCarePage() {
     return (
       <>
         <TopBar
-          greeting={`Dr. ${firstName}`}
-          subtitle="Patient Care Dashboard"
+          greeting={t("greeting", { firstName })}
+          subtitle={t("subtitle")}
           initials={initials}
         />
         <div className="flex flex-col items-center justify-center py-24 text-center">
           <Icon name="person_off" className="text-6xl text-outline-variant mb-4" />
-          <h3 className="font-headline font-bold text-xl text-on-surface-variant mb-2">Doctor Profile Not Found</h3>
-          <p className="text-on-surface-variant text-sm max-w-sm">
-            Your doctor profile has not been set up yet. Please contact an administrator.
-          </p>
+          <h3 className="font-headline font-bold text-xl text-on-surface-variant mb-2">{t("profileMissing")}</h3>
         </div>
       </>
     );
@@ -54,8 +53,8 @@ export default async function PatientCarePage() {
   return (
     <>
       <TopBar
-        greeting={`Dr. ${firstName}`}
-        subtitle="Patient Care Dashboard"
+        greeting={t("greeting", { firstName })}
+        subtitle={t("subtitle")}
         initials={initials}
       />
 
@@ -69,9 +68,9 @@ export default async function PatientCarePage() {
           <div className="flex gap-3">
             <Icon name="warning" className="text-amber-700" />
             <div>
-              <p className="font-bold text-amber-900">Compte non vérifié</p>
+              <p className="font-bold text-amber-900">{t("notVerifiedTitle")}</p>
               <p className="text-sm text-amber-800 mt-1">
-                Votre compte médecin est en statut {doctor.verification_status}. Vous ne pouvez pas recevoir de patients tant qu&apos;un administrateur ne vous a pas vérifié.
+                {t("notVerifiedBody", { status: doctor.verification_status })}
               </p>
             </div>
           </div>
@@ -86,7 +85,7 @@ export default async function PatientCarePage() {
               <Icon name="event_note" />
             </div>
             <div>
-              <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Today&apos;s Visits</p>
+              <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">{t("todayVisits")}</p>
               <p className="text-3xl font-black text-on-surface">{String(todayVisits.length).padStart(2, "0")}</p>
             </div>
           </div>
@@ -97,7 +96,7 @@ export default async function PatientCarePage() {
               <Icon name="check_circle" />
             </div>
             <div>
-              <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Today Completed</p>
+              <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">{t("todayCompleted")}</p>
               <p className="text-3xl font-black text-on-surface">{String(stats?.todayCompleted ?? 0).padStart(2, "0")}</p>
             </div>
           </div>
@@ -108,7 +107,7 @@ export default async function PatientCarePage() {
               <Icon name="analytics" />
             </div>
             <div>
-              <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Total Visits</p>
+              <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">{t("totalVisits")}</p>
               <p className="text-3xl font-black text-on-surface">{stats?.totalVisits ?? 0}</p>
             </div>
           </div>
@@ -118,17 +117,17 @@ export default async function PatientCarePage() {
       {/* Today's Visits */}
       <section className="bg-surface-container-lowest rounded-3xl p-8 shadow-sm mb-10">
         <div className="flex justify-between items-center mb-8">
-          <h4 className="font-headline font-bold text-xl text-primary">Today&apos;s Patient Queue</h4>
+          <h4 className="font-headline font-bold text-xl text-primary">{t("queueTitle")}</h4>
           <Link href="/doctor/visit-history" className="text-primary text-sm font-bold flex items-center gap-1 hover:underline">
-            View History <Icon name="chevron_right" size="sm" />
+            {t("quickVisitHistory")} <Icon name="chevron_right" size="sm" />
           </Link>
         </div>
 
         {todayVisits.length === 0 ? (
           <div className="text-center py-12 text-on-surface-variant">
             <Icon name="event_busy" className="text-4xl mb-2 opacity-40" />
-            <p className="text-sm font-medium">No visits scheduled for today.</p>
-            <p className="text-xs text-slate-400 mt-1">Visits will appear here when patients are registered.</p>
+            <p className="text-sm font-medium">{t("queueEmpty")}</p>
+            <p className="text-xs text-slate-400 mt-1">{t("queueEmptyHint")}</p>
           </div>
         ) : (
           <div className="space-y-4">
@@ -177,12 +176,12 @@ export default async function PatientCarePage() {
 
       {/* Quick Links */}
       <section className="bg-surface-container-lowest rounded-3xl p-8 shadow-sm">
-        <h4 className="font-headline font-bold text-xl text-primary mb-8">Quick Actions</h4>
+        <h4 className="font-headline font-bold text-xl text-primary mb-8">{t("quickActionsTitle")}</h4>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {[
-            { label: "Visit History", icon: "history", href: "/doctor/visit-history" },
-            { label: "My Profile", icon: "person", href: "/doctor/profile" },
-            { label: "Verification", icon: "verified_user", href: "/doctor/verification" },
+            { label: t("quickVisitHistory"), icon: "history", href: "/doctor/visit-history" },
+            { label: t("quickProfile"), icon: "person", href: "/doctor/profile" },
+            { label: t("quickVerification"), icon: "verified_user", href: "/doctor/verification" },
           ].map((item) => (
             <Link
               key={item.href}

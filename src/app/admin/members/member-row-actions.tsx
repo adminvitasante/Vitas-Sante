@@ -2,6 +2,7 @@
 
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { Icon } from "@/components/ui/icon";
 import { setCapabilityStatus } from "@/lib/server/admin-actions";
 import type { CapabilityType } from "@/types/database";
@@ -22,6 +23,7 @@ export function MemberRowActions({
   capabilities: Capability[];
   isSelf: boolean;
 }) {
+  const t = useTranslations("admin.members");
   const router = useRouter();
   const [pending, startTransition] = useTransition();
   const [err, setErr] = useState<string | null>(null);
@@ -64,7 +66,7 @@ export function MemberRowActions({
     <div className="flex flex-col gap-1.5 items-start">
       <div className="flex flex-wrap gap-1.5">
         {capabilities.length === 0 ? (
-          <span className="text-xs text-outline">Aucune</span>
+          <span className="text-xs text-outline">{t("capNone")}</span>
         ) : (
           capabilities.map((cap) => {
             const busy = pending && busyCap === cap.capability;
@@ -79,10 +81,10 @@ export function MemberRowActions({
                 disabled={disabled}
                 title={
                   disabled && isSelf
-                    ? "Vous ne pouvez pas révoquer votre propre accès admin"
+                    ? t("cantRevokeSelf")
                     : active
-                      ? "Cliquer pour suspendre"
-                      : "Cliquer pour réactiver"
+                      ? t("clickToSuspend")
+                      : t("clickToReactivate")
                 }
                 className={`text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider transition-colors ${
                   active
@@ -100,7 +102,7 @@ export function MemberRowActions({
             type="button"
             onClick={grantAdmin}
             disabled={pending}
-            title="Promouvoir admin"
+            title={t("promoteAdmin")}
             className="text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider bg-primary-fixed text-primary hover:bg-primary hover:text-on-primary transition-colors cursor-pointer"
           >
             <span className="flex items-center gap-0.5">

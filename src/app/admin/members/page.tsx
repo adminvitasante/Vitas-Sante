@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation";
+import { getTranslations, getLocale } from "next-intl/server";
 import { TopBar } from "@/components/layout/top-bar";
 import { Icon } from "@/components/ui/icon";
 import { getAdminMembers } from "@/lib/server/queries";
@@ -9,6 +10,8 @@ import { MemberRowActions } from "./member-row-actions";
 import type { CapabilityType } from "@/types/database";
 
 export default async function AdminMembersPage() {
+  const t = await getTranslations("admin.members");
+  const locale = await getLocale();
   const me = await getSessionWithCapability("ADMIN");
   if (!me) redirect("/auth/signin");
 
@@ -22,8 +25,8 @@ export default async function AdminMembersPage() {
   return (
     <div className="min-h-screen px-8 py-8">
       <TopBar
-        greeting="Member Management"
-        subtitle="Approve enrollments and oversee all users"
+        greeting={t("greeting")}
+        subtitle={t("subtitle")}
         initials={initials}
       />
 
@@ -31,15 +34,15 @@ export default async function AdminMembersPage() {
       <section className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
         <div className="bg-surface-container-lowest p-6 rounded-3xl shadow-sm border-l-4 border-primary">
           <p className="text-xs font-bold text-on-surface-variant uppercase tracking-tighter mb-1">
-            Membres totaux
+            {t("kpiTotal")}
           </p>
           <h3 className="text-3xl font-headline font-extrabold text-primary">
-            {members.length.toLocaleString()}
+            {members.length.toLocaleString(locale)}
           </h3>
         </div>
         <div className="bg-surface-container-lowest p-6 rounded-3xl shadow-sm border-l-4 border-amber-400">
           <p className="text-xs font-bold text-on-surface-variant uppercase tracking-tighter mb-1">
-            Adhésions en attente
+            {t("kpiPending")}
           </p>
           <h3 className="text-3xl font-headline font-extrabold text-amber-600">
             {pendingEnrollments.length}
@@ -47,7 +50,7 @@ export default async function AdminMembersPage() {
         </div>
         <div className="bg-surface-container-lowest p-6 rounded-3xl shadow-sm border-l-4 border-secondary">
           <p className="text-xs font-bold text-on-surface-variant uppercase tracking-tighter mb-1">
-            Diaspora
+            {t("kpiDiaspora")}
           </p>
           <h3 className="text-3xl font-headline font-extrabold text-secondary">
             {
@@ -69,7 +72,7 @@ export default async function AdminMembersPage() {
       {/* Full registry */}
       <section>
         <h3 className="font-headline text-xl font-bold text-on-surface mb-6">
-          Registre complet
+          {t("registryTitle")}
         </h3>
         {members.length > 0 ? (
           <div className="bg-surface-container-lowest rounded-3xl overflow-hidden shadow-sm">
@@ -77,10 +80,10 @@ export default async function AdminMembersPage() {
               <table className="w-full text-left">
                 <thead className="bg-surface-container-low">
                   <tr>
-                    <Th>Nom</Th>
-                    <Th>Email</Th>
-                    <Th>Capacités</Th>
-                    <Th>Inscrit le</Th>
+                    <Th>{t("colName")}</Th>
+                    <Th>{t("colEmail")}</Th>
+                    <Th>{t("colCapabilities")}</Th>
+                    <Th>{t("colJoined")}</Th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-surface-container">
@@ -104,7 +107,7 @@ export default async function AdminMembersPage() {
                             </span>
                             {user.is_diaspora && (
                               <span className="ml-2 text-[10px] px-1.5 py-0.5 rounded bg-primary-fixed text-primary font-bold">
-                                DIASPORA
+                                {t("diasporaBadge")}
                               </span>
                             )}
                           </div>
@@ -124,7 +127,7 @@ export default async function AdminMembersPage() {
                         />
                       </td>
                       <td className="px-6 py-5 text-sm text-on-surface-variant">
-                        {user.created_at ? new Date(user.created_at).toLocaleDateString("fr-FR") : "—"}
+                        {user.created_at ? new Date(user.created_at).toLocaleDateString(locale) : "—"}
                       </td>
                     </tr>
                   ))}
@@ -135,7 +138,7 @@ export default async function AdminMembersPage() {
         ) : (
           <div className="bg-surface-container-lowest rounded-3xl p-12 text-center shadow-sm">
             <Icon name="person_off" className="text-outline !text-4xl mb-3" />
-            <p className="text-on-surface-variant font-medium">Aucun membre.</p>
+            <p className="text-on-surface-variant font-medium">{t("noMembers")}</p>
           </div>
         )}
       </section>

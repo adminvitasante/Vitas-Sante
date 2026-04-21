@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation";
+import { getTranslations, getLocale } from "next-intl/server";
 import { Icon } from "@/components/ui/icon";
 import { getMemberMedicalCard } from "@/lib/server/queries";
 import { getSessionUser } from "@/lib/server/authz";
@@ -6,6 +7,8 @@ import { memberCodeQrDataUrl } from "@/lib/qr";
 import { MedicalCardActions } from "@/components/shared/medical-card-actions";
 
 export default async function MedicalCardPage() {
+  const t = await getTranslations("member.medicalCard");
+  const locale = await getLocale();
   const me = await getSessionUser();
   if (!me) redirect("/auth/signin");
 
@@ -17,7 +20,7 @@ export default async function MedicalCardPage() {
   const planTier = enrollment?.plans?.tier ?? null;
   const periodEnd = enrollment?.subscriptions?.current_period_end;
   const expiry = periodEnd
-    ? new Date(periodEnd).toLocaleDateString("fr-FR", { month: "2-digit", year: "numeric" })
+    ? new Date(periodEnd).toLocaleDateString(locale, { month: "2-digit", year: "numeric" })
     : null;
   const enrollmentStatus = enrollment?.status ?? "INACTIVE";
   const visitsRemaining = enrollment?.credit_accounts?.[0]?.visits_remaining ?? null;
@@ -41,12 +44,12 @@ export default async function MedicalCardPage() {
     <div className="max-w-5xl mx-auto">
       <div className="mb-12">
         <h1 className="font-headline text-4xl md:text-5xl font-extrabold text-primary tracking-tight mb-4">
-          Carte Médicale
+          {t("title")}
         </h1>
         <p className="text-on-surface-variant max-w-2xl leading-relaxed">
           {hasActiveCard
-            ? `Vos identifiants numériques officiels Vita Santé Club. Présentez cette carte chez tout prestataire partenaire pour activer vos avantages ${planName ?? ""}.`
-            : "Votre carte deviendra active dès que votre adhésion sera validée par un administrateur."}
+            ? t("activeDesc", { plan: planName ?? "" })
+            : t("inactiveDesc")}
         </p>
       </div>
 
@@ -55,11 +58,9 @@ export default async function MedicalCardPage() {
           <div className="flex gap-3">
             <Icon name="info" className="text-amber-700" />
             <div>
-              <p className="font-bold text-amber-900">Carte non encore disponible</p>
+              <p className="font-bold text-amber-900">{t("inactiveTitle")}</p>
               <p className="text-sm text-amber-800 mt-1">
-                Statut actuel: <span className="font-bold">{enrollmentStatus}</span>. Un code
-                membre vous sera attribué après validation de votre inscription. Pour toute
-                question, contactez le support.
+                {t("inactiveStatus", { status: enrollmentStatus })}
               </p>
             </div>
           </div>
@@ -106,13 +107,13 @@ export default async function MedicalCardPage() {
                 <div className="grid grid-cols-2 gap-6 pt-4 border-t border-white/10">
                   <div>
                     <p className="text-[10px] text-white/50 uppercase font-bold tracking-widest">
-                      Valable jusqu&apos;au
+                      {t("validUntil")}
                     </p>
                     <p className="font-semibold text-lg">{expiry ?? "—"}</p>
                   </div>
                   <div>
                     <p className="text-[10px] text-white/50 uppercase font-bold tracking-widest">
-                      Visites restantes
+                      {t("visitsRemaining")}
                     </p>
                     <p className="font-semibold text-lg">
                       {visitsRemaining !== null && visitsTotal !== null
@@ -125,7 +126,7 @@ export default async function MedicalCardPage() {
                 {user?.phone && (
                   <div className="pt-2">
                     <p className="text-[10px] text-white/50 uppercase font-bold tracking-widest mb-2">
-                      Contact
+                      {t("contact")}
                     </p>
                     <div className="flex flex-wrap gap-2 justify-center md:justify-start">
                       <span className="bg-white/10 px-3 py-1.5 rounded-xl text-xs font-medium">
@@ -149,7 +150,7 @@ export default async function MedicalCardPage() {
                   )}
                 </div>
                 <p className="text-[10px] text-white/40 font-medium tracking-tighter">
-                  PROVIDER SCAN ONLY
+                  {t("providerScanOnly")}
                 </p>
               </div>
             </div>
@@ -169,7 +170,7 @@ export default async function MedicalCardPage() {
         {/* Side Actions */}
         <div className="lg:col-span-4 space-y-6">
           <div className="bg-surface-container-lowest p-6 rounded-3xl shadow-sm border border-outline-variant/10 space-y-4">
-            <h3 className="font-headline font-bold text-lg text-primary">Actions</h3>
+            <h3 className="font-headline font-bold text-lg text-primary">{t("actions")}</h3>
             <MedicalCardActions canDownload={hasActiveCard} />
           </div>
 
@@ -177,16 +178,15 @@ export default async function MedicalCardPage() {
             <div className="flex items-start gap-3">
               <Icon name="info" className="text-primary mt-0.5" />
               <div className="space-y-1">
-                <p className="text-sm font-bold text-primary">Utilisation de la carte</p>
+                <p className="text-sm font-bold text-primary">{t("usageTitle")}</p>
                 <p className="text-xs text-on-surface-variant leading-relaxed">
-                  Cette carte numérique est un substitut valide à la carte physique dans tout le
-                  réseau Vita Santé et ses pharmacies affiliées.
+                  {t("usageBody")}
                 </p>
               </div>
             </div>
             <div className="flex items-center justify-between pt-2">
               <span className="text-[10px] font-bold text-outline uppercase tracking-wider">
-                Statut: {enrollmentStatus}
+                {t("statusLabel")}: {enrollmentStatus}
               </span>
               {enrollmentStatus === "ACTIVE" && (
                 <div className="w-2 h-2 rounded-full bg-secondary animate-pulse" />
@@ -202,19 +202,19 @@ export default async function MedicalCardPage() {
           <SummaryCard
             icon="medical_services"
             tone="primary"
-            label="Forfait"
+            label={t("planLabel")}
             value={planName ?? "—"}
           />
           <SummaryCard
             icon="event_repeat"
             tone="secondary"
-            label="Visites incluses par an"
+            label={t("visitsPerYear")}
             value={enrollment.plans.visits_per_year ? String(enrollment.plans.visits_per_year) : "—"}
           />
           <SummaryCard
             icon="account_balance_wallet"
             tone="tertiary"
-            label="Crédits restants"
+            label={t("creditsLabel")}
             value={
               visitsRemaining !== null && visitsTotal !== null
                 ? `${visitsRemaining} / ${visitsTotal}`

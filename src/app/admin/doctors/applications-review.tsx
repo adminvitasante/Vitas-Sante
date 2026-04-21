@@ -2,6 +2,7 @@
 
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslations, useLocale } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/ui/icon";
 import {
@@ -25,6 +26,9 @@ type Application = {
 };
 
 export function ApplicationsReview({ applications }: { applications: Application[] }) {
+  const t = useTranslations("admin.doctors");
+  const tShared = useTranslations("shared");
+  const locale = useLocale();
   const router = useRouter();
   const [pending, startTransition] = useTransition();
   const [rejectingId, setRejectingId] = useState<string | null>(null);
@@ -35,14 +39,14 @@ export function ApplicationsReview({ applications }: { applications: Application
     startTransition(async () => {
       const res = await approveDoctorApplication(id);
       if (!res.success) {
-        setBanner({ tone: "error", text: res.error ?? "Échec approbation" });
+        setBanner({ tone: "error", text: res.error ?? t("appsApproveFail") });
         return;
       }
       setBanner({
         tone: "success",
         text: res.tempPassword
-          ? `Approuvé. Mot de passe temporaire: ${res.tempPassword} — transmettez-le manuellement.`
-          : "Candidature approuvée. Le médecin a été ajouté au réseau.",
+          ? t("appsApprovedWithPwd", { pwd: res.tempPassword })
+          : t("appsApprovedNoPwd"),
       });
       router.refresh();
     });
@@ -50,16 +54,16 @@ export function ApplicationsReview({ applications }: { applications: Application
 
   function confirmReject(id: string) {
     if (!rejectReason.trim()) {
-      setBanner({ tone: "error", text: "Veuillez indiquer un motif de rejet." });
+      setBanner({ tone: "error", text: t("appsReasonRequired") });
       return;
     }
     startTransition(async () => {
       const res = await rejectDoctorApplication(id, rejectReason.trim());
       if (!res.success) {
-        setBanner({ tone: "error", text: res.error ?? "Échec rejet" });
+        setBanner({ tone: "error", text: res.error ?? t("appsRejectFail") });
         return;
       }
-      setBanner({ tone: "success", text: "Candidature rejetée." });
+      setBanner({ tone: "success", text: t("appsRejected") });
       setRejectingId(null);
       setRejectReason("");
       router.refresh();
@@ -75,10 +79,10 @@ export function ApplicationsReview({ applications }: { applications: Application
       <div className="flex items-center justify-between mb-6">
         <div>
           <h3 className="font-headline text-xl font-bold text-on-surface">
-            Candidatures en attente
+            {t("appsTitle")}
           </h3>
           <p className="text-sm text-on-surface-variant">
-            {applications.length} candidature{applications.length > 1 ? "s" : ""} à revoir
+            {t("appsCount", { n: applications.length })}
           </p>
         </div>
       </div>
@@ -117,21 +121,21 @@ export function ApplicationsReview({ applications }: { applications: Application
             </div>
 
             <dl className="text-sm space-y-1.5 mb-4">
-              <Row label="License" value={<span className="font-mono">{app.license_id}</span>} />
-              <Row label="Email" value={app.email} />
-              {app.phone && <Row label="Phone" value={app.phone} />}
-              {app.clinic_name && <Row label="Clinic" value={app.clinic_name} />}
-              {app.clinic_address && <Row label="Address" value={app.clinic_address} />}
-              {app.region && <Row label="Region" value={app.region} />}
+              <Row label={t("licenseLabel")} value={<span className="font-mono">{app.license_id}</span>} />
+              <Row label={tShared("email")} value={app.email} />
+              {app.phone && <Row label={tShared("phone")} value={app.phone} />}
+              {app.clinic_name && <Row label={t("clinicLabel")} value={app.clinic_name} />}
+              {app.clinic_address && <Row label={t("addressLabel")} value={app.clinic_address} />}
+              {app.region && <Row label={t("regionLabel")} value={app.region} />}
               {app.years_experience && (
-                <Row label="Experience" value={`${app.years_experience} ans`} />
+                <Row label={t("experienceLabel")} value={t("yearsUnit", { n: app.years_experience })} />
               )}
             </dl>
 
             {app.notes && (
               <div className="mb-4 rounded-xl bg-surface-container-low p-3">
                 <p className="text-xs font-bold uppercase tracking-wider text-on-surface-variant mb-1">
-                  Notes
+                  {t("notesLabel")}
                 </p>
                 <p className="text-sm text-on-surface">{app.notes}</p>
               </div>
@@ -143,7 +147,7 @@ export function ApplicationsReview({ applications }: { applications: Application
                   value={rejectReason}
                   onChange={(e) => setRejectReason(e.target.value)}
                   rows={2}
-                  placeholder="Motif du rejet (sera communiqué au candidat)"
+                  placeholder={t("appsReasonPlaceholder")}
                   className="w-full rounded-xl border border-outline-variant bg-surface px-3 py-2 text-sm"
                 />
                 <div className="flex gap-2">
@@ -155,14 +159,14 @@ export function ApplicationsReview({ applications }: { applications: Application
                     }}
                     className="flex-1"
                   >
-                    Annuler
+                    {locale === "fr" ? "Annuler" : "Cancel"}
                   </Button>
                   <Button
                     onClick={() => confirmReject(app.id)}
                     disabled={pending}
                     className="flex-1 !bg-error !text-on-error"
                   >
-                    {pending ? "..." : "Confirmer rejet"}
+                    {pending ? "..." : `${tShared("confirm")} ${tShared("reject").toLowerCase()}`}
                   </Button>
                 </div>
               </div>
@@ -176,7 +180,7 @@ export function ApplicationsReview({ applications }: { applications: Application
                 >
                   <span className="flex items-center justify-center gap-1">
                     <Icon name="close" size="sm" />
-                    Rejeter
+                    {tShared("reject")}
                   </span>
                 </Button>
                 <Button
@@ -186,14 +190,14 @@ export function ApplicationsReview({ applications }: { applications: Application
                 >
                   <span className="flex items-center justify-center gap-1">
                     <Icon name="check" size="sm" />
-                    Approuver
+                    {tShared("approve")}
                   </span>
                 </Button>
               </div>
             )}
 
             <p className="mt-3 text-[10px] text-on-surface-variant">
-              Soumis le {new Date(app.created_at).toLocaleString("fr-FR")}
+              {tShared("submittedAt")}: {new Date(app.created_at).toLocaleString(locale)}
             </p>
           </article>
         ))}

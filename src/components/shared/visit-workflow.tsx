@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/ui/icon";
 import { initiateVisit, completeVisit } from "@/lib/server/visits";
@@ -8,6 +9,7 @@ import { initiateVisit, completeVisit } from "@/lib/server/visits";
 // Doctor-facing UI to verify a member + initiate + complete a visit.
 // Maps directly onto the visits RPCs (initiate_visit, complete_visit).
 export function VisitWorkflow({ doctorId, doctorUserId }: { doctorId: string; doctorUserId: string }) {
+  const t = useTranslations("doctor.workflow");
   const [stage, setStage] = useState<"idle" | "verifying" | "verified" | "completed" | "error">("idle");
   const [memberCode, setMemberCode] = useState("");
   const [visitType, setVisitType] = useState<"GENERALIST" | "SPECIALIST" | "TELEVISIT" | "HOME_VISIT">("GENERALIST");
@@ -98,8 +100,8 @@ export function VisitWorkflow({ doctorId, doctorUserId }: { doctorId: string; do
           <Icon name="how_to_reg" size="sm" />
         </div>
         <div>
-          <h3 className="font-headline font-bold text-lg text-primary">Nouveau patient</h3>
-          <p className="text-xs text-on-surface-variant">Vérifiez l&apos;éligibilité et lancez la visite</p>
+          <h3 className="font-headline font-bold text-lg text-primary">{t("heading")}</h3>
+          <p className="text-xs text-on-surface-variant">{t("sub")}</p>
         </div>
       </div>
 
@@ -115,7 +117,7 @@ export function VisitWorkflow({ doctorId, doctorUserId }: { doctorId: string; do
           <div className="grid gap-4 sm:grid-cols-2">
             <div>
               <label htmlFor="memberCode" className="block text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-2">
-                Code membre
+                {t("memberCode")}
               </label>
               <input
                 id="memberCode"
@@ -127,7 +129,7 @@ export function VisitWorkflow({ doctorId, doctorUserId }: { doctorId: string; do
             </div>
             <div>
               <label htmlFor="visitType" className="block text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-2">
-                Type de visite
+                {t("visitType")}
               </label>
               <select
                 id="visitType"
@@ -135,10 +137,10 @@ export function VisitWorkflow({ doctorId, doctorUserId }: { doctorId: string; do
                 onChange={(e) => setVisitType(e.target.value as typeof visitType)}
                 className="w-full rounded-xl border border-outline-variant bg-surface px-4 py-3 text-sm text-on-surface"
               >
-                <option value="GENERALIST">Médecine générale</option>
-                <option value="SPECIALIST">Spécialiste</option>
-                <option value="TELEVISIT">Télémédecine</option>
-                <option value="HOME_VISIT">Visite à domicile</option>
+                <option value="GENERALIST">{t("typeGeneralist")}</option>
+                <option value="SPECIALIST">{t("typeSpecialist")}</option>
+                <option value="TELEVISIT">{t("typeTelevisit")}</option>
+                <option value="HOME_VISIT">{t("typeHomeVisit")}</option>
               </select>
             </div>
           </div>
@@ -146,12 +148,12 @@ export function VisitWorkflow({ doctorId, doctorUserId }: { doctorId: string; do
             {loading ? (
               <span className="flex items-center justify-center gap-2">
                 <Icon name="progress_activity" size="sm" className="animate-spin" />
-                Vérification...
+                {t("verifying")}
               </span>
             ) : (
               <span className="flex items-center justify-center gap-2">
                 <Icon name="search" size="sm" />
-                Vérifier l&apos;éligibilité
+                {t("verify")}
               </span>
             )}
           </Button>
@@ -167,7 +169,7 @@ export function VisitWorkflow({ doctorId, doctorUserId }: { doctorId: string; do
                 <p className="font-bold text-on-secondary-container">{verified.beneficiaryName}</p>
                 <p className="text-xs text-on-secondary-container/80 font-mono mt-1">{verified.memberIdCode}</p>
                 <p className="text-xs text-on-secondary-container/80 mt-1">
-                  Forfait: <span className="font-bold capitalize">{verified.planSlug}</span> — {verified.visitsRemaining} visite(s) restante(s)
+                  {t("planLabel")}: <span className="font-bold capitalize">{verified.planSlug}</span> — {t("visitsLeft", { n: verified.visitsRemaining })}
                 </p>
               </div>
             </div>
@@ -175,7 +177,7 @@ export function VisitWorkflow({ doctorId, doctorUserId }: { doctorId: string; do
 
           <div>
             <label htmlFor="notes" className="block text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-2">
-              Notes de consultation
+              {t("notes")}
             </label>
             <textarea
               id="notes"
@@ -183,13 +185,13 @@ export function VisitWorkflow({ doctorId, doctorUserId }: { doctorId: string; do
               onChange={(e) => setNotes(e.target.value)}
               rows={3}
               className="w-full rounded-xl border border-outline-variant bg-surface px-4 py-3 text-sm text-on-surface"
-              placeholder="Diagnostic, prescription, recommandations..."
+              placeholder={t("notesPlaceholder")}
             />
           </div>
 
           <div>
             <label htmlFor="copay" className="block text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-2">
-              Co-paiement (USD)
+              {t("copay")}
             </label>
             <input
               id="copay"
@@ -210,12 +212,12 @@ export function VisitWorkflow({ doctorId, doctorUserId }: { doctorId: string; do
               {loading ? (
                 <span className="flex items-center justify-center gap-2">
                   <Icon name="progress_activity" size="sm" className="animate-spin" />
-                  Clôture...
+                  {t("completing")}
                 </span>
               ) : (
                 <span className="flex items-center justify-center gap-2">
                   <Icon name="task_alt" size="sm" />
-                  Clôturer la visite
+                  {t("complete")}
                 </span>
               )}
             </Button>
@@ -227,15 +229,15 @@ export function VisitWorkflow({ doctorId, doctorUserId }: { doctorId: string; do
         <div className="space-y-5">
           <div className="rounded-2xl bg-secondary-container p-6 text-center">
             <Icon name="verified" className="text-on-secondary-container !text-5xl mb-2" />
-            <p className="font-headline font-bold text-lg text-on-secondary-container">Visite clôturée</p>
+            <p className="font-headline font-bold text-lg text-on-secondary-container">{t("doneTitle")}</p>
             <p className="text-sm text-on-secondary-container/80 mt-1">
-              Crédit déduit. {completed.creditsRemaining} visite(s) restante(s) pour ce membre.
+              {t("doneBody", { n: completed.creditsRemaining })}
             </p>
           </div>
           <Button onClick={reset} className="w-full">
             <span className="flex items-center justify-center gap-2">
               <Icon name="add" size="sm" />
-              Nouveau patient
+              {t("newPatient")}
             </span>
           </Button>
         </div>

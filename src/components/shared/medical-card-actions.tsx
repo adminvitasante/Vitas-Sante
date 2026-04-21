@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { Icon } from "@/components/ui/icon";
 
 // Client-side actions for the medical card. Download hits the server PDF
@@ -8,6 +9,7 @@ import { Icon } from "@/components/ui/icon";
 // flows exist.
 
 export function MedicalCardActions({ canDownload }: { canDownload: boolean }) {
+  const t = useTranslations("member.medicalCard");
   const [downloading, setDownloading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -64,7 +66,7 @@ export function MedicalCardActions({ canDownload }: { canDownload: boolean }) {
             <Icon name="picture_as_pdf" className="text-primary" />
           )}
           <span className="text-sm font-semibold">
-            {downloading ? "Génération du PDF..." : "Télécharger en PDF"}
+            {downloading ? t("downloadPdfBusy") : t("downloadPdf")}
           </span>
         </div>
         <Icon
@@ -79,7 +81,7 @@ export function MedicalCardActions({ canDownload }: { canDownload: boolean }) {
         <Icon name="account_balance_wallet" className="text-on-surface-variant" />
         <div className="flex-1">
           <p className="text-sm font-semibold text-on-surface">Apple Wallet</p>
-          <p className="text-[10px] text-on-surface-variant">Bientôt disponible</p>
+          <p className="text-[10px] text-on-surface-variant">{t("walletSoon")}</p>
         </div>
       </div>
 
@@ -87,7 +89,7 @@ export function MedicalCardActions({ canDownload }: { canDownload: boolean }) {
         <Icon name="wallet" className="text-on-surface-variant" />
         <div className="flex-1">
           <p className="text-sm font-semibold text-on-surface">Google Wallet</p>
-          <p className="text-[10px] text-on-surface-variant">Bientôt disponible</p>
+          <p className="text-[10px] text-on-surface-variant">{t("walletSoon")}</p>
         </div>
       </div>
     </div>

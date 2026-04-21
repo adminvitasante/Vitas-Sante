@@ -2,6 +2,7 @@
 
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslations, useLocale } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/ui/icon";
 import {
@@ -19,6 +20,9 @@ type Enrollment = {
 };
 
 export function EnrollmentsReview({ enrollments }: { enrollments: Enrollment[] }) {
+  const t = useTranslations("admin.members");
+  const tShared = useTranslations("shared");
+  const locale = useLocale();
   const router = useRouter();
   const [pending, startTransition] = useTransition();
   const [rejectingId, setRejectingId] = useState<string | null>(null);
@@ -29,26 +33,26 @@ export function EnrollmentsReview({ enrollments }: { enrollments: Enrollment[] }
     startTransition(async () => {
       const res = await approveEnrollmentAction(id);
       if (!res.success) {
-        setBanner({ tone: "error", text: res.error ?? "Échec approbation" });
+        setBanner({ tone: "error", text: res.error ?? t("pendingApproveFail") });
         return;
       }
-      setBanner({ tone: "success", text: "Adhésion approuvée. Carte membre générée." });
+      setBanner({ tone: "success", text: t("pendingApproved") });
       router.refresh();
     });
   }
 
   function confirmReject(id: string) {
     if (!rejectReason.trim()) {
-      setBanner({ tone: "error", text: "Veuillez indiquer un motif." });
+      setBanner({ tone: "error", text: t("pendingReasonRequired") });
       return;
     }
     startTransition(async () => {
       const res = await rejectEnrollmentAction(id, rejectReason.trim());
       if (!res.success) {
-        setBanner({ tone: "error", text: res.error ?? "Échec rejet" });
+        setBanner({ tone: "error", text: res.error ?? t("pendingRejectFail") });
         return;
       }
-      setBanner({ tone: "success", text: "Adhésion rejetée. Le payeur sera notifié." });
+      setBanner({ tone: "success", text: t("pendingRejected") });
       setRejectingId(null);
       setRejectReason("");
       router.refresh();
@@ -59,10 +63,8 @@ export function EnrollmentsReview({ enrollments }: { enrollments: Enrollment[] }
     return (
       <section className="mb-10 bg-secondary-container/30 rounded-3xl p-6 text-center">
         <Icon name="check_circle" className="text-secondary !text-3xl mb-2" />
-        <p className="font-bold text-on-surface">Aucune adhésion en attente</p>
-        <p className="text-sm text-on-surface-variant">
-          Toutes les inscriptions ont été traitées.
-        </p>
+        <p className="font-bold text-on-surface">{t("pendingNoneTitle")}</p>
+        <p className="text-sm text-on-surface-variant">{t("pendingNoneBody")}</p>
       </section>
     );
   }
@@ -72,10 +74,10 @@ export function EnrollmentsReview({ enrollments }: { enrollments: Enrollment[] }
       <div className="flex items-center justify-between mb-6">
         <div>
           <h3 className="font-headline text-xl font-bold text-on-surface">
-            Adhésions en attente
+            {t("pendingTitle")}
           </h3>
           <p className="text-sm text-on-surface-variant">
-            {enrollments.length} inscription{enrollments.length > 1 ? "s" : ""} à approuver ou rejeter
+            {t("pendingCount", { n: enrollments.length })}
           </p>
         </div>
       </div>
@@ -110,7 +112,7 @@ export function EnrollmentsReview({ enrollments }: { enrollments: Enrollment[] }
                     {enr.users?.email ?? "—"}
                     {enr.users?.is_diaspora && (
                       <span className="ml-2 text-[10px] px-1.5 py-0.5 rounded bg-primary-fixed text-primary font-bold">
-                        DIASPORA
+                        {t("diasporaBadge")}
                       </span>
                     )}
                   </p>
@@ -121,19 +123,19 @@ export function EnrollmentsReview({ enrollments }: { enrollments: Enrollment[] }
               </div>
 
               <dl className="text-sm space-y-1.5 mb-4">
-                <Row label="Forfait" value={`${enr.plans?.name_fr ?? enr.plans?.name_en ?? "—"}`} />
+                <Row label={t("planLabel")} value={`${enr.plans?.name_fr ?? enr.plans?.name_en ?? "—"}`} />
                 <Row
-                  label="Prix"
-                  value={`$${((enr.plans?.yearly_price_cents ?? 0) / 100).toFixed(2)} / an`}
+                  label={t("priceLabel")}
+                  value={`$${((enr.plans?.yearly_price_cents ?? 0) / 100).toFixed(2)} ${t("perYear")}`}
                 />
-                {enr.users?.phone && <Row label="Téléphone" value={enr.users.phone} />}
+                {enr.users?.phone && <Row label={t("phoneLabel")} value={enr.users.phone} />}
                 {!payerIsSelf && enr.subscriptions?.users && (
                   <Row
-                    label="Payeur"
+                    label={t("payerLabel")}
                     value={`${enr.subscriptions.users.name} (${enr.subscriptions.users.email})`}
                   />
                 )}
-                <Row label="Soumis le" value={new Date(enr.created_at).toLocaleString("fr-FR")} />
+                <Row label={tShared("submittedAt")} value={new Date(enr.created_at).toLocaleString(locale)} />
               </dl>
 
               {rejectingId === enr.id ? (
@@ -142,7 +144,7 @@ export function EnrollmentsReview({ enrollments }: { enrollments: Enrollment[] }
                     value={rejectReason}
                     onChange={(e) => setRejectReason(e.target.value)}
                     rows={2}
-                    placeholder="Motif du rejet (communiqué au payeur)"
+                    placeholder={t("pendingReasonPlaceholder")}
                     className="w-full rounded-xl border border-outline-variant bg-surface px-3 py-2 text-sm"
                   />
                   <div className="flex gap-2">
@@ -151,14 +153,14 @@ export function EnrollmentsReview({ enrollments }: { enrollments: Enrollment[] }
                       onClick={() => { setRejectingId(null); setRejectReason(""); }}
                       className="flex-1"
                     >
-                      Annuler
+                      {tShared("confirm") === "Confirm" ? "Cancel" : "Annuler"}
                     </Button>
                     <Button
                       onClick={() => confirmReject(enr.id)}
                       disabled={pending}
                       className="flex-1 !bg-error !text-on-error"
                     >
-                      {pending ? "..." : "Confirmer rejet"}
+                      {pending ? "..." : `${tShared("confirm")} ${tShared("reject").toLowerCase()}`}
                     </Button>
                   </div>
                 </div>
@@ -172,7 +174,7 @@ export function EnrollmentsReview({ enrollments }: { enrollments: Enrollment[] }
                   >
                     <span className="flex items-center justify-center gap-1">
                       <Icon name="close" size="sm" />
-                      Rejeter
+                      {tShared("reject")}
                     </span>
                   </Button>
                   <Button
@@ -182,7 +184,7 @@ export function EnrollmentsReview({ enrollments }: { enrollments: Enrollment[] }
                   >
                     <span className="flex items-center justify-center gap-1">
                       <Icon name="check" size="sm" />
-                      Approuver
+                      {tShared("approve")}
                     </span>
                   </Button>
                 </div>

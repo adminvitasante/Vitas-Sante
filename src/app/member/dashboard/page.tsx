@@ -1,4 +1,5 @@
 import { auth } from "@/lib/auth";
+import { getTranslations, getLocale } from "next-intl/server";
 import { getMemberDashboard } from "@/lib/server/queries";
 import { TopBar } from "@/components/layout/top-bar";
 import { Icon } from "@/components/ui/icon";
@@ -6,6 +7,8 @@ import { MemberCardVisual } from "@/components/shared/member-card-visual";
 import Link from "next/link";
 
 export default async function MemberDashboard() {
+  const t = await getTranslations("member.dashboard");
+  const locale = await getLocale();
   const session = await auth();
   const userId = session?.user?.id;
 
@@ -43,7 +46,7 @@ export default async function MemberDashboard() {
   const memberCode = enrollment?.member_id_code || "---";
   const periodEnd = enrollment?.subscriptions?.current_period_end;
   const expiry = periodEnd
-    ? new Date(periodEnd).toLocaleDateString("en", { month: "2-digit", year: "2-digit" })
+    ? new Date(periodEnd).toLocaleDateString(locale, { month: "2-digit", year: "2-digit" })
     : "--/--";
   const creditsUsed = creditsTotal - creditsRemaining;
   const creditsPct = creditsTotal > 0 ? (creditsRemaining / creditsTotal) * 100 : 0;
@@ -52,8 +55,8 @@ export default async function MemberDashboard() {
   return (
     <>
       <TopBar
-        greeting={`Bonjour, ${firstName}`}
-        subtitle="Welcome back to your personalized health sanctuary."
+        greeting={t("greeting", { name: firstName })}
+        subtitle={t("subtitle")}
         initials={initials}
       />
 
@@ -63,7 +66,7 @@ export default async function MemberDashboard() {
           <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary to-primary-container p-8 text-white flex flex-col md:flex-row justify-between items-center group">
             <div className="z-10 text-center md:text-left mb-6 md:mb-0">
               <span className="inline-block px-3 py-1 bg-white/10 rounded-full text-xs font-bold tracking-widest uppercase mb-4">
-                {planName} Member
+                {t("planBadge", { plan: planName })}
               </span>
               <h3 className="text-4xl font-extrabold mb-1">{memberName}</h3>
               <p className="text-primary-fixed opacity-90 font-mono tracking-widest text-lg">{memberCode}</p>
@@ -72,14 +75,14 @@ export default async function MemberDashboard() {
                   href="/member/profile"
                   className="bg-white text-primary px-6 py-2 rounded-xl font-bold text-sm hover:bg-primary-fixed transition-colors"
                 >
-                  View Full Profile
+                  {t("viewProfile")}
                 </Link>
                 <Link
                   href="/member/medical-card"
                   className="bg-primary/20 border border-white/20 backdrop-blur-sm text-white px-6 py-2 rounded-xl font-bold text-sm hover:bg-white/10 transition-colors flex items-center gap-2"
                 >
                   <Icon name="badge" size="sm" />
-                  Medical Card
+                  {t("medicalCard")}
                 </Link>
               </div>
             </div>
@@ -93,7 +96,7 @@ export default async function MemberDashboard() {
         {/* Visit Credits */}
         <section className="lg:col-span-4 flex flex-col gap-8">
           <div className="bg-surface-container-lowest rounded-3xl p-8 shadow-sm flex flex-col items-center text-center">
-            <h4 className="font-headline font-bold text-on-surface mb-6">Visit Credits Remaining</h4>
+            <h4 className="font-headline font-bold text-on-surface mb-6">{t("credits")}</h4>
             <div className="relative w-40 h-40 flex items-center justify-center">
               <svg className="w-full h-full transform -rotate-90">
                 <circle className="text-surface-container-low" cx="80" cy="80" fill="transparent" r="70" stroke="currentColor" strokeWidth="12" />
@@ -101,16 +104,16 @@ export default async function MemberDashboard() {
               </svg>
               <div className="absolute inset-0 flex flex-col items-center justify-center">
                 <span className="text-4xl font-black text-primary">{String(creditsRemaining).padStart(2, "0")}</span>
-                <span className="text-[10px] font-bold text-slate-400 uppercase">Available</span>
+                <span className="text-[10px] font-bold text-slate-400 uppercase">{t("creditsAvailable")}</span>
               </div>
             </div>
             <div className="mt-6 grid grid-cols-2 gap-4 w-full">
               <div className="bg-surface-container-low p-3 rounded-xl">
-                <p className="text-[10px] font-bold text-slate-500 uppercase">Total</p>
+                <p className="text-[10px] font-bold text-slate-500 uppercase">{t("creditsTotal")}</p>
                 <p className="text-xl font-bold text-primary">{creditsTotal}</p>
               </div>
               <div className="bg-surface-container-low p-3 rounded-xl">
-                <p className="text-[10px] font-bold text-slate-500 uppercase">Used</p>
+                <p className="text-[10px] font-bold text-slate-500 uppercase">{t("creditsUsed")}</p>
                 <p className="text-xl font-bold text-secondary">{creditsUsed}</p>
               </div>
             </div>
@@ -120,15 +123,16 @@ export default async function MemberDashboard() {
         {/* Recent Visits */}
         <section className="lg:col-span-7 bg-surface-container-low rounded-3xl p-8">
           <div className="flex justify-between items-center mb-8">
-            <h4 className="font-headline font-bold text-xl text-primary">Recent Visits</h4>
+            <h4 className="font-headline font-bold text-xl text-primary">{t("recentVisits")}</h4>
             <Link href="/member/analytics" className="text-primary text-sm font-bold flex items-center gap-1 hover:underline">
-              View All <Icon name="chevron_right" size="sm" />
+              {t("quickAnalytics")}
+              <Icon name="chevron_right" size="sm" />
             </Link>
           </div>
           {visits.length === 0 ? (
             <div className="text-center py-12 text-on-surface-variant">
               <Icon name="event_busy" className="text-4xl mb-2 opacity-40" />
-              <p className="text-sm">No visits recorded yet.</p>
+              <p className="text-sm">{t("noVisits")}</p>
             </div>
           ) : (
             <div className="space-y-4">
@@ -147,7 +151,7 @@ export default async function MemberDashboard() {
                       </h5>
                       <p className="text-xs text-slate-500">
                         {visit.doctors?.users?.name || "Doctor"} &bull;{" "}
-                        {new Date(visit.visited_at).toLocaleDateString("en", { month: "short", day: "numeric", year: "numeric" })}
+                        {new Date(visit.visited_at).toLocaleDateString(locale, { month: "short", day: "numeric", year: "numeric" })}
                       </p>
                     </div>
                   </div>
@@ -165,14 +169,14 @@ export default async function MemberDashboard() {
 
         {/* Quick Links */}
         <section className="lg:col-span-5 bg-surface-container-lowest rounded-3xl p-8 shadow-sm">
-          <h4 className="font-headline font-bold text-xl text-primary mb-8">Quick Actions</h4>
+          <h4 className="font-headline font-bold text-xl text-primary mb-8">{t("quickActions")}</h4>
           <div className="space-y-3">
             {[
-              { label: "View Medical Card", icon: "badge", href: "/member/medical-card" },
-              { label: "Manage Dependents", icon: "groups", href: "/member/dependents" },
-              { label: "Payment History", icon: "payments", href: "/member/payments" },
-              { label: "Health Analytics", icon: "monitoring", href: "/member/analytics" },
-              { label: "Get Support", icon: "help", href: "/member/support" },
+              { label: t("quickViewCard"), icon: "badge", href: "/member/medical-card" },
+              { label: t("quickDependents"), icon: "groups", href: "/member/dependents" },
+              { label: t("quickPayments"), icon: "payments", href: "/member/payments" },
+              { label: t("quickAnalytics"), icon: "monitoring", href: "/member/analytics" },
+              { label: t("quickSupport"), icon: "help", href: "/member/support" },
             ].map((item) => (
               <Link
                 key={item.href}
@@ -204,9 +208,9 @@ export default async function MemberDashboard() {
               <div className="absolute inset-0 bg-gradient-to-r from-transparent to-surface-container-low" />
             </div>
             <div className="md:w-2/3 p-8 md:p-12">
-              <h4 className="text-3xl font-headline font-extrabold text-primary mb-4">Dedicated Support for the Diaspora</h4>
+              <h4 className="text-3xl font-headline font-extrabold text-primary mb-4">{t("diasporaTitle")}</h4>
               <p className="text-on-surface-variant max-w-2xl mb-8 leading-relaxed">
-                Need help navigating care for your family in Haiti? Our medical coordinators are available 24/7 to assist with appointment scheduling, pharmacy verification, and specialist referrals.
+                {t("diasporaBody")}
               </p>
               <div className="flex flex-wrap gap-4">
                 <Link
@@ -214,13 +218,13 @@ export default async function MemberDashboard() {
                   className="px-8 py-4 bg-primary text-white rounded-xl font-bold hover:shadow-lg transition-shadow flex items-center gap-2"
                 >
                   <Icon name="chat_bubble" />
-                  Chat with a Care Coordinator
+                  {t("diasporaCta")}
                 </Link>
                 <Link
                   href="/member/doctors"
                   className="px-8 py-4 border-2 border-primary text-primary rounded-xl font-bold hover:bg-primary/5 transition-colors text-center"
                 >
-                  Find a Local Doctor
+                  {t("diasporaFind")}
                 </Link>
               </div>
             </div>

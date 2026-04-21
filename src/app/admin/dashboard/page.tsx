@@ -1,11 +1,14 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { getTranslations, getLocale } from "next-intl/server";
 import { TopBar } from "@/components/layout/top-bar";
 import { Icon } from "@/components/ui/icon";
 import { getAdminDashboard } from "@/lib/server/queries";
 import { getSessionWithCapability } from "@/lib/server/authz";
 
 export default async function AdminDashboard() {
+  const t = await getTranslations("admin.dashboard");
+  const locale = await getLocale();
   const me = await getSessionWithCapability("ADMIN");
   if (!me) redirect("/auth/signin");
 
@@ -15,8 +18,8 @@ export default async function AdminDashboard() {
   return (
     <div className="min-h-screen px-8 py-8">
       <TopBar
-        greeting="Mission Control"
-        subtitle="Executive Overview & Network Systems"
+        greeting={t("greeting")}
+        subtitle={t("subtitle")}
         initials={session.user.name?.slice(0, 2).toUpperCase() || "AD"}
       />
 
@@ -28,7 +31,7 @@ export default async function AdminDashboard() {
               <Icon name="group" className="text-primary" />
             </span>
           </div>
-          <p className="text-sm text-on-surface-variant font-medium">Total Users</p>
+          <p className="text-sm text-on-surface-variant font-medium">{t("kpiTotalUsers")}</p>
           <h3 className="text-3xl font-headline font-black text-primary mt-1">
             {stats.totalUsers.toLocaleString()}
           </h3>
@@ -40,7 +43,7 @@ export default async function AdminDashboard() {
               <Icon name="how_to_reg" className="text-secondary" />
             </span>
           </div>
-          <p className="text-sm text-on-surface-variant font-medium">Active Enrollments</p>
+          <p className="text-sm text-on-surface-variant font-medium">{t("kpiActiveEnrollments")}</p>
           <h3 className="text-3xl font-headline font-black text-primary mt-1">
             {stats.activeEnrollments.toLocaleString()}
           </h3>
@@ -54,9 +57,9 @@ export default async function AdminDashboard() {
             <span className="p-2 bg-error-container rounded-lg">
               <Icon name="pending_actions" className="text-error" />
             </span>
-            <span className="text-error text-xs font-bold font-headline">Review →</span>
+            <span className="text-error text-xs font-bold font-headline">{t("reviewArrow")}</span>
           </div>
-          <p className="text-sm text-on-surface-variant font-medium">Adhésions en attente</p>
+          <p className="text-sm text-on-surface-variant font-medium">{t("kpiPendingEnrollments")}</p>
           <h3 className="text-3xl font-headline font-black text-primary mt-1">
             {stats.pendingEnrollments.toLocaleString()}
           </h3>
@@ -68,7 +71,7 @@ export default async function AdminDashboard() {
               <Icon name="verified" className="text-primary" />
             </span>
           </div>
-          <p className="text-sm text-on-surface-variant font-medium">Verified Doctors</p>
+          <p className="text-sm text-on-surface-variant font-medium">{t("kpiVerifiedDoctors")}</p>
           <h3 className="text-3xl font-headline font-black text-primary mt-1">
             {stats.verifiedDoctors.toLocaleString()}
           </h3>
@@ -82,9 +85,9 @@ export default async function AdminDashboard() {
             <span className="p-2 bg-tertiary-fixed rounded-lg">
               <Icon name="hourglass_empty" className="text-tertiary" />
             </span>
-            <span className="text-tertiary text-xs font-bold font-headline">Review →</span>
+            <span className="text-tertiary text-xs font-bold font-headline">{t("reviewArrow")}</span>
           </div>
-          <p className="text-sm text-on-surface-variant font-medium">Médecins à vérifier</p>
+          <p className="text-sm text-on-surface-variant font-medium">{t("kpiPendingDoctors")}</p>
           <h3 className="text-3xl font-headline font-black text-primary mt-1">
             {stats.pendingDoctors.toLocaleString()}
           </h3>
@@ -95,8 +98,8 @@ export default async function AdminDashboard() {
       <section>
         <div className="flex justify-between items-end mb-6">
           <div>
-            <h4 className="text-xl font-headline font-extrabold text-primary">Recent Events</h4>
-            <p className="text-sm text-on-surface-variant">System activity log</p>
+            <h4 className="text-xl font-headline font-extrabold text-primary">{t("recentEventsTitle")}</h4>
+            <p className="text-sm text-on-surface-variant">{t("recentEventsSub")}</p>
           </div>
         </div>
 
@@ -106,9 +109,9 @@ export default async function AdminDashboard() {
               <table className="w-full text-left border-collapse">
                 <thead>
                   <tr className="bg-surface-container-low">
-                    <th className="px-8 py-4 text-xs font-bold text-on-surface-variant uppercase tracking-widest">Event Type</th>
-                    <th className="px-8 py-4 text-xs font-bold text-on-surface-variant uppercase tracking-widest">Actor</th>
-                    <th className="px-8 py-4 text-xs font-bold text-on-surface-variant uppercase tracking-widest">Time</th>
+                    <th className="px-8 py-4 text-xs font-bold text-on-surface-variant uppercase tracking-widest">{t("colEventType")}</th>
+                    <th className="px-8 py-4 text-xs font-bold text-on-surface-variant uppercase tracking-widest">{t("colActor")}</th>
+                    <th className="px-8 py-4 text-xs font-bold text-on-surface-variant uppercase tracking-widest">{t("colTime")}</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-surface-container">
@@ -119,10 +122,10 @@ export default async function AdminDashboard() {
                         <span className="text-sm font-bold text-on-surface">{event.event_type}</span>
                       </td>
                       <td className="px-8 py-5">
-                        <span className="text-sm text-on-surface-variant">{event.actor_id || "System"}</span>
+                        <span className="text-sm text-on-surface-variant">{event.actor_id || t("systemActor")}</span>
                       </td>
                       <td className="px-8 py-5 text-sm text-on-surface-variant">
-                        {new Date(event.created_at).toLocaleString()}
+                        {new Date(event.created_at).toLocaleString(locale)}
                       </td>
                     </tr>
                   ))}
@@ -133,7 +136,7 @@ export default async function AdminDashboard() {
         ) : (
           <div className="bg-surface-container-lowest rounded-3xl p-12 text-center shadow-[0_20px_40px_rgba(0,27,63,0.04)]">
             <Icon name="event_busy" className="text-outline !text-4xl mb-3" />
-            <p className="text-on-surface-variant font-medium">No recent events to display.</p>
+            <p className="text-on-surface-variant font-medium">{t("noEvents")}</p>
           </div>
         )}
       </section>

@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation";
+import { getTranslations } from "next-intl/server";
 import { TopBar } from "@/components/layout/top-bar";
 import { Icon } from "@/components/ui/icon";
 import { getAdminDoctors } from "@/lib/server/queries";
@@ -21,6 +22,7 @@ function statusBadge(status: string) {
 }
 
 export default async function AdminDoctorsPage() {
+  const t = await getTranslations("admin.doctors");
   const me = await getSessionWithCapability("ADMIN");
   if (!me) redirect("/auth/signin");
 
@@ -34,33 +36,33 @@ export default async function AdminDoctorsPage() {
   return (
     <div className="min-h-screen px-8 py-8">
       <TopBar
-        greeting="Doctor Network"
-        subtitle="Manage, verify, and onboard healthcare professionals"
+        greeting={t("greeting")}
+        subtitle={t("subtitle")}
         initials={initials}
       />
 
       {/* Stats */}
       <section className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-10">
         <StatCard
-          label="Total Doctors"
+          label={t("kpiTotal")}
           value={doctors.length}
           icon="medical_services"
           tone="primary"
         />
         <StatCard
-          label="Verified"
+          label={t("kpiVerified")}
           value={doctors.filter((d: { verification_status: string }) => d.verification_status === "VERIFIED").length}
           icon="verified"
           tone="secondary"
         />
         <StatCard
-          label="Pending Verification"
+          label={t("kpiPendingVerif")}
           value={doctors.filter((d: { verification_status: string }) => d.verification_status === "PENDING").length}
           icon="hourglass_empty"
           tone="tertiary"
         />
         <StatCard
-          label="New Applications"
+          label={t("kpiNewApps")}
           value={pendingApps.length}
           icon="assignment_ind"
           tone="error"
@@ -74,7 +76,7 @@ export default async function AdminDoctorsPage() {
       {doctors.length > 0 ? (
         <section>
           <h3 className="font-headline text-xl font-bold text-on-surface mb-6">
-            Provider Registry
+            {t("registryTitle")}
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {doctors.map((doctor: {
@@ -138,7 +140,7 @@ export default async function AdminDoctorsPage() {
       ) : (
         <div className="bg-surface-container-lowest rounded-3xl p-12 text-center shadow-sm">
           <Icon name="medical_services" className="text-outline !text-4xl mb-3" />
-          <p className="text-on-surface-variant font-medium">Aucun médecin enregistré.</p>
+          <p className="text-on-surface-variant font-medium">{t("noDoctors")}</p>
         </div>
       )}
     </div>
