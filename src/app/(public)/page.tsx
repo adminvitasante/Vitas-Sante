@@ -10,9 +10,9 @@ export default function HomePage() {
   const t = useTranslations("home");
 
   return (
-    <main className="pt-20">
+    <>
       {/* ── Hero ──────────────────────────────────────────── */}
-      <section className="relative overflow-hidden px-6 md:px-16 lg:px-24 py-16 md:py-24 bg-surface-container-low">
+      <section className="relative overflow-hidden px-6 md:px-16 lg:px-24 pt-8 md:pt-12 pb-16 md:pb-24 bg-surface-container-low">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           <div className="lg:col-span-6 z-10">
             <span className="inline-block mb-6 px-3 py-1 rounded-full bg-warm-subtle text-warm-ink text-xs font-bold tracking-widest uppercase">
@@ -300,7 +300,7 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-    </main>
+    </>
   );
 }
 
