@@ -1,11 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Icon } from "@/components/ui/icon";
 
-// Share panel — lets the payer push the beneficiary's member code to
-// them via WhatsApp, Email, or clipboard. The beneficiary receives the
-// code + clinic instructions; they don't need an account or login.
+// Share panel — lets the payer push the beneficiary's member code +
+// public card URL via WhatsApp, Email, or clipboard. The beneficiary
+// opens the link on their phone to see their card, or shows the code
+// directly at the clinic. No login required.
 
 export function ShareCard({
   beneficiaryName,
@@ -22,10 +23,16 @@ export function ShareCard({
   planName: string;
   beneficiaryId: string;
 }) {
-  const [copied, setCopied] = useState(false);
+  const [copied, setCopied] = useState<"code" | "link" | null>(null);
+  const [origin, setOrigin] = useState("");
 
+  useEffect(() => {
+    if (typeof window !== "undefined") setOrigin(window.location.origin);
+  }, []);
+
+  const publicUrl = origin ? `${origin}/card/${memberCode}` : `.../card/${memberCode}`;
   const firstName = beneficiaryName.split(" ")[0] || beneficiaryName;
-  const message = `Bonjour ${firstName},\n\nVotre carte Vita Santé est prête.\n\n• Code membre: ${memberCode}\n• Forfait: ${planName}\n\nPrésentez ce code chez tout médecin du réseau Vita Santé en Haïti pour accéder à vos soins.\n\nSupport: support@vitasante.ht`;
+  const message = `Bonjour ${firstName},\n\nVotre carte Vita Santé est prête.\n\n• Code membre: ${memberCode}\n• Forfait: ${planName}\n• Voir la carte: ${publicUrl}\n\nPrésentez ce code chez tout médecin du réseau Vita Santé en Haïti pour accéder à vos soins.\n\nSupport: support@vitasante.ht`;
 
   // WhatsApp accepts phone without + or spaces. Strip non-digits.
   const whatsappPhone = (beneficiaryPhone || "").replace(/\D/g, "");
@@ -37,19 +44,20 @@ export function ShareCard({
     ? `mailto:${beneficiaryEmail}?subject=${encodeURIComponent("Votre carte Vita Santé")}&body=${encodeURIComponent(message)}`
     : null;
 
-  async function copyCode() {
+  async function copy(what: "code" | "link") {
+    const text = what === "code" ? memberCode : publicUrl;
     try {
-      await navigator.clipboard.writeText(memberCode);
+      await navigator.clipboard.writeText(text);
     } catch {
       const ta = document.createElement("textarea");
-      ta.value = memberCode;
+      ta.value = text;
       document.body.appendChild(ta);
       ta.select();
       try { document.execCommand("copy"); } catch {}
       document.body.removeChild(ta);
     }
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+    setCopied(what);
+    setTimeout(() => setCopied(null), 2000);
   }
 
   async function downloadPdf() {
@@ -126,23 +134,46 @@ export function ShareCard({
         </div>
       )}
 
+      {/* Copy public link — beneficiary opens it on their phone */}
+      <button
+        type="button"
+        onClick={() => copy("link")}
+        className={`w-full flex items-center justify-between p-4 rounded-2xl transition-colors ${
+          copied === "link"
+            ? "bg-secondary-container"
+            : "bg-surface-container-low hover:bg-surface-container-high"
+        }`}
+      >
+        <div className="flex items-center gap-3 min-w-0">
+          <div className={`h-10 w-10 rounded-xl flex items-center justify-center shrink-0 ${copied === "link" ? "bg-secondary text-on-secondary" : "bg-primary-fixed text-primary"}`}>
+            <Icon name={copied === "link" ? "check" : "link"} />
+          </div>
+          <div className="text-left min-w-0">
+            <p className="text-sm font-bold text-ink">
+              {copied === "link" ? "Lien copié !" : "Copier le lien de la carte"}
+            </p>
+            <p className="text-[10px] font-mono text-ink-muted truncate">{publicUrl}</p>
+          </div>
+        </div>
+      </button>
+
       {/* Copy code */}
       <button
         type="button"
-        onClick={copyCode}
+        onClick={() => copy("code")}
         className={`w-full flex items-center justify-between p-4 rounded-2xl transition-colors ${
-          copied
+          copied === "code"
             ? "bg-secondary-container"
             : "bg-surface-container-low hover:bg-surface-container-high"
         }`}
       >
         <div className="flex items-center gap-3">
-          <div className={`h-10 w-10 rounded-xl flex items-center justify-center ${copied ? "bg-secondary text-on-secondary" : "bg-surface-container-high text-ink"}`}>
-            <Icon name={copied ? "check" : "content_copy"} />
+          <div className={`h-10 w-10 rounded-xl flex items-center justify-center ${copied === "code" ? "bg-secondary text-on-secondary" : "bg-surface-container-high text-ink"}`}>
+            <Icon name={copied === "code" ? "check" : "content_copy"} />
           </div>
           <div className="text-left">
             <p className="text-sm font-bold text-ink">
-              {copied ? "Copié !" : "Copier le code"}
+              {copied === "code" ? "Copié !" : "Copier le code seul"}
             </p>
             <p className="text-[10px] font-mono text-ink-muted">{memberCode}</p>
           </div>

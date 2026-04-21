@@ -14,13 +14,39 @@ const roleRedirects: Record<string, string> = {
   BENEFICIARY: "/member/dashboard",
 };
 
+// Seeded demo accounts. Sponsor intentionally omitted for now — not used
+// in the current demo script; re-add when the sponsor portal is showcased.
 const devUsers = [
-  { label: "Member", email: "jean@member.ht", icon: "person" },
-  { label: "Diaspora", email: "marie@diaspora.us", icon: "public" },
-  { label: "Doctor", email: "doctor@vitasante.ht", icon: "medical_services" },
-  { label: "Affiliate", email: "affiliate@vitasante.ht", icon: "handshake" },
-  { label: "Sponsor", email: "sponsor@vitasante.ht", icon: "volunteer_activism" },
-  { label: "Admin", email: "admin@vitasante.ht", icon: "admin_panel_settings" },
+  {
+    label: "Membre local",
+    sub: "Jean-Pierre (Haïti) — paie pour lui-même",
+    email: "jean@member.ht",
+    icon: "person",
+  },
+  {
+    label: "Diaspora",
+    sub: "Marie (US) — paie pour Sarah & Leo en Haïti",
+    email: "marie@diaspora.us",
+    icon: "public",
+  },
+  {
+    label: "Médecin",
+    sub: "Dr. Celestin — vérifie et clôture les visites",
+    email: "doctor@vitasante.ht",
+    icon: "medical_services",
+  },
+  {
+    label: "Affilié",
+    sub: "Marie-Claire — parraine de nouveaux membres",
+    email: "affiliate@vitasante.ht",
+    icon: "handshake",
+  },
+  {
+    label: "Admin",
+    sub: "Mission Control — approuve inscriptions, gère plans",
+    email: "admin@vitasante.ht",
+    icon: "admin_panel_settings",
+  },
 ];
 
 export default function SignInPage() {
@@ -171,26 +197,31 @@ export default function SignInPage() {
           </p>
         </form>
 
-        {/* Quick Login Panel */}
+        {/* Quick Login Panel — demo accounts, each with a short role descriptor */}
         <div className="rounded-3xl border-2 border-dashed border-outline-variant bg-surface-container-lowest p-6">
           <div className="mb-4 flex items-center gap-2">
             <Icon name="bolt" size="sm" className="text-secondary" />
             <h3 className="font-headline text-sm font-bold uppercase tracking-widest text-secondary">
-              Quick Access
+              Accès démo
             </h3>
           </div>
-          <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
+          <div className="space-y-2">
             {devUsers.map((user) => (
               <button
                 key={user.email}
                 type="button"
                 onClick={() => doLogin(user.email, "dev-password")}
                 disabled={loading}
-                className="rounded-xl bg-surface-container-low px-3 py-3 text-xs font-medium text-on-surface-variant transition-all hover:bg-surface-container-high hover:text-primary disabled:opacity-50 flex flex-col items-center gap-1"
+                className="w-full rounded-xl bg-surface-container-low hover:bg-surface-container-high px-4 py-3 text-left transition-colors disabled:opacity-50 flex items-center gap-3"
               >
-                <Icon name={user.icon} size="sm" className="text-primary" />
-                <div className="font-headline font-bold">{user.label}</div>
-                <div className="truncate text-[10px] opacity-60 max-w-full">{user.email}</div>
+                <div className="h-9 w-9 rounded-lg bg-primary-fixed text-primary flex items-center justify-center shrink-0">
+                  <Icon name={user.icon} size="sm" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="font-headline font-bold text-sm text-on-surface">{user.label}</p>
+                  <p className="text-[10px] text-on-surface-variant leading-tight">{user.sub}</p>
+                  <p className="text-[10px] text-outline font-mono truncate mt-0.5">{user.email}</p>
+                </div>
               </button>
             ))}
           </div>
