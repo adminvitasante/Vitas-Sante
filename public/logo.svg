@@ -7,6 +7,6 @@
     letter-spacing="-1.4"
   >
     <tspan x="0" fill="#00346F">VITA</tspan>
-    <tspan dx="10" fill="#046B5E">SANTÉ</tspan>
+    <tspan dx="10" fill="#00346F">SANTÉ</tspan>
   </text>
 </svg>
